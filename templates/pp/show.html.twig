@@ -1,0 +1,74 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ presentation.title }}{% endblock %}
+
+
+{% block body %}
+
+    <div class="container">
+        
+        <h2 class="h3 mt-3">{{presentation.title}}</h2>
+
+        <div class="row">
+            
+            <!-- Présentation Générale du Projet -->
+
+            <div class="col-md-8 mb3">
+
+                <p>{{presentation.goal}}</p>
+
+                <div id="carouselExampleIndicators" class="carousel slide mb-4">
+
+                    <ol class="carousel-indicators">
+                        {% for slide in presentation.slides %}
+                            {% if slide.mediaType == 'image' %}
+                                 <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0}}" class="{% if loop.first %} active {% endif %}"></li>
+                            {% endif %}
+                        {% endfor %}
+                    </ol>
+
+                    <div class="carousel-inner">
+                        {% for slide in presentation.slides %}
+                            {% if slide.mediaType == 'image' %}
+                                <div class="carousel-item {% if loop.first %} active {% endif %}">
+                                    <img src="{{slide.URL}}" class="d-block w-100" alt="...">
+                                   <!-- Image Caption
+                                    <div class="carousel-caption d-none d-md-block">
+                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                                    </div> -->
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+
+                <a href="#" class="btn btn-primary">Entrer en Contact</a>
+
+            </div>
+
+            <!-- Capsule Porteur de Projet -->
+
+            <div class="col">
+                <div class="row">
+                    <div class="col-4">
+                        <img src="https://www.place-hold.it/64x64" alt="Avatar de Bob">
+                    </div>
+                    <div class="col">
+                        <h3>Joseph Dupond</h3>
+                        <span class="badge badge-primary">3 annonces</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
