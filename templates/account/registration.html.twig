@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Formulaire d'Inscription
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        
+        <h1 class="mt-2">Inscription sur le Site</h1>
+
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+
+        <button type="submit" value="" class="btn btn-success">
+            Valider l'inscription
+        </button>
+
+        {{ form_end(form) }}
+
+    </div>
+
+{% endblock %}

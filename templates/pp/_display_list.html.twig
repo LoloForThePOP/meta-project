@@ -1,0 +1,27 @@
+
+ <div class="col-md-4">
+    <a class="text-primary text-decoration-none" href="{{path('project_show',{'slug': presentation.slug})}}">
+        
+        <div class="card bg-light mb-3">
+            <div class="card-header text-center">
+                
+                <strong>Fournisseur du Projet</strong> <br>
+
+                <small class="font-weight-bold h6 text-primary">{{presentation.keywords}}</small>
+
+                <img src="https://place-hold.it/1000x400" alt="Image de l'appartement" srcset="" style="height:200px; width:100%;display:block">
+
+                <div class="card-body">
+
+                    <h4 class="card-title font-weight-bold h5">
+                    {{presentation.title}}</h4>  
+
+                    <p class="card-text">{{presentation.goal}}</p>
+
+                    <a href="" class="btn btn-secondary">En savoir plus</a>
+                </div>
+            </div>
+
+        </div>
+    </a>
+</div>

@@ -103,6 +103,13 @@ class PPBasic
      */
     private $needs;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="presentations")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $creator;
+
+
     public function __construct()
     {
         $this->slides = new ArrayCollection();
@@ -328,5 +335,18 @@ class PPBasic
 
         return $this;
     }
+
+    public function getCreator(): ?user
+    {
+        return $this->creator;
+    }
+
+    public function setCreator(?user $creator): self
+    {
+        $this->creator = $creator;
+
+        return $this;
+    }
+
 
 }

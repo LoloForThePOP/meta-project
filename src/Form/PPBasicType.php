@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\PPBasic;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Vich\UploaderBundle\Form\Type\VichImageType;
@@ -11,26 +12,8 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
-class PPBasicType extends AbstractType
+class PPBasicType extends ApplicationType
 {
-
-       /**
-     * Permet de configurer un champ de formulaire
-     *
-     * @param string $label
-     * @param string $placeHolder
-     * @param array $options
-     * @return array
-     */
-    protected function getConfiguration($label, $placeHolder,$options=[]){
-        
-        return array_merge_recursive([
-            'label' => $label,
-            'attr' => [
-                'placeHolder' => $placeHolder,
-            ]
-            ], $options);
-    }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
