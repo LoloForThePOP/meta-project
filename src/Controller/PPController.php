@@ -42,6 +42,8 @@ class PPController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
+            $presentation->setCreator($this->getUser());
+
             $manager->persist($presentation);
             $manager->flush();
 

@@ -60,14 +60,21 @@
             <div class="col">
                 <div class="row">
                     <div class="col-4">
-                        <img src="https://www.place-hold.it/64x64" alt="Avatar de Bob">
+                        <a href="{{ path('user_show', {'id' : presentation.creator.id}) }}">
+                            <img class="avatar avatar-medium" src="{{ presentation.creator.image }}" alt="Avatar de {{ presentation.creator.name }}">
+                        </a>
+                        
                     </div>
                     <div class="col">
-                        <h3>Joseph Dupond</h3>
-                        <span class="badge badge-primary">3 annonces</span>
+                        <a href="{{ path('user_show', {'id' : presentation.creator.id}) }}">
+                            <h3>{{ presentation.creator.name }}</h3>
+                            <span class="badge badge-primary">{{presentation.creator.presentations | length}} Projet(s)</span>
+                        </a>
                     </div>
                 </div>
             </div>
+
+
         </div>
     </div>
 

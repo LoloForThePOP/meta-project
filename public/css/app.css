@@ -1,1 +1,49 @@
 
+.form-error-icon{
+    font-size:1.2em;
+}
+
+.form-error-message{
+    font-size:1.6em;
+}
+
+.avatar {
+    max-width:128px;
+    max-height:128px;
+    border-radius:50%;
+}
+
+.avatar-medium {
+    max-width: 100px;
+    max-width: 100px;
+}
+
+.avatar-mini {
+    max-width: 34px;
+    max-width: 34px;
+}
+
+
+
+/* File Input Style */
+
+.input-file input[type="file"] {
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+}
+
+.input-file .btn {
+    background-color: #ddd;
+    border-color: #ccc;
+    color: #333;
+}
+
+.input-file .file-selected {
+    font-size: 10px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-top: 5px;
+}
+

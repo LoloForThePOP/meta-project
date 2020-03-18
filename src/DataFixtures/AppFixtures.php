@@ -3,21 +3,66 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\User;
 use App\Entity\Slide;
 use App\Entity\PPBasic;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AppFixtures extends Fixture
 {
+    private $encoder;
+
+    public function __construct(UserPasswordEncoderInterface $encoder){
+        $this->encoder=$encoder;
+    }
+
+    
     public function load(ObjectManager $manager)
     {
 
         $faker= Factory::create('fr-FR');
 
-        // Création de Présentations de Projets
+        // User Creation
+
+        $users=[];
+        $userGenres=['male','female'];
         
-        for($i=1; $i<=20; $i++) {
+        for($i=1; $i<=10; $i++) {
+
+            $user = new User();
+
+            // User Image Creation
+
+            $imageUrlBegin="https://randomuser.me/api/portraits/";
+            $userGenre = $faker->randomElement($userGenres);
+            $imageUrlEnd="/".$faker->numberBetween(1,99).'.jpg';
+            $image=$imageUrlBegin.$userGenre.$imageUrlEnd;
+
+            // User Hash Creation
+
+            $hash=$this->encoder->encodePassword($user,'password');
+
+            // User Hydrate
+
+            $user->setName($faker->firstName($userGenre))
+                ->setEmail($faker->email())
+                ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>')
+                ->setImage($image)
+                ->setHash($hash)
+            ;
+
+            $manager->persist($user);
+            
+            $users[]=$user;
+       
+        }
+
+
+        // Project Presentations Creation
+        
+        for($i=1; $i<=25; $i++) {
 
             $pp = new PPBasic ();
 
@@ -49,6 +94,9 @@ class AppFixtures extends Fixture
 
             // Thumbnail Creation
             $thumbnailURL='https://place-hold.it/1000x400/';
+
+            // Presentation Creator Creation
+            $creator=$users[ mt_rand(0, count($users)-1) ];
             
             $pp ->setTitle($title)
                 ->setGoal($faker->paragraph())
@@ -56,6 +104,7 @@ class AppFixtures extends Fixture
                 ->setThumbnail($thumbnailURL)
                 ->setLogo($logoURL)
                 ->setCreatedAt($faker->dateTime())
+                ->setCreator($creator)
                 ->setCategories($categories);
 
             // Slides Creation
