@@ -104,7 +104,7 @@ class PPBasic
     private $needs;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\user", inversedBy="presentations")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="presentations")
      * @ORM\JoinColumn(nullable=false)
      */
     private $creator;

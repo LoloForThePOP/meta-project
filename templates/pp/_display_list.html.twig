@@ -19,6 +19,13 @@
                     <p class="card-text">{{presentation.goal}}</p>
 
                     <a href="" class="btn btn-secondary">En savoir plus</a>
+
+                    {% if app.user and app.user == presentation.creator %}
+
+                        <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-primary">Modifier</a>
+        
+                    {% endif %}
+
                 </div>
             </div>
 
