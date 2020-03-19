@@ -21,8 +21,6 @@ class PPBasicType extends ApplicationType
             ->add('goal', TextareaType::class, $this->getConfiguration("Objectif du Projet", "Objectif du Projet"))
             ->add('title', TextType::class, $this->getConfiguration("Titre du Projet (Optionnel)", "Titre du Projet",['required'=>false]))            
             ->add('keywords', TextType::class, $this->getConfiguration("Mots-Clés (Séparer avec # ou , ou ; )", "Mots Clés",['required'=>false]))
-            ->add('logo', FileType::class, $this->getConfiguration("Logo du Projet (Optionnel)", "Logo du Projet",['required'=>false]))
-            ->add('thumbnail', FileType::class, $this->getConfiguration("Vignette du Projet (Optionnel)", "Vignette du Projet",['required'=>false]))
             ->add('imageFile', VichImageType::class, $this->getConfiguration("Test Vich Upload", "Sélectionner un Fichier",['required'=>false]))
         ;
     }

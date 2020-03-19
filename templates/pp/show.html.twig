@@ -9,6 +9,15 @@
         
         <h2 class="h3 mt-3">{{presentation.title}}</h2>
 
+
+        <!-- Bouton Modifier un Projet -->
+
+        {% if app.user and app.user == presentation.creator %}
+
+            <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-secondary">Modifier</a>
+
+        {% endif %}
+
         <div class="row">
             
             <!-- Présentation Générale du Projet -->

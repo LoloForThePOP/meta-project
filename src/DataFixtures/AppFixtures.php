@@ -3,6 +3,7 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
+use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Slide;
 use App\Entity\PPBasic;
@@ -23,6 +24,23 @@ class AppFixtures extends Fixture
     {
 
         $faker= Factory::create('fr-FR');
+
+        // a Role Creation: Admin
+
+        $adminRole = new Role();
+        $adminRole->setTitle('ROLE_ADMIN');
+        $manager->persist($adminRole);
+
+        // a User with Admin Role Creation
+
+        $adminUser = new User();
+        $adminUser->setName('Lolo')
+                ->setEmail('lolo@symfony.com')
+                ->setHash($this->encoder->encodePassword($adminUser,'password'))
+                ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>')
+                ->addUserRole($adminRole);
+
+        $manager->persist($adminUser);
 
         // User Creation
 

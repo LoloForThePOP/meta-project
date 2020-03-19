@@ -8,6 +8,8 @@ use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PPController extends AbstractController
@@ -29,7 +31,8 @@ class PPController extends AbstractController
      * Permet de Créer une Présentation
      * 
      * @Route("/projects/new",name="projects_create")
-     *
+     * @IsGranted("ROLE_USER")
+     * 
      * @return Response
      */
     public function create (Request $request, EntityManagerInterface $manager){
@@ -67,6 +70,8 @@ class PPController extends AbstractController
      * Permet d'éditer une présentation de projet
      * 
      * @Route("/projects/{slug}/edit/", name="project_edit")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ",message="Cette Annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      *
      * @return void
      */
@@ -96,6 +101,27 @@ class PPController extends AbstractController
             'presentation' => $presentation,
         ]);
 
+    }
+
+    
+    
+     /**
+    * 
+     * @Route("projects/{slug}/delete",name="project_delete")
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * @return Response
+     */
+    public function delete(PPBasic $presentation, EntityManagerInterface $manager){
+
+        $manager->remove($presentation);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "La Présentation {$presentation->getTitle()} a bien été supprimée"
+        );
+
+        return $this->redirectToRoute('projects_index');
     }
 
     /**

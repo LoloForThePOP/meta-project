@@ -18,6 +18,8 @@
 
     {{form_end(form)}}
 
+    <a onClick="return confirm (`Êtes vous sûr de vouloir supprimer la Présentation {{presentation.title}}?`)" href= "{{path("project_delete",{'slug':presentation.slug})}}" class="btn btn-danger">Supprimer cette Présentation</a>
+
 </div>
 
 
