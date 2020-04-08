@@ -1,0 +1,14 @@
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+    
+{{ form_start(form) }}
+
+{{ form_widget(form) }}
+
+<button class="btn btn-success btn-lg font-weight-bold mr-2 mb-2">{{ button_label|default('Enregistrer') }}</button>
+
+<a href="{{ path('contact_index', {'slug': slug}) }}">
+    <button type="button" class="btn btn-warning btn-lg font-weight-bold mb-2">Annuler</button>
+</a>
+
+{{ form_end(form) }}

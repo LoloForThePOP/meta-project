@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accès refusé à cette Ressource{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+        <h2>L'accès à cette ressource est refusé</h2>
+        <a href="{{path('homepage')}}" class="btn btn-primary">Retourner à l'Accueil du Site</a>
+    </div>
+
+{% endblock %}

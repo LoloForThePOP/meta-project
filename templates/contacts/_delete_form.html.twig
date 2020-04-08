@@ -1,0 +1,6 @@
+
+<form method="post" action="{{ path('contact_delete', {'id': contact.id, 'slug':slug}) }}" onsubmit="return confirm('Etes vous sûr de Supprimer ce point de contact?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ contact.id) }}">
+    <button class="btn btn-lg btn-danger font-weight-bold">Supprimer</button>
+</form>

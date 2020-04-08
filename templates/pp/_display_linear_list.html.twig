@@ -1,0 +1,44 @@
+
+<a class="text-primary text-decoration-none" href="{{path('project_show',{'slug': presentation.slug})}}">
+
+    <div class="row">
+
+        <div class="col-md-2 d-flex align-items-center justify-content-center">
+
+            <img class="rounded d-block" src="{{presentation.thumbnail}}" alt="Image de Présentation" srcset="" style="width:80px;">
+
+        </div>
+
+        <div class="col pl-0">
+
+            <!-- Des Mots-Clés du Projet -->
+
+                <div class="keywords font-weight-bold my-1 h6 text-left" style="min-height:0.5em;" >{{presentation.keywords | slice(0, 35) }}</div>
+
+            <!-- Titre du Projet -->
+
+                <h5 class="font-weight-bold mb-0" style="min-height:.4em; font-size:1.25em;">{{presentation.title |slice(0, 62) }}</h5>
+
+            <!-- Objectif du Projet -->
+
+                <p class="mb-0">{{presentation.goal | slice(0, 72) }}</p>
+
+            <!-- Fournisseur du Projet -->
+
+                <strong>{{presentation.creator.name }}</strong>
+
+
+            <!-- Bouton pour Modifier la Présentation -->
+                
+            {% if app.user and app.user == presentation.creator %}
+
+                <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-primary">Modifier</a>
+
+            {% endif %}
+
+
+        </div>
+        
+    </div>
+
+</a>

@@ -1,0 +1,42 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ContactMessage{% endblock %}
+
+{% block body %}
+    <h1>ContactMessage</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ contact_message.id }}</td>
+            </tr>
+            <tr>
+                <th>Context</th>
+                <td>{{ contact_message.context }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ contact_message.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ contact_message.content }}</td>
+            </tr>
+            <tr>
+                <th>SenderEmail</th>
+                <td>{{ contact_message.senderEmail }}</td>
+            </tr>
+            <tr>
+                <th>CreatedAt</th>
+                <td>{{ contact_message.createdAt ? contact_message.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('index_project_messages') }}">back to list</a>
+
+    <a href="{{ path('contact_message_edit', {'id': contact_message.id}) }}">edit</a>
+
+    {{ include('contact_message/_delete_form.html.twig') }}
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diaporama d'Images{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h3 class="h3 font-weight-bold mt-3">Diaporama d'Images </h3>
+
+        <!-- Info-Box if Empty Slidshow -->
+
+        {% if presentation.slides | length == 0 %}
+
+            <div class="card border-primary mb-3" style="max-width: 30rem;">
+                <div class="card-header">
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title font-weight-bold">Conseil Important!</h4>
+                    <p class="card-text h5 font-weight-bold">Les Images et les Schémas sont un Moyen RAPIDE et PUISSANT pour Transmettre vos Idées.</p>
+                </div>
+            </div>
+
+        {% endif %}
+
+        <!-- Add Images Button -->        
+
+        <div class="mb-2">
+            <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
+                <button class="btn btn-success btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images
+                </button>
+            </a>
+            
+            {% if presentation.slides | length > 1 %}
+    
+                <a class="text-decoration-none text-white" href="{{path('reorder_slides',{'slug':slug})}}">
+                    <button type="button" class="btn btn-primary btn-lg font-weight-bold ">Modifier l'Ordre ?</button>
+                </a>
+    
+            {% endif %}
+        </div>
+
+
+        {% if presentation.slides | length > 0 %}
+
+            <h3 class="mb-2 font-weight-bold">Votre Diaporama : </h3>
+
+            <div class="container">
+
+                <div class="row">
+
+                    {% for slide in presentation.slides %}
+
+                        <div class="position-relative m-2 p-2 border border-primary rounded border-2">
+        
+                            <img src="{{ slide.slideName }}" alt="{{ slide.slideName }}" height="85" width="85">
+            
+                            <a href="{{ path('delete_slide', {'slug':slug , 'id': slide.id}) }}">
+                                <button type="button" onclick="confirm('Confirmer la Suppression?')" class="js-delete d-inline position-absolute btn btn-danger" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
+                            </a>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+	<!-- ui {Move Up / Move Down} Table Rows -->
+
+	<script>
+	  
+		$(document).ready(function(){
+							
+			$('.js-manage-table button.js-move').click(function() {
+				var row = $(this).closest('tr');
+				if ($(this).hasClass('js-move-up'))
+					row.prev().before(row);
+				else
+					row.next().after(row);
+			});
+
+			
+			$('.js-manage-table button.js-delete').click(function() {	
+					// Note : Back-end : Delete in Database too.
+					
+					$(this).closest('tr').remove();
+
+				}
+
+			);		
+
+		});
+
+	</script>
+
+
+{% endblock %}

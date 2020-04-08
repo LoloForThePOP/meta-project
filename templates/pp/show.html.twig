@@ -6,15 +6,15 @@
 {% block body %}
 
     <div class="container">
-        
-        <h2 class="h3 mt-3">{{presentation.title}}</h2>
 
+        <!-- Titre du Projet -->
+        <h2 class="h3 font-weight-bold mt-3">{{presentation.title}}</h2>
 
-        <!-- Bouton Modifier un Projet -->
+        <!-- Boutons de Modification du Projet -->
+        {% include 'pp/partials/_creatorToolbar.html.twig' %}
 
         {% if app.user and app.user == presentation.creator %}
 
-            <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-secondary">Modifier</a>
 
         {% endif %}
 
@@ -24,64 +24,25 @@
 
             <div class="col-md-8 mb3">
 
-                <p>{{presentation.goal}}</p>
+                <!-- Project Goal Display -->
+                {% include 'pp/partials/_goal.html.twig' %}
 
-                <div id="carouselExampleIndicators" class="carousel slide mb-4">
+                <!-- Caroussel d'Images et Vidéos -->
+                {% include 'pp/partials/_slideshow.html.twig' %}
 
-                    <ol class="carousel-indicators">
-                        {% for slide in presentation.slides %}
-                            {% if slide.mediaType == 'image' %}
-                                 <li data-target="#carouselExampleIndicators" data-slide-to="{{loop.index0}}" class="{% if loop.first %} active {% endif %}"></li>
-                            {% endif %}
-                        {% endfor %}
-                    </ol>
+                <!-- Besoins du Projet -->
+                {% include 'pp/partials/_needs.html.twig' %}
 
-                    <div class="carousel-inner">
-                        {% for slide in presentation.slides %}
-                            {% if slide.mediaType == 'image' %}
-                                <div class="carousel-item {% if loop.first %} active {% endif %}">
-                                    <img src="{{slide.URL}}" class="d-block w-100" alt="...">
-                                   <!-- Image Caption
-                                    <div class="carousel-caption d-none d-md-block">
-                                        <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                                    </div> -->
-                                </div>
-                                {% endif %}
-                                {% endfor %}
-                            </div>
+                <!-- Sites Web du Projet -->
+                {% include 'pp/partials/_websites.html.twig' %}
 
-                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-
-                <a href="#" class="btn btn-primary">Entrer en Contact</a>
+                <!-- Zone de Contacts -->
+                {% include 'pp/partials/_contactUs.html.twig' %}
 
             </div>
 
             <!-- Capsule Porteur de Projet -->
-
-            <div class="col">
-                <div class="row">
-                    <div class="col-4">
-                        <a href="{{ path('user_show', {'id' : presentation.creator.id}) }}">
-                            <img class="avatar avatar-medium" src="{{ presentation.creator.image }}" alt="Avatar de {{ presentation.creator.name }}">
-                        </a>
-                        
-                    </div>
-                    <div class="col">
-                        <a href="{{ path('user_show', {'id' : presentation.creator.id}) }}">
-                            <h3>{{ presentation.creator.name }}</h3>
-                            <span class="badge badge-primary">{{presentation.creator.presentations | length}} Projet(s)</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
+            {% include 'pp/partials/_projectProviderArea.html.twig' %}
 
 
         </div>

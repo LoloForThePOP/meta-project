@@ -1,0 +1,85 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Diaporama d'Images Modifier l'Ordre{% endblock %}
+
+
+
+{% block body %}
+
+        <div class="container">
+
+                <h4 class="h3 my-3">Modifier l'Ordre </h4>
+
+                {% form_theme form _self '/partials/jquery.collection.html.twig' %}
+
+                {{form_start(form)}}
+
+                <div class="container ml-2">
+
+                        {{form_widget(form)}}
+
+                </div>
+                
+                <div class="mt-3">
+
+                        <button type="submit" class="btn btn-success btn-lg mb-4 font-weight-bold">Enregistrer</button>
+
+                        <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
+                                <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
+                        </a>
+
+                </div>
+
+                {{form_end(form)}}
+
+        </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+	
+        <script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+        <script type="text/javascript">
+                $('.my-selector').collection
+                ({
+                        position_field_selector: '.my-position',
+                        up: '<button type="button" class="mr-1 btn btn-outline-primary arrowCar font-weight-bold">▲</button>',
+                        down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold">▼</button>',
+                });
+        </script>
+
+
+{% endblock %}
+
+
+
+
+{% block _slideshow_col_reorder_slides_widget %}
+
+    {{ form_widget(form) }}
+
+{% endblock %}
+
+{% block _slideshow_col_reorder_slides_entry_row %}
+
+    {{form_widget(form)}}
+    
+{% endblock %}
+
+{% block _slideshow_col_reorder_slides_entry_widget %}
+
+        <div class="row my-2 d-flex align-items-center"> 
+
+               {{ form_row(form.position) }}
+
+                <div class="mr-3">
+
+                        <img src="{{ form.slideName.vars.value }}" alt="" height="65" width="65">   
+
+                </div>
+        </div>    
+       
+
+{% endblock %}

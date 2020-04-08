@@ -10,97 +10,20 @@
         </div>
        
 
-        <h2>Des Projets Tendance</h2>
+        <h2>Projets Ajoutés</h2>
 
+        <div class="row mt-3 pl-2">
 
-        <div class="row mt-4">
+            {% for data in presentations %}
+                
+                {% include '/pp/_display_grid_list.html.twig' with {'presentation' : data} %}
 
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        
-                        <strong>Fournisseur du Projet</strong> <br>
-        
-                        <small># Mots-Clés # Mots-Clés # Mots-Clés # Mots-Clés</small>
-        
-                        <img src="https://place-hold.it/1000x400" alt="Image de l'appartement" srcset="" style="height:200px; width:100%;display:block">
-        
-                        <div class="card-body">
-                            <h4 class="card-title">
-                               Titre du Projet
-                            </h4>  
-                            <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae unde atque perferendis eveniet at id doloribus sequi nihil obcaecati?
-        
-                            </p>
-        
-                            <a href="" class="btn btn-secondary">En savoir plus</a>
-                            
-        
-                        </div>
-                    </div>
-        
-                  </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        
-                        <strong>Fournisseur du Projet</strong> <br>
-        
-                        <small># Mots-Clés # Mots-Clés # Mots-Clés # Mots-Clés</small>
-        
-                        <img src="https://place-hold.it/1000x400" alt="Image de l'appartement" srcset="" style="height:200px; width:100%;display:block">
-        
-                        <div class="card-body">
-                            <h4 class="card-title">
-                               Titre du Projet
-                            </h4>  
-                            <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae unde atque perferendis eveniet at id doloribus sequi nihil obcaecati?
-        
-                            </p>
-        
-                            <a href="" class="btn btn-secondary">En savoir plus</a>
-                            
-        
-                        </div>
-                    </div>
-        
-                  </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card bg-light mb-3">
-                    <div class="card-header text-center">
-                        
-                        <strong>Fournisseur du Projet</strong> <br>
-        
-                        <small># Mots-Clés # Mots-Clés # Mots-Clés # Mots-Clés</small>
-        
-                        <img src="https://place-hold.it/1000x400" alt="Image de l'appartement" srcset="" style="height:200px; width:100%;display:block">
-        
-                        <div class="card-body">
-                            <h4 class="card-title">
-                               Titre du Projet
-                            </h4>  
-                            <p class="card-text">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Aliquid quae unde atque perferendis eveniet at id doloribus sequi nihil obcaecati?
-        
-                            </p>
-        
-                            <a href="" class="btn btn-secondary">En savoir plus</a>
-                            
-        
-                        </div>
-                    </div>
-        
-                  </div>
-            </div>
-           
-            
-        
-        
+            {% endfor %}
+
         </div>
 
         
-        <h2 class="h1 mt-2 mb-3">Des Présentateurs Tendance</h2>
+<!--         <h2 class="h1 mt-2 mb-3">Des Présenteurs de Projets</h2>
 
         <div class="row">
             <div class="col">
@@ -130,7 +53,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
         
     </div>

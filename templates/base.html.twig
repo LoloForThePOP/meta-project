@@ -6,6 +6,7 @@
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/app.css">
+       
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -15,8 +16,8 @@
         <!-- Flash Messages Display -->
 
         {% for label , messages in app.flashes %}
-            <div class="container mt-3">
-                <div class="alert alert-{{label}}">
+            <div class="container">
+                <div class="alert alert-{{label}} mt-3 col-sm-7 h5 font-weight-bold">
                     {% for message in messages %}
                         <p>{{message | raw}}</p>
                  {% endfor %}
@@ -31,6 +32,8 @@
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
+
         {% block javascripts %}{% endblock %}
+        
     </body>
 </html>

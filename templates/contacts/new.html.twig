@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Nouvelle Zone de Contact{% endblock %}
+
+{% block body %}
+
+    <div class="container col-sm-7">
+        
+        <h2 class="my-3">Nouvelle Zone de Contact</h2>
+
+        
+        <div class="card border-primary mb-3" style="max-width: 40rem;">
+            <div class="card-header p-2 h5 font-weight-bold">Conseil
+            </div>
+            <div class="card-body p-2">
+                <p class="card-text h5 font-weight-bold">Remplissez seulement les Informations qui vous intéressent. Au moins un email est recommandé pour que les gens puissent vous contacter.</p>
+            </div>
+        </div>
+        
+        {{ include('contacts/_form.html.twig') }}
+
+    </div>
+
+{% endblock %}

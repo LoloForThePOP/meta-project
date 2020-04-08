@@ -1,0 +1,260 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages du Projet{% endblock %}
+
+
+{% block css %}
+
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
+ 
+
+{% endblock %}
+
+{% block body %}
+
+<div class="container-fluid col-sm-9">
+
+    <h3 class="my-4 font-weight-bold">Messages du Projet</h3>
+    
+    <!-- Modal Box Display Message -->
+    <div class="modal fade" id="modalBox" tabindex="-1" role="dialog" aria-labelledby="modalBoxTitle" aria-hidden="true">
+
+        <div class="modal-dialog modal-lg" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h4 class="modal-title mx-3 font-weight-bold" id="modalBoxTitle">
+                        Ceci est le titre du message
+                    </h4>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="dateBox font-weight-bold h4 col-md-5 ml-auto">Le <span id="dateString"></span> à <span id="hourString"></span></div>
+
+                    <div id="messageContent" class="mx-3 my-4 p-3 h6 border border-primary rounded" style="font-size:1.15em;">
+
+                    </div>
+
+
+                    <div class="senderBox mx-3 h4 font-weight-bold">Message envoyé par : <span id="emailString"></span></div>
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    
+    <div class="container-fluid">
+    
+            <table id="messagesTable" class="table table-hover table-striped table-bordered">
+                <thead>
+                    <tr class="cursor-pointer">
+                        <th>Id</th>
+                        <th>Contexte</th>
+                        <th>Titre</th>
+                        <th>Contenu</th>
+                        <th>Envoyeur</th>
+                        <th>Date</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for contact_message in contact_messages %}
+                    <tr class="cursor-pointer" data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
+                        <td>
+                            {{ contact_message.id }}
+                        </td>
+
+                        <td>
+                            {{ contact_message.context  | slice(0, 20)}}
+                        </td>
+
+                        <td class="{% if contact_message.hasBeenConsulted %}font-weight-bold {% endif %}">
+                            {{ contact_message.title  | slice(0, 20)}}
+                        </td>
+                        
+                        <td>
+                            {{ contact_message.content | slice(0, 20)}}
+                        </td>
+
+                        <td>
+                            {{ contact_message.senderEmail }}
+                        </td>
+
+                        <td>
+                            {{ contact_message.createdAt ? contact_message.createdAt|date('Y-m-d H:i:s') : '' }}
+                        </td>
+
+                        <td class="messagesActions">
+                            <button type="button" class="js-delete-message btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
+                        {#   <a href="{{ path('contact_message_show', {'id': contact_message.id}) }}">show</a>
+                            <a href="{{ path('contact_message_edit', {'id': contact_message.id}) }}">edit</a> #}
+                        </td>
+
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="7">Aucun Message</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+    
+    </div>
+
+</div>
+
+    {# <a href="{{ path('contact_message_new') }}">Create new</a> #}
+{% endblock %}
+
+
+{% block javascripts %}
+
+<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.js"></script>
+
+<script>
+
+    $(document).ready( function () {
+
+        // ui plugin to paginate, order, search in a table
+
+        $('#messagesTable').DataTable( {
+            language: {
+                processing:     "Traitement en cours...",
+                search:         "Rechercher&nbsp;:",
+                lengthMenu:    "Afficher _MENU_ &eacute;l&eacute;ments",
+                info:           "Affichage de l'&eacute;lement _START_ &agrave; _END_ sur _TOTAL_ &eacute;l&eacute;ments",
+                infoEmpty:      "Affichage de l'&eacute;lement 0 &agrave; 0 sur 0 &eacute;l&eacute;ments",
+                infoFiltered:   "(filtr&eacute; de _MAX_ &eacute;l&eacute;ments au total)",
+                infoPostFix:    "",
+                loadingRecords: "Chargement en cours...",
+                zeroRecords:    "Aucun &eacute;l&eacute;ment &agrave; afficher",
+                emptyTable:     "Aucune donnée disponible dans le tableau",
+                paginate: {
+                    first:      "Premier",
+                    previous:   "Pr&eacute;c&eacute;dent",
+                    next:       "Suivant",
+                    last:       "Dernier"
+                },
+                aria: {
+                    sortAscending:  ": activer pour trier la colonne par ordre croissant",
+                    sortDescending: ": activer pour trier la colonne par ordre décroissant"
+                }
+            }
+        } );
+
+       
+
+
+        // Display a Message in a Modal Box
+
+        $('#messagesTable tbody').on('click', 'td:not(.messagesActions)', function (){
+
+            var messageId = $(this).closest('tr').attr('data-message-id');
+            var messageTitle = $(this).closest('tr').attr('data-message-title');
+            var messageDate = $(this).closest('tr').attr('data-message-date');
+            var messageHour = $(this).closest('tr').attr('data-message-hour');
+            var messageSender = $(this).closest('tr').attr('data-message-sender');
+
+            var messageContent =  '<div class="p-3"><div class="loader"></div></div>';
+
+
+            $('#modalBox #modalBoxTitle').html(messageTitle);
+            $('#modalBox #dateString').html(messageDate);
+            $('#modalBox #hourString').html(messageHour);
+            $('#modalBox #emailString').html(messageSender);
+            $('#modalBox #messageContent').html(messageContent);
+
+            $('#modalBox').modal('show');
+            
+
+            // Get Message Content and Then Show Modal Box
+
+            $.ajax({  
+                url: "{{path('ajax_get_message_content', {'slug': slug}) }}",
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                  "messageId": messageId,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    messageContent = data.messageContent;
+
+                    $('#modalBox #messageContent').html(messageContent);
+                                        
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    alert('Ajax request failed.');  
+                }  
+             }); 
+
+        });
+
+
+        // Delete a Message
+
+        $('#messagesTable').on('click', '.js-delete-message', function (){
+            
+            var messageId = $(this).closest('tr').attr('data-message-id');
+           
+            //alert(messageId);
+
+            if (confirm("Voulez vous Supprimer ce Message?"))
+            {
+                $(this).html('<div class="loader"></div>');
+
+
+                $.ajax({  
+
+                    url: "{{path('ajax_delete_message', {'slug': slug}) }}",
+                        type:       'POST',   
+                        dataType:   'json',
+                        data: {
+                        "messageId": messageId,
+                        },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                        $("#messagesTable").find("[data-message-id="+messageId+"]").remove();
+    
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        
+                    }  
+                 });       
+
+             }; 
+                
+
+
+        });
+
+
+    } );
+</script>
+
+{% endblock %}
