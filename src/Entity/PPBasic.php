@@ -8,13 +8,16 @@ use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-use Symfony\Component\HttpFoundation\File\File;
+
 use Doctrine\Common\Collections\ArrayCollection;
+
 use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PPBasicRepository")
@@ -34,6 +37,7 @@ class PPBasic
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
      * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName", size="imageSize")
+     * 
      * 
      * @var File|null
      */
@@ -81,11 +85,6 @@ class PPBasic
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $categories;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
     private $logo;
 
     /**
@@ -95,6 +94,7 @@ class PPBasic
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Slide", mappedBy="pp", orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $slides;
 
@@ -109,11 +109,42 @@ class PPBasic
      */
     private $creator;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="presentation", orphanRemoval=true)
+     */
+    private $contacts;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Category", mappedBy="project")
+     */
+    private $categories;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\GeoDomain", mappedBy="project")
+     */
+    private $geoDomains;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Website", mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $websites;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\ContactMessage", mappedBy="presentation")
+     */
+    private $contactMessages;
+
 
     public function __construct()
     {
         $this->slides = new ArrayCollection();
         $this->needs = new ArrayCollection();
+        $this->contacts = new ArrayCollection();
+        $this->categories = new ArrayCollection();
+        $this->geoDomains = new ArrayCollection();
+        $this->websites = new ArrayCollection();
+        $this->contactMessages = new ArrayCollection();
     }
 
     /**
@@ -198,18 +229,6 @@ class PPBasic
         return $this;
     }
 
-    public function getCategories(): ?string
-    {
-        return $this->categories;
-    }
-
-    public function setCategories(?string $categories): self
-    {
-        $this->categories = $categories;
-
-        return $this;
-    }
-
     public function getLogo(): ?string
     {
         return $this->logo;
@@ -274,7 +293,7 @@ class PPBasic
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
-    public function setImageFile(?File $imageFile = null): void
+    public function setImageFile($imageFile = null)
     {
         $this->imageFile = $imageFile;
 
@@ -285,7 +304,7 @@ class PPBasic
         }
     }
 
-    public function getImageFile(): ?File
+    public function getImageFile()
     {
         return $this->imageFile;
     }
@@ -347,6 +366,157 @@ class PPBasic
 
         return $this;
     }
+
+    /**
+     * @return Collection|Contact[]
+     */
+    public function getContacts(): Collection
+    {
+        return $this->contacts;
+    }
+
+    public function addContact(Contact $contact): self
+    {
+        if (!$this->contacts->contains($contact)) {
+            $this->contacts[] = $contact;
+            $contact->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContact(Contact $contact): self
+    {
+        if ($this->contacts->contains($contact)) {
+            $this->contacts->removeElement($contact);
+            // set the owning side to null (unless already changed)
+            if ($contact->getPresentation() === $this) {
+                $contact->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Category[]
+     */
+    public function getCategories(): Collection
+    {
+        return $this->categories;
+    }
+
+    public function addCategories(Category $categories): self
+    {
+        if (!$this->categories->contains($categories)) {
+            $this->categories[] = $categories;
+            $categories->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCategories(Category $categories): self
+    {
+        if ($this->categories->contains($categories)) {
+            $this->categories->removeElement($categories);
+            $categories->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|GeoDomain[]
+     */
+    public function getGeoDomains(): Collection
+    {
+        return $this->geoDomains;
+    }
+
+    public function addGeoDomain(GeoDomain $geoDomain): self
+    {
+        if (!$this->geoDomains->contains($geoDomain)) {
+            $this->geoDomains[] = $geoDomain;
+            $geoDomain->addProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGeoDomain(GeoDomain $geoDomain): self
+    {
+        if ($this->geoDomains->contains($geoDomain)) {
+            $this->geoDomains->removeElement($geoDomain);
+            $geoDomain->removeProject($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Website[]
+     */
+    public function getWebsites(): Collection
+    {
+        return $this->websites;
+    }
+
+    public function addWebsite(Website $website): self
+    {
+        if (!$this->websites->contains($website)) {
+            $this->websites[] = $website;
+            $website->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeWebsite(Website $website): self
+    {
+        if ($this->websites->contains($website)) {
+            $this->websites->removeElement($website);
+            // set the owning side to null (unless already changed)
+            if ($website->getPresentation() === $this) {
+                $website->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * @return Collection|ContactMessage[]
+     */
+    public function getContactMessages(): Collection
+    {
+        return $this->contactMessages;
+    }
+
+    public function addContactMessage(ContactMessage $contactMessage): self
+    {
+        if (!$this->contactMessages->contains($contactMessage)) {
+            $this->contactMessages[] = $contactMessage;
+            $contactMessage->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContactMessage(ContactMessage $contactMessage): self
+    {
+        if ($this->contactMessages->contains($contactMessage)) {
+            $this->contactMessages->removeElement($contactMessage);
+            // set the owning side to null (unless already changed)
+            if ($contactMessage->getPresentation() === $this) {
+                $contactMessage->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
 }

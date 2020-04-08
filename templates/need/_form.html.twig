@@ -1,0 +1,54 @@
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+
+<style>
+
+    label{
+        font-size:1.25em !important;
+    }
+        
+    input[type=text] {
+        color:black;
+        font-size:1.5em;
+        width: 100%;
+        padding: 12px 12px;
+        margin: 4px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      ::-webkit-input-placeholder { /* Edge */
+        font-size:1.15em;
+        color:black;
+      }
+      
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-size:1.15em;
+        color:black;
+      }
+      
+      ::placeholder {
+        font-size:1.15em !important;
+        color:black !important;
+      }
+</style>
+
+
+
+
+{{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button class="btn btn-lg btn-success font-weight-bold">{{ button_label|default('Enregistrer') }}</button>
+
+    <!-- Cancelation Button -->
+
+    <a class="text-decoration-none text-white" href="{{ path('need_index', {'slug': slug}) }}">
+        <button type="button" class="btn btn-warning btn-lg font-weight-bold">Annuler</button>
+    </a>
+
+{{ form_end(form) }}

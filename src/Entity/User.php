@@ -5,9 +5,11 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
-use Symfony\Component\Validator\Constraints as Assert;
+
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -73,11 +75,17 @@ class User implements UserInterface
      */
     private $userRoles;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\ContactMessage", mappedBy="receivers")
+     */
+    private $contactMessages;
+
 
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
+        $this->contactMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -242,5 +250,34 @@ class User implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|ContactMessage[]
+     */
+    public function getContactMessages(): Collection
+    {
+        return $this->contactMessages;
+    }
+
+    public function addContactMessages(ContactMessage $contactMessages): self
+    {
+        if (!$this->contactMessages->contains($contactMessages)) {
+            $this->contactMessages[] = $contactMessages;
+            $contactMessages->addReceiver($this);
+        }
+
+        return $this;
+    }
+
+    public function removeContactMessages(ContactMessage $contactMessages): self
+    {
+        if ($this->contactMessages->contains($contactMessages)) {
+            $this->contactMessages->removeElement($contactMessages);
+            $contactMessages->removeReceiver($this);
+        }
+
+        return $this;
+    }
+
 
 }

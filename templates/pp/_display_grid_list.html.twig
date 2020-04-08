@@ -1,0 +1,29 @@
+
+
+ 
+<div class="col-md-3 col-sm-6 col-xs-12 px-2">
+     
+    <a class="text-primary text-decoration-none" href="{{path('project_show',{'slug': presentation.slug})}}">
+        
+        <div class="mb-3 p-0">
+
+            <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="min-height:2.4em; font-size:1.25em;">{{presentation.title |slice(0, 62) }}</h5>
+                
+            <div class="keywords font-weight-bold my-1 h6 text-left" style="min-height:0.5em;" >{{presentation.keywords | slice(0, 35) }}</div>
+
+            <img class="rounded mb-2" src="{{presentation.thumbnail}}" alt="Image de Présentation" srcset="" style="width:253px; height:120px">
+
+            <p class="card-text">{{presentation.goal | slice(0, 72) }}</p>
+
+            <strong>Fournisseur du Projet</strong> <br>
+
+            {% if app.user and app.user == presentation.creator %}
+
+                <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-primary">Modifier</a>
+
+            {% endif %}
+
+
+        </div>
+    </a>
+</div>

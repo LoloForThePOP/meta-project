@@ -1,0 +1,59 @@
+
+<!-- Slideshow Container -->
+
+{% if presentation.slides | length > 0 %}
+
+<div class="my-3 mt-4" style="width:610px; position : relative;">
+
+	{% for slide in presentation.slides %}
+	
+		{% if slide.mediaType == 'image' %}
+
+			<div class="slide">
+			
+				<div class="container-fluid d-flex align-items-center justify-content-center" style="height:400px;" >
+					
+					<img class="rounded" src="{{slide.slideName}}"  alt="{{slide.slideName}}" style="max-width:100%; max-height:100%;">  
+
+				</div>
+				
+			</div>	
+
+		{% endif %}
+
+	{% endfor %}
+	
+	<button class="btn p-3 rounded font-weight-bold bg-primary text-white" style="position: absolute;
+	top: 50%;" onclick="plusDivs(-1)"><span class="h3">&#10094;</span></button>
+
+	
+	<button class="btn p-3 rounded font-weight-bold bg-primary text-white" style="position: absolute;
+	top: 50%;  right: 0;" onclick="plusDivs(1)"><span class="h3">&#10095;</span></button>
+	
+</div>
+
+{% endif %}
+		
+	
+	<script>
+
+		var slideIndex = 1;
+		
+		showDivs(slideIndex);
+
+		function plusDivs(n) {
+		  showDivs(slideIndex += n);
+		}
+
+		function showDivs(n) {
+		  var i;
+		  var x = document.getElementsByClassName("slide");
+		  if (n > x.length) {slideIndex = 1}
+		  if (n < 1) {slideIndex = x.length}
+		  for (i = 0; i < x.length; i++) {
+			x[i].style.display = "none";  
+		  }
+		  x[slideIndex-1].style.display = "block";  
+		}
+		
+	</script>

@@ -1,0 +1,125 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<style>
+        
+    .catButton {
+    
+        height:61.2px;
+
+        font-size:1.1em;
+
+        float:left;
+
+        margin-right:23px;
+        margin-bottom:-5px;
+
+        cursor:pointer;
+
+        line-height:1.4em !important;
+        
+        border-color:black !important;
+        
+    }
+    
+    .leftDiv {
+    
+        width:50px !important;
+        text-align:center;
+        
+    }
+    
+    .rightDiv {
+        
+        width:190px;
+        padding-left:5px;
+    }
+
+    /* La selection de la classe parente Permet un Override du Hover */
+    #catGrid .selectedCategory, #catGrid .selectedCategory:hover {
+        background-color: yellow !important;
+    }
+
+</style>
+
+<div class="container clearfix">
+           
+    <!-- ui Page Title -->	
+
+    <h3 class="font-weight-bold col-sm-5 px-0 my-3">Catégories du Projet (Appuyer sur les Boutons Désirés)</h3>
+
+    <!-- Info Box -->	
+    
+    <div class="alert alert-dismissible alert-light border border-success border-4 h5 font-weight-bold mb-1 lh-2 col-sm-5">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <strong>Vous pouvez <u>Combiner les Catégories</u>
+            </br>Exemple: Environnement ET Construction.</br> Maximum Recommandé : 3. </strong>
+    </div>
+
+    <!-- Categories Grid -->
+
+    <div id="catGrid" class="col-sm-10">
+        {% for category in categories %}
+                <div id="{{category.id}}" class="{% if category in presentation.categories %}selectedCategory {% endif %} catButton border border-2 rounded row mt-3 d-table">
+
+                    <div class="leftDiv d-table-cell align-middle border border-danger border-2">
+                        <img id="" class="" src="{{category.icon}}" alt="{{category.name}}" width="30" height="30">
+                    </div>
+
+                    <div class="rightDiv d-table-cell align-middle border border-success border-2 font-weight-bold">
+                            {{category.descriptionFr}}
+                    </div>
+
+                </div>
+        {% endfor %}
+        
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+
+    <script>
+
+        $(document).ready(function(){  
+
+            $("#catGrid .catButton").on("click", function(event){ 
+
+               var catId = $(this).attr('id');
+
+               $(this).toggleClass("selectedCategory");
+
+               $.ajax({  
+                  url: "{{path('ajax_update_category', {'slug': presentation.slug}) }}",
+                  type:       'POST',   
+                  dataType:   'json',
+                  data: {
+                    "catId": catId,
+                  },
+                  async:      true,  
+                  
+                  success: function(data, status) {  
+                      // alert(data.catId)
+                     
+                  },  
+                  error : function(xhr, textStatus, errorThrown) {  
+                      // alert('Ajax request failed.');  
+                  }  
+               });  
+            });  
+        });  
+
+    </script>
+
+
+    
+
+{% endblock %}

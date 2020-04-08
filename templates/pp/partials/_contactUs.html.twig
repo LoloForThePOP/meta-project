@@ -1,0 +1,141 @@
+
+{% if presentation.contacts | length > 0 %}
+
+    <h3 class="font-weight-bolder mb-4">Nous Contacter</h3>
+
+    <div class="row pl-3">
+
+        <!-- Indirect Contact Informations Box -->
+
+    {% for contact in presentation.contacts %}
+
+        <div id="" class="col-sm-5 border border-primary border-2 p-2 px-3 mb-4 mr-4
+        rounded" style="word-wrap: break-word;">
+
+            <!-- Contact Name or Title -->
+        
+            <h5 class="font-weight-bold ">{{contact.title}}</h5>
+            
+            <!-- Contact Email -->
+
+            {% if ( contact.email1 is not null ) or ( contact.email2 is not null ) %}
+            
+                <div class="mb-2">
+
+                    <div class="font-weight-bold">
+                        Email :
+                    </div>
+
+                    <div class="pl-4">
+
+                        <a class="text-decoration-none text-body" href="mailto:{{contact.email1}}">{{contact.email1}}</a>
+
+                        <a class="text-decoration-none text-body" href="mailto:{{contact.email2}}">{{contact.email2}}</a>
+
+                    </div>
+
+                </div>
+
+            {% endif %}
+            
+            <!-- Contact Telephone(s) -->
+
+            {% if ( contact.tel1 is not null ) or ( contact.tel2 is not null ) %}
+        
+                <div class="mb-2"> 
+                
+                    <div class="font-weight-bold">
+                    
+                        Téléphone :
+                        
+                    </div>
+
+                    <div class="pl-4">
+
+                        {% if contact.tel1 is not null %}
+                    
+                            <a class="text-decoration-none text-body" href="tel:{{contact.tel1}}">{{contact.tel1}}</a>
+
+                        {% endif %}
+                        
+                        {% if contact.tel2 is not null %}
+                    
+                            <a class="text-decoration-none text-body" href="tel:{{contact.tel2}}">{{contact.tel2}}</a>
+
+                        {% endif %}
+                    
+                    </div>
+                
+                </div>
+
+            {% endif %}
+            
+            
+            <!-- Contact Websites -->
+
+            {% if contact.website1 is not null %}
+            
+                <div class="mb-2"> 
+                    <span class="font-weight-bold">Site Web :</span> 
+                    <a class="text-decoration-none text-body"
+                        href="{{contact.website1}}">{{contact.website1}}
+                    </a>
+                </div>
+
+            {% endif %}
+            
+            <!-- Contact Postal Mail -->
+
+            {% if contact.postalMail is not null %}
+            
+                <div class="mb-2">
+                
+                    <div class="font-weight-bold">Adresse :</div> 
+                
+                    <div class="pl-4">
+                    
+                        {{contact.postalMail}}
+                        
+                    </div>
+                    
+                </div>
+
+            {% endif %}
+            
+            <!-- Contact More Informations & Remarks-->
+
+            {% if contact.remarks is not null %}
+            
+                <div class="mb-2">
+                
+                    <span class="h6 font-weight-bold p-1 px-2 rounded bg-primary text-white">+ Info</span>               
+                    
+                    <span class="font-weight-bold">{{contact.remarks}}</span>  
+                
+                </div>
+
+            {% endif %}
+
+        </div>
+
+    {% endfor %}
+
+    </div>
+
+{% endif %}
+
+
+
+<!-- Private Messages Button -->
+<!-- 
+<a href="{{path('contact_message_new', {'slug':presentation.slug})}}">
+
+    <div class="btn btn-primary mb-3 h5 rounded col-5 font-weight-bold px-1 py-2">Envoyer un Message</div>
+
+</a> -->
+
+
+
+    
+
+

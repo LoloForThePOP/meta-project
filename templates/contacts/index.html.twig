@@ -1,0 +1,75 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Vous Contacter{% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid col-sm-9">
+        
+        <h3 class="my-3">Comment vous Contacter?</h3>
+        
+        <!-- Add a Contact Button -->
+    
+        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-primary btn-lg font-weight-bold px-4 py-3 mb-3 mr-3">+ Ajouter une Zone Contact</button></a>
+            
+        <!-- Back Button -->
+
+        <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': slug }) }}">
+            <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4">Retour</button>
+        </a>
+
+        <div class="table-responsive">
+
+            <table class="table table-hover table-striped table-bordered">
+
+                <thead>
+
+                    <tr>
+                        <th>Titre</th>
+                        <th>Email</th>
+                        <th>Telephone</th>
+                        <th>Site Web</th>
+                        <th>Adresse</th>
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                {% for contact in contacts %}
+
+                    {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
+                    {% set editPath = path('contact_edit', {'id': contact.id, 'slug': slug}) %}
+    
+                    <tr class="cursor-pointer"  
+                        
+                        {% if app.user and app.user == presentation.creator %}
+                            onclick="window.location='{{ editPath }}'";>
+                        {% else %}
+                            onclick="window.location='{{ showPath }}'";>
+                        {% endif %}
+                 
+                        <td>{{ contact.title }}</td>
+                        <td>{{ contact.email1 | slice (0,15) }} (...)</td>
+                        <td>{{ contact.tel1 }}</td>
+                        <td>(...) {{ contact.website1 | slice (11,20)}} (...)</td>
+                        <td>{{ contact.postalMail }}</td>
+
+                    </tr>
+
+                {% else %}
+
+                    <tr>
+                        <td colspan="9">Aucune Zone Contact pour l'Instant/td>
+                    </tr>
+                {% endfor %}
+
+                </tbody>
+
+            </table> 
+
+        </div>
+
+    </div>
+
+{% endblock %}

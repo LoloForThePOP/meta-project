@@ -19,14 +19,14 @@ class RegistrationType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('email', EmailType::class, $this->getConfiguration("Email :", "Votre Adresse Email"))
+            ->add('email', EmailType::class, $this->getConfiguration("Votre Adresse Email :", "Votre Adresse Email"))
             ->add('hash', RepeatedType::class, [
                     'type' => PasswordType::class,
                     'invalid_message' => 'Les Deux Mots de Passe ne sont pas les mêmes',
                     'options' => ['attr' => ['class' => 'password-field']],
                     'required' => true,
-                    'first_options'  => ['label' => 'Mot de Passe'],
-                    'second_options' => ['label' => 'Répéter votre Mot de Passe'],
+                    'first_options'  => ['label' => 'Créer votre Mot de Passe :'],
+                    'second_options' => ['label' => 'Répéter votre Mot de Passe :'],
                 ])
         ;
     }

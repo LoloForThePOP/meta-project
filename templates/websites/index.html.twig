@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Sites Web du Projet{% endblock %}
+
+
+{% block body %}
+
+<style>
+
+    
+    input[type=text] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 4px 0;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+
+      ::-webkit-input-placeholder { /* Edge */
+        font-size:1.15em;
+      }
+      
+      :-ms-input-placeholder { /* Internet Explorer 10-11 */
+        font-size:1.15em;
+      }
+      
+      ::placeholder {
+        font-size:1.15em;
+      }
+    
+</style>
+
+    <div class="container">
+
+        <h3 class="my-3">Gérer les Sites Web</h1>
+
+        {% form_theme form _self '/partials/jquery.collection.html.twig' %}
+
+        {{form_start(form)}}
+            
+        {{form_widget(form)}}
+
+        <div class="mt-3">
+
+                <button type="submit" class="btn btn-success btn-lg mb-4 mr-2 font-weight-bold">Enregistrer les Modifications</button>
+
+                <a class="text-decoration-none text-white" href="">
+                        <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
+                </a>
+
+        </div>
+
+        {{form_end(form)}}
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="{{ asset('js/jquery.collection.js') }}"></script>
+
+<script type="text/javascript">
+
+    $('.actions-collection').collection({
+        position_field_selector: '.my-position',
+        up: '<button type="button" class="mr-1 btn btn-outline-primary arrowCar font-weight-bold">▲</button>',
+        remove: ' <button type="button" class="mr-1 btn btn-danger font-weight-bold"><span class="">X</span></button>',
+        down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold bg-white mr-1">▼</button>',
+        add: ' <button type="button" class="btn btn-lg btn-success font-weight-bold mr-1">+ Ajouter un Site Web</button>',
+        fade_in: false,
+        fade_out: false,
+        add_at_the_end: true,
+    });
+
+</script>
+
+{% endblock %}
+
+
+
+{% block _website_collection_websites_widget %}
+
+    {{ form_widget(form) }}
+
+{% endblock %}
+
+{% block _website_collection_websites_entry_row %}
+
+    {{form_widget(form)}}
+    
+{% endblock %}
+
+{% block _website_collection_websites_entry_widget %}
+
+        <div class="list-item border border-primary rounded col-md-5 p-2 px-3 mb-3" style="background-color:#f0f5e3;"> 
+
+            <div class="">
+                {{ form_row(form.url) }}
+            </div>
+            <div class="mb-2">
+                {{ form_row(form.description) }}
+            </div>
+            <div class="mb-2">
+                {{ form_row(form.position) }}
+            </div>
+        </div>    
+
+       
+{% endblock %}

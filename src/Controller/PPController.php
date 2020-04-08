@@ -106,7 +106,8 @@ class PPController extends AbstractController
     
     
      /**
-    * 
+     * Permet de Supprimer une Présentation de Projet
+     * 
      * @Route("projects/{slug}/delete",name="project_delete")
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      * @return Response
@@ -125,7 +126,7 @@ class PPController extends AbstractController
     }
 
     /**
-     * Permet d'afficher la page de présentation d'un projet
+     * Permet d'afficher une page de présentation de projet
      *
      * @Route("/projects/{slug}",name="project_show")
      * 
