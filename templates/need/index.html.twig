@@ -59,7 +59,7 @@
                         
                         <td> {{ need.id }}</td>
                         <td>{{ need.title }}</td>
-                        <td>{{ need.description | striptags | slice(0, 50) }}</td>
+                        <td>{{ need.description | slice(0, 50) }}</td>
                         <td>{{ need.createdAt ? need.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                         
                         {% if app.user and app.user == presentation.creator %}

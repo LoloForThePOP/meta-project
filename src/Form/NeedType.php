@@ -22,10 +22,10 @@ class NeedType extends ApplicationType
                 $this->getConfiguration("Type du Besoin?", "",[
                     'placeholder' => 'Choisir une Option',
                     'choices'  => [
-                        'Une Compétence (Ex : un Développeur, un Dessinateur, etc)' => 'skill',
-                        'Un Service Ponctuel, Une Tâche (Ex : Créer deux Dessins, Préparer un Repas, etc)' => 'task',
-                        'Local, Outil, Matériel (Ex : une Perçeuse)' => 'material',
-                        'Argent' => 'money',
+                        'Une Compétence (Ex : un Développeur, un Dessinateur)' => 'skill',
+                        'Un Service Ponctuel, Une Tâche (Ex : Créer deux Dessins, Préparer un Repas)' => 'task',
+                        'Un Local, un Outil, du Matériel (Ex : une Perçeuse)' => 'material',
+                        "Une Somme d'Argent" => 'money',
                         'Autre' => 'other',
                         ]
                     ])
@@ -43,7 +43,7 @@ class NeedType extends ApplicationType
             ->add(
                 'paidService', 
                 ChoiceType::class, 
-                $this->getConfiguration("Payé?", "",[
+                $this->getConfiguration("Est-ce Payé ?", "",[
                     'placeholder' => 'Choisir une Option',
                     'choices'  => [
                         'Peut-être' => null,

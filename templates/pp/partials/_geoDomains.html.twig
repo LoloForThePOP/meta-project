@@ -1,0 +1,33 @@
+{% if presentation.geoDomains | length > 0 %}
+
+    <div class="container pl-0 my-3">
+
+        <h3 class="font-weight-bolder">Des Lieux du Projet</h3>
+
+        <ul class="list-group">
+
+            {% for geoDomain in presentation.geoDomains | slice(0, 3)%}
+
+                <li class="list-group-item py-1 border-0">
+                    
+                    <span class="arrowCar font-weight-bold h5">
+                        ▼
+                    </span>
+                    
+                    <span class="font-weight-bold h5">
+                        {{geoDomain.city | capitalize}}
+                    </span>
+                    
+                    <span class="font-weight-bold h5 mr-2">
+                        ({{geoDomain.postalCode}})
+                    </span>
+                
+                </li>
+
+            {% endfor %}
+
+          </ul>
+
+    </div>
+
+{% endif %}

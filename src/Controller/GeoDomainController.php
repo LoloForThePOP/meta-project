@@ -15,12 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/projects/{slug}/places")
  */
-class PlaceController extends AbstractController
+class GeoDomainController extends AbstractController
 {
     /**
-     * @Route("/", name="places_index")
+     * Pour l'instant seul l'ajout de villes est implémenté, et non pas l'ajout de lieux en général. places_manage est donc commenté alors que cities_manage ne l'est pas
+     * 
+     * @Route("/", name="places_manage")
      */
-    public function index(PPBasic $presentation, GeoDomainRepository $geoRepo)
+    /* public function index(PPBasic $presentation, GeoDomainRepository $geoRepo)
     {
         $geoPlaces = $geoRepo->findAll();
 
@@ -28,15 +30,15 @@ class PlaceController extends AbstractController
                 'geoPlaces' => $geoPlaces,
                 'presentation' => $presentation,
         ]);
-    }
+    } */
 
-     /**
-     * @Route("/new-city", name="places_new_city")
+    /**
+     * @Route("/new-city", name="places_city_manage")
      */
     public function newCity(PPBasic $presentation)
     {
   
-        return $this->render('places/new-city.html.twig', [
+        return $this->render('geoDomains/manage-cities.html.twig', [
             'presentation' => $presentation,
         ]);
     }

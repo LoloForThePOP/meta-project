@@ -2,11 +2,12 @@
 /* BS 4 Form Errors Display */
 
 .form-error-icon{
-    font-size:1.2em;
+    font-size:1.15em;
+    margin-right:2px;
 }
 
 .form-error-message{
-    font-size:1.6em;
+    font-size:1.15em;
 }
 
 /* BS4 Collapse Component Remove Effects */
@@ -71,9 +72,9 @@
     border: 3px solid #f3f3f3;
     border-radius: 50%;
     border-top: 3px solid blue;
-    border-right: 3px solid green;
-    border-bottom: 3px solid red;
-    border-left: 3px solid yellow;
+    border-right: 3px solid white;
+    border-bottom: 3px solid blue;
+    /* border-left: 3px solid yellow; */
     width: 28px;
     height: 28px;
     -webkit-animation: spin 2s linear infinite;

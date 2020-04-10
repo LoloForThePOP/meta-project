@@ -9,6 +9,7 @@ use App\Repository\NeedRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -69,6 +70,7 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="need_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function edit($slug, Request $request, Need $need): Response
     {
@@ -92,6 +94,7 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/{id}", name="need_delete", methods={"DELETE"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function delete($slug, Request $request, Need $need): Response
     {
