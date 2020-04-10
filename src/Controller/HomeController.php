@@ -21,9 +21,6 @@ class HomeController extends AbstractController {
 
         $lastInsertedProjects = $manager->createQuery('SELECT p.title, p.keywords, p.thumbnail, p.goal, p.slug, p.title FROM App\Entity\PPBasic p ORDER BY p.createdAt')->setMaxResults('10')->getResult();
 
-        dump($lastInsertedProjects);
-
-
         return $this->render("/home.html.twig", [
             'presentations' => $lastInsertedProjects,
         ]);
