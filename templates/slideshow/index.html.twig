@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Diaporama d'Images{% endblock %}
+{% block title %}Diaporama de Présentation{% endblock %}
 
 {% block body %}
 
     <div class="container">
 
-        <h3 class="h3 font-weight-bold mt-3">Diaporama d'Images </h3>
+        <h3 class="h3 font-weight-bold mt-3">Diaporama de Présentation</h3>
 
         <!-- Info-Box if Empty Slidshow -->
 
@@ -17,28 +17,53 @@
                 </div>
                 <div class="card-body">
                     <h4 class="card-title font-weight-bold">Conseil Important!</h4>
-                    <p class="card-text h5 font-weight-bold">Les Images et les Schémas sont un Moyen RAPIDE et PUISSANT pour Transmettre vos Idées.</p>
+                    <p class="card-text h5 font-weight-bold">Images, Schémas et Vidéos peuvent être un MOYEN Rapide et Efficace pour transmettre vos Idées.</p>
                 </div>
             </div>
 
         {% endif %}
 
-        <!-- Add Images Button -->        
+        <div class="btn-toolbar mt-2 mb-2" role="toolbar" aria-label="Toolbar with button groups">
 
-        <div class="mb-2">
-            <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
-                <button class="btn btn-success btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images
-                </button>
-            </a>
-            
-            {% if presentation.slides | length > 1 %}
-    
-                <a class="text-decoration-none text-white" href="{{path('reorder_slides',{'slug':slug})}}">
-                    <button type="button" class="btn btn-primary btn-lg font-weight-bold ">Modifier l'Ordre ?</button>
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                
+                <a href="{{ path('slideshow_video_add', {'slug':slug}) }}">
+                    <button class="btn btn-success btn-lg font-weight-bold p-3 mr-2"> + Ajouter une vidéo
+                    </button>
                 </a>
-    
-            {% endif %}
+                
+                <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
+                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images
+                    </button>
+                </a> 
+        
+            </div>
+        
         </div>
+
+        <div class="btn-toolbar mt-2 mb-2" role="toolbar" aria-label="Toolbar with button groups">
+
+            <div class="btn-group mr-2" role="group" aria-label="First group">
+                         
+                {% if presentation.slides | length > 1 %}
+        
+                    <a class="text-decoration-none text-white" href="{{path('reorder_slides',{'slug':slug})}}">
+                        <button type="button" class="btn btn-secondary btn-lg font-weight-bold mr-2 ">Modifier l'Ordre ?</button>
+                    </a>
+
+                {% endif %}
+                
+                <!-- Back Button -->
+
+                <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': slug }) }}">
+                    <button type="button" class="btn btn-info btn-lg font-weight-bold ">Retour</button>
+                </a>
+        
+            </div>
+        
+        </div>
+
+       
 
 
         {% if presentation.slides | length > 0 %}
@@ -52,8 +77,18 @@
                     {% for slide in presentation.slides %}
 
                         <div class="position-relative m-2 p-2 border border-primary rounded border-2">
+
+                            {% if slide.mediaType == 'image' %}
+
+                                {% set thumbnailSource = slide.slideName %}
+
+                            {% elseif slide.mediaType == 'video' %}
+
+                                {% set thumbnailSource = slide.thumbnail %}
+                                
+                            {% endif %}
         
-                            <img src="{{ slide.slideName }}" alt="{{ slide.slideName }}" height="85" width="85">
+                            <img src="{{ thumbnailSource }}" alt="{{slide.slideName}}" height="85" width="85">
             
                             <a href="{{ path('delete_slide', {'slug':slug , 'id': slide.id}) }}">
                                 <button type="button" onclick="confirm('Confirmer la Suppression?')" class="js-delete d-inline position-absolute btn btn-danger" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>

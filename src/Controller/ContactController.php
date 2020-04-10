@@ -9,6 +9,7 @@ use App\Repository\ContactRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -32,6 +33,7 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/new", name="contact_new", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function new(Request $request, PPBasic $presentation): Response
     {
@@ -71,6 +73,7 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="contact_edit", methods={"GET","POST"})
+     * @Security("is_granted('ROLE_ADMIN')")
      */
     public function edit($slug, Request $request, Contact $contact): Response
     {

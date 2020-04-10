@@ -31,7 +31,7 @@ class PPController extends AbstractController
      * Permet de Créer une Présentation
      * 
      * @Route("/projects/new",name="projects_create")
-     * @IsGranted("ROLE_USER")
+     * @Security("is_granted('ROLE_ADMIN')")
      * 
      * @return Response
      */
@@ -71,7 +71,7 @@ class PPController extends AbstractController
      * 
      * @Route("/projects/{slug}/edit/", name="project_edit")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ",message="Cette Annonce ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Security("is_granted('ROLE_ADMIN')"), message="Cette Annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      *
      * @return void
      */

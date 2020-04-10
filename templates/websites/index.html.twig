@@ -46,8 +46,8 @@
 
                 <button type="submit" class="btn btn-success btn-lg mb-4 mr-2 font-weight-bold">Enregistrer les Modifications</button>
 
-                <a class="text-decoration-none text-white" href="">
-                        <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
+                <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': slug }) }}">
+                        <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4">Retour</button>
                 </a>
 
         </div>
@@ -69,7 +69,7 @@
         up: '<button type="button" class="mr-1 btn btn-outline-primary arrowCar font-weight-bold">▲</button>',
         remove: ' <button type="button" class="mr-1 btn btn-danger font-weight-bold"><span class="">X</span></button>',
         down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold bg-white mr-1">▼</button>',
-        add: ' <button type="button" class="btn btn-lg btn-success font-weight-bold mr-1">+ Ajouter un Site Web</button>',
+        add: ' <button type="button" class="btn btn-lg btn-primary font-weight-bold mr-1">+ Ajouter un Site Web</button>',
         fade_in: false,
         fade_out: false,
         add_at_the_end: true,

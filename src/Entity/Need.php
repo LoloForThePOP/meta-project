@@ -26,7 +26,12 @@ class Need
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min=4, minMessage="Le Titre doit Faire au Minimum {{ limit }} Caractères")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 50,
+     *      minMessage = "Le Titre du Besoin doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "Le Titre du Besoin doit faire au maximum {{ limit }} caractères",
+     * )
      */
     private $title;
 

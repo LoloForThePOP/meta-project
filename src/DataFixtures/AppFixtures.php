@@ -3,7 +3,6 @@
 namespace App\DataFixtures;
 
 use Faker\Factory;
-use App\Entity\City;
 use App\Entity\Need;
 use App\Entity\Role;
 use App\Entity\User;
@@ -12,6 +11,7 @@ use App\Entity\Contact;
 use App\Entity\PPBasic;
 use App\Entity\Website;
 use App\Entity\Category;
+use App\Entity\GeoDomain;
 use App\Entity\ContactMessage;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -39,14 +39,14 @@ class AppFixtures extends Fixture
 
         // a User with Admin Role Creation
 
-        $adminUser = new User();
+        /* $adminUser = new User();
         $adminUser->setName('Lolo')
                 ->setEmail('lolo@symfony.com')
                 ->setHash($this->encoder->encodePassword($adminUser,'password'))
                 ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>')
-                ->addUserRole($adminRole);
+                ->addUserRole($adminRole); 
+        $manager->persist($adminUser);*/
 
-        $manager->persist($adminUser);
 
         // Project Categories Creation
 
@@ -126,12 +126,18 @@ class AppFixtures extends Fixture
             $pp = new PPBasic ();
 
             // Title Creation
-            $title='Projet Sans Titre';
-            $filledTitle=array_rand([true,true,true,true,false]);
+
+            //Some Titles won't be filled (untitled-project-id title pattern might be used in this case). I avoid this case for the moment...
+            
+            /* $title='Projet Sans Titre';
+
+            $filledTitle=array_rand([true,true,true,true, false]);
 
             if($filledTitle==true){
                 $title=$faker->sentence();
-            }
+            } */
+
+            $title=$faker->sentence();
 
             // Keywords Creation
             $keywordsNumber=mt_rand(0,7);
@@ -177,14 +183,14 @@ class AppFixtures extends Fixture
 
                 for ($j=1; $j<=$numPostalCodes; $j++){
                 
-                    $city = new City();
+                    $city = new GeoDomain();
 
                     $postalCode = mt_rand(10000,99000);
 
                     $city -> setPostalCode ($postalCode)
-                          -> setCityName($faker->words(1)[0]);
+                          -> setCity($faker->words(1)[0]);
 
-                    $pp->addCity($city);
+                    $pp->addGeoDomain($city);
 
                     $manager->persist($city);
                 }
@@ -193,7 +199,7 @@ class AppFixtures extends Fixture
 
             // Project Websites Creation
 
-            $numWebsites = mt_rand(0,3);
+            $numWebsites = mt_rand(0,2);
 
             if ($numWebsites > 0){
 
@@ -270,7 +276,7 @@ class AppFixtures extends Fixture
 
             // Slides Creation
 
-            $hasSlidesOdds = [true,true,false];
+            $hasSlidesOdds = [true, true, true, false];
 
             $hasSlides = $hasSlidesOdds [array_rand($hasSlidesOdds)];
 
@@ -280,25 +286,40 @@ class AppFixtures extends Fixture
                     
                     $slide=new Slide();
 
-                    // Media Type Creation (only images for the moment)
+                    // Media Type Creation
 
-                    $mediaTypes = ['image','image','image','image'];
+                    $mediaTypes = ['image','image','image','video'];
                     $mediaType = $mediaTypes[array_rand($mediaTypes)];
 
-                    $imageAddress=null;
 
                     if($mediaType=="image"){
 
                         $imagesColors=['ffa500','ff6347','1e90ff','6a5acd','ee82ee','3cb371'];
+
                         $imageColor=$imagesColors[array_rand($imagesColors)];
 
                         $imageAdress = 'https://place-hold.it/500x400/'.$imageColor.'&text=ImageExample&bold';
+
+                        $slide->setSlideName($imageAdress);
+                    }
+
+                    if($mediaType=="video"){
+
+                        $videoChoices=['x38_3O2Ips4','nmjH3eN3otM','sthjkqvCEbQ','pWCMOkZ61hA'];
+
+                        $videoChoice=$videoChoices[array_rand($videoChoices)];
+
+                        $videoUrl = 'https://www.youtube.com/embed/'.$videoChoice; 
+                        $slide->setUrl($videoUrl);
+
+                        $videoThumbnail = 'https://img.youtube.com/vi/'.$videoChoice.'/mqdefault.jpg';
+
+                        $slide->setThumbnail($videoThumbnail);
                     }
 
                     $slide  
                         ->setMediaType($mediaType)
                         ->setCaption($faker->sentence())
-                        ->setSlideName($imageAdress)
                         ->setPP($pp)
                     ;
 
