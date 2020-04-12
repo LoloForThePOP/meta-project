@@ -174,9 +174,7 @@
             "./config/packages/sensio_framework_extra.yaml"
         ]
     },
-    "stfalcon/tinymce-bundle": {
-        "version": "v3.0.1"
-    },
+
     "symfony/apache-pack": {
         "version": "1.0",
         "recipe": {

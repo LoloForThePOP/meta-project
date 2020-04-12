@@ -2266,67 +2266,7 @@
             ],
             "time": "2019-12-27T08:57:19+00:00"
         },
-        {
-            "name": "stfalcon/tinymce-bundle",
-            "version": "v3.0.1",
-            "target-dir": "Stfalcon/Bundle/TinymceBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/stfalcon/TinymceBundle.git",
-                "reference": "9ef214999e022837bfdabf71f7bb1fcc8f4850a2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/stfalcon/TinymceBundle/zipball/9ef214999e022837bfdabf71f7bb1fcc8f4850a2",
-                "reference": "9ef214999e022837bfdabf71f7bb1fcc8f4850a2",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2.5",
-                "symfony/framework-bundle": "^5.0",
-                "twig/twig": "^2.12|^3.0"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Stfalcon\\Bundle\\TinymceBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Stepan Tanasiychuk",
-                    "email": "ceo@stfalcon.com",
-                    "homepage": "http://blog.stfalcon.com"
-                },
-                {
-                    "name": "Igor Negrutsa",
-                    "email": "progi2007@gmail.com",
-                    "homepage": "http://igor-negrutsa.info"
-                },
-                {
-                    "name": "Symfony Community",
-                    "homepage": "https://github.com/stfalcon/TinymceBundle/contributors"
-                }
-            ],
-            "description": "This Bundle integrates TinyMCE WYSIWYG editor into a Symfony2 project.",
-            "keywords": [
-                "Symfony2",
-                "bundle",
-                "editor",
-                "tinymce",
-                "wysiwyg"
-            ],
-            "time": "2020-01-02T10:26:29+00:00"
-        },
+
         {
             "name": "symfony/apache-pack",
             "version": "v1.0.1",
