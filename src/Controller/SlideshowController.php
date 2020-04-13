@@ -95,6 +95,22 @@ class SlideshowController extends AbstractController
 
     
     /**
+     * Permet d'Ajouter une Slide de Texte
+     * 
+     * @Route("/add-text",name="slideshow_text_add")
+     * 
+     * @return Response
+     */
+    public function addText (PPBasic $pp, Request $request, EntityManagerInterface $manager){
+        
+        return $this->render('slideshow/addText.html.twig', [
+            'slug' => $pp->getSlug(),
+        ]);
+
+    }
+
+    
+    /**
      * Permet d'Ajouter des Images
      * 
      * @Route("/add-images",name="slideshow_images_add")

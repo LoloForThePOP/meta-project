@@ -80,6 +80,11 @@ class Slide
      */
     private $thumbnail;
 
+    /**
+     * @ORM\Column(type="string", length=500, nullable=true)
+     */
+    private $textContent;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -199,6 +204,18 @@ class Slide
     public function setSlideName(?string $slideName): self
     {
         $this->slideName = $slideName;
+
+        return $this;
+    }
+
+    public function getTextContent(): ?string
+    {
+        return $this->textContent;
+    }
+
+    public function setTextContent(?string $textContent): self
+    {
+        $this->textContent = $textContent;
 
         return $this;
     }

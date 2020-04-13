@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ajouter une Diapo Texte{% endblock %}
+
+{% block body %}
+                            
+<style>
+
+  .pell {
+    border: 1px solid black;
+    box-sizing: border-box; 
+    margin-top: 10px;
+    margin-left: 10px;}
+
+  .pell-content {
+    box-sizing: border-box;
+    height: 300px;
+    outline: 0;
+    overflow-y: auto;
+    padding: 10px; }
+
+  .pell-actionbar {
+    background-color: #FFF;
+    border-bottom: 1px solid black;
+  }
+
+  .pell-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    height: 30px;
+    outline: 0;
+    width: 30px;
+    vertical-align: bottom; }
+
+  .pell-button-selected {
+    background-color: #F0F0F0; }
+    
+</style>
+
+
+
+
+<div id="LongerTextPresentation" class="">
+		 
+    <div id="editor" class="pell" Style="width:400px;"></div>
+    
+        
+</div>
+   
+<!-- Emoticones Plugin -->
+
+<div id="EmoticonesModule" class="">
+
+  <button onclick="myFunction('EmoticonesContainer')" class="pell-button Emoticones" title="Emoticones" type="button">🦄</button>
+  
+  <div id="EmoticonesContainer" class="w3-dropdown-content w3-round" Style="width:155px; height:125px; border: solid 1px black;">
+  
+        <span class="Emoticone"> 🙂 </span>
+        <span class="Emoticone"> 😃 </span>
+        <span class="Emoticone"> 🙁 </span>
+        <span class="Emoticone"> 😡 </span>
+        <span class="Emoticone"> 😮 </span>
+        <span class="Emoticone"> 🙄 </span>
+        <span class="Emoticone"> 🤣 </span>
+        
+  </div>
+  
+</div>	
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+<script src="/js/pell.js"></script>
+
+<script>
+
+  var editor = window.pell.init({
+    element: document.getElementById('editor'),
+    defaultParagraphSeparator: 'div',
+    
+    actions: [
+    
+        'bold',
+        'underline',
+        'link',
+        'heading1',
+        'heading2',
+        'ulist',
+        
+        {
+          name: 'indent',
+          icon: ' &#x21F6;',
+          title: 'Indent',
+          result: () => pell.exec('indent'),
+        },
+        
+        {
+          name: 'Outdent',
+          icon: '&#11057;',
+          title: 'Outdent',
+          result: () => pell.exec('outdent'),
+        },
+                     
+        {
+          name: 'left-align',
+          icon: 'lft',
+          title: 'Left-Align',
+          result: () => pell.exec('justifyLeft'),
+        },
+        
+        {
+          name: 'center-align',
+          icon: 'ctr',
+          title: 'Center-Align',
+          result: () => pell.exec('justifyCenter'),
+        },
+       
+       
+        {
+          name: 'undo',
+          icon: '&#x21B6;',
+          title: 'Undo',
+          result: () => pell.exec('undo'),
+        },
+        
+        {
+          name: 'redo',
+          icon: '&#x21B7;',
+          title: 'Redo',
+          result: () => pell.exec('redo'),
+        },
+        
+    ],
+    
+                        
+    
+    onChange: function (html) {
+     // document.getElementById('text-output').innerHTML = html
+     // document.getElementById('html-output').textContent = html
+    }
+  })
+</script>
+
+   
+
+{% endblock %}

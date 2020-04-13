@@ -286,9 +286,9 @@ class AppFixtures extends Fixture
                     
                     $slide=new Slide();
 
-                    // Media Type Creation
+                    // Slide Media Type Creation
 
-                    $mediaTypes = ['image','image','image','video'];
+                    $mediaTypes = ['image','image','image','text','text','video'];
                     $mediaType = $mediaTypes[array_rand($mediaTypes)];
 
 
@@ -315,6 +315,15 @@ class AppFixtures extends Fixture
                         $videoThumbnail = 'https://img.youtube.com/vi/'.$videoChoice.'/mqdefault.jpg';
 
                         $slide->setThumbnail($videoThumbnail);
+                    }
+
+                    if($mediaType=="text"){
+
+                       $textContent = $faker->paragraph($nbSentences = 3, $variableNbSentences = true);
+
+                       $slide->setTextContent($textContent);
+
+                       $slide->setThumbnail(substr($textContent,0,10));
                     }
 
                     $slide  

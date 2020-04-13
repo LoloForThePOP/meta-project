@@ -12,14 +12,16 @@
 
         {% if presentation.slides | length == 0 %}
 
-            <div class="card border-primary mb-3" style="max-width: 30rem;">
-                <div class="card-header">
-                </div>
-                <div class="card-body">
-                    <h4 class="card-title font-weight-bold">Conseil Important!</h4>
-                    <p class="card-text h5 font-weight-bold">Images, Schémas et Vidéos peuvent être un MOYEN Rapide et Efficace pour transmettre vos Idées.</p>
-                </div>
+        <div class="card border-primary mb-3" style="max-width: 37rem;">
+            <div class="card-header p-2">
+                <h4 class="mb-0 card-title font-weight-bold">!!! Conseil Important !!!</h4>
             </div>
+            <div class="card-body p-2">
+                
+                <p class="card-text lh-2 h5">Images, Schémas, Capsules de Texte et Vidéos peuvent être un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
+
+            </div>
+        </div>
 
         {% endif %}
 
@@ -27,15 +29,20 @@
 
             <div class="btn-group mr-2" role="group" aria-label="First group">
                 
-                <a href="{{ path('slideshow_video_add', {'slug':slug}) }}">
-                    <button class="btn btn-success btn-lg font-weight-bold p-3 mr-2"> + Ajouter une vidéo
-                    </button>
-                </a>
-                
                 <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
                     <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images
                     </button>
                 </a> 
+                
+                <a href="{{ path('slideshow_text_add', {'slug':slug}) }}">
+                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter du Texte
+                    </button>
+                </a> 
+                
+                <a href="{{ path('slideshow_video_add', {'slug':slug}) }}">
+                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter une vidéo
+                    </button>
+                </a>
         
             </div>
         
@@ -77,6 +84,8 @@
                     {% for slide in presentation.slides %}
 
                         <div class="position-relative m-2 p-2 border border-primary rounded border-2">
+
+                            {% set thumbnailSource = '' %}
 
                             {% if slide.mediaType == 'image' %}
 
