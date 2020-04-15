@@ -1,39 +1,67 @@
 <!DOCTYPE html>
+
 <html>
+
     <head>
+
         <meta charset="UTF-8">
-        <title>{% block title %}Bienvenue sur Propon!{% endblock %}</title>
+
+        <meta name="viewport" content="width=device-width">
+
+        <title>{% block title %}Bienvenue sur un Projet des Projets{% endblock %}</title>
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
         <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/sideBar.css">
        
         {% block stylesheets %}{% endblock %}
+
     </head>
+
     <body>
 
        {% include 'partials/header.html.twig' %}
 
-        <!-- Flash Messages Display -->
+       {% include 'partials/flashmessage.html.twig' %}
 
-        {% for label , messages in app.flashes %}
-            <div class="container">
-                <div class="alert alert-{{label}} mt-3 col-sm-7 h5 font-weight-bold">
-                    {% for message in messages %}
-                        <p>{{message}}</p>
-                 {% endfor %}
-                </div>
-            </div>
-        {% endfor %}
+       <div class="p-0 m-0 wrapper">
 
-        {% block body %}{% endblock %}
+        {% block sidebar %}{% endblock %}
+
+        <div id="content" class="m-0 p-0">
+
+            {% block body %}{% endblock %}
+
+        </div>
+        
+    </div>
 
         {% include 'partials/footer.html.twig' %}
+
+
+        <!-- Defaults Javascripts -->
 
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
 
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
+        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script>
+
+        <!-- SideBar Toggle -->
+        <script>
+            $(document).ready(function () {
+
+                $('#sidebarCollapse').on('click', function () {
+                    $('#sidebar').toggleClass('active');
+                });
+            
+            });
+        </script>
+
+
         {% block javascripts %}{% endblock %}
         
     </body>
+
 </html>

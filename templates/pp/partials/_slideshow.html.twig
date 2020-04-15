@@ -22,8 +22,8 @@
 
 				{% if slide.mediaType=='text' %}
 
-					<div class="h-100 border border-primary border-2 rounded m-3 p-4">
-						{{slide.textContent}}
+					<div class="h4 overflow-hidden h-100 border border-primary border-2 rounded m-3 p-4">
+						{{slide.textContent | sanitize_html}}
 					</div>
 				
 				{% endif %}

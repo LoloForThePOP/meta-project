@@ -6,9 +6,9 @@
 
     <div class="container">
 
-        <h3 class="h3 font-weight-bold mt-3">Diaporama de Présentation</h3>
+        <h3 class="h3 font-weight-bold mt-3 mb-2">Diaporama de Présentation</h3>
 
-        <!-- Info-Box if Empty Slidshow -->
+        <!-- Info-Box if Empty Slideshow -->
 
         {% if presentation.slides | length == 0 %}
 
@@ -30,7 +30,7 @@
             <div class="btn-group mr-2" role="group" aria-label="First group">
                 
                 <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
-                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images
+                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images /Schémas
                     </button>
                 </a> 
                 
@@ -55,7 +55,7 @@
                 {% if presentation.slides | length > 1 %}
         
                     <a class="text-decoration-none text-white" href="{{path('reorder_slides',{'slug':slug})}}">
-                        <button type="button" class="btn btn-secondary btn-lg font-weight-bold mr-2 ">Modifier l'Ordre ?</button>
+                        <button type="button" class=" d-block d-md-none btn btn-secondary btn-lg font-weight-bold mr-2 ">Modifier l'Ordre ?</button>
                     </a>
 
                 {% endif %}
@@ -75,29 +75,42 @@
 
         {% if presentation.slides | length > 0 %}
 
-            <h3 class="mb-2 font-weight-bold">Votre Diaporama : </h3>
-
             <div class="container">
 
-                <div class="row">
+                <div id="gridDemo" class="row col-md-7 pl-0">
 
                     {% for slide in presentation.slides %}
 
-                        <div class="position-relative m-2 p-2 border border-primary rounded border-2">
+                        <!-- Thumbnail Container -->
 
-                            {% set thumbnailSource = '' %}
+                        <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded-lg overflow-hidden cursor-pointer" style="width:110px; height:90px; border-color: #3f51b5 !important;">
 
                             {% if slide.mediaType == 'image' %}
 
-                                {% set thumbnailSource = slide.slideName %}
+                                 <img src="{{slide.slideName}}" alt="{{slide.slideName}}" height="" width="100%">
 
                             {% elseif slide.mediaType == 'video' %}
 
-                                {% set thumbnailSource = slide.thumbnail %}
-                                
+                                <img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" height="" width="100%">
+
+
+                            {% elseif slide.mediaType == 'text' %}
+
+                            <a href="{{path('slideshow_text_edit', {'slug' : slug, 'id' : slide.id })}}" class="text-body text-decoration-none">
+
+                                <div class="text-break p-1 cursor-pointer" style="width:100%; line-height:1.15em;">
+    
+                                    {{slide.textContent|striptags|length > 20 ? slide.textContent|striptags|slice(0,20)|striptags : slide.textContent|raw }}
+                                    {{slide.textContent|striptags|length > 20 ? '...' : ''}}
+
+                                </div>
+
+                            </a>
+
+                                     
                             {% endif %}
-        
-                            <img src="{{ thumbnailSource }}" alt="{{slide.slideName}}" height="85" width="85">
+
+                            <!-- Remove Slide button (a red cross on each slide) -->
             
                             <a href="{{ path('delete_slide', {'slug':slug , 'id': slide.id}) }}">
                                 <button type="button" onclick="confirm('Confirmer la Suppression?')" class="js-delete d-inline position-absolute btn btn-danger" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
@@ -106,6 +119,15 @@
                         </div>
 
                     {% endfor %}
+
+                                        
+                    <!-- Add New Slide Button  -->
+                        
+                    <div id="newSlide" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer"style="text-align:center; width:110px; height:90px; border: dashed 5px #3f51b5;">
+                    
+                        <span style="font-size:3em; font-weight:700; color:green;">+</span>
+                    
+                    </div>
 
                 </div>
 
@@ -117,36 +139,69 @@
 
 {% endblock %}
 
-
 {% block javascripts %}
 
-	<!-- ui {Move Up / Move Down} Table Rows -->
+    <!-- sortable plugin in order to ajax reorder slides -->
 
-	<script>
-	  
-		$(document).ready(function(){
-							
-			$('.js-manage-table button.js-move').click(function() {
-				var row = $(this).closest('tr');
-				if ($(this).hasClass('js-move-up'))
-					row.prev().before(row);
-				else
-					row.next().after(row);
-			});
+    <script src="/js/sortable/sortable.min.js"></script>
 
-			
-			$('.js-manage-table button.js-delete').click(function() {	
-					// Note : Back-end : Delete in Database too.
-					
-					$(this).closest('tr').remove();
+    <!-- jQuerySupport -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
 
-				}
+        $(document).ready(function(){ 
 
-			);		
+            $('#gridDemo').sortable({
+                animation: 150,
+                ghostClass: 'blue-background-class',
+                filter: ".disabled",
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+                onEnd: function (evt) {
 
-		});
+                    // an array storing slides id position
 
-	</script>
+                    var slidesPosition = [];
+
+                    
+                    $('#gridDemo div.js-sortableGridItem').each(function(index){
+                        
+                        slidesPosition.push($(this).attr('id'));
+                   
+                    });
+
+                    jsonSlidesPosition = JSON.stringify(slidesPosition);
+                    
+                    $.ajax({  
+                        url: "{{path('ajax_reorder_slides', {'slug': presentation.slug})}}",
+                        type:       'POST',   
+                        dataType:   'json',
+                        data: {
+                            "jsonSlidesPosition": jsonSlidesPosition,
+                        },
+    
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                 
+                        },  
+    
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                     }); 
+
+                },
+            });
+
+        }); 
+
+        
+    </script>
+   
 
 
-{% endblock %}
+{% endblock %} 

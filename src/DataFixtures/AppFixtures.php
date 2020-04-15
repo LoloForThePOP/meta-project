@@ -85,18 +85,29 @@ class AppFixtures extends Fixture
         // Users Creation
 
         $users=[];
-        $userGenres=['men','women'];
+        $userGenres=['male','female'];
         
         for($i=1; $i<=30; $i++) {
 
             $user = new User();
 
-            // User Image Creation
+            $userGenre = $faker->randomElement($userGenres);
+
+            // User Image Creation with random user "api"
 
             $imageUrlBegin="https://randomuser.me/api/portraits/";
-            $userGenre = $faker->randomElement($userGenres);
+
+            $randomUserGenre='';
+
+            if ($userGenre=='male') {
+                $randomUserGenre='men';
+            }
+            else {
+                $randomUserGenre='women';
+            }
+            
             $imageUrlEnd="/".$faker->numberBetween(1,99).'.jpg';
-            $image=$imageUrlBegin.$userGenre.$imageUrlEnd;
+            $image=$imageUrlBegin.$randomUserGenre.$imageUrlEnd;
 
 
             // User Hash Creation

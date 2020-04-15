@@ -1,0 +1,19 @@
+        <!-- Flash Messages Display -->
+
+        {% for label , messages in app.flashes %}
+
+            <div class="container">
+
+                <div class="d-flex align-items-center alert alert-{{label}} mt-3 col-sm-7 h5 font-weight-bold">
+
+                    {% for message in messages %}
+
+                        <p class=" p-0 m-0">{{message}}</p>
+
+                 {% endfor %}
+
+                </div>
+
+            </div>
+
+        {% endfor %}

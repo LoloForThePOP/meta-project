@@ -6,20 +6,46 @@
 
 <div class="container">
 
-  <h3 class="my-3 font-weight-bold">Diapo Pitch Texte</h3>
+  <h3 class="mt-3 my-4 font-weight-bold">Enregistrer une Diapo ⭐ Texte</h3>
+
+  <!-- ui Info for User : slide limited height -->
+
+  <div class="col-md-6 h4 alert alert-dismissible alert-light">
+      <button type="button" class="close" data-dismiss="alert">&times;</button>
+      <strong>La Hauteur de la Diapo est représentée avec une bordure noire.</strong>
+  </div>
 
   <div class="row">
 
     <div class="col-7">
-          
-      <form method="post">
-        <textarea id="mytextarea" class="">Hello, World!</textarea>
-      </form>
+            
+        {{form_start(form)}}
+
+        <!-- Tinymce Editor -->
+
+        <div class="mb-3">
+
+          {{form_widget(form.textContent)}}
+
+        </div>
+        <!-- Buttons Submit or Cancel -->
+
+        <div>
+            
+          <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Enregistrer</button>
+      
+          <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
+              <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4">Retour</button>
+          </a>
+
+        </div>
+
+                  
+        {{form_end(form)}}
+
     </div>
 
-
   </div>
-
 
 </div>
 
@@ -29,17 +55,38 @@
 
 {% block javascripts %}
 
-  <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+<script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
 
   <script>
     tinymce.init({
-      selector: '#mytextarea',
+      mode : "specific_textareas",
+      editor_selector : "tinymce",
+      content_css : '/css/tinymce.css',
+      width : "620",
+      height: "500",
+      entity_encoding : "raw",
+      menubar: 'edit format',
+
+      menu: {
+        edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+        format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat | forecolor backcolor' },
+      }, 
+
+
       language: 'fr_FR',
-      plugins: "emoticons, lists, link",
-      toolbar: "undo redo | styleselect | emoticons bullist bold italic link | alignleft aligncenter alignright alignjustify | outdent indent",
-      link_title: false,
-      target_list: false,
+
+      plugins: "emoticons, lists",
+
+      toolbar: "undo redo formatselect emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+      content_style: "body {padding: 0px 15px; height:500px; border-bottom:5px solid black;}",
+
+      //link_title: false, (only when links plugin will be integrated)
+      //target_list: false,
     });
+
+
   </script>
 
 

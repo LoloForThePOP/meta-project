@@ -3,6 +3,13 @@
 {% block title %}{{ presentation.title }}{% endblock %}
 
 
+{% block sidebar %}
+
+    {% include 'partials/sidebar.html.twig' %}
+    
+{% endblock %}
+
+
 {% block body %}
 
     <div class="container">
@@ -20,31 +27,34 @@
 
         <div class="row">
             
-            <!-- Présentation Générale du Projet -->
+            <!-- Project Overview (Project Landing Page) -->
 
             <div class="col-md-8 mb3">
+
+                <!-- Project Keywords -->
+                {% include 'pp/partials/_keywords.html.twig' %}
 
                 <!-- Project Goal Display -->
                 {% include 'pp/partials/_goal.html.twig' %}
 
-                <!-- Caroussel d'Images et Vidéos -->
+                <!-- Project Slideshow Pitch -->
                 {% include 'pp/partials/_slideshow.html.twig' %}
 
-                <!-- Besoins du Projet -->
+                <!-- Project Needs -->
                 {% include 'pp/partials/_needs.html.twig' %}
 
-                <!-- Sites Web du Projet -->
+                <!-- Project Websites -->
                 {% include 'pp/partials/_websites.html.twig' %}
                 
-                <!-- Lieux Géographiques du Projet -->
+                <!-- Project Geographic Domains -->
                 {% include 'pp/partials/_geoDomains.html.twig' %}
 
-                <!-- Zone de Contacts -->
+                <!-- Project Contact Possibilities -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
             </div>
 
-            <!-- Capsule Porteur de Projet -->
+            <!-- Project Provider Caps -->
             {% include 'pp/partials/_projectProviderArea.html.twig' %}
 
 
