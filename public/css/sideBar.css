@@ -1,32 +1,4 @@
 
-a,
-a:hover,
-a:focus {
-    color: inherit;
-    text-decoration: none;
-    transition: all 0.3s;
-}
-
-.navbar {
-    padding: 5px;
-    background: #fff;
-    border: none;
-    border-radius: 0;
-    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-.navbar-btn {
-    box-shadow: none;
-    outline: none !important;
-    border: none;
-}
-
-
-i,
-span {
-    display: inline-block;
-}
-
 /* ---------------------------------------------------
     SIDEBAR STYLE
 ----------------------------------------------------- */
@@ -34,15 +6,13 @@ span {
 .wrapper {
     display: flex;
     align-items: stretch;
-
 }
 
 #sidebar {
     min-width: 250px;
     max-width: 250px;
-    background: #7386D5;
-    color: #fff;
     transition: all 0.3s;
+    padding-left:15px;
 	
 }
 
@@ -50,6 +20,7 @@ span {
     min-width: 80px;
     max-width: 80px;
     text-align: center;
+    padding-left: 0 !important;
 }
 
 #sidebar.active .sidebar-header h3,
@@ -63,6 +34,25 @@ span {
 
 #sidebar ul li a {
     text-align: left;
+    padding-left:15px !important;
+}
+
+
+#sidebar.navbar {
+    padding: 5px;
+    background: #fff;
+    border: none;
+    border-radius: 0;
+    box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+
+#sidebar a,
+#sidebar a:hover,
+#sidebar a:focus {
+    color: inherit;
+    text-decoration: none;
+    transition: all 0.3s;
 }
 
 #sidebar.active ul li a {
@@ -70,13 +60,13 @@ span {
     text-align: center;
     font-size: 0.85em;
 }
-
+/* 
 #sidebar.active ul li a i {
     margin-right: 0;
     display: block;
     font-size: 1.8em;
     margin-bottom: 5px;
-}
+} */
 
 #sidebar.active ul ul a {
     padding: 10px !important;
@@ -91,18 +81,13 @@ span {
     transform: translateX(50%);
 }
 
-#sidebar .sidebar-header {
-    background: #6d7fcc;
-}
-
 #sidebar .sidebar-header strong {
     display: none;
     font-size: 1.8em;
 }
 
 #sidebar ul.components {
-    padding: 20px 0;
-    border-bottom: 1px solid #47748b;
+    padding: 15px 0;
 }
 
 #sidebar ul li a {
@@ -112,18 +97,18 @@ span {
 }
 
 #sidebar ul li a:hover {
-    color: #7386D5;
     background: #fff;
+    font-weight: bold;
 }
 
 #sidebar ul li a i {
-    margin-right: 10px;
+    margin-right: 15px !important;
 }
 
 #sidebar ul li.active>a,
 a[aria-expanded="true"] {
-    color: #fff;
-    background: #6d7fcc;
+    background: #ffffff;
+    font-weight: bold;
 }
 
 a[data-toggle="collapse"] {
@@ -156,27 +141,19 @@ ul.CTAs a {
     margin-bottom: 5px;
 }
 
-a.download {
-    background: #fff;
-    color: #7386D5;
-}
-
-a.article,
-a.article:hover {
-    background: #6d7fcc !important;
-    color: #fff !important;
-}
 
 /* ---------------------------------------------------
     CONTENT STYLE
+
+    WARNING : If removed my design is a mess!!!
 ----------------------------------------------------- */
 
 #content {
     width: 100%;
-    padding: 20px;
     min-height: 100vh;
     transition: all 0.3s;
 }
+
 
 /* ---------------------------------------------------
     MEDIAQUERIES
@@ -199,6 +176,7 @@ a.article:hover {
     }
     #sidebar.active {
         margin-left: 0 !important;
+        padding-left: 0 !important;
     }
     #sidebar .sidebar-header h3,
     #sidebar .CTAs {

@@ -1,74 +1,112 @@
 <!-- Sidebar  -->
 
-<nav id="sidebar">
+<nav id="sidebar" class="">
 
- 
+    <ul class="list-unstyled components bg-light border-bottom border-top border-primary mt-4">
 
-    <ul class="list-unstyled components">
-        <li class="active">
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-home"></i>
-                Home
-            </a>
-            <ul class="collapse list-unstyled" id="homeSubmenu">
-                <li>
-                    <a href="#">Home 1</a>
-                </li>
-                <li>
-                    <a href="#">Home 2</a>
-                </li>
-                <li>
-                    <a href="#">Home 3</a>
-                </li>
-            </ul>
-        </li>
         <li>
-            <a href="#">
-                <i class="fas fa-briefcase"></i>
-                About
+            <a href="{{path('project_show',{'slug': presentation.slug})}}">
+                <span class="mr-2">🏠</span>
+                Accueil
             </a>
-            <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-copy"></i>
-                Pages
-            </a>
-            <ul class="collapse list-unstyled" id="pageSubmenu">
-                <li>
-                    <a href="#">Page 1</a>
-                </li>
-                <li>
-                    <a href="#">Page 2</a>
-                </li>
-                <li>
-                    <a href="#">Page 3</a>
-                </li>
-            </ul>
         </li>
+<!-- 
         <li>
-            <a href="#">
-                <i class="fas fa-image"></i>
-                Portfolio
+            <a href="{{path('project_edit',{'slug':presentation.slug})}}">
+                <span class="mr-2">🏠</span>
+                Généralités
             </a>
-        </li>
+        </li> -->
+
         <li>
-            <a href="#">
-                <i class="fas fa-question"></i>
-                FAQ
+            <a href="{{path('index_project_messages', {'slug':presentation.slug})}}">
+                <span class="mr-2 rounded-pill border border-info border-2 px-2"><span class="font-weight-bold bg-white">🖂</span></span>
+                
+                Messages
             </a>
         </li>
+
         <li>
-            <a href="#">
-                <i class="fas fa-paper-plane"></i>
-                Contact
+            <a href="{{path('slideshow_index', {'slug':presentation.slug})}}">
+                <span class="mr-2">⭐</span>
+                Diapo Pitch
             </a>
         </li>
+
+        <li>
+            <a href="{{path('contact_index', {'slug':presentation.slug})}}">
+                <span class="mr-2 font-weight-bold text-indigo h4">@</span>
+                Contact Infos
+            </a>
+        </li>
+
+        <li>
+            <a href="{{path('need_index', {'slug':presentation.slug})}}">
+                <span class="h5 mr-2">☛</span>
+                Besoins
+            </a>
+        </li>
+
+        <li>
+            <a href="{{path('index_categories', {'slug':presentation.slug})}}">
+                <span class="h5 p-0 m-0 font-weight-bold text-info">●</span>
+                <span class="h5 p-0 m-0 font-weight-bold mr-2 text-warning">■</span>
+                Catégories
+            </a>
+        </li>
+
+        <li>
+            <a href="{{path('places_city_manage', {'slug':presentation.slug})}}">
+                <span class="mr-2">🌍</span>
+                Lieux
+            </a>
+        </li>
+
+        <li>
+            <a href="{{path('websites_index', {'slug':presentation.slug})}}">
+
+                <span class="font-weight-bold mr-2">www</span>
+                Sites Webs
+            </a>
+        </li>
+
     </ul>
 
     <ul class="list-unstyled CTAs">
-        <li>
-            <a href="https://bootstrapious.com/tutorial/files/sidebar.zip" class="download">Download source</a>
+  <!--       <li>
+            Hello
         </li>
         <li>
-            <a href="https://bootstrapious.com/p/bootstrap-sidebar" class="article">Back to article</a>
-        </li>
+            Yep!
+        </li> -->
     </ul>
+
 </nav>
+
+<!-- Exemble d'Item de Menu Collapsable -->
+
+<!-- 
+        <li class="active h5">
+
+            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                <i class="fas fa-home"></i>
+                Accueil
+            </a>
+
+            <ul class="collapse list-unstyled" id="homeSubmenu">
+
+                <li>
+                    <a href="#">Home 1</a>
+                </li>
+
+                <li>
+                    <a href="#">Home 2</a>
+                </li>
+
+                <li>
+                    <a href="#">Home 3</a>
+                </li>
+
+            </ul>
+
+        </li> -->

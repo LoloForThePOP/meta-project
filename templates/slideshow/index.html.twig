@@ -2,6 +2,12 @@
 
 {% block title %}Diaporama de Présentation{% endblock %}
 
+{% block sidebar %}
+
+    {% include 'partials/sidebar.html.twig' %}
+    
+{% endblock %}
+
 {% block body %}
 
     <div class="container">
@@ -12,72 +18,27 @@
 
         {% if presentation.slides | length == 0 %}
 
-        <div class="card border-primary mb-3" style="max-width: 37rem;">
-            <div class="card-header p-2">
-                <h4 class="mb-0 card-title font-weight-bold">!!! Conseil Important !!!</h4>
-            </div>
-            <div class="card-body p-2">
-                
-                <p class="card-text lh-2 h5">Images, Schémas, Capsules de Texte et Vidéos peuvent être un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
+            <div class="card border-primary mb-3" style="max-width: 37rem;">
+                <div class="card-header p-2">
+                    <h4 class="mb-0 card-title font-weight-bold">!!! Conseil Important !!!</h4>
+                </div>
+                <div class="card-body p-2">
+                    
+                    <p class="card-text lh-2 h5">Images, Schémas, Capsules de Texte et Vidéos peuvent être un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
 
+                </div>
             </div>
-        </div>
 
         {% endif %}
 
-        <div class="btn-toolbar mt-2 mb-2" role="toolbar" aria-label="Toolbar with button groups">
 
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                
-                <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
-                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter des Images /Schémas
-                    </button>
-                </a> 
-                
-                <a href="{{ path('slideshow_text_add', {'slug':slug}) }}">
-                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter du Texte
-                    </button>
-                </a> 
-                
-                <a href="{{ path('slideshow_video_add', {'slug':slug}) }}">
-                    <button class="btn btn-primary btn-lg font-weight-bold p-3 mr-2"> + Ajouter une vidéo
-                    </button>
-                </a>
-        
-            </div>
-        
-        </div>
-
-        <div class="btn-toolbar mt-2 mb-2" role="toolbar" aria-label="Toolbar with button groups">
-
-            <div class="btn-group mr-2" role="group" aria-label="First group">
-                         
-                {% if presentation.slides | length > 1 %}
-        
-                    <a class="text-decoration-none text-white" href="{{path('reorder_slides',{'slug':slug})}}">
-                        <button type="button" class=" d-block d-md-none btn btn-secondary btn-lg font-weight-bold mr-2 ">Modifier l'Ordre ?</button>
-                    </a>
-
-                {% endif %}
-                
-                <!-- Back Button -->
-
-                <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': slug }) }}">
-                    <button type="button" class="btn btn-info btn-lg font-weight-bold ">Retour</button>
-                </a>
-        
-            </div>
-        
-        </div>
-
-       
-
+        <!-- Slide Thumbnails Grid -->
 
         {% if presentation.slides | length > 0 %}
 
             <div class="container">
 
-                <div id="gridDemo" class="row col-md-7 pl-0">
+                <div id="gridDemo" class="row col-md-9 pl-0">
 
                     {% for slide in presentation.slides %}
 
@@ -121,13 +82,17 @@
                     {% endfor %}
 
                                         
-                    <!-- Add New Slide Button  -->
+                    <!-- Add New Slide Button (Open a Modal)  -->
                         
-                    <div id="newSlide" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer"style="text-align:center; width:110px; height:90px; border: dashed 5px #3f51b5;">
+                    <div id="newSlide" data-toggle="modal" data-target="#chooseSlideTypeModal" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer" style="text-align:center; width:110px; height:90px; border: dashed 5px #3f51b5;">
                     
-                        <span style="font-size:3em; font-weight:700; color:green;">+</span>
+                        <span style="font-size:3em; font-weight:700; color:rgb(46, 138, 46);">+</span>
                     
                     </div>
+              
+                    <!-- ui Modal Box to Choose Which Slide Type to Insert -->
+
+                    {% include '/slideshow/partials/_chooseSlideTypeAdd.html.twig' %}
 
                 </div>
 
@@ -151,15 +116,32 @@
        
     <script>
 
-        $(document).ready(function(){ 
+        $(document).ready(function(){
+
+            // When Click on New Item Button, we display a Slide Type Select Modal Box
+
+            $('#newSlide').on('click', function (){
+
+    
+               $('#chooseSlideTypeModal').modal('show');
+
+            });
+
 
             $('#gridDemo').sortable({
+
                 animation: 150,
+
                 ghostClass: 'blue-background-class',
+
                 filter: ".disabled",
+
                 onMove: function (evt) {
                     return evt.related.className.indexOf('disabled') === -1;
                 },
+
+                // when drag and drop, ajax call, slide reorder
+
                 onEnd: function (evt) {
 
                     // an array storing slides id position
