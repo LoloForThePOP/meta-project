@@ -19,9 +19,9 @@
 
             <div class="modal-header">
 
-                <h5 class="modal-title justify-content-center text-info font-weight-bold h3" id="gridModalLabel">Choisir le Type de Diapo</h5>
+                <h4 class="modal-title font-weight-bold" id="gridModalLabel">Type de Diapo ?</h4>
 
-                <button type="button" class="btn close rounded btn-danger" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
 
             </div>
 
@@ -30,85 +30,50 @@
 
                 <div class="container-fluid cursor-pointer">
 
-                    <a href="{{ path('slideshow_images_add', {'slug':slug}) }}">
-                        
-                        <div class="choice row border-top border-bottom border-primary">
+                    <div class="list-group">
 
-                        <div class="col-md-4 d-flex align-items-center justify-content-center">
+                        <a href="{{ path('slideshow_images_add', {'slug':slug}) }}" class="list-group-item-action flex-column align-items-start p-md-3">
 
-                            <span class="h1 font-weight-bold">🖽</span>
-
-                        </div>
-
-                        <div class="col h5 font-weight-bold d-flex align-items-center">
-                            Images
-                    
-                        </div>
-                        
-                        </div>
-                
-                    </a>
-
-                    <a href="{{ path('slideshow_text_add', {'slug':slug}) }}">
-
-                        <div class="choice row border-bottom border-primary py-md-2">
-
-                            <div class="col-md-4 d-flex align-items-center justify-content-center">
-
-                                <div class="border border-2 border-primary rounded p-md-1">
-                                    Du <strong>Texte </strong> <br> dans <strong class="text-warning">la Diapo</strong>
-                                    
+                            <div class="row">
+                                <div class="col d-flex align-items-center justify-content-center">
+                                    <img class="border border-2 border-primary rounded p-md-2" src="/images/app_thumbnails/slide_type/text.jpg" alt="add rich text slide"  height="70">
                                 </div>
-
+                                <div class="col h3 font-weight-bold d-flex align-items-center justify-content-left text-primary">Texte</div>
                             </div>
+                          
+                        </a>
 
-                            <div class="col h5 font-weight-bold d-flex align-items-center">
-                            
-                            Diapo Texte
-                        
-                            </div>
-                            
-                        </div>
-                    </a>
+                        <a href="{{ path('slideshow_text_add', {'slug':slug}) }}" class="list-group-item-action flex-column align-items-start p-md-3">
 
-                    <a href="{{ path('slideshow_video_add', {'slug':slug}) }}">
-
-                        <div class="choice row border-bottom border-primary py-md-4">
-
-                            <div class="col-md-4 d-flex align-items-center justify-content-center">
-
-                                <div class="bg-danger rounded">
-
-                                    <span class="arrowCar text-white font-weight-bold h3 p-md-3 py-md-5">►</span>
+                            <div class="row">
+                                <div class="col d-flex align-items-center justify-content-center">
+                                    <img class="border border-2 border-primary rounded p-md-2" src="/images/app_thumbnails/slide_type/image.jpg" alt="add image slide"  height="80">
                                 </div>
-
+                                <div class="col h3 font-weight-bold d-flex align-items-center justify-content-left text-primary">Images, Schémas</div>
                             </div>
 
-                            <div class="col h5 font-weight-bold d-flex align-items-center">
-                                Vidéo Youtube
-                        
+                        </a>
+
+                        <a href="{{ path('slideshow_video_add', {'slug':slug}) }}" class="list-group-item-action flex-column align-items-start p-md-3">
+                            <div class="row">
+                                <div class="col d-flex align-items-center justify-content-center">
+                                    <img class="border border-2 border-primary rounded p-md-2" src="/images/app_thumbnails/slide_type/video.jpg" alt="add youtube video slide"  height="80">
+                                </div>
+                                <div class="col h3 font-weight-bold d-flex align-items-center justify-content-left text-primary">Vidéo Youtube</div>
                             </div>
-                            
-                        </div>
-
-                    </a>
-
-                    
-
-
-
-
+                        </a>
+                    </div>
 
                 </div>
 
             </div>
-
+<!-- 
             <div class="modal-footer">
 
-            <button type="button" class="btn btn-info font-weight-bold" data-dismiss="modal">Retour</button>
-            <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                <button type="button" class="btn btn-info font-weight-bold" data-dismiss="modal">Retour</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
             
-            </div>
+            </div> -->
             
         </div>
 

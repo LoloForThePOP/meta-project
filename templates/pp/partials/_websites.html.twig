@@ -6,7 +6,7 @@
         
         {% for website in presentation.websites %}
 
-            <a href="{{website.url}}" class="list-group-item border-0 flex-column align-items-start text-decoration-none text-body p-1">
+            <a href="{{website.url}}" class="list-group-item list-group-item-action border-0 flex-column align-items-start text-decoration-none text-body p-1">
                 <div class="text-body p-1 w-100">
                     {% if website.description is not null %}
                         <h5 class="mb-1 font-weight-bold">{{website.description}}</h5>

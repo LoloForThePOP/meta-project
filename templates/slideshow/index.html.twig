@@ -34,11 +34,11 @@
 
         <!-- Slide Thumbnails Grid -->
 
-        {% if presentation.slides | length > 0 %}
-
             <div class="container">
 
                 <div id="gridDemo" class="row col-md-9 pl-0">
+
+                    {% if presentation.slides | length > 0 %}
 
                     {% for slide in presentation.slides %}
 
@@ -81,6 +81,7 @@
 
                     {% endfor %}
 
+                    {% endif %}
                                         
                     <!-- Add New Slide Button (Open a Modal)  -->
                         
@@ -88,8 +89,8 @@
                     
                         <span style="font-size:3em; font-weight:700; color:rgb(46, 138, 46);">+</span>
                     
-                    </div>
-              
+                    </div>    
+
                     <!-- ui Modal Box to Choose Which Slide Type to Insert -->
 
                     {% include '/slideshow/partials/_chooseSlideTypeAdd.html.twig' %}
@@ -98,7 +99,6 @@
 
             </div>
 
-        {% endif %}
 
     </div>
 

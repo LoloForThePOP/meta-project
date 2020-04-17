@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PPBasic;
 use App\Entity\Category;
+use App\Form\KeywordsOnlyType;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -18,14 +19,33 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoriesController extends AbstractController
 {
     /**
+     * Allow to Edit Project Categories with ajax, and Edit Keywords with a Form
+     * 
      * @Route("/", name="index_categories")
      */
-    public function index(PPBasic $presentation, CategoryRepository $categoryRepository)
+    public function index(PPBasic $presentation, Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
     {
         $categories = $categoryRepository->findAll();
 
+        $form = $this->createForm(KeywordsOnlyType::class, $presentation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+
+            $manager->persist($presentation);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Les Mots Clés du Projet ont étés mis à jour"
+            );
+
+        }
+
         return $this->render('categories/index.html.twig', [
             'categories' => $categories,
+            'form' => $form->createView(),
             'presentation' => $presentation,
         ]);
         
@@ -65,4 +85,5 @@ class CategoriesController extends AbstractController
         }
 
     }
+
 }

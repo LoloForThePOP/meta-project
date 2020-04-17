@@ -51,7 +51,7 @@ class AppFixtures extends Fixture
         // Project Categories Creation
 
         $categories = [
-            'material' => "Construction, Matériel",
+            'material' => "Construction, Matériel, Objets, Rénovations",
             'education' => "Informer, Eduquer, Apprendre",
             'science' => "Science, Recherche",
             'food' => "Agriculture, Nourriture",
@@ -59,11 +59,12 @@ class AppFixtures extends Fixture
             'environment' => "Environnement (Protection)",
             'arts' => "Arts, Culture",
             'software' => "Codage, Internet",
-            'humanitary' => "Vivre Ensemble, Humanitaire",
+            'humane' => "Vivre Ensemble, Humanitaire",
             'health' => "Santé",
             'crisis' => "Crise",
             'entertain' => "Divertissement",
             'history' => "Histoire, Patrimoine",
+            'other' => "Autres",
         ];
 
         $categoriesObjects = [];
@@ -156,7 +157,7 @@ class AppFixtures extends Fixture
             if ($keywordsNumber == 0) {
                 $keywords='';
             } else {
-                $keywords='#'.join(' #',$faker->words($keywordsNumber));
+                $keywords=join(', ',$faker->words($keywordsNumber));
             }        
 
             // Logo Creation

@@ -13,7 +13,15 @@
 
             <!-- Des Mots-Clés du Projet -->
 
-                <div class="keywords font-weight-bold my-1 h6 text-left" style="min-height:0.5em;" >{{presentation.keywords | slice(0, 35) }}</div>
+                <div class="keywords font-weight-bold my-1 h6 text-left" style="min-height:0.5em;" >
+                        
+                    {% if presentation.keywords | length > 0 %}
+                        
+                        #{{presentation.keywords | replace({"," : " #"}) | slice(0, 32) }}
+
+                    {% endif %}
+
+                </div>
 
             <!-- Titre du Projet -->
 

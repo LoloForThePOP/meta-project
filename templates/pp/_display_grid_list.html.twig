@@ -9,7 +9,15 @@
 
             <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="height:2.4em; font-size:1.25em;">{{presentation.title |slice(0, 49) }}</h5>
                 
-            <div class="keywords font-weight-bold my-1 h6 text-left" style="height:1.25em;" >{{presentation.keywords | slice(0, 32) }}</div>
+            <div class="keywords font-weight-bold my-1 h6 text-left" style="height:1.25em;" >
+                
+                {% if presentation.keywords | length > 0 %}
+                    
+                    #{{presentation.keywords | replace({"," : " #"}) | slice(0, 32) }}
+
+                {% endif %}
+
+            </div>
 
             <img class="rounded mb-2" src="{{presentation.thumbnail}}" alt="Image de Présentation" srcset="" style="width:253px; height:120px">
 

@@ -71,7 +71,7 @@ class PPController extends AbstractController
      * 
      * @Route("/projects/{slug}/edit/", name="project_edit")
      * 
-     * @Security("is_granted('ROLE_ADMIN')"), message="Cette Annonce ne vous appartient pas, vous ne pouvez pas la modifier")
+     * Security("is_granted('ROLE_ADMIN')"), message="Cette Annonce ne vous appartient pas, vous ne pouvez pas la modifier")
      *
      * @return void
      */

@@ -1,5 +1,13 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Catégories du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block body %}
 
 <style>
@@ -10,23 +18,24 @@
 
         font-size:1.1em;
 
-        float:left;
-
         margin-right:23px;
         margin-bottom:-5px;
-
-        cursor:pointer;
 
         line-height:1.4em !important;
         
         border-color:black !important;
         
     }
+
+    .catButton:hover{
+        background-color:gainsboro;
+    }
     
     .leftDiv {
     
         width:50px !important;
         text-align:center;
+        padding-left:7px;
         
     }
     
@@ -43,38 +52,74 @@
 
 </style>
 
-<div class="container clearfix">
+<div class="container">
            
     <!-- ui Page Title -->	
-
-    <h3 class="font-weight-bold col-sm-5 px-0 my-3">Catégories du Projet (Appuyer sur les Boutons Désirés)</h3>
-
-    <!-- Info Box -->	
     
-    <div class="alert alert-dismissible alert-light border border-success border-4 h5 font-weight-bold mb-1 lh-2 col-sm-5">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        <strong>Vous pouvez <u>Combiner les Catégories</u>
-            </br>Exemple: Environnement ET Construction.</br> Maximum Recommandé : 3. </strong>
+    <h5 class="h4 font-weight-bold my-3 mt-4">Catégories du Projet</h5>
+    
+    <!-- collapsible advice -->	
+
+    <button class="btn btn-primary d-block font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+        <span class="h5" style="letter-spacing: 2px;">>  Conseils en 5 sec  <</span>
+        
+    </button>
+    
+    <div class="collapse mt-3" id="collapseExample">
+                
+        <ul class="h5">
+
+            <li>On peut <strong>Combiner les Catégories</strong></li>
+
+            <li>Exemple: Environnement ET Construction</li>
+
+            <li>Maximum Recommandé : 3</li>
+
+            <li><strong>Compléter avec des Mots-Clés est Efficace</strong></li>
+
+        </ul>
+
     </div>
+
+
 
     <!-- Categories Grid -->
 
-    <div id="catGrid" class="col-sm-10">
+    <div id="catGrid" class="col-sm-10 clearfix ">
+
         {% for category in categories %}
-                <div id="{{category.id}}" class="{% if category in presentation.categories %}selectedCategory {% endif %} catButton border border-2 rounded row mt-3 d-table">
 
-                    <div class="leftDiv d-table-cell align-middle border border-danger border-2">
-                        <img id="" class="" src="{{category.icon}}" alt="{{category.name}}" width="30" height="30">
-                    </div>
+        <div id="{{category.id}}" class="{% if category in presentation.categories %}selectedCategory {% endif %} catButton cursor-pointer float-left border rounded row mt-3 d-table">
 
-                    <div class="rightDiv d-table-cell align-middle border border-success border-2 font-weight-bold">
-                            {{category.descriptionFr}}
-                    </div>
+            <div class="leftDiv d-table-cell align-middle">
+                <img id="" class="" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="30" height="30">
+            </div>
+        
+            <div class="rightDiv d-table-cell align-middle font-weight-bold">
+                    {{category.descriptionFr}}
+            </div>
+        
+        </div>
 
-                </div>
         {% endfor %}
         
     </div>
+
+    <!-- Edit Keywords Form -->
+
+      
+        {{form_start(form)}}
+
+        <div class="col-md-7 mt-4 mb-3 alert alert-light border border-primary">
+
+            {{form_row(form.keywords)}}
+
+            <button type="submit" class="btn btn-success font-weight-bold mb-1">Enregistrer</button>
+
+        </div>
+
+        {{form_end(form)}}
 
 </div>
 

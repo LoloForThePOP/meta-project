@@ -1,24 +1,35 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}Modifier une Présentation de Projet{% endblock %}
 
+
 {% block body %}
 
 <div class="container">
-
-    <h2 class="h3 mt-3">Modifier la Présentation du Projet {{presentation.title}} </h2>
-
+   
     {{form_start(form)}}
-    
-    {{form_widget(form)}}
 
-    <button type="submit" class="btn btn-primary mb-4">Enregistrer les Modifications</button>
+    <div class="mt-4 mb-3 col-md-6 alert alert-light border border-primary">
+
+        {{form_row(form.goal)}}
+
+        {{form_row(form.title)}}
+
+        {{form_row(form.keywords)}}
+
+        <button type="submit" class="btn btn-success font-weight-bold mb-1">Enregistrer</button>
+
+    </div>
 
     {{form_end(form)}}
 
-    <a onClick="return confirm (`Êtes vous sûr de vouloir supprimer la Présentation {{presentation.title}}?`)" href= "{{path("project_delete",{'slug':presentation.slug})}}" class="btn btn-danger">Supprimer cette Présentation</a>
+    <!-- <a onClick="return confirm (`Êtes vous sûr de vouloir supprimer la Présentation {{presentation.title}}?`)" href= "{{path("project_delete",{'slug':presentation.slug})}}" class="btn btn-danger">Supprimer cette Présentation</a> -->
 
 </div>
 

@@ -1,0 +1,86 @@
+
+label{
+    font-size:1.25em !important;
+    font-weight : bold !important;
+}
+    
+input[type=text] {
+    color:black !important;
+    font-size:1.25em;
+    width: 100%;
+    padding: 12px 12px;
+    margin: 4px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+
+  textarea {
+    color:black !important;
+    font-size:1.15em !important;
+    line-height: 1.15em !important;
+    width: 100%;
+    height: 120px !important;
+    padding: 12px 12px !important;
+    resize: none;
+  }
+
+  /* Place Holders */
+
+  ::-webkit-input-placeholder { /* Edge */
+    font-size:1.15em;
+    color:black;
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-size:1.15em;
+    color:black;
+  }
+  
+  ::placeholder {
+    font-size:1.15em !important;
+    color:olivedrab !important;
+  }
+
+  /* BS 4 Form Errors Display */
+
+.form-error-icon{
+    font-size:1.15em;
+    margin-right:2px;
+}
+
+.form-error-message{
+    font-size:1.15em;
+}
+
+
+
+/* BS 4 File Input : show file name */
+
+.custom-file-label { opacity: 0; }
+.custom-file-input { opacity: 1; }
+
+/* File Input Style */
+
+.input-file input[type="file"] {
+    visibility: hidden;
+    width: 1px;
+    height: 1px;
+}
+
+.input-file .btn {
+    background-color: #ddd;
+    border-color: #ccc;
+    color: #333;
+}
+
+.input-file .file-selected {
+    font-size: 10px;
+    text-align: center;
+    width: 100%;
+    display: block;
+    margin-top: 5px;
+}
+
+

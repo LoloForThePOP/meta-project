@@ -2,7 +2,7 @@
 
 <nav id="sidebar" class="">
 
-    <ul class="list-unstyled components bg-light border-bottom border-top border-primary mt-4">
+    <ul class="list-unstyled components bg-light border border-primary mt-4">
 
         <li>
             <a href="{{path('project_show',{'slug': presentation.slug})}}">
@@ -10,13 +10,13 @@
                 Accueil
             </a>
         </li>
-<!-- 
+
         <li>
             <a href="{{path('project_edit',{'slug':presentation.slug})}}">
-                <span class="mr-2">🏠</span>
+                <span class="h5 font-weight-bold ml-1 mr-2">⮞</span>
                 Généralités
             </a>
-        </li> -->
+        </li>
 
         <li>
             <a href="{{path('index_project_messages', {'slug':presentation.slug})}}">
@@ -49,8 +49,8 @@
 
         <li>
             <a href="{{path('index_categories', {'slug':presentation.slug})}}">
-                <span class="h5 p-0 m-0 font-weight-bold text-info">●</span>
-                <span class="h5 p-0 m-0 font-weight-bold mr-2 text-warning">■</span>
+                <span class="h5 p-0 m-0 font-weight-bold text-info">■</span>
+                <span class="h5 p-0 m-0 font-weight-bold mr-2 text-warning">●</span>
                 Catégories
             </a>
         </li>
