@@ -22,13 +22,13 @@
 
        {% include 'partials/header.html.twig' %}
 
-       {% include 'partials/flashmessage.html.twig' %}
-
        <div class="p-0 m-0 wrapper">
 
         {% block sidebar %}{% endblock %}
 
         <div id="content" class="m-0 p-0">
+
+            {% include 'partials/flashmessage.html.twig' %}
 
             {% block body %}{% endblock %}
 

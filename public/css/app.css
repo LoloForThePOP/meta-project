@@ -1,5 +1,9 @@
 
 
+a {
+    text-decoration: none !important
+  }
+  
 /* BS4 Collapse Component Remove Effects */
 
 .collapsing {

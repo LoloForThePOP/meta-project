@@ -5,9 +5,13 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 use Symfony\Component\HttpFoundation\File\File;
+
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+
+use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -25,6 +29,7 @@ class Slide
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
      * 
      * @Vich\UploadableField(mapping="slide_image", fileNameProperty="slideName")
      * 

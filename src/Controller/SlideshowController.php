@@ -192,6 +192,7 @@ class SlideshowController extends AbstractController
         }
         
         return $this->render('slideshow/addText.html.twig', [
+            'presentation' => $pp,
             'slug' => $pp->getSlug(),
             'form' => $form->createView(),
         ]);
@@ -240,7 +241,7 @@ class SlideshowController extends AbstractController
      * Permet d'Ajouter des Images
      * 
      * @Route("/add-images",name="slideshow_images_add")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * Security("is_granted('ROLE_ADMIN')")
      * 
      * @return Response
      */

@@ -2,15 +2,27 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        product_image:
-            uri_prefix: /images/products
-            upload_destination: '%kernel.project_dir%/public/images/products'
+
+        project_logo_image:
+            
+            uri_prefix: /images/project/logos
+            upload_destination: '%kernel.project_dir%/public/images/projects/logos'
             namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
             
             inject_on_load: true
             delete_on_update: true
             delete_on_remove: true
-        
+
+        project_logo_thumbnail:
+            
+            uri_prefix: /images/project/thumbnails
+            upload_destination: '%kernel.project_dir%/public/images/projects/thumbnails'
+            namer: Vich\UploaderBundle\Naming\SmartUniqueNamer
+            
+            inject_on_load: true
+            delete_on_update: true
+            delete_on_remove: true
+ 
         slide_image:
             uri_prefix: /images/slides
             upload_destination: '%kernel.project_dir%/public/images/slides'

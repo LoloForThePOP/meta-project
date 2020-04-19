@@ -1,5 +1,5 @@
 
-label{
+label, legend {
     font-size:1.25em !important;
     font-weight : bold !important;
 }
@@ -51,7 +51,7 @@ input[type=text] {
 }
 
 .form-error-message{
-    font-size:1.15em;
+    font-size:1.15em !important;
 }
 
 
@@ -62,25 +62,3 @@ input[type=text] {
 .custom-file-input { opacity: 1; }
 
 /* File Input Style */
-
-.input-file input[type="file"] {
-    visibility: hidden;
-    width: 1px;
-    height: 1px;
-}
-
-.input-file .btn {
-    background-color: #ddd;
-    border-color: #ccc;
-    color: #333;
-}
-
-.input-file .file-selected {
-    font-size: 10px;
-    text-align: center;
-    width: 100%;
-    display: block;
-    margin-top: 5px;
-}
-
-

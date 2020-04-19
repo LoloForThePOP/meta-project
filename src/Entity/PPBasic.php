@@ -2,18 +2,28 @@
 
 namespace App\Entity;
 
+use DateTimeImmutable;
+
+
+use DateTimeInterface;
+
+
 use Cocur\Slugify\Slugify;
+
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
+
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
-
+use Symfony\Component\HttpFoundation\File\File;
 use Doctrine\Common\Collections\ArrayCollection;
 
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
@@ -33,22 +43,84 @@ class PPBasic
      */
     private $id;
 
+
+
+
+    /**
+     * the name of the image file (example : cat-4234564567.jpg)
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $thumbnailName;
+
+    
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      * 
-     * @Vich\UploadableField(mapping="product_image", fileNameProperty="imageName", size="imageSize")
+     *  @Assert\Image(
+     *     maxSize = "1500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
      * 
+     * @Vich\UploadableField(mapping="project_logo_thumbnail", fileNameProperty="thumbnailName")
      * 
      * @var File|null
      */
-    private $imageFile;
+    public $thumbnailFile;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
      *
-     * @var string|null
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $thumbnailFile
      */
-    private $imageName;
+    public function setThumbnailFile(?File $thumbnailFile = null): void
+    {
+        $this->thumbnailFile = $thumbnailFile;
+
+        //if (null !== $thumbnailFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        //}
+    }
+
+    public function getThumbnailFile(): ?File
+    {
+        return $this->thumbnailFile;
+    }
+
+    
+    public function getThumbnailName(): ?string
+    {
+        return $this->thumbnailName;
+    }
+
+    public function setThumbnailName(?string $thumbnailName): self
+    {
+        $this->thumbnailName = $thumbnailName;
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
@@ -76,21 +148,145 @@ class PPBasic
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $keywords;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $logo;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
+     * the name of the logo image file (example : logo-4234564567.jpg)
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $thumbnail;
+    private $logoName;
+
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     * 
+     *  @Assert\Image(
+     *     maxSize = "1500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     * @Vich\UploadableField(mapping="project_logo_image", fileNameProperty="logoName")
+     * 
+     * @var File|null
+     */
+    public $logoFile;
+
+
+    /**
+     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
+     * of 'UploadedFile' is injected into this setter to trigger the update. If this
+     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
+     * must be able to accept an instance of 'File' as the bundle will inject one here
+     * during Doctrine hydration.
+     *
+     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $logoFile
+     */
+    public function setLogoFile(?File $logoFile = null): void
+    {
+        $this->logoFile = $logoFile;
+
+        //if (null !== $logoFile) {
+            // It is required that at least one field changes if you are using doctrine
+            // otherwise the event listeners won't be called and the file is lost
+            $this->updatedAt = new \DateTimeImmutable();
+        //}
+    }
+
+    public function getLogoFile(): ?File
+    {
+        return $this->logoFile;
+    }
+
+    
+    public function getLogoName(): ?string
+    {
+        return $this->logoName;
+    }
+
+    public function setLogoName(?string $logoName): self
+    {
+        $this->logoName = $logoName;
+
+        return $this;
+    }
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Slide", mappedBy="pp", orphanRemoval=true)
@@ -181,6 +377,32 @@ class PPBasic
         return $this;
     }
 
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+/**
+ * @ORM\PrePersist
+ * @ORM\PreUpdate
+*/
+public function updatedTimestamps(): void
+{
+    $this->setUpdatedAt(new \DateTime('now'));    
+    if ($this->getCreatedAt() === null) {
+        $this->setCreatedAt(new \DateTime('now'));
+    }
+}
+
     public function getSlug(): ?string
     {
         return $this->slug;
@@ -229,29 +451,6 @@ class PPBasic
         return $this;
     }
 
-    public function getLogo(): ?string
-    {
-        return $this->logo;
-    }
-
-    public function setLogo(string $logo): self
-    {
-        $this->logo = $logo;
-
-        return $this;
-    }
-
-    public function getThumbnail(): ?string
-    {
-        return $this->thumbnail;
-    }
-
-    public function setThumbnail(?string $thumbnail): self
-    {
-        $this->thumbnail = $thumbnail;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Slide[]
@@ -284,45 +483,9 @@ class PPBasic
         return $this;
     }
 
-    /**
-     * If manually uploading a file (i.e. not using Symfony Form) ensure an instance
-     * of 'UploadedFile' is injected into this setter to trigger the update. If this
-     * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
-     * must be able to accept an instance of 'File' as the bundle will inject one here
-     * during Doctrine hydration.
-     *
-     * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
-     */
-    public function setImageFile($imageFile = null)
-    {
-        $this->imageFile = $imageFile;
 
-        if (null !== $imageFile) {
-            // It is required that at least one field changes if you are using doctrine
-            // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
-        }
-    }
 
-    public function getImageFile()
-    {
-        return $this->imageFile;
-    }
 
-    public function setImageName(?string $imageName): void
-    {
-        $this->imageName = $imageName;
-    }
-
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-    
-    public function setImageSize(?int $imageSize): void
-    {
-        $this->imageSize = $imageSize;
-    }
 
     /**
      * @return Collection|Need[]

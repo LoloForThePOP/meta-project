@@ -2,9 +2,10 @@
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
 {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block title %}Modifier une Présentation de Projet{% endblock %}
 
@@ -12,26 +13,177 @@
 {% block body %}
 
 <div class="container">
-   
-    {{form_start(form)}}
+  
+  {{form_start(form)}}
 
-    <div class="mt-4 mb-3 col-md-6 alert alert-light border border-primary">
+  <div class="mt-4 mb-3 col-md-6 alert alert-light border border-primary">
+    
+      
+<ul class="nav nav-tabs font-weight-bold mb-3" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active  text-decoration-none" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home"
+      aria-selected="true">Base</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile"
+      aria-selected="false">Logo</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact"
+      aria-selected="false">Vignette</a>
+  </li>
+</ul>
 
-        {{form_row(form.goal)}}
+<div class="tab-content" id="myTabContent">
+    
 
-        {{form_row(form.title)}}
+  <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+ 
+    <!-- we display in first tab form errors from fields that are in windows hidden by the tab navigation -->
 
-        {{form_row(form.keywords)}}
-
-        <button type="submit" class="btn btn-success font-weight-bold mb-1">Enregistrer</button>
-
+    <div class="p-0 m-0 alert h5 font-weight-bold">
+      {{form_errors(form.logoFile)}}
+      {{form_errors(form.thumbnailFile)}}
     </div>
 
+    {{form_row(form.goal)}}
+
+    {{form_row(form.title)}}
+    
+    {{form_row(form.keywords)}}
+
+    <button type="submit" class="btn btn-success font-weight-bold mb-1">Enregistrer</button>
+
+  </div>
+
+  <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+    
+        <!-- Logo du Projet -->
+
+          <span class="textblack"> {{form_label(form.logoFile)}}</span>
+
+          {% if presentation.logoName %}
+
+            <div class="row mx-md-1 border rounded alert bg-white text-body">
+
+                <div class="col-md-auto">
+                    <div class="d-inline-block position-relative">
+
+                        <img src="/images/projects/logos/{{presentation.logoName}}" style="max-width:150px; max-height:150px" alt="">
+       
+                    </div>
+
+                </div>
+
+                <div class="col pl-md-3">
+
+                  <div class="row d-inline-block">
+                    
+                      <div class="h5 font-weight-bold my-2">
+                        Modifier?
+                      </div>
+
+                      {{form_widget(form.logoFile)}}
+
+                      <button type="submit" class="btn btn-success font-weight-bold">Confirmer</button>
+
+                  </div> 
+
+                </div>
+
+           </div>
+
+        {% else %}
+
+        <div class="">
+          
+          {{form_widget(form.logoFile)}}
+
+          <button type="submit" class="btn btn-success font-weight-bold">Valider</button>
+
+        </div>
+
+        {% endif %}
+
+   
+  </div>
+
+  <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+   
+        <!-- Vignette du Projet -->
+
+        <span class="textblack"> {{form_label(form.thumbnailFile)}}</span>
+
+        {% if presentation.thumbnailName %}
+
+          <div class="row mx-md-1 border rounded alert bg-white text-body">
+
+              <div class="col-md-auto">
+                  <div class="d-inline-block position-relative">
+
+                      <img src="/images/projects/thumbnails/{{presentation.thumbnailName}}" style="max-width:150px; max-height:150px" alt="">
+     
+                  </div>
+
+              </div>
+
+              <div class="col pl-md-3">
+
+                <div class="row d-inline-block">
+                  
+                    <div class="h5 font-weight-bold my-2">
+                      Modifier?
+                    </div>
+
+                    {{form_widget(form.thumbnailFile)}}
+
+                    <button type="submit" class="btn btn-success font-weight-bold">Confirmer</button>
+
+                </div> 
+
+              </div>
+
+         </div>
+
+      {% else %}
+
+      <div class="">
+        
+        {{form_widget(form.thumbnailFile)}}
+
+        <button type="submit" class="btn btn-success font-weight-bold">Valider</button>
+
+      </div>
+
+      {% endif %}
+
+ 
+  </div>
+
+</div>
+
+
+
+  </div>
+
+    
     {{form_end(form)}}
 
     <!-- <a onClick="return confirm (`Êtes vous sûr de vouloir supprimer la Présentation {{presentation.title}}?`)" href= "{{path("project_delete",{'slug':presentation.slug})}}" class="btn btn-danger">Supprimer cette Présentation</a> -->
 
 </div>
 
+
+{% endblock %}
+
+
+{% block javascripts %}
+<script>
+    $(document).ready(function(){
+
+        $(".form-check-label").html("Ou Supprimer? (cliquer)");
+
+    });
+    </script>
 
 {% endblock %}

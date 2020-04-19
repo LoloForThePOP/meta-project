@@ -182,8 +182,8 @@ class AppFixtures extends Fixture
             $pp ->setTitle($title)
                 ->setGoal($faker->paragraph())
                 ->setKeywords($keywords)
-                ->setThumbnail($thumbnailURL)
-                ->setLogo($logoURL)
+                ->setThumbnailName($thumbnailURL)
+                ->setLogoName($logoURL)
                 ->setCreatedAt($faker->dateTime())
                 ->setCreator($creator);
 

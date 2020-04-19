@@ -2,11 +2,7 @@
 
 {% block title %}Diaporama de Présentation{% endblock %}
 
-{% block sidebar %}
-
-    {% include 'partials/sidebar.html.twig' %}
-    
-{% endblock %}
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %}{% endblock %}
 
 {% block body %}
 
@@ -57,7 +53,7 @@
 
                             {% elseif slide.mediaType == 'text' %}
 
-                            <a href="{{path('slideshow_text_edit', {'slug' : slug, 'id' : slide.id })}}" class="text-body text-decoration-none">
+                            <a href="{{path('slideshow_text_edit', {'slug':slug,'id' : slide.id })}}" class="text-body text-decoration-none">
 
                                 <div class="text-break p-1 cursor-pointer" style="width:100%; line-height:1.15em;">
     
