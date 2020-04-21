@@ -1,96 +1,52 @@
-<!-- Sidebar  -->
+
+<!-- Sidebar Items Names paired with their Access Route Names  -->
+
+{% set sidebarItems = [ 
+
+    { 'name': 'Accueil', 'route': 'project_dashboard_show'}, 
+    { 'name': 'Résultat', 'route': 'project_show'}, 
+    { 'name': 'Généralités', 'route': 'project_edit'}, 
+    { 'name': 'Messages', 'route': 'index_project_messages'}, 
+    { 'name': 'Diapo Pitch', 'route': 'slideshow_index'}, 
+    { 'name': 'Contact Infos', 'route': 'contact_index'}, 
+    { 'name': 'Besoins', 'route': 'need_index'}, 
+    { 'name': 'Catégories', 'route': 'index_categories'}, 
+    { 'name': 'Lieux', 'route': 'places_city_manage'}, 
+    { 'name': 'Sites Web', 'route': 'websites_index'}, 
+
+] %}
+
+
+<!-- Sidebar Template  -->
 
 <nav id="sidebar" class="">
 
     <ul class="list-unstyled components bg-light border border-primary mt-4">
 
-        <li>
-            <a href="{{path('project_dashboard_show',{'slug': presentation.slug})}}">
-                <span class="mr-2">🏠</span>
-                Accueil
-            </a>
-        </li>
+        {% for item in sidebarItems %}
 
-        <li>
-            <a href="{{path('project_show',{'slug': presentation.slug})}}">
-                <span class="mr-2">📺</span>
-                Résultat
-            </a>
-        </li>
+            
 
-        <li>
-            <a href="{{path('project_edit',{'slug':presentation.slug})}}">
-                <span class="h5 font-weight-bold ml-1 mr-2">⮞</span>
-                Généralités
-            </a>
-        </li>
+            <li class="font-weight-bold">
+                <a href="{{ path(item.route, {'slug':presentation.slug}) }}">   
+                    {{item.name}}
+                </a>
+            </li>
 
-        <li>
-            <a href="{{path('index_project_messages', {'slug':presentation.slug})}}">
-                <span class="mr-2 rounded-pill border border-info border-2 px-2"><span class="font-weight-bold bg-white">🖂</span></span>
-                
-                Messages
-            </a>
-        </li>
+        {% endfor %}
 
-        <li>
-            <a href="{{path('slideshow_index', {'slug':presentation.slug})}}">
-                <span class="mr-2">⭐</span>
-                Diapo Pitch
-            </a>
-        </li>
-
-        <li>
-            <a href="{{path('contact_index', {'slug':presentation.slug})}}">
-                <span class="mr-2 font-weight-bold text-indigo h4">@</span>
-                Contact Infos
-            </a>
-        </li>
-
-        <li>
-            <a href="{{path('need_index', {'slug':presentation.slug})}}">
-                <span class="h5 mr-2">☛</span>
-                Besoins
-            </a>
-        </li>
-
-        <li>
-            <a href="{{path('index_categories', {'slug':presentation.slug})}}">
-                <span class="h5 p-0 m-0 font-weight-bold text-info">■</span>
-                <span class="h5 p-0 m-0 font-weight-bold mr-2 text-warning">●</span>
-                Catégories
-            </a>
-        </li>
-
-        <li>
-            <a href="{{path('places_city_manage', {'slug':presentation.slug})}}">
-                <span class="mr-2">🌍</span>
-                Lieux
-            </a>
-        </li>
-
-        <li>
-            <a href="{{path('websites_index', {'slug':presentation.slug})}}">
-
-                <span class="font-weight-bold mr-2">www</span>
-                Sites Webs
-            </a>
-        </li>
 
     </ul>
 
-    <ul class="list-unstyled CTAs">
-  <!--       <li>
-            Hello
-        </li>
-        <li>
-            Yep!
-        </li> -->
-    </ul>
+    <!-- adjoining ul exemple -->
+
+    <!-- <ul class="list-unstyled CTAs">
+
+    </ul> -->
 
 </nav>
 
-<!-- Exemble d'Item de Menu Collapsable -->
+<!-- Collapsible Menu Item Example -->
 
 <!-- 
         <li class="active h5">
@@ -117,3 +73,8 @@
             </ul>
 
         </li> -->
+
+
+
+
+       <!-- icons examples  🏠  📺  ⮞   ⭐   🖂  🌍    @  ☛  ■ ● www  -->
