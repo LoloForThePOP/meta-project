@@ -3,16 +3,16 @@
 
 {% set sidebarItems = [ 
 
-    { 'name': 'Accueil', 'route': 'project_dashboard_show'}, 
-    { 'name': 'Résultat', 'route': 'project_show'}, 
-    { 'name': 'Généralités', 'route': 'project_edit'}, 
-    { 'name': 'Messages', 'route': 'index_project_messages'}, 
-    { 'name': 'Diapo Pitch', 'route': 'slideshow_index'}, 
-    { 'name': 'Contact Infos', 'route': 'contact_index'}, 
-    { 'name': 'Besoins', 'route': 'need_index'}, 
-    { 'name': 'Catégories', 'route': 'index_categories'}, 
-    { 'name': 'Lieux', 'route': 'places_city_manage'}, 
-    { 'name': 'Sites Web', 'route': 'websites_index'}, 
+    { 'name': 'Accueil', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
+    { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+    { 'name': 'Généralités', 'route': 'project_edit', 'iconName': 'generalities.svg'}, 
+    { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg'}, 
+    { 'name': 'Diapo Pitch', 'route': 'slideshow_index', 'iconName': 'pitch.svg'}, 
+    { 'name': 'Contact Infos', 'route': 'contact_index', 'iconName': 'contacts.svg'}, 
+    { 'name': 'Besoins', 'route': 'need_index', 'iconName': 'needs.svg'}, 
+    { 'name': 'Catégories', 'route': 'index_categories', 'iconName': 'categories.svg'}, 
+    { 'name': 'Lieux', 'route': 'places_city_manage', 'iconName': 'geodomains.svg'}, 
+    { 'name': 'Sites Web', 'route': 'websites_index', 'iconName': 'websites.svg'}, 
 
 ] %}
 
@@ -25,12 +25,14 @@
 
         {% for item in sidebarItems %}
 
-            
+            <li class="pl-md-4 d-flex align-items-center ">
 
-            <li class="font-weight-bold">
+                <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left" height:"27px" width="27px">
+
                 <a href="{{ path(item.route, {'slug':presentation.slug}) }}">   
                     {{item.name}}
                 </a>
+
             </li>
 
         {% endfor %}
