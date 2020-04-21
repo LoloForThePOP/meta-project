@@ -1,6 +1,17 @@
 {% if presentation.needs | length > 0 %}
 
-<h3 class="font-weight-bolder">Participer</h3>
+
+    <!-- Title with Plural String Management -->
+    {% if presentation.needs | length == 1 %}
+    
+        <h3 class="font-weight-bolder">Participer (1 besoin) </h3>
+
+    {% else %}
+
+        <h3 class="font-weight-bolder">Participer ({{presentation.needs | length}} besoins) </h3>
+
+    {% endif %}
+
 
 <div class="container-fluid table-responsive mb-2">
     
@@ -8,26 +19,120 @@
         
         <tbody>
 
-            {% for need in presentation.needs %}
-
+            {% for need in presentation.needs | slice (0,5) %}
+                
                 {% set showPath = path('need_show', {'id': need.id, 'slug': presentation.slug}) %}
-        
+
                 <tr class="cursor-pointer h5 font-weight-bold">
 
-                    <td>                                            
-                        <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar rightArrow">► </span>{{ need.title }}
-                        </a>
+                    <td>
+
+                        {# we display first five needs by default #}
+            
+                            <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar blueArrow">► </span>{{ need.title }}
+                            </a>
+
                     </td>
 
                 </tr>
 
-                
             {% endfor %}
+            
+            {# if there are more than 5 needs, we propose a modal box for the user to see them all #}  
+
+            {% if presentation.needs |length > 5 %}
+
+                <tr class="cursor-pointer h5 font-weight-bold bg-light">
+
+                    <td>
+            
+                        <a id="needsModalLink" class="text-body text-decoration-none" data-toggle="modal" data-target="#displayNeedsModal"><span class="arrowCar blueArrow">►►► </span>Afficher tous les Besoins<span class="arrowCar blueArrow"> ◄◄◄</span>
+                        </a>
+
+                    </td>
+
+                </tr>
+
+                <!-- Modal Box Display All Needs -->
+
+                    <div id="displayNeedsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+                        <div class="modal-dialog" role="document">
+
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLabel">Besoins du Projet</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div class="list-group">
+
+                                    {% for need in presentation.needs %}
+                
+                                    {% set showPath = path('need_show', {'id': need.id, 'slug': presentation.slug}) %}
+
+                                    <a href="{{ showPath }}" class="list-group-item list-group-item-action flex-column align-items-start p-2">
+                                      <div class="d-flex w-100 justify-content-between">
+                                          
+                                        <h5 class="text-body h6 font-weight-bold">{{ need.title | slice (0,54)}}</h5>
+
+                                        {% if need.priority %}
+
+                                        <h6 class="m-0"> <span class="badge badge-warning">Priorité!</span></h6>
+
+                                        {% endif %}
+                                      </div>
+                                      
+                                    </a>
+                                    {% endfor %}
+                               
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                            <button type="button" class="btn btn-info font-weight-bold"  data-dismiss="modal">Retour</button>
+                            </div>
+                        </div>
+
+                        </div>
+
+                    </div>
+
+        
+            {% endif %}
+
 
         </tbody>
          
     </table>
 
 </div>
+
+{% block javascripts %}
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // When Click on "Display all Needs", a modal box pop up.
+
+            $('#needsModalLink').on('click', function (){
+
+    
+               $('#displayNeedsModal').modal('show');
+
+            });
+
+        });
+
+    </script>
+
+{% endblock %}
+
+
 
 {% endif %}

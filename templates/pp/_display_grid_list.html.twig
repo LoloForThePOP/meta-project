@@ -9,7 +9,7 @@
 
             <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="height:2.4em; font-size:1.25em;">{{presentation.title |slice(0, 49) }}</h5>
                 
-            <div class="keywords font-weight-bold my-1 h6 text-left" style="height:1.25em;" >
+            <div class="keywords font-weight-bold my-1 mb-2 h6 text-left" style="height:1.25em;" >
                 
                 {% if presentation.keywords | length > 0 %}
                     
@@ -19,17 +19,22 @@
 
             </div>
 
-            <img class="rounded mb-2" src="{{presentation.thumbnailName}}" alt="Image de Présentation" srcset="" style="width:253px; height:120px">
+            <div class=" d-flex align-items-center m-0 p-0" style="width:253px; height:120px">
+                <img class="rounded mb-2" src="/images/projects/thumbnails/{{presentation.thumbnailName}}" alt="Image de Présentation" srcset="" style="max-width:253px; max-height:120px">
+
+            </div>
+
+            
 
             <p class="card-text">{{presentation.goal | slice(0, 62) }}</p>
 
             <strong>Fournisseur du Projet</strong> <br>
 
-            {% if app.user and app.user == presentation.creator %}
+           {#  {% if app.user and app.user == presentation.creator %}
 
                 <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-primary">Modifier</a>
 
-            {% endif %}
+            {% endif %} #}
 
 
         </div>

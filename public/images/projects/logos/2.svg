@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<svg xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:svg="http://www.w3.org/2000/svg" id="svg2" viewBox="0 0 118 101" version="1.0">
+  <g id="layer1" transform="translate(-11.656 -7.0945)">
+    <path id="path2441" fill="#ff5525" d="m58.025 100.63c147.28-131.42-123.62-102.04-3.423-8.293 6.917 5.666-11.313 10.853-15.361 4.51-97.995-128.58 201.3-113.03 20.282 8.543-5.712 3.83-8.237 0.75-1.498-4.76z"/>
+    <path id="path2471" fill="#3d8aff" d="m73.231 27.263c-174.76 138.55 172.7 42.977-27.12 49.469 261.21-11.66-194.22 108.29 29.627-56.198 2.194-2.238-0.351 4.694-2.507 6.729z"/>
+    <path id="path3273" d="m72.938 7.125c-28.574 0.6407-58.861 16.754-53.25 49.969h5.25c-21.689-59.895 139.31-68.644 52.062 25.094v10.687c73.41-56.525 36.41-86.658-4.062-85.75z" fill="#ff5525"/>
+  </g>
+  <metadata>
+    <rdf:RDF>
+      <cc:Work>
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+        <cc:license rdf:resource="http://creativecommons.org/licenses/publicdomain/"/>
+        <dc:publisher>
+          <cc:Agent rdf:about="http://openclipart.org/">
+            <dc:title>Openclipart</dc:title>
+          </cc:Agent>
+        </dc:publisher>
+        <dc:title>Swirly logo thing</dc:title>
+        <dc:date>2008-12-28T02:58:35</dc:date>
+        <dc:description>clip art, clipart, image, media, public domain, svg, swirl logo, swirl logo, </dc:description>
+        <dc:source>http://openclipart.org/detail/20856/swirly-logo-thing-by-qubodup</dc:source>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>qubodup</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:subject>
+          <rdf:Bag>
+            <rdf:li>clip art</rdf:li>
+            <rdf:li>clipart</rdf:li>
+            <rdf:li>image</rdf:li>
+            <rdf:li>media</rdf:li>
+            <rdf:li>public domain</rdf:li>
+            <rdf:li>svg</rdf:li>
+            <rdf:li>swirl logo</rdf:li>
+          </rdf:Bag>
+        </dc:subject>
+      </cc:Work>
+      <cc:License rdf:about="http://creativecommons.org/licenses/publicdomain/">
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Reproduction"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#Distribution"/>
+        <cc:permits rdf:resource="http://creativecommons.org/ns#DerivativeWorks"/>
+      </cc:License>
+    </rdf:RDF>
+  </metadata>
+</svg>

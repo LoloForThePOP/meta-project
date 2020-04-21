@@ -82,7 +82,7 @@ class AccountController extends AbstractController
     /**
      * Permet d'Editer le Profil d'un Utilisateur
      * @Route("account/profile",name="account_profile")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * @return Response
      */
     public function profile(Request $request, EntityManagerInterface $manager){
@@ -94,13 +94,18 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if($form->isSubmitted() && $form->isValid()){
+
             $manager->persist($user);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                'Les Données ont étées enregistrées avec succès!'
+                'Les Modifications ont étées enregistrées avec succès!'
             );
+
+            return $this->redirectToRoute('user_show',[
+                'id' => $user->getId(),
+            ]);
         }
 
         return $this->render('/account/profile.html.twig',[

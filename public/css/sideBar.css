@@ -115,7 +115,7 @@ a[data-toggle="collapse"] {
     position: relative;
 }
 
-.dropdown-toggle::after {
+#sidebar .dropdown-toggle::after {
     display: block;
     position: absolute;
     top: 50%;
@@ -166,7 +166,7 @@ ul.CTAs a {
         text-align: center;
         margin-left: -80px !important;
     }
-    .dropdown-toggle::after {
+    #sidebar .dropdown-toggle::after {
         top: auto;
         bottom: 10px;
         right: 50%;

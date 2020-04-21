@@ -22,9 +22,11 @@ class NeedType extends ApplicationType
                 $this->getConfiguration("Type du Besoin?", "",[
                     'placeholder' => 'Choisir une Option',
                     'choices'  => [
-                        'Une Compétence (Ex : un Développeur, un Dessinateur)' => 'skill',
-                        'Un Service Ponctuel, Une Tâche (Ex : Créer deux Dessins, Préparer un Repas)' => 'task',
-                        'Un Local, un Outil, du Matériel (Ex : une Perçeuse)' => 'material',
+                        'Une Compétence (Ex : un Dessinateur, un Développeur)' => 'skill',
+                        'Un Service Ponctuel (Ex : Créer deux Dessins, Préparer un Repas)' => 'task',
+                        'Un Objet, un Outil, du Matériel (Ex : une Perçeuse)' => 'material',
+                        'Un Local, un Terrain, une Surface' => 'area',
+                        "Un Conseil" => 'advice',
                         "Une Somme d'Argent" => 'money',
                         'Autre' => 'other',
                         ]
@@ -33,12 +35,12 @@ class NeedType extends ApplicationType
             ->add(
                 'title', 
                 TextType::class, 
-                $this->getConfiguration("Titre du Besoin :", "")
+                $this->getConfiguration("Titre du Besoin :", "Exemple : Un Local à Paris")
                 )
             ->add(
                 'description', 
                 TextareaType::class,
-                $this->getConfiguration("Description du Besoin :", "", ['required' => false])
+                $this->getConfiguration("Description :", "Exemple : Nous recherchons un local pour pouvoir développer notre projet. L'idéal serait 30 m² au minimum, si possible à une distance raisonnable du centre ville.", ['required' => false])
                 )
             ->add(
                 'paidService', 

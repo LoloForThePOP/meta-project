@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1"
+	 id="svg2" inkscape:version="0.48.4 r9939" sodipodi:docname="fabricatorz-wang-tree-bounds-stencil.pdf" xmlns:ns1="http://sozi.baierouge.fr" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="264.077 -39.5001 2031.9231 1678.9802" enable-background="new 264.077 -39.5001 2031.9231 1678.9802"
+	 xml:space="preserve">
+<sodipodi:namedview  id="namedview4" inkscape:window-height="447" inkscape:pageshadow="0" inkscape:window-width="621" inkscape:current-layer="g10" inkscape:pageopacity="0" inkscape:cy="378.19446" inkscape:zoom="0.3120088" objecttolerance="10" gridtolerance="10" bordercolor="#666666" showgrid="false" borderopacity="1" guidetolerance="10" pagecolor="#ffffff" inkscape:cx="378.19446" inkscape:window-y="25" inkscape:window-x="0" inkscape:window-maximized="0">
+	</sodipodi:namedview>
+<g>
+	<polygon fill="#9798AD" points="1162.5918,503.3322 1473.6899,265.0171 1473.6899,148.3315 1086.4305,444.9893 	"/>
+	<polygon fill="#9798AD" points="1549.8533,799.9967 1860.9602,561.6749 1860.9602,444.9893 1473.6899,741.6555 	"/>
+	<polygon fill="#707180" points="892.7737,593.3391 892.7737,710.0248 1010.2357,800.0059 1086.3979,741.6639 	"/>
+	<polygon fill="#9798AD" points="505.5144,890.0054 505.5144,1006.691 892.7737,710.0248 892.7737,593.3391 	"/>
+	<polygon fill="#707180" points="311.8684,741.6639 311.8684,858.3495 505.5144,1006.691 505.5144,890.0054 	"/>
+	<polygon fill="#707180" points="1280.0439,889.9969 1280.0439,1006.6826 1397.506,1096.6637 1473.6682,1038.3218 	"/>
+	<polygon fill="#707180" points="699.1277,1038.3218 699.1277,1155.0073 892.7846,1303.3405 892.7846,1186.6548 	"/>
+	<polygon fill="#9798AD" points="892.7846,1186.6548 892.7846,1303.3405 1280.0439,1006.6826 1280.0439,889.9969 	"/>
+	<polygon fill="#9798AD" points="1280.0439,1483.3043 1280.0439,1599.99 2248.2085,858.3329 2248.2085,741.6472 	"/>
+	<polygon fill="#CBCCE8" points="2248.2085,741.6472 2054.5735,593.3141 1667.3142,889.972 1549.8533,799.9967 1473.6899,741.6555 
+		1860.9602,444.9893 1667.3142,296.6563 1280.0548,593.3141 1162.5918,503.3322 1086.4305,444.9893 1473.6899,148.3315 
+		1280.0548,-0.01 311.8684,741.6639 505.5144,890.0054 892.7737,593.3391 1086.3979,741.6639 1010.2357,800.0059 
+		699.1277,1038.3218 892.7846,1186.6548 1280.0439,889.9969 1473.6682,1038.3218 1397.506,1096.6637 1086.3979,1334.9796 
+		1280.0439,1483.3043 	"/>
+	<polygon fill="#707180" points="1086.3979,1334.9796 1086.3979,1451.6652 1280.0439,1599.99 1280.0439,1483.3043 	"/>
+</g>
+</svg>

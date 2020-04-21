@@ -2,6 +2,7 @@
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
 {% block title %}
     Formulaire d'Inscription
@@ -11,14 +12,27 @@
 
     <div class="container col-sm-7">
         
-        <h1 class="mt-2">Inscription sur le Site</h1>
+        <h3 class="font-weight-bold my-3">Inscription sur le Site</h3>
 
         {{ form_start(form) }}
         {{ form_widget(form) }}
 
-        <button type="submit" value="" class="btn btn-success">
-            Valider l'inscription
-        </button>
+        <!-- ui Actions Buttons -->
+
+        <div>
+
+            <button type="submit" value="" class="btn btn-success">
+                <span class="h5 font-weight-bold">Valider</span> 
+            </button>
+
+            <a href="{{path('homepage')}}">
+                <button type="button" value="" class="btn btn-info">
+                    <span class="h5 font-weight-bold">Retour</span> 
+                </button>
+            </a>
+
+        </div>
+
 
         {{ form_end(form) }}
 

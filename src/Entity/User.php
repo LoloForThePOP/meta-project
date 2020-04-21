@@ -47,7 +47,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $image;
+    private $imageName;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -117,14 +117,14 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getImage(): ?string
+    public function getImageName(): ?string
     {
-        return $this->image;
+        return $this->imageName;
     }
 
-    public function setImage(?string $image): self
+    public function setImageName(?string $imageName): self
     {
-        $this->image = $image;
+        $this->imageName = $imageName;
 
         return $this;
     }

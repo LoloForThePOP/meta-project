@@ -28,10 +28,10 @@ class PPController extends AbstractController
 
     
     /**
-     * Permet de Créer une Présentation
+     * Permet de Créer une Présentation de Projet
      * 
      * @Route("/projects/new",name="projects_create")
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      * 
      * @return Response
      */
@@ -52,10 +52,12 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Présentation {$presentation->getTitle()} a bien été Créée!"
+                "La Présentation {$presentation->getTitle()} a bien été Créée! Dernière étape nécessaire : choisissez des catégories et des mots-clés pour que les gens puissent trouver votre projet."
             );
 
-            return $this->redirectToRoute('project_show', [
+            // We propose to redirect to Project Categories and Keywords Creation
+
+            return $this->redirectToRoute('index_categories', [
                 'slug' => $presentation->getSlug()
             ]);
         }
@@ -135,6 +137,21 @@ class PPController extends AbstractController
     public function show($slug, PPBasic $presentation){
 
         return $this->render('/pp/show.html.twig',[
+            'presentation' => $presentation,
+        ]);
+
+    }
+
+    /**
+     * Allow to Display a Project Presentation Dashboard
+     *
+     * @Route("/projects/{slug}/dashboard",name="project_dashboard_show")
+     * 
+     * @return Response
+     */
+    public function showDashboard($slug, PPBasic $presentation){
+
+        return $this->render('/pp/dashboard.html.twig',[
             'presentation' => $presentation,
         ]);
 

@@ -1,12 +1,16 @@
 
+.form-field-required{
+  color:red;
+}
+
 label, legend {
     font-size:1.25em !important;
     font-weight : bold !important;
 }
     
-input[type=text] {
+input {
     color:black !important;
-    font-size:1.25em;
+    font-size:1.25em !important;
     width: 100%;
     padding: 12px 12px;
     margin: 4px 0;
@@ -26,6 +30,11 @@ input[type=text] {
     resize: none;
   }
 
+  select{
+    font-weight:bold !important;
+    font-size:1.15em !important;
+  }
+
   /* Place Holders */
 
   ::-webkit-input-placeholder { /* Edge */
@@ -40,7 +49,7 @@ input[type=text] {
   
   ::placeholder {
     font-size:1.15em !important;
-    color:olivedrab !important;
+    color: rgb(49, 25, 93)  !important;
   }
 
   /* BS 4 Form Errors Display */
@@ -55,10 +64,7 @@ input[type=text] {
 }
 
 
-
 /* BS 4 File Input : show file name */
 
 .custom-file-label { opacity: 0; }
 .custom-file-input { opacity: 1; }
-
-/* File Input Style */

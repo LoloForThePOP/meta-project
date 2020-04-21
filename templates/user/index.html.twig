@@ -10,7 +10,7 @@
 
             <div class="col-3 pr-0 d-flex justify-content-center align-items-center">
 
-                <img src="{{user.image}}" alt="Image de {{ user.name }}">
+                {# <img src="{{user.imageName}}" alt="Image de {{ user.name }}"> #}
 
             </div>
 
@@ -68,12 +68,32 @@
 
         </div>
 
-        <div class="row ml-md-5 mt-4 d-flex justify-content-left">
+        {# User Short Self Description Display Box #}
+
+        <div class="row ml-md-5 mt-4 d-flex justify-content-left font-weight-bold">
 
             <div class="col-7 p-3 border border-primary rounded">
+                
+                {% if not user.description %}
 
+                    <span class="h5"> 
+                        Aucune description de profil n'a été renseignée. 
+                    </span>   
+
+                    {% if app.user %}
+
+                    <span class="h5"> 
+                        Vous pouvez remplir une description <a href="{{path('account_profile')}}"><button class="btn btn-info font-weight-bold">ici</button></a>
+                    </span>
+
+                    {% endif %}
+
+                {% else %}
+                
                 {{ user.description}}
 
+                {% endif %}
+                
             </div>
 
         </div>

@@ -10,92 +10,55 @@
           </div>
 
         <div class="card border-primary border-4 my-3" style="max-width: 44rem;">
+
             <div class="card-header">
+
                 <h4 class="mb-0 card-title font-weight-bold">Objectif du Projet des Projets</h4>
+
             </div>
+
             <div class="card-body py-3">
                 
-                <p class="card-text lh-2 h5">Créer une plateforme de présentation des projets humains en tous genres, de leurs besoins, et de leurs interactions. Je suis novice en programmation, j'ai commencé le site il y a 7 semaines. Si vous trouvez aussi qu'on peut faire mieux ensemble, rejoignez moi 👍 Ma détermination est restée intacte depuis des mois.</p>
+                <p class="card-text lh-2 h5">Créer une plateforme de présentation des projets humains en tous genres, de leurs besoins, et de leurs interactions. Je suis novice en programmation, j'ai commencé le site il y a 8 semaines. Si vous trouvez aussi qu'on peut faire mieux ensemble, rejoignez moi 👍 Ma détermination est restée intacte depuis des mois.</p>
 
-                <span class="h5"> So Come On ;-) (le 17-04-2020)</span>
+                <span class="h5"> So Come On ;-)</span>
 
-                <!-- Changelog Collapsable -->
+                <!-- Changelog Modal Box -->
 
-          
-                <button class="btn-lg btn-primary d-block font-weight-bold rounded my-2 mb-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-                    >  Voir les dernières modifications (19 - 04 - 2020)  <
-                </button>
-                
-                <div class="collapse" id="collapseExample">
+                <button id="changelogModalLink" class="btn btn-primary d-block rounded my-2 mb-3" type="button" data-toggle="modal" data-target="#displayChangelogModal">
 
-                    <div class="card card-body">
-
-                        <div class="mb-2">
-
-                            <strong>19 - 04 - 2020 :</strong>
-                                    
-                            <ul class="h5">
-
-                                <li>Possibilité <strong> d'uploader</strong> le logo d'un projet (pour cela, aller dans le menu "généralités" d'un projet) (attention, <strong>l'affichage</strong>  de ces logo n'est pas encore effectif)</li>
-
-                                <li>Possibilité <strong> d'uploader</strong> la thumbnail d'un projet (pour cela, aller dans le menu "généralités" d'un projet) (attention, <strong>l'affichage</strong>  de ces thumbnails n'est pas encore effectif)</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="mb-2">
-
-                            <strong>17 - 04 - 2020 :</strong>
-                                    
-                            <ul class="h5">
-
-                                <li>Ajout des Icônes des Catégories de Projets (merci Flaticon et ses Contributeurs</li>
-
-                                <li>Ajout d'un formulaire d'édition des mots-clés d'un projet dans la partie catégories</li>
-
-                                <li>Refonte visuelle du formulaire d'édition des généralités d'un projet</li>
-
-                                <li>Refonte visuelle de la fenêtre modale de séléction d'un type de Slide pour son diaporama</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="mb-2">
-
-                            <strong>16 - 04 - 2020 :</strong>
-                                    
-                            <ul class="h5">
-
-                                <li>Insertion des catégories et des icônes dans le Menu Matéral</li>
-
-                                <li>Factorisation de l'ui du CRUD des Diapos</li>
-
-                            </ul>
-
-                        </div>
-
-                        <div class="mb-2">
-
-                            <strong>15 - 04 - 2020 :</strong>
-                                    
-                            <ul class="h5">
-
-                                <li>Possibilité de pitcher avec des diapos texte</li>
-
-                                <li>Possibilité de Réordonner les diapos avec un Drag and Drop</li>
-
-                                <li>Premiers essais d'intégration d'un menu latéral de gestion d'une présentation de projet</li>
-
-                            </ul>
-
-                        </div>
+                    <span class="h5 font-weight-bold">>  Voir les dernières modifications (21 - 04 - 2020)  <</span>
                     
-                    </div>
-                </div>
+                </button>
+
+                {% include '/partials/changelogModal.html.twig' %}
+
+                                
+                {% block javascripts %}
+                    
+                    <script>
+
+                        $(document).ready(function(){
+
+                            // When Click on "Display all Needs", a modal box pop up.
+
+                            $('#changelogModalLink').on('click', function (){
+
+
+                            $('#displaychangelogModal').modal('show');
+
+                            });
+
+                        });
+
+                    </script>
+
+                {% endblock %}
+                                
 
             </div>
+            </div>
+
         </div>
 
         <div class="card border-danger border-4 my-3" style="max-width: 44rem;">
@@ -110,8 +73,8 @@
 
                     <span class="h4 mr-2 font-weight-bold">Esquisse</span>
 
-                    <div class="h6 progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="29" aria-valuemin="0" aria-valuemax="100">
-                        <span class="font-weight-bold">29%</span>
+                    <div class="h6 progress-bar bg-warning" role="progressbar" style="width: 25%" aria-valuenow="32" aria-valuemin="0" aria-valuemax="100">
+                        <span class="font-weight-bold">32%</span>
 
                     </div>
 
@@ -124,11 +87,19 @@
 
         <div class="card border-info border-4 my-3" style="max-width: 44rem;">
             <div class="card-header">
-                <h4 class="mb-0 card-title font-weight-bold">Testez Différentes Pages de Projets</h4>
+                <h4 class="mb-0 card-title font-weight-bold">Testez Différentes Possibilités</h4>
             </div>
             <div class="card-body h5 py-3">
                 
-                Certaines parties peuvent varier 
+                Consultez différentes pages de projets (certaines parties peuvent varier). <br> <br>
+
+                Ajoutez un projet pour tester (encore précaire) (se connecter d'abord) :
+
+                <ul class="mb-0 mt-2">
+                    <li>email : test@test.com</li>
+                    <li>mot de passe : test</li>
+                </ul>
+
             </div>
         </div>
 

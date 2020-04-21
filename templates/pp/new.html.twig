@@ -1,60 +1,75 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Création d'une Présentation de Projet{% endblock %}
+
+{% block title %}Ajouter un Projet{% endblock %}
 
 {% block body %}
 
     <div class="container">
 
-        <h2 class="h3 mt-3">Créer une Présentation de Projet</h2>
-            
-        {{form_start(form)}}
-    
-        {{form_widget(form)}}
-    
-        <button type="submit" class="btn btn-primary mb-4">Créer la Nouvelle Présentation</button>
+        <h3 class="font-weight-bold my-3">Ajouter un Projet</h3>
 
-        {{form_end(form)}}
+        <div class="row">
+
+            <div class="col-md-8">
+                            
+        {{form_start(form)}}
+
+        <!-- Project Goal -->
+
+        <div class="mb-3">
+
+            {{form_errors(form.goal)}}
+            {{form_label(form.goal)}}
+            <span class="form-field-required h3" title="required field">*</span>
+            {{form_widget(form.goal)}}
+
+        </div>
+
+        <!-- Project Title -->
+
+        <div class="mb-3">
+
+            {{form_row(form.title)}}
+
+        </div>
+
+        <div class="mb-3">
+
+            <button type="submit" class="btn btn-success btn-lg font-weight-bold mb-4">Ajouter le Projet</button>
+        
+            <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4">Annuler</button>
+
+        </div>
+
+       
+
+
+        {# don't render logo and thumbnails fields #}
+
+        <div class="d-none">
+            {{ form_rest(form) }}
+        </div>
+
+
+
+
+
+        {{ form_end(form) }}
+
+
+            </div>
+        </div>
+
 
     </div>
 
 {% endblock %}
 
 {% block javascripts %}
-
-<script>$('input[type="file"]').each(function() {
-    // get label text
-    var label = $(this).parents('.form-group').find('label').text();
-    label = (label) ? label : 'Upload File';
-
-    // wrap the file input
-    $(this).wrap('<div class="input-file"></div>');
-    // display label
-    $(this).before('<span class="btn">'+label+'</span>');
-    // we will display selected file here
-    $(this).before('<span class="file-selected"></span>');
-
-    // file input change listener 
-    $(this).change(function(e){
-        // Get this file input value
-        var val = $(this).val();
-        
-        // Let's only show filename.
-        // By default file input value is a fullpath, something like 
-        // C:\fakepath\Nuriootpa1.jpg depending on your browser.
-        var filename = val.replace(/^.*[\\\/]/, '');
-
-        // Display the filename
-        $(this).siblings('.file-selected').text(filename);
-    });
-});
-
-// Open the file browser when our custom button is clicked.
-$('.input-file .btn').click(function() {
-    $(this).siblings('input[type="file"]').trigger('click');
-});</script>
-
 
 {% endblock %}

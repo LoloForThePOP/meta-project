@@ -5,9 +5,16 @@
     <ul class="list-unstyled components bg-light border border-primary mt-4">
 
         <li>
-            <a href="{{path('project_show',{'slug': presentation.slug})}}">
+            <a href="{{path('project_dashboard_show',{'slug': presentation.slug})}}">
                 <span class="mr-2">🏠</span>
                 Accueil
+            </a>
+        </li>
+
+        <li>
+            <a href="{{path('project_show',{'slug': presentation.slug})}}">
+                <span class="mr-2">📺</span>
+                Résultat
             </a>
         </li>
 

@@ -31,11 +31,18 @@ class AppFixtures extends Fixture
 
         $faker= Factory::create('fr-FR');
 
-        // a Role Creation: Admin
+        // a User Account for the Demo
+        $demoUser = new User();
+        $demoUser->setName('testUser')
+                ->setEmail('test@test.com')
+                ->setHash($this->encoder->encodePassword($demoUser,'test'));
+        $manager->persist($demoUser);
 
-        $adminRole = new Role();
+        // Admin Role Creation
+
+       /*  $adminRole = new Role();
         $adminRole->setTitle('ROLE_ADMIN');
-        $manager->persist($adminRole);
+        $manager->persist($adminRole); */
 
         // a User with Admin Role Creation
 
@@ -83,7 +90,7 @@ class AppFixtures extends Fixture
 
         
 
-        // Users Creation
+        // Website Users Creation
 
         $users=[];
         $userGenres=['male','female'];
@@ -120,7 +127,7 @@ class AppFixtures extends Fixture
             $user->setName($faker->firstName($userGenre))
                 ->setEmail($faker->email())
                 ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(4)). '</p>')
-                ->setImage($image)
+                ->setImageName($image)
                 ->setHash($hash)
             ;
 
@@ -160,30 +167,29 @@ class AppFixtures extends Fixture
                 $keywords=join(', ',$faker->words($keywordsNumber));
             }        
 
-            // Logo Creation
-            $logoColors=['ffa500','ff6347','1e90ff','6a5acd','ee82ee','3cb371'];
-
-            $logoColor=$logoColors[array_rand($logoColors)];
-            $logoURL='https://place-hold.it/64x64/'.$logoColor.'&text=Logo&bold';
-
             // Thumbnail Creation
 
             $thumbnailColors=['ffa500','ff6347','1e90ff','6a5acd','ee82ee','3cb371'];
 
             $thumbnailColor=$thumbnailColors[array_rand($thumbnailColors)];
             
-            $thumbnailURL='https://place-hold.it/200x200/'.$thumbnailColor.'&text=Thumbnail&bold';
+            $thumbnailAddress=$thumbnailColor.'.gif';
+
+            // Project Logos Creation
+
+            $choosenLogo=mt_rand(1, 12);
+            
+            $logoAddress=$choosenLogo.'.svg';
 
             // Presentation Creator Creation
             $creator=$users[ mt_rand(0, count($users)-1) ];
             
-
             // Hydrating Project Presentation with Above Attributes
             $pp ->setTitle($title)
                 ->setGoal($faker->paragraph())
                 ->setKeywords($keywords)
-                ->setThumbnailName($thumbnailURL)
-                ->setLogoName($logoURL)
+                ->setThumbnailName($thumbnailAddress)
+                ->setLogoName($logoAddress)
                 ->setCreatedAt($faker->dateTime())
                 ->setCreator($creator);
 
@@ -306,13 +312,14 @@ class AppFixtures extends Fixture
 
                     if($mediaType=="image"){
 
-                        $imagesColors=['ffa500','ff6347','1e90ff','6a5acd','ee82ee','3cb371'];
+                        $imagesColors=['ffa500','ff6347','1e90ff','ee82ee','3cb371'];
 
                         $imageColor=$imagesColors[array_rand($imagesColors)];
 
-                        $imageAdress = 'https://place-hold.it/500x400/'.$imageColor.'&text=ImageExample&bold';
+                        $imageName = $imageColor.'.gif';
 
-                        $slide->setSlideName($imageAdress);
+                        $slide->setSlideName($imageName);
+                        $slide->setThumbnail($imageName);
                     }
 
                     if($mediaType=="video"){
@@ -414,7 +421,7 @@ class AppFixtures extends Fixture
 
             // Desired Ressources Creation
 
-            for($j=1;$j<=mt_rand(0,8);$j++){
+            for($j=1;$j<=mt_rand(0,17);$j++){
 
                 $dr = new Need();
 
@@ -429,7 +436,7 @@ class AppFixtures extends Fixture
                 $needPriority = $priorityPossibilities[array_rand($priorityPossibilities)];
                 
                 // Set a Need Type
-                $typePossibilities = ['materials','skill','money','advice'];
+                $typePossibilities = ['material','skill','money','advice', 'area','other','task'];
                 $needType = $typePossibilities[array_rand($typePossibilities)];
 
                 // Is it a Paid Ressource?
