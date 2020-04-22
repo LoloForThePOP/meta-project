@@ -3,74 +3,268 @@
 {% block title %}{{ presentation.title }}{% endblock %}
 
 
-{% block sidebar %}
-
-    {% include 'partials/sidebar.html.twig' %}
-    
-{% endblock %}
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
 
 
 {% block body %}
 
     <div class="container pl-md-4">
 
-        <h3 class="h3 font-weight-bold mt-4 mb-2">Tableau de Bord</h3>
+        <div class="container-fluid mt-4">
 
-        <h3 class="h4 font-weight-bold">{{presentation.title}}</h3>
-
-        <div>travail actuellement en cours (21-04-20)</div>
-
-        <div class="my-3 col-md-8">
-
-            <div class="row">
-
-                <div class="col-md-4">.col-md-4</div>
-
-                <div class="col-md-4 ml-auto">.col-md-4 .ml-auto</div>
-
+            <!-- Page Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+              <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
             </div>
-
+  
+            <!-- Content Row -->
             <div class="row">
 
-                <div class="col-md-3 ml-auto">.col-md-3 .ml-auto</div>
+              <!-- Project Messages -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <div class="card border-left-warning shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
 
-                <div class="col-md-2 ml-auto">.col-md-2 .ml-auto</div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-md-6 ml-auto">.col-md-6 .ml-auto</div>
-
-            </div>
-
-            <div class="row">
-
-                <div class="col-sm-9">
-
-                    Level 1: .col-sm-9
-
-                    <div class="row">
-
-                        <div class="col-8 col-sm-6">
-
-                            Level 2: .col-8 .col-sm-6
-
-                        </div>
-
-                        <div class="col-4 col-sm-6">
-
-                            Level 2: .col-4 .col-sm-6
-
-                        </div>
+                      <div class="col-auto mr-3">
+                        <span style="color:#006e">
+                          <i class="fas fa-comments fa-2x text-gray-300"></i>
+                        </span>
+                      </div>
+                      
+                      <div class="col">
+                        <div class="text-xs font-weight-bold text-uppercase mb-3">Messages</div>
+                        <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">Nouveaux Messages : </div> -->
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">Total Messages {{ presentation.contactMessages | length }}</div>
+                      </div>
 
                     </div>
-                    
+                  </div>
                 </div>
+              </div>
+  
+              <!-- Project Geodomains -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <div class="card border-left-primary shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+
+                      <div class="col-auto mr-3">
+                        <span style="color: DarkGreen">
+                          <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i>
+                        </span>
+                        
+                      </div>
+
+
+                      <div class="col">
+
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Lieux du Projet</div>
+
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">
+                            {% if not presentation.geoDomains %}
+
+                              <span class="">
+                                Aucun Lieu Géographique n'est associé à ce projet.
+                              </span>
+
+                            {% else %}
+
+                            <ul class="list-group">
+
+                              {% for geoDomain in presentation.geoDomains | slice(0, 3) %}
+                                <li class="list-group-item my-0 py-0 border-0 h6">
+                                  <span class="font-weight-bold">
+                                    {{geoDomain.city | capitalize}}
+                                  </span>
+                                
+                                  <span class="font-weight-bold mr-2">
+                                      ({{geoDomain.postalCode}})
+                                  </span>
+                                  </li>
+                                </ul>
+
+                              {% endfor %}
+
+                                <li class="list-group-item my-0 py-0 border-0 h6">
+                                  (...)
+                                </li>
+
+                            {% endif %}
+
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Project Categories -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+
+                        <div class="text-xs font-weight-bold text-uppercase mb-2 border-bottom">Catégories du Projet</div>
+
+                        <div class="row no-gutters align-items-center">
+
+                          <div class="col">
+
+                            <div class="mt-2">
+
+                              {% for category in presentation.categories %}
+
+                              <img id="" class="mr-2" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="30" height="30">
+                              
+                              {% else %}
+                                
+                             
+                                Pas de Catégorie associée avec ce projet
+                                {% endfor %}
+                              
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
+  
+              <!-- Project Keywords -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+
+                        <div class="text-xs font-weight-bold text-uppercase mb-2 border-bottom">Mots-Clés du Projet</div>
+
+                        <div class="row no-gutters align-items-center">
+
+                          <div class="col">
+
+                            <div class=" keywords mt-2 mb-2 text-left" style="height:1.25em;">
+                                                      
+                              {% if presentation.keywords | length > 0 %}
+                                  
+                                # {{presentation.keywords | replace({"," : " #"}) | slice(0, 64) }}
+
+                              {% else %}
+                                
+                                Pas de Mot-Clé associé à ce projet.
+
+                              {% endif %}
+                              
+                            </div>
+
+                          </div>
+                        </div>
+                      </div>
+                     
+                    </div>
+                  </div>
+                </div>
+              </div>
 
             </div>
 
-        </div>
+            <!-- Content Row -->
+            <div class="row">
+
+              <!-- Content Column 1/2 -->
+              <div class="col-lg-6 mb-4">
+                
+                <!-- Project Goal -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Objectif du Projet</h6>
+                  </div>
+                  <div class="card-body">
+                    
+                    <p>{{presentation.goal}}</p>
+                  </div>
+                </div>
+  
+                <!-- Approach -->
+                <div class="card shadow mb-4">
+                  <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Development Approach</h6>
+                  </div>
+                  <div class="card-body">
+                    <p>SB Admin 2 makes extensive use of Bootstrap 4 utility classes in order to reduce CSS bloat and poor page performance. Custom CSS classes are used to create custom components and custom utility classes.</p>
+                    <p class="mb-0">Before working with this theme, you should become familiar with the Bootstrap framework, especially the utility classes.</p>
+                  </div>
+                </div>
+  
+              </div>
+
+              <!-- Content Column 2/2 -->
+              <div class="col-lg-6 mb-4">
+    
+                <!-- Color System -->
+                <div class="row">
+                  <div class="col-lg-6 mb-4">
+                    <div class="card bg-primary text-white shadow">
+                      <div class="card-body">
+                        Primary
+                        <div class="text-white-50 small">#4e73df</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mb-4">
+                    <div class="card bg-success text-white shadow">
+                      <div class="card-body">
+                        Success
+                        <div class="text-white-50 small">#1cc88a</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mb-4">
+                    <div class="card bg-info text-white shadow">
+                      <div class="card-body">
+                        Info
+                        <div class="text-white-50 small">#36b9cc</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mb-4">
+                    <div class="card bg-warning text-white shadow">
+                      <div class="card-body">
+                        Warning
+                        <div class="text-white-50 small">#f6c23e</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mb-4">
+                    <div class="card bg-danger text-white shadow">
+                      <div class="card-body">
+                        Danger
+                        <div class="text-white-50 small">#e74a3b</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-lg-6 mb-4">
+                    <div class="card bg-secondary text-white shadow">
+                      <div class="card-body">
+                        Secondary
+                        <div class="text-white-50 small">#858796</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+  
+              </div>
+
+            </div>
+  
+          </div>
 
     </div>
 

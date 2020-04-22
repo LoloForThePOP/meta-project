@@ -25,11 +25,12 @@
 
         {% for item in sidebarItems %}
 
-            <li class="pl-md-4 d-flex align-items-center ">
+            <li class="d-flex align-items-center ">
 
-                <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left" height:"27px" width="27px">
+                <a href="{{ path(item.route, {'slug':presentation.slug}) }}">  
 
-                <a href="{{ path(item.route, {'slug':presentation.slug}) }}">   
+                <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
+ 
                     {{item.name}}
                 </a>
 
