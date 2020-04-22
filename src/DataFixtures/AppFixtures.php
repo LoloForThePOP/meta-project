@@ -427,7 +427,7 @@ class AppFixtures extends Fixture
 
                 $needTitle = $faker->sentence();
 
-                $needDescription = '<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>';
+                $needDescription = join($faker->paragraphs(5));
 
                 $createdAt = $faker->dateTimeBetween($startDate = '-4 years', $endDate = 'now');
 

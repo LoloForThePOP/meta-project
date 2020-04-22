@@ -28,7 +28,7 @@ class Need
      * @ORM\Column(type="string", length=255)
      * @Assert\Length(
      *      min = 5,
-     *      max = 50,
+     *      max = 100,
      *      minMessage = "Le Titre du Besoin doit faire au minimum {{ limit }} caractères",
      *      maxMessage = "Le Titre du Besoin doit faire au maximum {{ limit }} caractères",
      * )
@@ -46,6 +46,12 @@ class Need
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @Assert\Length(
+     *      min = 0,
+     *      max = 800,
+     *      minMessage = "La Description du Besoin doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "La Description du Besoin doit faire au maximum {{ limit }} caractères",
+     * )
      */
     private $description;
 
@@ -76,7 +82,7 @@ class Need
     private $position;
 
     /**
-     * Is the need payed or not
+     * Is the need paid or not
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */

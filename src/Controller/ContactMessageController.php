@@ -37,6 +37,7 @@ class ContactMessageController extends AbstractController
 
     
     /** 
+     * Allow to Display a Private Message with an Ajax Request (example : display it in a Modal Box)
      * @Route("/ajaxShowMessage", name="ajax_get_message_content") 
     */ 
     public function ajaxMessageContent(Request $request, ContactMessageRepository $contactMessageRepository, PPBasic $presentation) {
@@ -62,7 +63,7 @@ class ContactMessageController extends AbstractController
     
 
     /**
-     * Permet de Supprimer un Message
+     * Allow to Delete a Private Message
      * 
      * @Route("/ajaxDeleteMessage/", name="ajax_delete_message")
      * 
@@ -101,21 +102,32 @@ class ContactMessageController extends AbstractController
 
     
     /**
+     * Allow to send a private message
      * @Route("/new", name="contact_message_new", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      */
-    public function new(Request $request, $slug): Response
+    public function new (PPBasic $pp, $slug, Request $request): Response
     {
         $contactMessage = new ContactMessage();
         $form = $this->createForm(ContactMessageType::class, $contactMessage);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $contactMessage->setPresentation($pp);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contactMessage);
             $entityManager->flush();
+            
+            $this->addFlash(
+                'success',
+                "Votre Message a été envoyé"
+            );
 
-            return $this->redirectToRoute('contact_message_index');
+            return $this->redirectToRoute('project_show', [
+                'slug' => $slug,
+            ]);
         }
 
         return $this->render('contact_message/new.html.twig', [
@@ -126,6 +138,7 @@ class ContactMessageController extends AbstractController
     }
 
     /**
+     * Allow to Show a Private Message
      * @Route("/{id}", name="contact_message_show", methods={"GET"})
      */
     public function show(ContactMessage $contactMessage): Response

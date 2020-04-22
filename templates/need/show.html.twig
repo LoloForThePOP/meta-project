@@ -2,11 +2,14 @@
 
 {% block title %}Affichage d'un Besoin{% endblock %}
 
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+
 {% block body %}
 
-    <div class="my-3 px-3 col-sm-8">
+    <div class="rounded mt-4 m3-3 col-sm-8 ml-md-4">
 
-        <table class="table">
+        <table class="table table-borderless">
+
             <tbody>
 
                 <tr>
@@ -36,15 +39,13 @@
 
                             {% set priority = "Priorité" %}
 
-                            <span class="h6 p-2 font-weight-bold rounded bg-danger text-white">{{priority}}</span>
+                            <span class="h6 p-1 font-weight-bold rounded bg-danger text-white">{{priority}}</span>
 
                         {% endif %}
 
                         <!-- Is it Paid ? -->
 
                         {% if need.paidService %}
-
-                            {% set isPaid = "" %}
                       
                             {% if need.paidService == 'yes' %}
                                 {% set isPaid = "Payé" %}
@@ -54,10 +55,14 @@
 
                             {% elseif need.paidService == 'maybe' %}
                                 {% set isPaid = "Peut-être Payé" %}
+
+                            {% else %}
+
+                            {% set isPaid = "" %}
                             
                             {% endif %}
                         
-                            <span class="h6 p-2 font-weight-bold rounded bg-primary text-white">{{isPaid}}</span>
+                            <span class="h6 p-1 font-weight-bold rounded bg-primary text-white">{{isPaid}}</span>
    
                         {% endif %}
 
@@ -67,7 +72,7 @@
                 
                 <tr>
                     <th class="font-weight-bold h5">Description</th>
-                    <td class="h5">{{ need.description}}</td>
+                    <td class="h5">{{ need.description | nl2br }}</td>
                 </tr>
             
             </tbody>
@@ -75,7 +80,7 @@
 
         <div class="p-0 m-3">
 
-            <a class="btn btn-success btn-lg font-weight-bold mr-1" href="#">Envoyer un Message</a>
+            <a class="btn btn-success btn-lg font-weight-bold mr-1" href="{{ path('contact_message_new', {'id': need.id, 'slug': slug}) }}">Envoyer un Message</a>
 
             <a class="btn btn-warning btn-lg font-weight-bold mr-1" href="{{ path('need_edit', {'id': need.id, 'slug': slug}) }}">Modifier</a>
 

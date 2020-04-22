@@ -2,13 +2,107 @@
 
 {% block title %}Liste des Ressources Désirées{% endblock %}
 
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+
 {% block body %}
+
+<style>
+
+  
+      @media screen and (max-width: 580px) {
+        body {
+          font-size: 16px;
+          line-height: 22px;
+        }
+      }
+      
+      .tableWrapper {
+          
+        max-width: 900px;
+      }
+      
+      .table {
+        margin: 0 0 0 0;
+        width: 100%;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        display: table;
+      }
+      @media screen and (max-width: 580px) {
+        .table {
+          display: block;
+        }
+      }
+      
+      .row {
+        display: table-row;
+        background: #f6f6f6;
+        font-size:1.15em;
+      }
+      .row:nth-of-type(odd) {
+        background: #e9e9e9;
+      }
+      .row.header {
+        font-weight: 900;
+        color: #ffffff;
+        background: #ea6153;
+        font-size:1.2em;
+      }
+      .row.green {
+        background: #27ae60;
+      }
+
+      .row:hover{
+          background-color:gainsboro;
+      }
+
+      @media screen and (max-width: 580px) {
+        .row {
+          padding: 7px 0 7px;
+          display: block;
+        }
+        .row.header {
+          padding: 0;
+          height: 6px;
+        }
+        .row.header .cell {
+          display: none;
+        }
+        .row .cell {
+          margin-bottom: 3px;
+        }
+        .row .cell:before {
+          margin-bottom: 3px;
+          content: attr(data-title);
+          min-width: 98px;
+          font-size: 10px;
+          line-height: 10px;
+          font-weight: bold;
+          text-transform: uppercase;
+          color: #969696;
+          display: block;
+        }
+      }
+      
+      .cell {
+        padding: 6px 12px;
+        display: table-cell;
+      }
+      @media screen and (max-width: 580px) {
+        .cell {
+          padding: 2px 16px;
+          display: block;
+        }
+      }
+      
+</style>
+
+
 
 <div class="container">
 	
     <!-- UI Page Title -->
     
-    <h2 class="my-3 font-weight-bold"> <span class="">Ressources Désirées</span></h2>
+    <h3 class="my-3 font-weight-bold"> <span class="">Ressources Désirées</span></h3>
 
     <!-- Add a Need Button -->
 
@@ -16,70 +110,73 @@
             <button type="button" class="btn btn-success btn-lg font-weight-bold mb-4"> + Ajouter un Besoin </button>
         </a>
 
-    <!-- Back Button -->
-
-        <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': slug }) }}">
-            <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4">Retour</button>
-        </a>
-
     {% if app.user and app.user == presentation.creator %}
 
     {% endif %}
     
     <div class="">
-    
-        <table class="table table-bordered table-hover">
-    
-            <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Titre</th>
-                    <th>Description</th>
-                    <th>Date</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-    
-            <tbody>
-    
+
+        <div class="tableWrapper">
+  
+            <div class="table">
+
+            <!-- Table Header -->
             
-    
+            <div class="row header green">
+                
+                <div class="cell">
+                    Titre
+                </div>
+                <div class="cell">
+                    Description
+                </div>
+                <div class="cell">
+                    Date
+                </div>
+                <div class="cell">
+                    Actions
+                </div>
+
+            </div>
+
+             <!-- Table Content -->
+              
             {% for need in needs %}
                 
                 {% set showPath = path('need_show', {'id': need.id, 'slug': slug}) %}
                 {% set editPath = path('need_edit', {'id': need.id, 'slug': slug}) %}
+              
+              <div class="row cursor-pointer"
+
+                {% if app.user and app.user == presentation.creator %}
+                    onclick="window.location='{{ editPath }}'";>
+                {% else %}
+                    onclick="window.location='{{ showPath }}'";>
+                {% endif %}
+
+                <div class="cell font-weight-bold" data-title="Titre">{{ need.title | slice(0, 35)}}</div>
+                <div class="cell" data-title="Actions">{{ need.description | slice(0, 35) }}</div>
+                <div class="cell" data-title="Date">{{ need.createdAt ? need.createdAt|date('Y-m-d') : '' }}</div>
+
+                <div class="cell" data-title="Actions">
+                    {% if app.user and app.user == presentation.creator %}
     
-                    <tr class="cursor-pointer"  
-                        
-                        {% if app.user and app.user == presentation.creator %}
-                            onclick="window.location='{{ editPath }}'";>
-                        {% else %}
-                            onclick="window.location='{{ showPath }}'";>
-                        {% endif %}
-                        
-                        <td> {{ need.id }}</td>
-                        <td>{{ need.title }}</td>
-                        <td>{{ need.description | slice(0, 50) }}</td>
-                        <td>{{ need.createdAt ? need.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                        
-                        {% if app.user and app.user == presentation.creator %}
-    
-                            <td>
-                                <a href="{{ path('need_edit', {'id': need.id, 'slug': slug}) }}">modifier</a>
-                            </td>
-                
-                        {% endif %}
-                        
-                    </tr>
-                
+                        <a href="{{ path('need_edit', {'id': need.id, 'slug': slug}) }}">modifier</a>
+                    {% else %}
+                        Voir
+                    {% endif %}
+                </div>
+            </div>
+
             {% else %}
-                <tr>
-                    <td colspan="9">Aucun Besoin Présenté</td>
-                </tr>
+                <div class="cell" >Aucun Besoin Présenté</div>
             {% endfor %}
+
+            </div>
+            
+        </div>
     
-            </tbody>
-        </table>
+    
         
     </div>
     

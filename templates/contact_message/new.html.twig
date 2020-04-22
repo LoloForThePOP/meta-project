@@ -2,6 +2,7 @@
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
 {% block title %}Envoyer un Message{% endblock %}
 
@@ -19,7 +20,7 @@
     
         <a href="{{path('project_show',{'slug':slug})}}">
     
-            <button type="button" class="btn btn-lg btn-danger font-weight-bold">Annuler</button>
+            <button type="button" class="btn btn-lg btn-info font-weight-bold">Annuler</button>
         </a>
         
         {{ form_end(form) }}

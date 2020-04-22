@@ -23,10 +23,12 @@ class NeedController extends AbstractController
     public function index(PPBasic $pp, NeedRepository $needRepository): Response
     {
         return $this->render('need/index.html.twig', [
-            'needs' => $needRepository->findBy([
-            'presentation' => $pp->getId(),
-            ]),
+            'needs' => 
+                $needRepository->findBy([
+                    'presentation' => $pp->getId(),
+                ]),
             'slug' => $pp->getSlug(),
+            'presentation' => $pp,
         ]);
     }
 
@@ -65,12 +67,13 @@ class NeedController extends AbstractController
         return $this->render('need/show.html.twig', [
             'need' => $need,
             'slug' => $slug,
+            'presentation' => $need->getPresentation(),
         ]);
     }
 
     /**
      * @Route("/{id}/edit", name="need_edit", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     * @Security("is_granted('ROLE_USER')")
      */
     public function edit($slug, Request $request, Need $need): Response
     {

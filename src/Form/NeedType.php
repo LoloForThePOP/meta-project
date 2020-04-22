@@ -48,9 +48,9 @@ class NeedType extends ApplicationType
                 $this->getConfiguration("Est-ce Payé ?", "",[
                     'placeholder' => 'Choisir une Option',
                     'choices'  => [
-                        'Peut-être' => null,
-                        'Oui' => true,
-                        'Non' => false,
+                        'Peut-être' => 'maybe',
+                        'Oui' => 'yes',
+                        'Non' => 'no',
                     ],
                     'required' => false,
                     ]

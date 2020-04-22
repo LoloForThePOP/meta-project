@@ -6,6 +6,14 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
+
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\PreUpdate;
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ContactMessageRepository")
  */
@@ -28,11 +36,23 @@ class ContactMessage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 800,
+     *      minMessage = "Le Titre du Message doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "Le Titre du Message doit faire au maximum {{ limit }} caractères",
+     * )
      */
     private $title;
 
     /**
      * @ORM\Column(type="string", length=800)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 800,
+     *      minMessage = "Le Contenu du Message doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "Le Contenu du Message doit faire au maximum {{ limit }} caractères",
+     * )
      */
     private $content;
 
@@ -67,8 +87,9 @@ class ContactMessage
     public function __construct()
     {
         $this->receivers = new ArrayCollection();
+        $this->setCreatedAt(new \DateTime('now'));
     }
-
+  
     public function getId(): ?int
     {
         return $this->id;
