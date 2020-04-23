@@ -2,6 +2,8 @@
 
 {% block title %}Messages du Projet{% endblock %}
 
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+
 
 {% block css %}
 
@@ -12,7 +14,25 @@
 
 {% block body %}
 
-<div class="container-fluid col-sm-9">
+
+<style>
+
+    .unreadBadge{
+        display:none;
+    }
+
+    .unreadMessage{
+        font-weight:bold;
+    }
+
+    .unreadMessage .unreadBadge{
+        display:initial;
+    }
+
+</style>
+
+
+<div class="container-fluid">
 
     <h3 class="my-4 font-weight-bold">Messages du Projet</h3>
     
@@ -73,7 +93,7 @@
     
     <div class="container-fluid">
     
-            <table id="messagesTable" class="table table-hover table-striped table-bordered">
+            <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
                 <thead>
                     <tr class="cursor-pointer">
                         <th>Id</th>
@@ -87,7 +107,7 @@
                 </thead>
                 <tbody>
                 {% for contact_message in contact_messages %}
-                    <tr class="cursor-pointer" data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
+                    <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
                         <td>
                             {{ contact_message.id }}
                         </td>
@@ -96,8 +116,11 @@
                             {{ contact_message.context  | slice(0, 20)}}
                         </td>
 
-                        <td class="{% if contact_message.hasBeenConsulted %}font-weight-bold {% endif %}">
+                        <td class="{% if not contact_message.hasBeenConsulted %}unreadMessage {% endif %}">
                             {{ contact_message.title  | slice(0, 20)}}
+
+                           <span class="unreadBadge badge badge-success">nouveau</span>
+
                         </td>
                         
                         <td>
@@ -167,7 +190,7 @@
                     sortAscending:  ": activer pour trier la colonne par ordre croissant",
                     sortDescending: ": activer pour trier la colonne par ordre décroissant"
                 }
-            }
+            },
         } );
 
        
@@ -211,8 +234,9 @@
 
                     messageContent = data.messageContent;
 
-
                     $('#modalBox #messageContent').text(messageContent);
+
+                    var test = $( "tr[data-message-id="+ messageId + "] td" ).removeClass("unreadMessage");
                                         
                 },  
 

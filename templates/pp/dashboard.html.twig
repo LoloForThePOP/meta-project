@@ -33,10 +33,19 @@
                       </div>
                       
                       <div class="col">
+
                         <div class="text-xs font-weight-bold text-uppercase mb-3">Messages</div>
-                        <!-- <div class="h5 mb-0 font-weight-bold text-gray-800">Nouveaux Messages : </div> -->
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">Total Messages {{ presentation.contactMessages | length }}</div>
-                      </div>
+
+                          {% if presentation.isActiveContactMessages %}
+                              
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">{{ presentation.countUnreadMessages() }} Message(s) Non Lus</div>
+                            </div>
+
+                          {% else %}
+                        
+                            Messages Privés Désactivés
+                            
+                          {% endif %}
 
                     </div>
                   </div>

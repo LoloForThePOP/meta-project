@@ -331,6 +331,11 @@ class PPBasic
      */
     private $contactMessages;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isActiveContactMessages;
+
 
     public function __construct()
     {
@@ -676,6 +681,32 @@ public function updatedTimestamps(): void
                 $contactMessage->setPresentation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function countUnreadMessages()
+    {
+        $count = 0;
+
+        foreach ($this->getContactMessages() as $item) {
+
+            if ($item->getHasBeenConsulted() == false) { 
+                $count++;
+            }
+        }
+
+        return $count;
+    }
+
+    public function getIsActiveContactMessages(): ?bool
+    {
+        return $this->isActiveContactMessages;
+    }
+
+    public function setIsActiveContactMessages(?bool $isActiveContactMessages): self
+    {
+        $this->isActiveContactMessages = $isActiveContactMessages;
 
         return $this;
     }

@@ -3,13 +3,13 @@
 
 {% if presentation.slides | length > 0 %}
 
-<div class="my-3 mt-4" style="width:610px; position : relative;">
+<div class="my-3 mt-4" style="position : relative;">
 
 	{% for slide in presentation.slides %}
 		
-		<div class="slide">
+		<div class="slide" style="max-width:100%; ">
 
-			<div class="container-fluid" style="height:400px;" >
+			<div class="container-fluid" style="height:400px;">
 
 				{% if slide.mediaType == 'image' %}
 

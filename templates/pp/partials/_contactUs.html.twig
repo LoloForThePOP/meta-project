@@ -1,4 +1,17 @@
 
+{% block stylesheets %}
+
+    <style>
+        
+        .cryptedmail:after {
+
+            content: attr(data-name) "@" attr(data-domaintld); 
+        }
+        
+        </style>
+  
+{% endblock %}
+
 {% if presentation.contacts | length > 0 %}
 
     <h3 class="font-weight-bolder mb-4">Nous Contacter</h3>
@@ -28,13 +41,26 @@
 
                     <div class="pl-4">
 
-                        <a class="text-decoration-none text-body" href="mailto:{{contact.email1}}">{{contact.email1}}</a>
+                        {% if contact.email1 is not null %}
+
+                            <a class="text-decoration-none text-body" href="mailto:{{contact.email1}}">{{contact.email1}}</a> <br>
+
+                                    
+                                <a href="#" class="cryptedmail"
+                                data-name="{{ contact.email1|split('@')[0] }}"
+                                data-domaintld="{{ contact.email1|split('@')[1] }}"
+                                onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                            </a>
+
+                        {% endif %}
 
                         <a class="text-decoration-none text-body" href="mailto:{{contact.email2}}">{{contact.email2}}</a>
 
                     </div>
 
+
                 </div>
+
 
             {% endif %}
             
@@ -54,7 +80,7 @@
 
                         {% if contact.tel1 is not null %}
                     
-                            <a class="text-decoration-none text-body" href="tel:{{contact.tel1}}">{{contact.tel1}}</a>
+                            <a class="text-decoration-none text-body" href="tel:{{contact.tel1}}">{{contact.tel1}}</a><br>
 
                         {% endif %}
                         
@@ -123,19 +149,3 @@
     </div>
 
 {% endif %}
-
-
-
-<!-- Private Messages Button -->
-<!-- 
-<a href="{{path('contact_message_new', {'slug':presentation.slug})}}">
-
-    <div class="btn btn-primary mb-3 h5 rounded col-5 font-weight-bold px-1 py-2">Envoyer un Message</div>
-
-</a> -->
-
-
-
-    
-
-

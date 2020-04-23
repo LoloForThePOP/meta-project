@@ -183,6 +183,9 @@ class AppFixtures extends Fixture
 
             // Presentation Creator Creation
             $creator=$users[ mt_rand(0, count($users)-1) ];
+
+            // Are Private Messages Activated
+            $isActiveContactMessages = array_rand([true,true,true,true,false]);
             
             // Hydrating Project Presentation with Above Attributes
             $pp ->setTitle($title)
@@ -191,7 +194,9 @@ class AppFixtures extends Fixture
                 ->setThumbnailName($thumbnailAddress)
                 ->setLogoName($logoAddress)
                 ->setCreatedAt($faker->dateTime())
-                ->setCreator($creator);
+                ->setCreator($creator)
+                ->setIsActiveContactMessages($isActiveContactMessages)
+            ;
 
             // Project Cities (with Postal Codes) Creation
 
@@ -240,38 +245,43 @@ class AppFixtures extends Fixture
 
             // Contact Messages Creation
 
-            $hasMessages = array_rand([true,true,true,true,false]);
+            if ($pp->getIsActiveContactMessages()) {
 
-            if ($hasMessages){
+                $hasMessages = array_rand([true,true,true,true,false]);
 
-                $numContactMessages = mt_rand(1,30);
+                if ($hasMessages){
 
-                for ($j=1; $j<=$numContactMessages; $j++){
-                
-                    $contactMessage = new ContactMessage();
+                    $numContactMessages = mt_rand(1,30);
 
-                    $hasBeenConsulted = array_rand([true,true,false]);
+                    for ($j=1; $j<=$numContactMessages; $j++){
+                    
+                        $contactMessage = new ContactMessage();
 
-                    $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
-                    $context = $faker->sentence();
-                    $title = $faker->sentence();
-                    $content = '<p>'.join('</p><p>',$faker->paragraphs(4)). '</p>';
-                    $senderEmail = $faker -> email();
-                    $receiver = $pp->getCreator();
+                        $hasBeenConsulted = array_rand([true,true,false]);
 
-                    $contactMessage -> setContext ($context)
-                                    -> setHasBeenConsulted ($hasBeenConsulted)
-                                    -> setCreatedAt($createdAt)
-                                    -> setTitle($title)
-                                    -> setContent($content)
-                                    -> setSenderEmail($senderEmail)
-                                    -> setPresentation($pp)
-                                    -> addReceiver($receiver);
+                        $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+                        $context = $faker->sentence();
+                        $title = $faker->sentence();
+                        $content = join($faker->paragraphs(4));
+                        $senderEmail = $faker -> email();
+                        $receiver = $pp->getCreator();
 
-                    $manager->persist($contactMessage);
+                        $contactMessage -> setContext ($context)
+                                        -> setHasBeenConsulted ($hasBeenConsulted)
+                                        -> setCreatedAt($createdAt)
+                                        -> setTitle($title)
+                                        -> setContent($content)
+                                        -> setSenderEmail($senderEmail)
+                                        -> setPresentation($pp)
+                                        -> addReceiver($receiver);
+
+                        $manager->persist($contactMessage);
+                    }
+
                 }
 
             }
+
 
 
 
@@ -370,7 +380,8 @@ class AppFixtures extends Fixture
 
                 // we fill some email fields for this contact, or not
 
-                $emailsPossibilities = [null, $faker->email()];
+                $emailsPossibilities = [null, $faker->email(), $faker->email(), $faker->email(), $faker->email(), $faker->email(), $faker->email()];
+
                 $email1 = $emailsPossibilities[array_rand($emailsPossibilities)];
                 $email2 = $emailsPossibilities[array_rand($emailsPossibilities)];
 
@@ -381,7 +392,7 @@ class AppFixtures extends Fixture
 
                 // we fill telephone fields or not
 
-                $telephonesPossibilities = [null, $faker->phoneNumber()];
+                $telephonesPossibilities = [null, $faker->phoneNumber(), $faker->phoneNumber(), $faker->phoneNumber(), $faker->phoneNumber(), $faker->phoneNumber(), $faker->phoneNumber(), $faker->phoneNumber()];
                 $tel1 = $telephonesPossibilities[array_rand($telephonesPossibilities)];
                 $tel2 = $telephonesPossibilities[array_rand($telephonesPossibilities)];
 

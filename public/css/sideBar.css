@@ -12,8 +12,6 @@
     min-width: 250px;
     max-width: 250px;
     transition: all 0.3s;
-    padding-left:15px;
-	
 }
 
 #sidebar.active {
@@ -174,6 +172,7 @@ ul.CTAs a {
         -ms-transform: translateX(50%);
         transform: translateX(50%);
     }
+    
     #sidebar.active {
         margin-left: 0 !important;
         padding-left: 0 !important;

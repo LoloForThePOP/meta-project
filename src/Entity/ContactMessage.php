@@ -88,6 +88,7 @@ class ContactMessage
     {
         $this->receivers = new ArrayCollection();
         $this->setCreatedAt(new \DateTime('now'));
+        $this->hasBeenConsulted = false;
     }
   
     public function getId(): ?int

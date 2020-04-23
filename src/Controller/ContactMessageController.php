@@ -25,22 +25,26 @@ class ContactMessageController extends AbstractController
     public function index(PPBasic $presentation, ContactMessageRepository $contactMessageRepository): Response
     {
         $projectMessages = $contactMessageRepository->findBy
-            ([
-            'presentation' => $presentation->getId(),
-            ]);
+            (
+                [
+                    'presentation' => $presentation->getId(),
+                ]
+               
+            );
 
         return $this->render('contact_message/index.html.twig', [
                 'contact_messages' => $projectMessages,
                 'slug' => $presentation->getSlug(),
+                'presentation' => $presentation,
         ]);
     }
 
     
     /** 
-     * Allow to Display a Private Message with an Ajax Request (example : display it in a Modal Box)
+     * Allow to Display a Private Message with an Ajax Request (example : display it in a Modal Box). Then we edit it as hasbeenconsulted
      * @Route("/ajaxShowMessage", name="ajax_get_message_content") 
     */ 
-    public function ajaxMessageContent(Request $request, ContactMessageRepository $contactMessageRepository, PPBasic $presentation) {
+    public function ajaxMessageContent(Request $request, ContactMessageRepository $contactMessageRepository, EntityManagerInterface $manager, PPBasic $presentation) {
 
         if ($request->isXmlHttpRequest()) {
 
@@ -49,6 +53,12 @@ class ContactMessageController extends AbstractController
             $contactMessage = $contactMessageRepository->findOneById($messageId);
 
             $messageContent = $contactMessage->getContent();
+
+            // we set the message has been consulted
+
+            $contactMessage->setHasBeenConsulted(true);
+            $manager->persist($contactMessage);
+            $manager->flush();
 
             $dataResponse = [
                 'messageContent' => $messageContent,

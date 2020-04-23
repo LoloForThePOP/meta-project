@@ -2,57 +2,64 @@
 
 {% block title %}Contact{% endblock %}
 
+{% block sidebar %}{{ parent() }}{% endblock %}
+
 {% block body %}
 
     <div class="container col-sm-11">
 
         <h3 class="my-3 font-weight-bold">Détails</h3>
 
-        <table class="table">
-            <tbody>
-                
-                <tr>
-                    <th  style="width: 15%" >Titre</th>
-                    <td>{{ contact.title }}</td>
-                </tr>
+        <div class="col-md-8">
 
-                <tr>
-                    <th>Email 1</th>
-                    <td>{{ contact.email1 }}</td>
-                </tr>
+            <table class="table">
 
-                <tr>
-                    <th>Email 2</th>
-                    <td>{{ contact.email2 }}</td>
-                </tr>
+                <tbody>
+                    
+                    <tr>
+                        <th  style="width: 15%" >Titre</th>
+                        <td>{{ contact.title }}</td>
+                    </tr>
 
-                <tr>
-                    <th>Télephone 1</th>
-                    <td>{{ contact.tel1 }}</td>
-                </tr>
+                    <tr>
+                        <th>Email 1</th>
+                        <td>{{ contact.email1 }}</td>
+                    </tr>
 
-                <tr>
-                    <th>Télephone 2</th>
-                    <td>{{ contact.tel2 }}</td>
-                </tr>
+                    <tr>
+                        <th>Email 2</th>
+                        <td>{{ contact.email2 }}</td>
+                    </tr>
 
-                <tr>
-                    <th>Site Web</th>
-                    <td>{{ contact.website1 }}</td>
-                </tr>
+                    <tr>
+                        <th>Télephone 1</th>
+                        <td>{{ contact.tel1 }}</td>
+                    </tr>
 
-                <tr>
-                    <th>Adresse Postale</th>
-                    <td>{{ contact.postalMail }}</td>
-                </tr>
+                    <tr>
+                        <th>Télephone 2</th>
+                        <td>{{ contact.tel2 }}</td>
+                    </tr>
 
-                <tr>
-                    <th>Notes Additionnelles</th>
-                    <td>{{ contact.remarks }}</td>
-                </tr>
+                    <tr>
+                        <th>Site Web</th>
+                        <td>{{ contact.website1 }}</td>
+                    </tr>
 
-            </tbody>
-        </table>
+                    <tr>
+                        <th>Adresse Postale</th>
+                        <td>{{ contact.postalMail }}</td>
+                    </tr>
+
+                    <tr>
+                        <th>Notes Additionnelles</th>
+                        <td>{{ contact.remarks }}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+
 
     
     <a href="{{ path('contact_edit', {'id': contact.id, 'slug' : slug }) }}">

@@ -45,6 +45,7 @@ class WebsiteController extends AbstractController
         return $this->render('websites/index.html.twig', [
             'form' => $form->createView(),
             'slug' => $presentation->getSlug(),
+            'presentation' => $presentation,
         ]);
     }
 

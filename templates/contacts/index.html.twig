@@ -2,73 +2,73 @@
 
 {% block title %}Vous Contacter{% endblock %}
 
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
 {% block body %}
 
-    <div class="container-fluid col-sm-9">
+    <div class="container">
         
         <h3 class="my-3">Comment vous Contacter?</h3>
         
         <!-- Add a Contact Button -->
     
-        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-primary btn-lg font-weight-bold px-4 py-3 mb-3 mr-3">+ Ajouter une Zone Contact</button></a>
-            
-        <!-- Back Button -->
+        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg font-weight-bold px-4 py-3 mb-3 mr-3">+ Ajouter une Zone Contact</button></a>
 
-        <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': slug }) }}">
-            <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4">Retour</button>
-        </a>
 
-        <div class="table-responsive">
+        <div class="col-md-9 pl-0">
 
-            <table class="table table-hover table-striped table-bordered">
+            <div class="table-responsive">
 
-                <thead>
+                <table class="table table-hover table-striped table-bordered">
 
-                    <tr>
-                        <th>Titre</th>
-                        <th>Email</th>
-                        <th>Telephone</th>
-                        <th>Site Web</th>
-                        <th>Adresse</th>
-                    </tr>
+                    <thead>
 
-                </thead>
+                        <tr>
+                            <th>Titre du Contact</th>
+                            <th>E-mail 1</th>
+                            <th>Telephone 1</th>
+                            <th>Adresse</th>
+                        </tr>
 
-                <tbody>
+                    </thead>
 
-                {% for contact in contacts %}
+                    <tbody>
 
-                    {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
-                    {% set editPath = path('contact_edit', {'id': contact.id, 'slug': slug}) %}
-    
-                    <tr class="cursor-pointer"  
-                        
-                        {% if app.user and app.user == presentation.creator %}
-                            onclick="window.location='{{ editPath }}'";>
-                        {% else %}
-                            onclick="window.location='{{ showPath }}'";>
-                        {% endif %}
-                 
-                        <td>{{ contact.title }}</td>
-                        <td>{{ contact.email1 | slice (0,15) }} (...)</td>
-                        <td>{{ contact.tel1 }}</td>
-                        <td>(...) {{ contact.website1 | slice (11,20)}} (...)</td>
-                        <td>{{ contact.postalMail }}</td>
+                    {% for contact in contacts %}
 
-                    </tr>
+                        {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
+                        {% set editPath = path('contact_edit', {'id': contact.id, 'slug': slug}) %}
+        
+                        <tr class="cursor-pointer"  
+                            
+                            {% if app.user and app.user == presentation.creator %}
+                                onclick="window.location='{{ editPath }}'";>
+                            {% else %}
+                                onclick="window.location='{{ showPath}}'";>
+                            {% endif %}
+                    
+                            <td>{{ contact.title }}</td>
+                            <td>{{ contact.email1 | slice (0,15) }} (...)</td>
+                            <td>{{ contact.tel1 }}</td>
+                            <td>{{ contact.postalMail }}</td>
 
-                {% else %}
+                        </tr>
 
-                    <tr>
-                        <td colspan="9">Aucune Zone Contact pour l'Instant/td>
-                    </tr>
-                {% endfor %}
+                    {% else %}
 
-                </tbody>
+                        <tr>
+                            <td colspan="9">Aucune Zone Contact pour l'Instant</td>
+                        </tr>
+                    {% endfor %}
 
-            </table> 
+                    </tbody>
 
+                </table> 
+
+            </div>
         </div>
+            
+
 
     </div>
 

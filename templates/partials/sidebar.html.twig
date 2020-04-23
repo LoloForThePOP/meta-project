@@ -1,12 +1,12 @@
 
-<!-- Sidebar Items Names paired with their Access Route Names  -->
+<!-- Sidebar Items Names paired with their Access Route Names, their icons(future :  and some misc informations for badges)  -->
 
 {% set sidebarItems = [ 
 
-    { 'name': 'Accueil', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
-    { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+    { 'name': 'Présentation', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+    { 'name': 'Tableau de Bord', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
     { 'name': 'Généralités', 'route': 'project_edit', 'iconName': 'generalities.svg'}, 
-    { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg'}, 
+    { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': presentation.countUnreadMessages()}, 
     { 'name': 'Diapo Pitch', 'route': 'slideshow_index', 'iconName': 'pitch.svg'}, 
     { 'name': 'Contact Infos', 'route': 'contact_index', 'iconName': 'contacts.svg'}, 
     { 'name': 'Besoins', 'route': 'need_index', 'iconName': 'needs.svg'}, 
@@ -29,9 +29,13 @@
 
                 <a href="{{ path(item.route, {'slug':presentation.slug}) }}">  
 
-                <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
+                    <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
  
                     {{item.name}}
+
+                    {% if item.badge is defined %}
+                    <span class="badge badge-primary font-weight-bold ml-1">{{item.badge}}</span>
+                    {% endif %}
                 </a>
 
             </li>

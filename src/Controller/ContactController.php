@@ -28,6 +28,7 @@ class ContactController extends AbstractController
                 'presentation' => $presentation->getId(),
                 ]),
             'slug' => $presentation->getSlug(),
+            'presentation' => $presentation,
         ]);
     }
 
