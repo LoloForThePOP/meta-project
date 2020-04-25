@@ -96,7 +96,6 @@
             <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
                 <thead>
                     <tr class="cursor-pointer">
-                        <th>Id</th>
                         <th>Contexte</th>
                         <th>Titre</th>
                         <th>Contenu</th>
@@ -108,9 +107,7 @@
                 <tbody>
                 {% for contact_message in contact_messages %}
                     <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
-                        <td>
-                            {{ contact_message.id }}
-                        </td>
+
 
                         <td>
                             {{ contact_message.context  | slice(0, 20)}}
@@ -169,6 +166,7 @@
         // ui plugin to paginate, order, search in a table
 
         $('#messagesTable').DataTable( {
+            "order": [],
             language: {
                 processing:     "Traitement en cours...",
                 search:         "Rechercher&nbsp;:",

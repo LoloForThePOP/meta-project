@@ -36,20 +36,23 @@
 
                         <div class="text-xs font-weight-bold text-uppercase mb-3">Messages</div>
 
-                          {% if presentation.isActiveContactMessages %}
+                          {% if presentation.countUnreadMessages() > 0 %}
                               
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">{{ presentation.countUnreadMessages() }} Message(s) Non Lus</div>
+                            <div class="h6 mb-0 font-weight-bold text-gray-800">{{ presentation.countUnreadMessages() }} Message(s) Non Lus
                             </div>
 
-                          {% else %}
+                          {% endif %}
+
+                          {% if not presentation.isActiveContactMessages %}
                         
-                            Messages Privés Désactivés
+                            !!! Messages Privés Désactivés !!!
                             
                           {% endif %}
 
                     </div>
                   </div>
                 </div>
+              </div>
               </div>
   
               <!-- Project Geodomains -->

@@ -22,14 +22,18 @@ class ContactMessageController extends AbstractController
     /**
      * @Route("/", name="index_project_messages", methods={"GET"})
      */
-    public function index(PPBasic $presentation, ContactMessageRepository $contactMessageRepository): Response
+    public function index(PPBasic $presentation,ContactMessageRepository $contactMessageRepository): Response
     {
+        
         $projectMessages = $contactMessageRepository->findBy
             (
                 [
                     'presentation' => $presentation->getId(),
-                ]
-               
+                ],
+                [
+                    'createdAt' => 'DESC',
+                ],
+                
             );
 
         return $this->render('contact_message/index.html.twig', [
@@ -157,6 +161,7 @@ class ContactMessageController extends AbstractController
             'contact_message' => $contactMessage,
         ]);
     }
+
 
   
 }

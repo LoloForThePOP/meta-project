@@ -3,16 +3,17 @@
 
 {% set sidebarItems = [ 
 
+    { 'name': 'Accueil', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
     { 'name': 'Présentation', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
-    { 'name': 'Tableau de Bord', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
     { 'name': 'Généralités', 'route': 'project_edit', 'iconName': 'generalities.svg'}, 
-    { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': presentation.countUnreadMessages()}, 
+    { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
     { 'name': 'Diapo Pitch', 'route': 'slideshow_index', 'iconName': 'pitch.svg'}, 
     { 'name': 'Contact Infos', 'route': 'contact_index', 'iconName': 'contacts.svg'}, 
     { 'name': 'Besoins', 'route': 'need_index', 'iconName': 'needs.svg'}, 
     { 'name': 'Catégories', 'route': 'index_categories', 'iconName': 'categories.svg'}, 
     { 'name': 'Lieux', 'route': 'places_city_manage', 'iconName': 'geodomains.svg'}, 
     { 'name': 'Sites Web', 'route': 'websites_index', 'iconName': 'websites.svg'}, 
+    { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'}, 
 
 ] %}
 

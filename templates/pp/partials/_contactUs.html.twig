@@ -1,14 +1,6 @@
 
 {% block stylesheets %}
 
-    <style>
-        
-        .cryptedmail:after {
-
-            content: attr(data-name) "@" attr(data-domaintld); 
-        }
-        
-        </style>
   
 {% endblock %}
 
@@ -41,12 +33,18 @@
 
                     <div class="pl-4">
 
+                        <style>
+                                                
+                            .cryptedmail:after {
+
+                                content: attr(data-name) "@" attr(data-domaintld); 
+                            }
+
+                        </style>
+
                         {% if contact.email1 is not null %}
 
-                            <a class="text-decoration-none text-body" href="mailto:{{contact.email1}}">{{contact.email1}}</a> <br>
-
-                                    
-                                <a href="#" class="cryptedmail"
+                             <a href="#" class="cryptedmail text-decoration-none text-body" 
                                 data-name="{{ contact.email1|split('@')[0] }}"
                                 data-domaintld="{{ contact.email1|split('@')[1] }}"
                                 onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
@@ -54,7 +52,17 @@
 
                         {% endif %}
 
-                        <a class="text-decoration-none text-body" href="mailto:{{contact.email2}}">{{contact.email2}}</a>
+                        
+                        {% if contact.email2 is not null %}
+
+                             <a href="#" class="cryptedmail text-decoration-none text-body" 
+                                data-name="{{ contact.email2|split('@')[0] }}"
+                                data-domaintld="{{ contact.email2|split('@')[1] }}"
+                                onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                            </a>
+
+                        {% endif %}
+
 
                     </div>
 

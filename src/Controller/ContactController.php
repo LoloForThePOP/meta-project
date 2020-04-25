@@ -99,7 +99,7 @@ class ContactController extends AbstractController
     /**
      * @Route("/{id}", name="contact_delete", methods={"DELETE"})
      */
-    public function delete(Request $request, Contact $contact): Response
+    public function delete($slug, Request $request, Contact $contact): Response
     {
         if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
