@@ -1,0 +1,448 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Crédits et Remerciements{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h3 class="my-4">Crédits et Remerciements</h3>
+                
+        <!-- People -->
+
+        <div>
+
+            <h4 class="my-4">● Les Gens qui Rendent Possible</h4>
+
+            <p class="h5 pl-md-4 col-md-8 text-justify">
+                Ce site web n'aurait jamais été possible sans le travail, passé ou présent, de tant de personnes, impliquées ou non dans l'informatique, et qui impactent de près ou de loin la possibilité de concevoir et mettre en oeuvre un tel outil. Par conséquent, à toutes les personnes, de tous métiers, de toutes conditions, qui ont rendu possible, ou rendent possible, la conception, le codage, la publication, et l'utilisation de ce site web-outil, dans des conditions matérielles, sociales, et affectives sereines, un Grand Merci ❤️.
+            </p>
+
+        </div>
+        
+        
+
+        <!-- Websites we Use(d) -->
+        
+        <h4 class="my-4">● Plateformes d'Informations</h4>
+
+        {% set websites = 
+            
+            [ 
+
+                { 
+                    'title': 'Google Search Engine', 
+                    'subtitle': 'Moteur de Recherche', 
+                    'comment': 'Un Bijou de Puissance et d\'Efficacité. Sans prétention, c\'est une référence que je souhaite suivre pour le Projet des Projets.', 
+                    'image': '/images/projects/thumbnails/1e90ff.gif', 
+                    'link' : 'https://www.google.com'
+                },
+                
+                { 
+                    'title': 'W3Schools', 
+                    'subtitle': 'Enseignement du Codage', 
+                    'comment': 'Clarté, Efficacité, Qualité, Accès pour tous, et Pédagogie. Tous mes remerciements.', 
+                    'image': '/images/projects/thumbnails/1e90ff.gif', 
+                    'link' : 'https://www.w3schools.com'
+                },
+
+                { 
+                    'title': 'Stack Overflow', 
+                    'subtitle': 'Forum d\'Entraide pour Codeurs', 
+                    'comment': 'Tellement de Bugs et de Problèmes de codages résolus grâce à cette plateforme et à ses participants.', 
+                    'image': '/images/projects/thumbnails/1e90ff.gif', 
+                    'link' : 'https://www.stackoverflow.com'
+                },
+
+
+            ]
+
+        %}
+
+        {% for website in websites %}
+
+            <div class="row pl-md-4 mb-2">
+
+                    <div class="col-auto d-flex align-items-center m-0 pr-2">
+                        <img class="rounded mb-2" src="{{website.image}}" alt="Logo" style="width:100px; max-height:100px">
+
+                    </div>
+
+                    <div class="col-md-6">
+
+                            <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
+                                {{website.title}}
+                            </h5>
+                                
+                            <div class="keywords  d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
+                                {{website.subtitle}}
+                            </div>
+
+                            <p class="card-text h5 py-0">
+                                {{website.comment}}
+                            </p>
+
+                    </div>
+
+            </div>
+
+        {% endfor %}
+
+        <!-- Programming Languages and Frameworks -->
+
+        {% set codingBases = 
+            
+            [ 
+
+                { 
+                    'title': 'PHP', 
+                    'description': 'Back-End Programming Language', 
+                    'link' : '',
+                },
+                
+                { 
+                    'title': 'Symfony Framework', 
+                    'description': 'PHP Framework', 
+                    'link' : '',
+                },
+                
+                { 
+                    'title': 'Bootstrap', 
+                    'description': 'Front-End CSS Framework', 
+                    'link' : '',
+                },
+                
+                { 
+                    'title': 'jQuery', 
+                    'description': 'Front-End javascripts Framework', 
+                    'link' : '',
+                },
+                                
+            ]
+
+        %}
+        
+        <div class="col-md-8 my-4">
+
+            <h4 class="mb-4">
+                ● Langages et Frameworks Utilisés 
+            </h4>
+
+            
+         {% for codingItem in codingBases %}
+
+            <div class="row pl-md-4 mb-2">
+
+                <div class="col-md-6">
+
+                        <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
+                            {{codingItem.title}}
+                        </h5>
+                            
+                        <div class="keywords  d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
+                            {{codingItem.description}}
+                        </div>
+
+                        <p class="card-text h5 py-0">
+                            {{codingItem.link}}
+                        </p>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+        </div>
+
+        <!-- Some Plugin Used -->
+
+        <div class="my-4">
+
+            <h4 class="mb-4">
+                ● Des Plugins Utilisés 
+            </h4>
+
+            {% set pluginList = 
+            
+                [ 
+    
+                    { 
+                        'title': ' tgalopin / html-sanitizer-bundle ', 
+                        'description': 'Manipuler des données HTML potentiellement malveillantes', 
+                        'link' : '',
+                    },
+    
+                    { 
+                        'title': ' dustin10 / VichUploaderBundle ', 
+                        'description': 'Gestion d\'upload de fichiers au sein du framework Symfony', 
+                        'link' : '',
+                    },
+    
+                    { 
+                        'title': '  fzaninotto / Faker  ', 
+                        'description': 'Utiliser des Jeux de Fausses Données pour concevoir un prototype de site web', 
+                        'link' : '',
+                    },        
+    
+                    { 
+                        'title': ' Data Tables plugin for jQuery ', 
+                        'description': 'Ajouter des Interactions sur des Tableaux HTML', 
+                        'link' : '',
+                    },
+    
+    
+                    { 
+                        'title': ' TinyMCE ', 
+                        'description': 'Utiliser un éditeur de texte riche dans un site web', 
+                        'link' : '',
+                    },
+    
+                    { 
+                        'title': '  kylekatarnls / vicopo  ', 
+                        'description': 'Trouver les villes à partir d\'un code postal et code postaux à partir d\'une ville (API HTTP et Script)',
+                        'link' : '',
+                    },
+
+                    { 
+                        'title': ' ninsuo / symfony-collection ', 
+                        'description': 'Manipuler des Collections Symfony', 
+                        'link' : '',
+                    },
+
+                    { 
+                        'title': ' Bootstrap Toggle ', 
+                        'description': 'Manipuler facilement des switch buttons (plugin pour Bootstrap 4 / jQuery)', 
+                        'link' : '',
+                    },
+                                    
+                ]
+    
+            %}
+
+            {% for pluginItem in pluginList %}
+
+            <div class="row pl-md-4 mb-2">
+
+                <div class="col-md-6">
+
+                        <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
+                            ● {{pluginItem.description}}
+                        </h5>
+                            
+                        <div class="keywords d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
+                            {{pluginItem.title}}
+                        </div>
+
+                        <p class="card-text h5 py-0">
+                            {{pluginItem.link}}
+                        </p>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+
+            
+
+        </div>
+
+        <!-- Some Softwares Used -->
+
+        <div class="my-4">
+
+            <h4 class="mb-4">
+                ● Des Logiciels Utilisés 
+            </h4>
+
+            {% set softwareList = 
+            
+                [ 
+    
+                    { 
+                        'title': ' Visual Studio Code (with its extensions)', 
+                        'description': 'Coder', 
+                        'comment': 'Je suis impressionné par les aides, parfois subtiles, que ce logiciel m\'apporte pour coder.', 
+                        'link' : '',
+                    },
+    
+                    { 
+                        'title': ' Open Office Suite ', 
+                        'description': 'Produire du Texte et des Visuels pour Communiquer',
+                        'comment' : 'Efficacité, Qualité, Gratuité, pour l\'Intérêt Général. Merci à tous les contributeurs.',
+                        'link' : '',
+                    },
+                                    
+                ]
+    
+            %}
+
+            {% for software in softwareList %}
+
+            <div class="row pl-md-4 mb-2">
+
+                <div class="col-md-6">
+
+                        <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
+                            ● {{software.description}}
+                        </h5>
+                            
+                        <div class="keywords d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
+                            {{software.title}}
+                        </div>
+
+                        <p class="card-text h5 py-0">
+                            {{software.comment}}
+                        </p>
+
+                </div>
+
+            </div>
+
+        {% endfor %}
+
+     </div>
+
+        
+        <!-- Flaticons Attributions -->
+
+        <div class="mt-4 ">
+
+            
+        {% set flaticons = 
+            
+            [ 
+
+                { 
+                    'iconName': 'TV',
+                    'madeByHref': 'https://www.flaticon.com/authors/freepik',
+                    'madeByTitle': 'Freepik',
+                },
+
+                { 
+                    'iconName': 'Earth',
+                    'madeByHref': 'https://www.flaticon.com/authors/turkkub',
+                    'madeByTitle': 'turkkub',
+                },
+
+                { 
+                    'iconName': 'Pointing Finger',
+                    'madeByHref': 'https://www.flaticon.com/authors/freepik',
+                    'madeByTitle': 'Freepik',
+                },
+
+                { 
+                    'iconName': 'WWW',
+                    'madeByHref': 'https://www.flaticon.com/authors/alfredo-hernandez',
+                    'madeByTitle': 'Alfredo Hernandez',
+                },
+
+                { 
+                    'iconName': 'Messages',
+                    'madeByHref': 'https://www.flaticon.com/authors/freepik',
+                    'madeByTitle': 'Freepik',
+                },
+
+                { 
+                    'iconName': 'Star',
+                    'madeByHref': 'https://www.flaticon.com/authors/piwel-perfect',
+                    'madeByTitle': 'Pixel Perfect',
+                },
+
+                { 
+                    'iconName': '@ symbol',
+                    'madeByHref': 'https://www.flaticon.com/authors/alfredo-hernandez',
+                    'madeByTitle': 'Alfredo Hernandez',
+                },
+
+                { 
+                    'iconName': 'Geometric shapes',
+                    'madeByHref': 'https://www.flaticon.com/authors/freepik',
+                    'madeByTitle': 'Freepik',
+                },
+
+                { 
+                    'iconName': 'Settings',
+                    'madeByHref': 'https://www.flaticon.com/authors/freepik',
+                    'madeByTitle': 'Freepik',
+                },
+
+                { 
+                    'iconName': 'icon',
+                    'madeByHref': 'https://www.flaticon.com/authors/vitaly-gorbachev',
+                    'madeByTitle': 'Vitaly Gorbachev',
+                },
+
+                { 
+                    'iconName': 'Icon',
+                    'madeByHref': 'https://www.flaticon.com/authors/good-ware',
+                    'madeByTitle': 'Good Ware',
+                },
+
+                { 
+                    'iconName': 'Icon',
+                    'madeByHref': 'https://www.flaticon.com/authors/pixel-perfect',
+                    'madeByTitle': 'Pixel Perfect',
+                },
+
+                { 
+                    'iconName': 'Icon',
+                    'madeByHref': 'https://www.flaticon.com/authors/freepik',
+                    'madeByTitle': 'Freepik',
+                },
+
+                { 
+                    'iconName': 'Icon',
+                    'madeByHref': 'https://www.flaticon.com/authors/bqlqn',
+                    'madeByTitle': 'bqlqn',
+                },
+
+            ]
+
+        %}
+
+
+            <h4 class="my-3">
+
+                ● Attributions Icônes Site Flaticon (Excellent Site pour Trouver et Utiliser des Icônes) 
+
+                (
+                    <a href="www.flaticon.com" title="Flaticon">www.flaticon.com</a>
+
+                )
+
+            </h4>
+
+            <ul>
+
+                {% for flaticon in flaticons %}
+                    
+                    <li> 
+
+                        {{flaticon.iconName}}
+
+                        made by
+
+                        <a href="{{flaticon.madeByHref}}" title="{{flaticon.madeByTitle}}">{{flaticon.madeByTitle}}</a>
+
+                    </li>
+                    
+                {% endfor %}
+
+
+            </ul>
+
+        </div>
+
+
+
+
+
+
+
+    </div>
+  
+{% endblock %}
