@@ -17,12 +17,14 @@ class PPController extends AbstractController
     /**
      * @Route("/projects", name="projects_index")
      */
-    public function index(PPBasicRepository $repo)
+    public function index(EntityManagerInterface $manager)
     {
-        $presentations = $repo->findAll();
+        // $presentations = $repo->findAll();
+
+        $lastInsertedProjects = $manager->createQuery('SELECT p.title, p.keywords, p.thumbnailName, p.goal, p.slug, p.title FROM App\Entity\PPBasic p ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
         return $this->render('pp/index.html.twig', [
-            'presentations' => $presentations,
+            'presentations' => $lastInsertedProjects,
         ]);
     }
 

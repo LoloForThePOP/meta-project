@@ -81,7 +81,7 @@ class AppFixtures extends Fixture
             $category = new Category();
             $category->setName($key);
             $category->setDescriptionFr($value);
-            $category->setIcon('https://place-hold.it/24x24/');
+            //$category->setIcon('https://place-hold.it/24x24/');
             $manager->persist($category);
 
             $categoriesObjects[]=$category;
@@ -92,7 +92,7 @@ class AppFixtures extends Fixture
 
         // Website Users Creation
 
-        $users=[];
+       /*  $users=[];
         $userGenres=['male','female'];
         
         for($i=1; $i<=30; $i++) {
@@ -136,27 +136,31 @@ class AppFixtures extends Fixture
             $users[]=$user;
        
         }
-
+ */
 
         // Project Presentations Creation
-        
+        /* 
         for($i=1; $i<=25; $i++) {
 
             $pp = new PPBasic ();
 
             // Title Creation
 
-            //Some Titles won't be filled (untitled-project-id title pattern might be used in this case). I avoid this case for the moment...
+            //future fixture not for the moment : In Prod dome Titles won't be filled (untitled-project-id title pattern might be used in this case). I don't treat this case for the moment.
             
-            /* $title='Projet Sans Titre';
+            //$title='Projet Sans Titre';
 
-            $filledTitle=array_rand([true,true,true,true, false]);
+            //$filledTitle=array_rand([true,true,true,true, false]);
 
-            if($filledTitle==true){
+            //if($filledTitle==true){
                 $title=$faker->sentence();
-            } */
+            }
 
             $title=$faker->sentence();
+
+            // Project Date of Creation
+
+            $createdAt = $faker->dateTimeBetween($startDate = '-4 years', $endDate = '-3 years');
 
             // Keywords Creation
             $keywordsNumber=mt_rand(0,7);
@@ -193,7 +197,7 @@ class AppFixtures extends Fixture
                 ->setKeywords($keywords)
                 ->setThumbnailName($thumbnailAddress)
                 ->setLogoName($logoAddress)
-                ->setCreatedAt($faker->dateTime())
+                ->setCreatedAt($createdAt)
                 ->setCreator($creator)
                 ->setIsActiveContactMessages($isActiveContactMessages)
             ;
@@ -469,7 +473,7 @@ class AppFixtures extends Fixture
 
             $manager->persist($pp);
 
-        }
+        } */
 
         $manager->flush();
     }
