@@ -21,6 +21,8 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends AbstractController
 {
     /**
+     * Display login form
+     * 
      * @Route("/login", name="account_login")
      * 
      * @return Response
@@ -37,7 +39,8 @@ class AccountController extends AbstractController
 
     
     /**
-     * Permet de se Déconnecter
+     * Allow to Disconnect
+     * 
      * @Route("/logout",name="account_logout")
      * @return void
      */
@@ -46,7 +49,8 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Permet d'afficher le formulaire d'inscription
+     * Display Register Form
+     * 
      * @Route("/register",name="account_register")
      * @return Response
      */
@@ -80,7 +84,7 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Permet d'Editer le Profil d'un Utilisateur
+     * Allow user to edit his profile
      * @Route("account/profile",name="account_profile")
      * @Security("is_granted('ROLE_USER')")
      * @return Response
@@ -115,7 +119,7 @@ class AccountController extends AbstractController
 
     
     /**
-     * Permet à l'Utilisateur de Modifier son Mot de Passe
+     * Allow User to Modify his Password
      * 
      * @Route("/account/update-password",name="account_update_password")
      * @IsGranted("ROLE_USER")
@@ -164,7 +168,7 @@ class AccountController extends AbstractController
     }
 
       /**     
-     * Permet de retourner la Page de l'utilisateur
+     * Allow to show connected user profile
      * @Route("/account",name="account_index")
      * @IsGranted("ROLE_USER")
      *

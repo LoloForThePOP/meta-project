@@ -34,6 +34,7 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/new", name="need_new", methods={"GET","POST"})
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function new(PPBasic $pp, $slug, Request $request): Response
     {
@@ -73,7 +74,7 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/{id}/edit", name="need_edit", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_USER')")
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function edit($slug, Request $request, Need $need): Response
     {
@@ -97,7 +98,7 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/{id}", name="need_delete", methods={"DELETE"})
-     * @Security("is_granted('ROLE_ADMIN')")
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function delete($slug, Request $request, Need $need): Response
     {

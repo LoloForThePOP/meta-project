@@ -10,6 +10,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -18,7 +19,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class GeoDomainController extends AbstractController
 {
     /**
-     * Pour l'instant seul l'ajout de villes est implémenté, et non pas l'ajout de lieux en général. places_manage est donc commenté alors que cities_manage ne l'est pas
+     * Pour l'instant seul l'ajout de villes est implémenté, et non pas l'ajout de lieux en général.
      * 
      * @Route("/", name="places_manage")
      */
@@ -31,9 +32,11 @@ class GeoDomainController extends AbstractController
                 'presentation' => $presentation,
         ]);
     } */
+    
 
     /**
      * @Route("/new-city", name="places_city_manage")
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas gérer les lieux de ce projet")
      */
     public function newCity(PPBasic $presentation)
     {
@@ -45,6 +48,7 @@ class GeoDomainController extends AbstractController
 
     /** 
      * @Route("/ajaxNewCity", name="ajax_new_city") 
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas ajouter des lieux à ce projet")
     */ 
     public function ajaxNewCity(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
 
@@ -90,7 +94,9 @@ class GeoDomainController extends AbstractController
     /**
      * Permet de Supprimer une Ville dans une Présentation
      * 
-     * @Route("/ajaxRemoveCity/", name="ajax_remove_city")
+     * @Route("/ajax-remove-city/", name="ajax_remove_city")
+     * 
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas supprimer des lieux de ce projet")
      * 
      * @return Response
      */

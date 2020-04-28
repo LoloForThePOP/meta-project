@@ -11,6 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
@@ -19,9 +20,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CategoriesController extends AbstractController
 {
     /**
-     * Allow to Edit Project Categories with ajax, and Edit Keywords with a Form
+     * Allow to Display Edit Project Categories (with an ajax function bellow), and Display / Manage an Edit Keywords a Form
      * 
      * @Route("/", name="index_categories")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
      */
     public function index(PPBasic $presentation, Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
     {
@@ -54,6 +58,7 @@ class CategoriesController extends AbstractController
 
     /** 
      * @Route("/ajaxUpdateCategory", name="ajax_update_category") 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
     */ 
     public function ajaxUpdateCategory(Request $request, PPBasic $presentation, CategoryRepository $categoryRepository, EntityManagerInterface $manager) {
 

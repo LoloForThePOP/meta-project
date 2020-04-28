@@ -21,6 +21,7 @@ class ContactMessageController extends AbstractController
 {
     /**
      * @Route("/", name="index_project_messages", methods={"GET"})
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas accéder à ses messages")
      */
     public function index(PPBasic $presentation,ContactMessageRepository $contactMessageRepository): Response
     {
@@ -45,8 +46,11 @@ class ContactMessageController extends AbstractController
 
     
     /** 
-     * Allow to Display a Private Message with an Ajax Request (example : display it in a Modal Box). Then we edit it as hasbeenconsulted
+     * Allow to Display a Private Message (example : in a Modal Box).
+     * 
      * @Route("/ajaxShowMessage", name="ajax_get_message_content") 
+     * 
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas accéder à ses messages privés")
     */ 
     public function ajaxMessageContent(Request $request, ContactMessageRepository $contactMessageRepository, EntityManagerInterface $manager, PPBasic $presentation) {
 
@@ -80,6 +84,8 @@ class ContactMessageController extends AbstractController
      * Allow to Delete a Private Message
      * 
      * @Route("/ajaxDeleteMessage/", name="ajax_delete_message")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      * @return Response
      */
@@ -153,7 +159,10 @@ class ContactMessageController extends AbstractController
 
     /**
      * Allow to Show a Private Message
+     * 
      * @Route("/{id}", name="contact_message_show", methods={"GET"})
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas accéder à ses messages privés")
      */
     public function show(ContactMessage $contactMessage): Response
     {

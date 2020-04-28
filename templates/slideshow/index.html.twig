@@ -69,9 +69,7 @@
 
                             <!-- Remove Slide button (a red cross on each slide) -->
             
-                            <a href="{{ path('delete_slide', {'slug':slug , 'id': slide.id}) }}">
-                                <button type="button" onclick="confirm('Confirmer la Suppression?')" class="js-delete d-inline position-absolute btn btn-danger" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
-                            </a>
+                            <button type="button" class="js-delete-slide d-inline position-absolute btn btn-danger" data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
 
                         </div>
 
@@ -122,6 +120,9 @@
                $('#chooseSlideTypeModal').modal('show');
 
             });
+
+            // Allow drag and drop slides reorder (front-end)
+            // and ùmanage an ajax request to update slides positions (back-end)
 
 
             $('#gridDemo').sortable({
@@ -174,6 +175,53 @@
 
                 },
             });
+
+            // Remove a City
+
+               $('#gridDemo').on('click', '.js-delete-slide', function (){
+
+                var idSlide = $(this).attr("data-id");
+
+                if (confirm("Confimer la suppression de cette diapo?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: "{{path('ajax_delete_slide', {'slug': presentation.slug}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                      "idSlide": idSlide,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+
+                        $("#gridDemo #"+idSlide).remove();
+                       
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                 }); 
+                    
+                }
+
+
+            });
+
+
+
+
+
+
+
 
         }); 
 

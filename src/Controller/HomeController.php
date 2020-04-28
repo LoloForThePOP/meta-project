@@ -17,7 +17,7 @@ class HomeController extends AbstractController {
      */
     public function home (EntityManagerInterface $manager) {
 
-        // we show 20 last inserted projects
+        // we show the last 20 inserted projects
 
         $lastInsertedProjects = $manager->createQuery('SELECT p.title, p.keywords, p.thumbnailName, p.goal, p.slug, p.title FROM App\Entity\PPBasic p ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
