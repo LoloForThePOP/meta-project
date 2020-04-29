@@ -11,22 +11,21 @@ use App\Form\SlideshowImagesType;
 use App\Form\SlideshowAddTextType;
 use App\Repository\SlideRepository;
 use App\Form\SlideshowColReorderType;
-use HtmlSanitizer\SanitizerInterface;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/projects/{slug}/slideshow")
  * 
  */
 class SlideshowController extends AbstractController
 {
     /**
-     * @Route("/", name="slideshow_index")
+     * @Route("/projects/{slug}/slideshow/", name="slideshow_index")
      */
     public function index(PPBasic $pp)
     {
@@ -39,7 +38,7 @@ class SlideshowController extends AbstractController
     /**
      * Permet de modifier l'ordre des diapos en ajax
      *
-     * @Route("/ajax-reorder-slides/", name="ajax_reorder_slides")
+     * @Route("/projects/{slug}/slideshow/ajax-reorder-slides/", name="ajax_reorder_slides")
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
@@ -77,7 +76,7 @@ class SlideshowController extends AbstractController
     /**
      * Ajax slide deletion
      * 
-     * @Route("/ajax-delete-slide/", name="ajax_delete_slide")
+     * @Route("/projects/{slug}/slideshow/ajax-delete-slide/", name="ajax_delete_slide")
      * 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
@@ -115,13 +114,13 @@ class SlideshowController extends AbstractController
     /**
      * Permet d'Ajouter une Slide de Texte
      * 
-     * @Route("/add-text",name="slideshow_text_add")
+     * @Route("/projects/{slug}/slideshow/add-text",name="slideshow_text_add")
      * 
      * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      * @return Response
      */
-    public function addText (PPBasic $pp, SanitizerInterface $sanitizer, Request $request, EntityManagerInterface $manager){
+    public function addText (PPBasic $pp, Request $request, EntityManagerInterface $manager){
 
         $slide = new Slide();
 
@@ -131,18 +130,21 @@ class SlideshowController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            // count previous slide in order to set new slides positions
-            $counterPreviousSlides = 0;
+            if ($slide->getPosition() == NULL) {
+                    
+                // count previous slide in order to set new slides positions
+                $counterPreviousSlides = 0;
 
-            if(!$pp->getSlides()->isEmpty()){
+                if(!$pp->getSlides()->isEmpty()){
 
-                foreach ($pp->getSlides() as $key ) {
-                    $counterPreviousSlides ++ ;
+                    foreach ($pp->getSlides() as $key ) {
+                        $counterPreviousSlides ++ ;
+                    }
                 }
-            }
 
-            $newSlidePosition = $counterPreviousSlides;
+                $newSlidePosition = $counterPreviousSlides;
       
+            }
 
             $slideThumbnail = 'Diapo Texte';
 
@@ -176,15 +178,17 @@ class SlideshowController extends AbstractController
 
 
    /**
-     * Permet d'Editer une Slide de Texte
+     * Text Slide Edition Form
      * 
-     * @Route("/edit-text/{id}",name="slideshow_text_edit")
+     * @Route("/projects/{slug}/slideshow/edit-text/{slide_id}",name="slideshow_text_edit")
      * 
-     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Entity("slide", expr="repository.find(slide_id)")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      * @return Response
      */
-    public function edit($slug, Slide $slide, Request $request, EntityManagerInterface $manager){
+    public function edit(PPBasic $presentation, Slide $slide, Request $request, EntityManagerInterface $manager){
         
         $form = $this->createForm(SlideshowAddTextType::class, $slide);
 
@@ -201,13 +205,13 @@ class SlideshowController extends AbstractController
             );
 
             return $this->redirectToRoute('slideshow_index', [
-                'slug' => $slug,
+                'slug' => $presentation->getSlug(),
             ]);    
 
         }
         
         return $this->render('slideshow/addText.html.twig', [
-            'slug' => $slug,
+            'slug' => $presentation->getSlug(),
             'form' => $form->createView(),
         ]);
 
@@ -217,7 +221,7 @@ class SlideshowController extends AbstractController
     /**
      * Permet d'Ajouter des Images
      * 
-     * @Route("/add-images",name="slideshow_images_add")
+     * @Route("/projects/{slug}/slideshow/add-images",name="slideshow_images_add")
      * 
      * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
@@ -286,7 +290,7 @@ class SlideshowController extends AbstractController
     /**
      * Permet d'Ajouter une Vidéo
      * 
-     * @Route("/add-video",name="slideshow_video_add")
+     * @Route("/projects/{slug}/slideshow/add-video",name="slideshow_video_add")
      * 
      * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 

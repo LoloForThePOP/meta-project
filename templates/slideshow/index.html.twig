@@ -53,7 +53,7 @@
 
                             {% elseif slide.mediaType == 'text' %}
 
-                            <a href="{{path('slideshow_text_edit', {'slug':slug,'id' : slide.id })}}" class="text-body text-decoration-none">
+                            <a href="{{path('slideshow_text_edit', {'slug':slug,'slide_id' : slide.id })}}" class="text-body text-decoration-none">
 
                                 <div class="text-break p-1 cursor-pointer" style="width:100%; line-height:1.15em;">
     
@@ -100,11 +100,11 @@
 
 {% block javascripts %}
 
-    <!-- sortable plugin in order to ajax reorder slides -->
+    <!-- sortable plugin in order to reorder slides -->
 
     <script src="/js/sortable/sortable.min.js"></script>
 
-    <!-- jQuerySupport -->
+    <!-- jQuerySupport for this sortable plugin -->
     
     <script src="/js/sortable/jquery-sortable.js"></script>
        
