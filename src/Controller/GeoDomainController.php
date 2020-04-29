@@ -18,25 +18,26 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class GeoDomainController extends AbstractController
 {
+
     /**
-     * Pour l'instant seul l'ajout de villes est implémenté, et non pas l'ajout de lieux en général.
+     * @Route("/manage-departments", name="geodomains_departments_manage")
      * 
-     * @Route("/", name="places_manage")
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas gérer les lieux de ce projet")
+     * 
      */
-    /* public function index(PPBasic $presentation, GeoDomainRepository $geoRepo)
+    public function manageDepartments(PPBasic $presentation)
     {
-        $geoPlaces = $geoRepo->findAll();
-
-        return $this->render('places/index.html.twig', [
-                'geoPlaces' => $geoPlaces,
-                'presentation' => $presentation,
+  
+        return $this->render('geoDomains/manage-departments.html.twig', [
+            'presentation' => $presentation,
         ]);
-    } */
-    
+    }
 
     /**
-     * @Route("/new-city", name="places_city_manage")
+     * @Route("/new-city", name="geodomains_cities_manage")
+     * 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas gérer les lieux de ce projet")
+     * 
      */
     public function newCity(PPBasic $presentation)
     {

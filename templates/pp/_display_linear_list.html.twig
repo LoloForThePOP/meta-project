@@ -1,19 +1,25 @@
 
 <a class="text-primary text-decoration-none" href="{{path('project_show',{'slug': presentation.slug})}}">
 
-    <div class="row">
+    <div class="row pl-md-4">
+        
+        <!-- 
 
         <div class="col-md-2 d-flex align-items-center justify-content-center">
 
             <img class="rounded d-block" src="/images/projects/thumbnails/{{presentation.thumbnailName}}" alt="Image de Présentation" srcset="" style="width:80px;">
 
-        </div>
+        </div> -->
 
-        <div class="col pl-0">
+        <div class="col-md-7 pl-0">
 
-            <!-- Des Mots-Clés du Projet -->
+            <!-- Project Title -->
 
-                <div class="keywords font-weight-bold my-1 h6 text-left" style="min-height:0.5em;" >
+            <h5 class="projectTitle font-weight-bold mb-0" style="">{{presentation.title |slice(0, 63) }}</h5>
+
+            <!-- Project Keywords -->
+
+                <div class="keywords font-weight-bold my-1 h6 text-left" style="line-height:0.65;" >
                         
                     {% if presentation.keywords | length > 0 %}
                         
@@ -23,27 +29,23 @@
 
                 </div>
 
-            <!-- Titre du Projet -->
 
-                <h5 class="font-weight-bold mb-0" style="min-height:.4em; font-size:1.25em;">{{presentation.title |slice(0, 62) }}</h5>
+            <!-- Project Goal -->
 
-            <!-- Objectif du Projet -->
+                <p class="mb-0" style="font-size:1.1em; line-height:1.15;">{{presentation.goal | slice(0, 150) }} ...</p>
 
-                <p class="mb-0">{{presentation.goal | slice(0, 72) }}</p>
+            <!-- Project Provider -->
 
-            <!-- Fournisseur du Projet -->
+            <!-- Modify Presentation Button -->
+             {#
 
-                <strong>{{presentation.creator.name }}</strong>
+                {% if app.user and app.user == presentation.creator %}
 
+                    <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-primary">Modifier</a>
 
-            <!-- Bouton pour Modifier la Présentation -->
-                
-            {% if app.user and app.user == presentation.creator %}
+                {% endif %}
 
-                <a href="{{path('project_edit',{'slug':presentation.slug})}}" class="btn btn-primary">Modifier</a>
-
-            {% endif %}
-
+            #} 
 
         </div>
         

@@ -45,6 +45,11 @@ class CategoriesController extends AbstractController
                 "Les Mots Clés du Projet ont étés mis à jour"
             );
 
+            return $this->redirectToRoute('project_dashboard_show', [
+                'slug' => $presentation->getSlug(),
+                'presentation' => $presentation,
+            ]);
+
         }
 
         return $this->render('categories/index.html.twig', [

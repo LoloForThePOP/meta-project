@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Départements liés au Projet{% endblock %}
+
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+
+
+{% block body %}
+
+
+    <div class="container pl-md-3">
+
+        <!-- ui Page Title -->
+
+        <h3 class="mt-3 font-weight-bold">Les 101 départements français</h3>
+
+        <!-- french departments list -->
+
+        {% set frenchDepartments = [ 
+
+            { 'contry': 'fr', 'code': '01', 'name': 'Ain'},
+            { 'contry': 'fr', 'code': '02', 'name': 'Aisne'},
+            { 'contry': 'fr', 'code': '03', 'name': 'Allier'},
+            { 'contry': 'fr', 'code': '04', 'name': 'Alpes-de-Haute-Provence'},
+            { 'contry': 'fr', 'code': '05', 'name': 'Hautes-alpes'},
+            { 'contry': 'fr', 'code': '06', 'name': 'Alpes-maritimes'},
+            { 'contry': 'fr', 'code': '07', 'name': 'Ardèche'},
+            { 'contry': 'fr', 'code': '08', 'name': 'Ardennes'},
+            { 'contry': 'fr', 'code': '09', 'name': 'Ariège'},
+            { 'contry': 'fr', 'code': '10', 'name': 'Aube'},
+            { 'contry': 'fr', 'code': '11', 'name': 'Aude'},
+            { 'contry': 'fr', 'code': '12', 'name': 'Aveyron'},
+            { 'contry': 'fr', 'code': '13', 'name': 'Bouches-du-Rhône'},
+
+        ] %}
+
+        <ul>
+
+            {% for department in frenchDepartments %}
+
+            <li class="cursor-pointer">
+
+                <span>{{department.code}} - </span>
+                
+                <span>{{department.name}}</span>
+
+            </li>
+    
+    
+                
+            {% endfor %}
+
+        </ul>
+
+{% endblock %}

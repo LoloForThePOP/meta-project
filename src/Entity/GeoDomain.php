@@ -45,6 +45,21 @@ class GeoDomain
      */
     private $project;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $departmentName;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $departmentCode;
+
+    /**
+     * @ORM\Column(type="string", length=50, nullable=true)
+     */
+    private $country;
+
     public function __construct()
     {
         $this->project = new ArrayCollection();
@@ -101,6 +116,42 @@ class GeoDomain
         if ($this->project->contains($project)) {
             $this->project->removeElement($project);
         }
+
+        return $this;
+    }
+
+    public function getDepartmentName(): ?string
+    {
+        return $this->departmentName;
+    }
+
+    public function setDepartmentName(?string $departmentName): self
+    {
+        $this->departmentName = $departmentName;
+
+        return $this;
+    }
+
+    public function getDepartmentCode(): ?string
+    {
+        return $this->departmentCode;
+    }
+
+    public function setDepartmentCode(?string $departmentCode): self
+    {
+        $this->departmentCode = $departmentCode;
+
+        return $this;
+    }
+
+    public function getCountry(): ?string
+    {
+        return $this->country;
+    }
+
+    public function setCountry(?string $country): self
+    {
+        $this->country = $country;
 
         return $this;
     }

@@ -71,6 +71,7 @@ class AppFixtures extends Fixture
             'crisis' => "Crise",
             'entertain' => "Divertissement",
             'history' => "Histoire, Patrimoine",
+            'data' => "Organiser des Données",
             'other' => "Autres",
         ];
 

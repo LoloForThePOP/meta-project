@@ -27,7 +27,7 @@
 
                 <button id="changelogModalLink" class="btn btn-primary d-block rounded my-2 mb-3" type="button" data-toggle="modal" data-target="#displayChangelogModal">
 
-                    <span class="h5 font-weight-bold">>  Voir les dernières modifications (28 - 04 - 2020)  <</span>
+                    <span class="h5 font-weight-bold">>  Voir les dernières modifications (29 - 04 - 2020)  <</span>
                     
                 </button>
 
@@ -142,7 +142,7 @@
 
             {% for data in presentations %}
                 
-                {% include '/pp/_display_grid_list.html.twig' with {'presentation' : data} %}
+                {% include '/pp/_display_linear_list.html.twig' with {'presentation' : data} %}
 
             {% endfor %}
 
