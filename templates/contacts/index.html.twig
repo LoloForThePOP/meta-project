@@ -42,7 +42,7 @@
                     {% for contact in contacts %}
 
                         {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
-                        {% set editPath = path('contact_edit', {'id': contact.id, 'slug': slug}) %}
+                        {% set editPath = path('contact_edit', {'contact_id': contact.id, 'slug': slug}) %}
         
                         <tr class="cursor-pointer"  
                             

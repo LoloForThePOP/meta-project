@@ -130,7 +130,7 @@ class PPController extends AbstractController
     }
 
     /**
-     * Permet d'afficher une page de présentation de projet
+     * Allow to Display a Project Presentation Page
      *
      * @Route("/projects/{slug}",name="project_show")
      * 

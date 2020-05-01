@@ -9,6 +9,7 @@ use App\Repository\ContactRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -74,10 +75,13 @@ class ContactController extends AbstractController
 
 
     /**
-     * @Route("/{id}/edit", name="contact_edit", methods={"GET","POST"})
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/{contact_id}/edit", name="contact_edit", methods={"GET","POST"})
+     * 
+     * @Entity("contact", expr="repository.find(contact_id)")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
-    public function edit($slug, Request $request, Contact $contact): Response
+    public function edit(PPBasic $presentation, Request $request, Contact $contact): Response
     {
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -86,14 +90,14 @@ class ContactController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('contact_index',[
-                'slug' => $slug,
+                'slug' => $presentation->getSlug(),
             ]);
         }
 
         return $this->render('contacts/edit.html.twig', [
             'contact' => $contact,
             'form' => $form->createView(),
-            'slug' => $slug,
+            'slug' => $presentation->getSlug(),
         ]);
     }
 

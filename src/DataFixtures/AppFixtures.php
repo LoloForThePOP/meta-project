@@ -7,6 +7,7 @@ use App\Entity\Need;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Slide;
+use App\Entity\PGroup;
 use App\Entity\Contact;
 use App\Entity\PPBasic;
 use App\Entity\Website;
@@ -93,7 +94,7 @@ class AppFixtures extends Fixture
 
         // Website Users Creation
 
-       /*  $users=[];
+        $users=[];
         $userGenres=['male','female'];
         
         for($i=1; $i<=30; $i++) {
@@ -137,11 +138,12 @@ class AppFixtures extends Fixture
             $users[]=$user;
        
         }
- */
 
         // Project Presentations Creation
-        /* 
-        for($i=1; $i<=25; $i++) {
+
+        $projects=[];
+        
+        for($i=1; $i<=35; $i++) {
 
             $pp = new PPBasic ();
 
@@ -151,9 +153,9 @@ class AppFixtures extends Fixture
             
             //$title='Projet Sans Titre';
 
-            //$filledTitle=array_rand([true,true,true,true, false]);
+            $filledTitle=array_rand([true,true,true,true, false]);
 
-            //if($filledTitle==true){
+            if($filledTitle==true){
                 $title=$faker->sentence();
             }
 
@@ -471,11 +473,137 @@ class AppFixtures extends Fixture
                 $manager->persist($dr);
             }
 
-
+            
             $manager->persist($pp);
+            
+            $projects[]=$pp;
 
-        } */
+
+
+        }
+
+        //dump(count($projects));
+
+        // Project Groups Creation
+
+        for($i=1; $i<=15; $i++){
+
+            $projectGroup = new PGroup();
+
+            // Group Creator
+
+               $creator=$users[ mt_rand(0, count($users)-1) ];
+
+            // Group Keywords
+                $keywordsNumber=mt_rand(0,7);
+
+                if ($keywordsNumber == 0) {
+                    $keywords='';
+                } else {
+                    $keywords=join(', ',$faker->words($keywordsNumber));
+                }
+                
+            // Created At
+
+                $createdAt = $faker->dateTimeBetween($startDate = '-4 years', $endDate = '-3 years');
+
+            // Group Masters Creation (= group admin)
+
+                $groupAdmins= [];
+
+                $groupAdmins [] = $creator; //group creator is always a group admin
+
+                $otherAdminsNumber = mt_rand(1,8);
+
+                for( $j=1; $j<=$otherAdminsNumber; $j++ ){
+
+                    $adminCandidate =  $users[ mt_rand(0, count($users)-1) ];
+
+                    if (! in_array ($adminCandidate, $groupAdmins))
+                    {
+                        $groupAdmins [] = $adminCandidate;
+                        
+                        $projectGroup->addMaster($adminCandidate);
+
+                    }
+
+                    else {
+                        $j--;
+                    }
+
+                }
+
+            // Insertion of projects into the group : different possibilities :  {Included; Candidates; Invited} (Projects) (Creation)
+
+            $projectsPool = $projects; // $projects contains all the projects we previously created, we will pick up projects in this array, in order to populate project groups
+
+            // Group Included Projects Creation
+
+                $groupIncludedProjectsNumber = mt_rand(1,8);
+
+                for( $j=1; $j<=$groupIncludedProjectsNumber; $j++ ){
+
+                   $projectToInclude = $projectsPool[array_rand($projectsPool)];
+                    
+                   $projectGroup->addIncludedP($projectToInclude);
+
+                    // now this project is in this group, we remove it from our project candidates pool
+
+                   if (($key = array_search( $projectToInclude, $projectsPool)) !== false) {
+                        unset($projectsPool[$key]);
+                    }
+
+               }
+
+            // Group Candidates Projects Creation
+            
+            $groupCandidatesProjectsNumber = mt_rand(1,8);
+
+            for( $j=1; $j<=$groupCandidatesProjectsNumber; $j++ ){
+
+               $projectCandidate = $projectsPool[array_rand($projectsPool)];
+                
+               $projectGroup->addCandidateP($projectCandidate);
+
+                // now this project is in this group, we remove it from our project candidates pool
+
+               if (($key = array_search( $projectCandidate, $projectsPool)) !== false) {
+                    unset($projectsPool[$key]);
+                }
+
+            }
+
+            // Invited Projects Creation
+            
+            $invitedProjectsNumber = mt_rand(1,8);
+
+            for( $j=1; $j<=$invitedProjectsNumber; $j++ ){
+
+               $invitedProject = $projectsPool[array_rand($projectsPool)];
+                
+               $projectGroup->addCandidateP($invitedProject);
+
+                // now this project is in this group, we remove it from our project candidates pool
+
+               if (($key = array_search( $invitedProject, $projectsPool)) !== false) {
+                    unset($projectsPool[$key]);
+                }
+
+            }
+
+
+            $projectGroup->setName($faker->sentence())
+                        ->setDescription($faker->paragraph($nbSentences = 4, $variableNbSentences = true) )
+                        ->setKeywords($keywords)
+                        ->setCreatedAt($createdAt)
+                        ->setCreator($creator);
+
+            $manager->persist($projectGroup);
+
+        }
 
         $manager->flush();
     }
+
+  
 }

@@ -11,18 +11,19 @@ use DateTimeInterface;
 use Cocur\Slugify\Slugify;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\PreUpdate;
+
+
 use Doctrine\ORM\Mapping\PrePersist;
-
-
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
+
 use Doctrine\Common\Collections\ArrayCollection;
-
 use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints\Length;
 
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
@@ -336,6 +337,23 @@ class PPBasic
      */
     private $isActiveContactMessages;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PGroup", mappedBy="includedP")
+     */
+    private $inPGroups;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PGroup", mappedBy="candidatesP")
+     * 
+     */
+    private $applyToPGroups;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PGroup", mappedBy="invitedP")
+     * 
+     */
+    private $invitedByPGroups;
+
 
     public function __construct()
     {
@@ -346,6 +364,9 @@ class PPBasic
         $this->geoDomains = new ArrayCollection();
         $this->websites = new ArrayCollection();
         $this->contactMessages = new ArrayCollection();
+        $this->inPGroups = new ArrayCollection();
+        $this->applyToPGroups = new ArrayCollection();
+        $this->invitedByPGroups = new ArrayCollection();
     }
 
     /**
@@ -707,6 +728,90 @@ public function updatedTimestamps(): void
     public function setIsActiveContactMessages(?bool $isActiveContactMessages): self
     {
         $this->isActiveContactMessages = $isActiveContactMessages;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PGroup[]
+     */
+    public function getInPGroups(): Collection
+    {
+        return $this->inPGroups;
+    }
+
+    public function addInPGroup(PGroup $pGroup): self
+    {
+        if (!$this->inPGroups->contains($pGroup)) {
+            $this->inPGroups[] = $pGroup;
+            $pGroup->addIncludedP($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInPGroup(PGroup $pGroup): self
+    {
+        if ($this->inPGroups->contains($pGroup)) {
+            $this->inPGroups->removeElement($pGroup);
+            $pGroup->removeIncludedP($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PGroup[]
+     */
+    public function getApplyToPGroups(): Collection
+    {
+        return $this->applyToGroups;
+    }
+
+    public function addApplyToPGroup(PGroup $applyToPGroup): self
+    {
+        if (!$this->applyToPGroups->contains($applyToPGroup)) {
+            $this->applyToPGroups[] = $applyToPGroup;
+            $applyToPGroup->addCandidatesP($this);
+        }
+
+        return $this;
+    }
+
+    public function removeApplyToPGroup(PGroup $applyToPGroup): self
+    {
+        if ($this->applyToPGroups->contains($applyToPGroup)) {
+            $this->applyToPGroups->removeElement($applyToPGroup);
+            $applyToPGroup->removeCandidatesP($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PGroup[]
+     */
+    public function getInvitedByPGroups(): Collection
+    {
+        return $this->invitedByPGroups;
+    }
+
+    public function addInvitedByPGroup(PGroup $invitedByPGroup): self
+    {
+        if (!$this->invitedByPGroups->contains($invitedByPGroup)) {
+            $this->invitedByPGroups[] = $invitedByPGroup;
+            $invitedByPGroup->addInvitedP($this);
+        }
+
+        return $this;
+    }
+
+    public function removeInvitedByPGroup(PGroup $invitedByPGroup): self
+    {
+        if ($this->invitedByPGroups->contains($invitedByPGroup)) {
+            $this->invitedByPGroups->removeElement($invitedByPGroup);
+            $invitedByPGroup->removeInvitedP($this);
+        }
 
         return $this;
     }

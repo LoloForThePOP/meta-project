@@ -4,21 +4,25 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping\PreUpdate;
+
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 
+use Symfony\Component\Validator\Constraints\Image;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
-
-use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SlideRepository")
  * @Vich\Uploadable
+ * @ORM\HasLifecycleCallbacks
  */
-class Slide
+class Slide implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -89,6 +93,21 @@ class Slide
      * @ORM\Column(type="string", length=500, nullable=true)
      */
     private $textContent;
+    
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+    
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
+
+
+
 
     public function getId(): ?int
     {
@@ -108,6 +127,13 @@ class Slide
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
+     * 
+     * @Assert\Image(
+     *     maxSize = "1500k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
@@ -224,4 +250,53 @@ class Slide
 
         return $this;
     }
+    
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+    
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+    */
+    public function updatedTimestamps(): void
+    {
+        $this->setUpdatedAt(new \DateTime('now'));    
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+    }
+
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+    $this->id = unserialize($serialized);
+    
+    }
+
 }

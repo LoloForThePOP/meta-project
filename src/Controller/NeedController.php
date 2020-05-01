@@ -9,6 +9,7 @@ use App\Repository\NeedRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
@@ -34,7 +35,7 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/new", name="need_new", methods={"GET","POST"})
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     *  @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function new(PPBasic $pp, $slug, Request $request): Response
     {
@@ -73,10 +74,13 @@ class NeedController extends AbstractController
     }
 
     /**
-     * @Route("/{id}/edit", name="need_edit", methods={"GET","POST"})
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/{need_id}/edit", name="need_edit", methods={"GET","POST"})
+     * 
+     * @Entity("need", expr="repository.find(need_id)")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
-    public function edit($slug, Request $request, Need $need): Response
+    public function edit(PPBasic $presentation, Request $request, Need $need): Response
     {
         $form = $this->createForm(NeedType::class, $need);
         $form->handleRequest($request);
@@ -85,14 +89,14 @@ class NeedController extends AbstractController
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('need_index',[
-                'slug' => $slug,
+                'slug' => $presentation->getSlug(),
             ]);
         }
 
         return $this->render('need/edit.html.twig', [
             'need' => $need,
             'form' => $form->createView(),
-            'slug' => $slug,
+            'slug' => $presentation->getSlug(),
         ]);
     }
 

@@ -80,12 +80,24 @@ class User implements UserInterface
      */
     private $contactMessages;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\PGroup", mappedBy="creator")
+     */
+    private $createdPGroups;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\PGroup", mappedBy="masters")
+     */
+    private $pGroupsMaster;
+
 
     public function __construct()
     {
         $this->presentations = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->contactMessages = new ArrayCollection();
+        $this->pGroups = new ArrayCollection();
+        $this->pGroupsMaster = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -274,6 +286,65 @@ class User implements UserInterface
         if ($this->contactMessages->contains($contactMessages)) {
             $this->contactMessages->removeElement($contactMessages);
             $contactMessages->removeReceiver($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PGroup[]
+     */
+    public function getCreatedPGroups(): Collection
+    {
+        return $this->createdPGroups;
+    }
+
+    public function addCreatedPGroup(PGroup $pGroup): self
+    {
+        if (!$this->createdPGroups->contains($pGroup)) {
+            $this->createdPGroups[] = $pGroup;
+            $createdPGroup->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCreatedPGroup(PGroup $pGroup): self
+    {
+        if ($this->createdPGroups->contains($pGroup)) {
+            $this->createdPGroups->removeElement($pGroup);
+            // set the owning side to null (unless already changed)
+            if ($pGroup->getCreator() === $this) {
+                $pGroup->setCreator(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PGroup[]
+     */
+    public function getPGroupsMaster(): Collection
+    {
+        return $this->pGroupsMaster;
+    }
+
+    public function addPGroupsMaster(PGroup $pGroupsMaster): self
+    {
+        if (!$this->pGroupsMaster->contains($pGroupsMaster)) {
+            $this->pGroupsMaster[] = $pGroupsMaster;
+            $pGroupsMaster->addMaster($this);
+        }
+
+        return $this;
+    }
+
+    public function removePGroupsMaster(PGroup $pGroupsMaster): self
+    {
+        if ($this->pGroupsMaster->contains($pGroupsMaster)) {
+            $this->pGroupsMaster->removeElement($pGroupsMaster);
+            $pGroupsMaster->removeMaster($this);
         }
 
         return $this;

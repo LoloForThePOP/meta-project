@@ -1,0 +1,56 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Groupes de Projets{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h3 class="my-4">Groupes de Projets</h3>
+
+            {% for group in pGroups %}
+
+            <a class="text-primary text-decoration-none" href="{{path('project_group_show',{'id': group.id})}}">
+
+                <div class="row pl-md-4 mb-4">
+                 
+                    <div class="col-md-7 pl-0">
+
+                        <!-- Group Title -->
+
+                        <h5 class="projectTitle font-weight-bold mb-0">{{group.name |slice(0, 63) }}</h5>
+
+                        <!-- Group Keywords -->
+
+                        {% if group.keywords | length > 0 %}
+
+                            <div class="keywords font-weight-bold my-1 mb-2 h6 text-left" style="line-height:0.7;" >
+
+                                #{{group.keywords | replace({"," : " #"}) | slice(0, 32) }}
+
+                            </div>
+
+                        {% endif %}
+
+                        <!-- Group Description -->
+
+                        <p class="mb-0" style="font-size:1.1em; line-height:1.15;">{{group.description | slice(0, 150) }} ...</p>
+
+
+                    </div>
+                    
+                </div>
+
+            </a>
+
+            
+                
+            {% endfor %}
+
+        </div>
+
+        
+    </div>
+
+
+{% endblock %}

@@ -1,102 +1,12 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/table_responsive.css">{% endblock %}
+
 {% block title %}Liste des Ressources Désirées{% endblock %}
 
 {% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
 
 {% block body %}
-
-<style>
-
-  
-      @media screen and (max-width: 580px) {
-        body {
-          font-size: 16px;
-          line-height: 22px;
-        }
-      }
-      
-      .tableWrapper {
-          
-        max-width: 900px;
-      }
-      
-      .table {
-        margin: 0 0 0 0;
-        width: 100%;
-        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
-        display: table;
-      }
-      @media screen and (max-width: 580px) {
-        .table {
-          display: block;
-        }
-      }
-      
-      .row {
-        display: table-row;
-        background: #f6f6f6;
-        font-size:1.15em;
-      }
-      .row:nth-of-type(odd) {
-        background: #e9e9e9;
-      }
-      .row.header {
-        font-weight: 900;
-        color: #ffffff;
-        background: #ea6153;
-        font-size:1.2em;
-      }
-      .row.green {
-        background: #27ae60;
-      }
-
-      .row:hover{
-          background-color:gainsboro;
-      }
-
-      @media screen and (max-width: 580px) {
-        .row {
-          padding: 7px 0 7px;
-          display: block;
-        }
-        .row.header {
-          padding: 0;
-          height: 6px;
-        }
-        .row.header .cell {
-          display: none;
-        }
-        .row .cell {
-          margin-bottom: 3px;
-        }
-        .row .cell:before {
-          margin-bottom: 3px;
-          content: attr(data-title);
-          min-width: 98px;
-          font-size: 10px;
-          line-height: 10px;
-          font-weight: bold;
-          text-transform: uppercase;
-          color: #969696;
-          display: block;
-        }
-      }
-      
-      .cell {
-        padding: 6px 12px;
-        display: table-cell;
-      }
-      @media screen and (max-width: 580px) {
-        .cell {
-          padding: 2px 16px;
-          display: block;
-        }
-      }
-      
-</style>
-
-
 
 <div class="container">
 	
@@ -144,7 +54,7 @@
             {% for need in needs %}
                 
                 {% set showPath = path('need_show', {'id': need.id, 'slug': slug}) %}
-                {% set editPath = path('need_edit', {'id': need.id, 'slug': slug}) %}
+                {% set editPath = path('need_edit', {'need_id': need.id, 'slug': slug}) %}
               
               <div class="row cursor-pointer"
 
@@ -161,7 +71,7 @@
                 <div class="cell" data-title="Actions">
                     {% if app.user and app.user == presentation.creator %}
     
-                        <a href="{{ path('need_edit', {'id': need.id, 'slug': slug}) }}">modifier</a>
+                        <a href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">modifier</a>
                     {% else %}
                         Voir
                     {% endif %}
