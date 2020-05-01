@@ -1,11 +1,11 @@
-# meta-project
+# Meta-Project
 A website platform dedicated to human projects presentation. In particular, you can present your project needs (ex: materials, skills, advices), and people can contact you. Coded with Symfony PHP Framework
 
 
 
 # Installation Procedure 
 	
-1- Download or clone github repository
+# 1- Download or clone github repository
 git clone https://github.com/LoloForThePOP/meta-project.git
 
 2- Move to the right folder
