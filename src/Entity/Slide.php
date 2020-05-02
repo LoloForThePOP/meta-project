@@ -33,7 +33,13 @@ class Slide implements \Serializable
 
     /**
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     * 
+     *@Assert\Image(
+     *     maxSize = "15k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     *
      * 
      * @Vich\UploadableField(mapping="slide_image", fileNameProperty="slideName")
      * 
@@ -127,13 +133,6 @@ class Slide implements \Serializable
      * bundle's configuration parameter 'inject_on_load' is set to 'true' this setter
      * must be able to accept an instance of 'File' as the bundle will inject one here
      * during Doctrine hydration.
-     * 
-     * @Assert\Image(
-     *     maxSize = "1500k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 1500 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
-     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas encore pris en compte. Les formats acceptés sont : {{ types }}"
-     * )
      *
      * @param File|\Symfony\Component\HttpFoundation\File\UploadedFile|null $imageFile
      */
@@ -141,11 +140,11 @@ class Slide implements \Serializable
     {
         $this->slideFile = $slideFile;
 
-        if (null !== $slideFile) {
+        //if (null !== $slideFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
             $this->updatedAt = new \DateTimeImmutable();
-        }
+        //}
     }
 
     public function getSlideFile(): ?File

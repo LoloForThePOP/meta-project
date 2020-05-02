@@ -53,6 +53,7 @@
         <div class="col-6 font-weight-bold">
             Ajouter une Image <span class="arrowCar">▼ </span>
             <div class="p-1 bg-warning disabled rounded">
+                {{ form_errors(form.slideFile) }}
                 {{ form_widget(form.slideFile) }}
             </div>
         </div>

@@ -3,13 +3,14 @@
 namespace App\Form;
 
 use App\Entity\Slide;
+use App\Form\ApplicationType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Vich\UploaderBundle\Form\Type\VichImageType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class SlideshowImagesType extends AbstractType
+class SlideshowImagesType extends ApplicationType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -17,6 +18,12 @@ class SlideshowImagesType extends AbstractType
             ->add('slideFile', VichImageType::class, array(
                 'label' 	=> false,
                 'required' 	=> false,
+                'required' => false,
+                'allow_delete' => true,
+                'download_label' => false,
+                'download_uri' => false,
+                'image_uri' => false,
+                'asset_helper' => true,
             ))
         ;
     }
