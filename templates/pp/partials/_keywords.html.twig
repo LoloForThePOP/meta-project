@@ -4,7 +4,7 @@
                          
     {% if presentation.keywords | length > 0 %}
                         
-        #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) }}
+        #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
 
     {% endif %}
 
