@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inclure un Projet dans le Groupe  {{ pGroup.name  }}{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h3 class="my-4">Inclure un Projet dans le Groupe {{ pGroup.name  }}</h3>
+
+        <div>
+
+           {% if user.presentations | length > 0 %}
+
+           <h4 class="my-3">Veuillez Sélectionner le Projet à Inclure</h4>
+
+            <div class="col-9">
+
+                {% for presentation in user.presentations %}
+
+                    {% include 'pp/_display_linear_list.html.twig' %}
+
+                {% endfor %}
+
+            </div>
+        
+            {% else %}
+        
+                <div class="col-md-7 h4 alert alert-primary">
+                    <p><strong>Vous n'administrez aucun projet à insérer dans ce groupe. Pour proposer un projet à inclure dans ce groupe, vous devez auparavant rejoindre l'administration d'un projet, ou créer présenter votre propre projet à intégrer.</strong></p>
+                </div>
+        
+            {% endif %}
+
+        </div>
+        
+    </div>
+
+{% endblock %}

@@ -229,14 +229,9 @@ class SlideshowController extends AbstractController
      */
     public function addImages (PPBasic $pp, Request $request, EntityManagerInterface $manager){
 
-        $emptyPP = new PPBasic ();
+        $slide = new Slide();
 
-        for($i=0; $i<=5; $i++) {
-            ${"image" . $i} = new Slide();
-            $emptyPP->addSlide( ${"image" . $i});
-        }
-
-        $form = $this->createForm(SlideshowType::class, $emptyPP);
+        $form = $this->createForm(SlideshowImagesType::class, $slide);
 
         $form->handleRequest($request);
 
@@ -244,8 +239,7 @@ class SlideshowController extends AbstractController
 
             // die(dump( $form->get('slides')->getData()));
 
-
-            // count previous slide in order to set new slides positions
+            // count previous slide in order to set new slide position
             $countPreviousSlides = 0;
 
             if(!$pp->getSlides()->isEmpty()){
@@ -254,24 +248,18 @@ class SlideshowController extends AbstractController
                     $countPreviousSlides = $countPreviousSlides + 1 ;
                 }
             }
-
-            foreach ($emptyPP->getSlides() as $index => $slide){
-                
-                if($slide->getSlideFile()!==null){
-                    
-                    $slide->setMediaType("image");
-                    $slide->setPosition($index + $countPreviousSlides);
-                    $slide->setPP($pp);
-                    $manager->persist($slide);
-                }
-            }
-
+            
+            $slide->setMediaType("image");
+            $slide->setPosition($countPreviousSlides+1);
+            $slide->setPP($pp);
+            $manager->persist($slide);
+        
             $manager->persist($pp);
             $manager->flush();
 
             $this->addFlash(
                 'success',
-                "Les Images ont été ajoutées à la fin du Diaporama"
+                "L'image a été ajoutée à la fin du Diaporama"
             );
 
             return $this->redirectToRoute('slideshow_index', [
@@ -286,6 +274,9 @@ class SlideshowController extends AbstractController
         ]);
 
     }
+
+
+
   
     /**
      * Permet d'Ajouter une Vidéo

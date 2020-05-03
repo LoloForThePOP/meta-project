@@ -8,11 +8,109 @@
 
     <div class="container">
 
-        <h3 class="my-4">{{pGroup.name}}</h3>
+        <h3 class="mt-4 mb-3">Groupe {{pGroup.name}}</h3>
 
-
-
+        {% if app.user %}
+    
+            <a href="{{path('group_add_candidate', {'id_group': pGroup.Id, 'id_user': app.user.id } )}}">
+    
+                <button class="btn btn-lg  btn-info mb-4" type="button">
+                    <span class="h4 font-weight-bold">+ Inclure un Projet dans ce Groupe</span>
+                </button>
+    
+            </a>
         
+        {% endif %}
+
+        <div class="tableWrapper">
+  
+            <div class="table">
+             
+                <!-- Table Header -->
+                
+                <div class="row header green">
+                    
+                    <div class="cell">Titre</div>
+
+                    <div class="cell">Objectif</div>
+                </div>
+
+             <!-- Table Content -->
+
+            {% if pGroup.getIncludedP() | length > 0 %}
+                
+                {% for includedProject in pGroup.getIncludedP() %}
+
+                <div class="row cursor-pointer">
+                    
+
+                    <div class="cell font-weight-bold" data-title="Titre">
+                        {{includedProject.Title}}
+                    </div>
+
+                    <div class="cell" data-title="Objectif">
+                        {{includedProject.Goal}}
+                        
+                    </div>
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+            {% if pGroup.getInvitedP() | length > 0 %}
+
+                <h4 class="bg-info">Projets Invités</h4>
+                
+                {% for invitedProject in pGroup.getInvitedP() %}
+
+                <div class="row cursor-pointer">
+                    
+                    <div class="cell font-weight-bold" data-title="Titre">
+                        {{invitedProject.Title}}
+                    </div>
+
+                    <div class="cell" data-title="Objectif">
+                        {{invitedProject.Goal}}
+                        
+                    </div>
+                    
+
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+            {% if pGroup.getCandidatesP() | length > 0 %}
+
+                <h4 class="my-2 bg-info">Projets Candidats</h4>
+                
+                {% for candidateProject in pGroup.getCandidatesP() %}
+
+                <div class="row cursor-pointer">
+                    
+                    <div class="cell font-weight-bold" data-title="Titre">
+                        {{candidateProject.Title}}
+                    </div>
+
+                    <div class="cell" data-title="Objectif">
+                        {{candidateProject.Goal}}
+                        
+                    </div>
+                    
+
+                </div>
+
+                {% endfor %}
+
+            {% endif %}
+
+            
+            </div>
+    
+        </div>
+   
     </div>
 
 

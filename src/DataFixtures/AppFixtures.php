@@ -581,7 +581,7 @@ class AppFixtures extends Fixture
 
                $invitedProject = $projectsPool[array_rand($projectsPool)];
                 
-               $projectGroup->addCandidateP($invitedProject);
+               $projectGroup->addInvitedP($invitedProject);
 
                 // now this project is in this group, we remove it from our project candidates pool
 

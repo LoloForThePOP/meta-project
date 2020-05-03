@@ -2,23 +2,39 @@
 
 {% form_theme form _self %}
 
-{% block title %}Ajouter des images{% endblock %}
-
-
+{% block title %}Ajouter une Image ou un Schéma{% endblock %}
 
 {% block body %}
 
 <div class="container">
 
-    <h2 class="h3 mt-3">Ajouter des Images </h2>
+    <h2 class="h3 mt-3">Ajouter une Image ou un Schéma </h2>
 
     {{form_start(form)}}
-    
-    {{form_widget(form)}}
+
+    <div class="form-group mb-1">
+
+        <div class="col-md-7 font-weight-bold">
+           
+            Choisir une Image <span class="arrowCar">▼ </span>
+
+            <div class="p-0 m-0 alert text-body h5 font-weight-bold">
+
+                {{ form_errors(form.slideFile) }}
+
+            </div>
+            
+            <div class="mt-1 p-1 bg-warning disabled rounded">
+                
+                {{ form_widget(form.slideFile) }}
+
+            </div>
+        </div>
+    </div>
 
     <div class="mt-4">
     
-        <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Insérer les Images</button>
+        <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Insérer l'Image</button>
     
         <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
             <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
@@ -29,35 +45,6 @@
     {{form_end(form)}}
 
 </div>
-
-{% endblock %}
-
-
-
-{% block _slideshow_slides_widget %}
-
-    {{ form_widget(form) }}
-
-{% endblock %}
-
-{% block _slideshow_slides_entry_row %}
-
-    {{form_widget(form)}}
-
-{% endblock %}
-
-{% block _slideshow_slides_entry_widget %}
-
-    <div class="form-group mb-1">
-
-        <div class="col-6 font-weight-bold">
-            Ajouter une Image <span class="arrowCar">▼ </span>
-            <div class="p-1 bg-warning disabled rounded">
-                {{ form_errors(form.slideFile) }}
-                {{ form_widget(form.slideFile) }}
-            </div>
-        </div>
-    </div>
 
 {% endblock %}
 
