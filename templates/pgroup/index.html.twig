@@ -8,6 +8,18 @@
 
         <h3 class="my-4">Groupes de Projets</h3>
 
+            <!-- Create a Project Group Button -->
+            
+            <a href="{{ path('project_group_new') }}">
+
+                <button class="btn btn-primary mb-4" type="button">
+                    <span class="h5 font-weight-bold">+ Créer un Groupe de Projets</span>
+                </button>
+
+            </a>
+
+            <!-- Project Groups List -->
+
             {% for group in pGroups %}
 
             <a class="text-primary text-decoration-none" href="{{path('project_group_show',{'id_group': group.id})}}">

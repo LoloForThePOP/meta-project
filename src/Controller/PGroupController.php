@@ -40,6 +40,8 @@ class PGroupController extends AbstractController
      * Allow to Create a New Project Group
      * 
      * @Route("/projects/groups/new/", name="project_group_new")
+     * 
+     * @Security("is_granted('ROLE_USER')")
      *  
      */
     public function create(Request $request)
