@@ -1,31 +1,53 @@
 
 <div class="col">
 
-    
     {# Project Logo #}
     
     <div class="mb-2">
 
-        <div class="font-weight-bold mb-1">Logo du Projet</div>
+        {% if presentation.logoName %}   
 
-        <div class="d-inline-block m-0" >
+            <div class="font-weight-bold mb-1">Logo du Projet</div>
 
+            <div class="d-inline-block m-0" >
 
-            <img class="" src="/images/projects/logos/{{ presentation.logoName }}" alt="Logo du Projet" style="width:120px; height:120px;">
+                <img class="" src="/images/projects/logos/{{ presentation.logoName }}" alt="Logo du Projet" style="width:120px; height:120px;">
+      
+            </div>
 
-        </div>
+        {% endif %}
 
     </div>
 
     <div class="row">
 
-        <div class="col-4">
+        {# Presentation Creator Image or Avatar #}
+
+        <div class="col-auto pr-0  d-flex align-items-center justify-content-center">
 
             <a href="{{ path('user_show', {'id' : presentation.creator.id}) }}">
-                <img class="avatar avatar-medium" src="{{ presentation.creator.imageName }}" alt="Avatar de {{ presentation.creator.name }}">
+
+                {% if presentation.creator.imageName %}
+
+                    <img class="avatar avatar-medium" src="{{ presentation.creator.imageName }}" alt="Avatar de {{ presentation.creator.name }}">
+
+                {# Default One Letter Avatar #}
+
+                {% else %}
+                                        
+                    <div class="avatar-circle">
+                        <span class="initials">
+                            {{presentation.creator.name | slice (0,1) }}
+                        </span>
+                    </div>
+                
+                {% endif %}
+
             </a>
             
         </div>
+
+        {# Presetation Creator Name, profile link, and number of projects #}
 
         <div class="col d-flex">
 

@@ -12,7 +12,7 @@
 
         {% if app.user %}
     
-            <a href="{{path('group_add_candidate', {'id_group': pGroup.Id, 'id_user': app.user.id } )}}">
+            <a href="{{path('group_add_candidate_list', {'id_group': pGroup.Id, 'id_user': app.user.id } )}}">
     
                 <button class="btn btn-lg  btn-info mb-4" type="button">
                     <span class="h4 font-weight-bold">+ Inclure un Projet dans ce Groupe</span>

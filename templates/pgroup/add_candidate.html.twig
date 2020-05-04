@@ -7,18 +7,20 @@
     <div class="container">
 
         <h3 class="my-4">Inclure un Projet dans le Groupe {{ pGroup.name  }}</h3>
+        
+        {% if user.presentations | length > 0 %}
 
-        <div>
-
-           {% if user.presentations | length > 0 %}
-
-           <h4 class="my-3">Veuillez Sélectionner le Projet à Inclure</h4>
+           <h4 class="my-3">Veuillez Sélectionner un Projet à Inclure</h4>
 
             <div class="col-9">
 
                 {% for presentation in user.presentations %}
 
-                    {% include 'pp/_display_linear_list.html.twig' %}
+                <a href="path('group_add_candidate', {'id_group': pGroup.id, 'id_project': presentation.id, 'id_user':user.id } )">
+                    <h5 class="projectTitle font-weight-bold mb-0">{{presentation.title |slice(0, 63) }}</h5>
+                </a>
+
+                    
 
                 {% endfor %}
 
@@ -27,13 +29,21 @@
             {% else %}
         
                 <div class="col-md-7 h4 alert alert-primary">
-                    <p><strong>Vous n'administrez aucun projet à insérer dans ce groupe. Pour proposer un projet à inclure dans ce groupe, vous devez auparavant rejoindre l'administration d'un projet, ou créer présenter votre propre projet à intégrer.</strong></p>
+                    <p><strong>Vous n'administrez aucun projet à insérer dans ce groupe. Pour proposer un projet à inclure dans ce groupe, vous devez auparavant rejoindre l'administration d'un projet, ou créer votre propre projet à intégrer.</strong></p>
                 </div>
         
             {% endif %}
 
+            <a class="text-decoration-none text-white" href="{{ path('user_show', {'id': app.user.id}) }}">
+                <button type="button" class="btn btn-warning btn-lg font-weight-bold">Annuler</button>
+            </a>
+
         </div>
-        
+
     </div>
 
 {% endblock %}
+
+
+
+

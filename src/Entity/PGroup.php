@@ -75,6 +75,7 @@ class PGroup
 
     public function __construct()
     {
+        $this->createdAt = new \DateTime('now');
         $this->masters = new ArrayCollection();
         $this->includedP = new ArrayCollection();
         $this->candidatesP = new ArrayCollection();
