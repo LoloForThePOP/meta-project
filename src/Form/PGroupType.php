@@ -18,7 +18,10 @@ class PGroupType extends ApplicationType
             ->add(
                 'name', 
                 TextType::class, 
-                $this->getConfiguration("Nom du Nouveau groupe?", "")
+                $this->getConfiguration(
+                    "Nom du Nouveau groupe?",
+                    "Exemple : Projets Scolaires Médicaments et Ressources Marines"
+                    )
                 )
             ->add(
                 'description', 

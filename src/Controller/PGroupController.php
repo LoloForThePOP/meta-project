@@ -13,6 +13,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
@@ -92,7 +93,8 @@ class PGroupController extends AbstractController
 
     }
 
-    /**
+    
+       /**
      * Display a list of projects that user can integrate into a group
      *
      * @Route("/{id_group}/{id_user}/add-candidate/",name="group_add_candidate_list")
@@ -111,27 +113,46 @@ class PGroupController extends AbstractController
         ]);
 
     }
+ 
 
     /**
      * Manage group integration of a project (it becomes a group candidate project)
      *
-     * @Route("/{id_group}/{id_user}/add-candidate/{id_project}",name="group_add_candidate_list")
+     * @Route("/{id_group}/add-candidate/{id_project}",name="group_add_candidate")
      * 
      * @Entity("pGroup", expr="repository.find(id_group)")
-     * @Entity("user", expr="repository.find(id_user)")
-     * @Entity("user", expr="repository.find(id_project)")
+     * @Entity("presentation", expr="repository.find(id_project)")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas l'intégrer dans un groupe")
      * 
      * @return Response
      */
 
-    public function addCandidateP(PGroup $pGroup, PPBasic $project, User $user, EntityManagerInterface $manager){
+    public function addCandidateP(PGroup $pGroup, PPBasic $presentation,EntityManagerInterface $manager){
 
-        return $this->render('/pgroup/add_candidate.html.twig',[
-            'pGroup' => $pGroup,
-            'user' => $user,
+        //to do check if user admins this project
+
+        $pGroup->addCandidateP($presentation);
+
+        $manager->persist($pGroup);
+        $manager->flush();
+        
+       
+        
+        $this->addFlash(
+            'success',
+            "La Présentation {$presentation->getTitle()} a été intégrée comme candidate dans le groupe  {$pGroup->getName()}."
+        );
+
+        return $this->redirectToRoute('project_dashboard_show',[
+            'slug' => $presentation->getSlug(),
+
         ]);
 
     }
 
+    //public function : a presentation admin can : remove a presentation from a group
+    //public function : a group admin can : remove a presentation from a group
+    //public function : a group admin can : delete a project group
 
 }

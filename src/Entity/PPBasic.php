@@ -765,14 +765,14 @@ public function updatedTimestamps(): void
      */
     public function getApplyToPGroups(): Collection
     {
-        return $this->applyToGroups;
+        return $this->applyToPGroups;
     }
 
-    public function addApplyToPGroup(PGroup $applyToPGroup): self
+    public function addApplyToPGroup(PGroup $pGroup): self
     {
-        if (!$this->applyToPGroups->contains($applyToPGroup)) {
-            $this->applyToPGroups[] = $applyToPGroup;
-            $applyToPGroup->addCandidatesP($this);
+        if (!$this->applyToPGroups->contains($pGroup)) {
+            $this->applyToPGroups[] = $pGroup;
+            $pGroup->addCandidatesP($this);
         }
 
         return $this;

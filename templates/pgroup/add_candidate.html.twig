@@ -12,17 +12,30 @@
 
            <h4 class="my-3">Veuillez Sélectionner un Projet à Inclure</h4>
 
-            <div class="col-9">
+            <div class="">
 
-                {% for presentation in user.presentations %}
+                <ul class="col-md-7">
 
-                <a href="path('group_add_candidate', {'id_group': pGroup.id, 'id_project': presentation.id, 'id_user':user.id } )">
-                    <h5 class="projectTitle font-weight-bold mb-0">{{presentation.title |slice(0, 63) }}</h5>
-                </a>
+                    {% for presentation in user.presentations %}
 
-                    
+                        <li class="h5 font-weight-bold text-body list-group-item bg-light">
 
-                {% endfor %}
+                            <a href=" {{ path( 'group_add_candidate', {'id_group': pGroup.Id, 'id_project': presentation.id} ) }} " onClick="return confirm (`Confirmer l'intégration de ce projet?`)" class="text-decoration-none text-body">
+
+                                <span class="projectTitle">
+                                    {{presentation.title |slice(0, 63) }}
+                                </span>
+
+                               <p class="mb-0" style="font-size:1.1em; line-height:1.15;">{{presentation.goal | slice(0, 150) }}</p>
+
+                            </a>
+
+                        </li>
+
+                    {% endfor %}
+
+                </ul>
+
 
             </div>
         
@@ -35,7 +48,7 @@
             {% endif %}
 
             <a class="text-decoration-none text-white" href="{{ path('user_show', {'id': app.user.id}) }}">
-                <button type="button" class="btn btn-warning btn-lg font-weight-bold">Annuler</button>
+                <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2">Annuler</button>
             </a>
 
         </div>
