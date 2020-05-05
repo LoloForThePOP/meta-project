@@ -1,9 +1,4 @@
 
-{% block stylesheets %}
-
-  
-{% endblock %}
-
 {% if presentation.contacts | length > 0 %}
 
     <h3 class="font-weight-bolder mb-4">Nous Contacter</h3>
@@ -42,13 +37,17 @@
 
                         </style>
 
-                        {% if contact.email1 is not null %}
 
-                             <a href="#" class="cryptedmail text-decoration-none text-body" 
-                                data-name="{{ contact.email1|split('@')[0] }}"
-                                data-domaintld="{{ contact.email1|split('@')[1] }}"
-                                onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                        {% if contact.email1 is not null %}
+                        
+                            <a href="#" class="cryptedmail text-decoration-none text-body" 
+                            data-name="{{ contact.email1|split('@')[0] }}"
+                            data-domaintld="{{ contact.email1|split('@')[1] }}"
+                            onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
                             </a>
+                            
+                  
+                             
 
                         {% endif %}
 

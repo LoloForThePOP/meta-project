@@ -44,11 +44,18 @@
 
                             {% if slide.mediaType == 'image' %}
 
-                                 <img src="/images/slides/{{slide.slideName}}" alt="{{slide.slideName}}" height="" width="100%">
+                                <a href="{{path('slideshow_image_edit', {'slug':slug,'id_slide' : slide.id })}}" class="text-body text-decoration-none">
+
+                                    <img src="/images/slides/{{slide.slideName}}" alt="{{slide.slideName}}" height="" width="100%">
+                                </a>
 
                             {% elseif slide.mediaType == 'video' %}
 
                                 <img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" height="" width="100%">
+
+                                <!-- ui css video icon -->
+
+                                <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>                               
 
 
                             {% elseif slide.mediaType == 'text' %}

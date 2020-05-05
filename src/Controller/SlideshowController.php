@@ -219,9 +219,9 @@ class SlideshowController extends AbstractController
 
     
     /**
-     * Permet d'Ajouter des Images
-     * 
-     * @Route("/projects/{slug}/slideshow/add-images",name="slideshow_images_add")
+     * Allow to create an image slide
+     *  
+     * @Route("/projects/{slug}/slideshow/add-image/", name="slideshow_images_add")
      * 
      * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
@@ -229,15 +229,13 @@ class SlideshowController extends AbstractController
      */
     public function addImages (PPBasic $pp, Request $request, EntityManagerInterface $manager){
 
-        $slide = new Slide();
-
-        $form = $this->createForm(SlideshowImagesType::class, $slide);
+        $form = $this->createForm(SlideshowImagesType::class);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            // die(dump( $form->get('slides')->getData()));
+            $slide = $form->getData();
 
             // count previous slide in order to set new slide position
             $countPreviousSlides = 0;
@@ -252,8 +250,8 @@ class SlideshowController extends AbstractController
             $slide->setMediaType("image");
             $slide->setPosition($countPreviousSlides+1);
             $slide->setPP($pp);
+            
             $manager->persist($slide);
-        
             $manager->persist($pp);
             $manager->flush();
 
@@ -265,10 +263,50 @@ class SlideshowController extends AbstractController
             return $this->redirectToRoute('slideshow_index', [
                 'slug' => $pp->getSlug(),
             ]);
+
         }
 
-        
-        return $this->render('slideshow/addImages.html.twig', [
+        return $this->render('slideshow/addImage.html.twig', [
+            'slug' => $pp->getSlug(),
+            'form' => $form->createView(),
+        ]);
+
+    }
+    
+    /**
+     * Allow to update an image Slide
+     *  
+     * @Route("/projects/{slug}/slideshow/edit-image/{id_slide}", name="slideshow_image_edit")
+     * 
+     *  @Entity("slide", expr="repository.find(id_slide)")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+     * @return Response
+     */
+    public function editImageSlide (PPBasic $pp, Request $request, EntityManagerInterface $manager, Slide $slide){
+
+        $form = $this->createForm(SlideshowImagesType::class, $slide);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+                             
+            $manager->persist($slide);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "La diapo texte a été mise à jour"
+            );
+
+            return $this->redirectToRoute('slideshow_index', [
+                'slug' => $pp->getSlug(),
+            ]);
+
+        }
+
+        return $this->render('slideshow/editImage.html.twig', [
             'slug' => $pp->getSlug(),
             'form' => $form->createView(),
         ]);

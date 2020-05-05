@@ -1,14 +1,15 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form _self %}
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Ajouter une Image ou un Schéma{% endblock %}
+
+{% block title %}Changer une Image ou un Schéma{% endblock %}
 
 {% block body %}
 
 <div class="container">
 
-    <h2 class="h3 mt-3">Ajouter une Image ou un Schéma </h2>
+    <h2 class="h3 mt-3">Changer une Image ou un Schéma </h2>
 
     {{form_start(form)}}
 
@@ -16,7 +17,11 @@
 
         <div class="col-md-7 font-weight-bold">
            
-            Choisir une Image <span class="arrowCar">▼ </span>
+            <span class="font-weight-bold h5"> 
+                Modifier l'Image?
+            </span>
+
+            <span class="arrowCar">▼ </span>
 
             <div class="p-0 m-0 alert text-body h5 font-weight-bold">
 
@@ -29,12 +34,20 @@
                 {{ form_widget(form.slideFile) }}
 
             </div>
+            
+            <div class="mt-3">
+
+                {{ form_row(form.caption) }}
+                
+            </div>
+
         </div>
+
     </div>
 
     <div class="mt-4">
     
-        <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Insérer l'Image</button>
+        <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Valider</button>
     
         <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
             <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>

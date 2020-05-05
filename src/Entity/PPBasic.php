@@ -35,7 +35,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks
  */
-class PPBasic
+class PPBasic implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -814,6 +814,18 @@ public function updatedTimestamps(): void
         }
 
         return $this;
+    }
+
+    
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+    $this->id = unserialize($serialized);
+    
     }
 
 

@@ -22,6 +22,17 @@ class AddVideoSlideType extends AbstractType
                     ],
                 ]
             )
+            ->add(
+                'caption', 
+                TextareaType::class, 
+                $this->getConfiguration(
+                    "Légende / Titre (facultatifs) pour cette vidéo :", 
+                    "Vous pouvez l'écrire ici",
+                    [
+                        'required' 	=> false,
+                    ]
+                )
+            )
         ;
     }
 

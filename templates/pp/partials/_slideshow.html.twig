@@ -17,6 +17,18 @@
 						<img class="rounded" src="/images/slides/{{slide.slideName}}"  alt="{{slide.slideName}}" style="max-width:600px; max-height:390px;"> 
 
 					</div>
+
+					{% if slide.caption %}
+					
+						<div class="h4 pl-md-3" style="min-height:65px;">
+							
+							{{slide.caption}}
+
+						</div>
+					
+					{% endif %}
+
+					
 			
 				{% endif %}
 
