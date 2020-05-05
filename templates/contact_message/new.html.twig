@@ -18,7 +18,7 @@
     
         <button class="btn btn-lg btn-success font-weight-bold mr-2">{{ button_label|default('Envoyer') }}</button>
     
-        <a href="{{path('project_show',{'slug':slug})}}">
+        <a href="{{path('project_show',{'slug':slug, 'id_project': idProject})}}">
     
             <button type="button" class="btn btn-lg btn-info font-weight-bold">Annuler</button>
         </a>

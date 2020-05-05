@@ -112,7 +112,7 @@ class SlideshowController extends AbstractController
 
     
     /**
-     * Permet d'Ajouter une Slide de Texte
+     * Allow to Integrate a Rich Text Slide into a Diapo-Pitch
      * 
      * @Route("/projects/{slug}/slideshow/add-text",name="slideshow_text_add")
      * 
@@ -178,7 +178,7 @@ class SlideshowController extends AbstractController
 
 
    /**
-     * Text Slide Edition Form
+     * Allow to Modify a Rich Text Slide into a Diapo-Pitch
      * 
      * @Route("/projects/{slug}/slideshow/edit-text/{slide_id}",name="slideshow_text_edit")
      * 
@@ -227,7 +227,7 @@ class SlideshowController extends AbstractController
      * 
      * @return Response
      */
-    public function addImages (PPBasic $pp, Request $request, EntityManagerInterface $manager){
+    public function addImageSlide (PPBasic $pp, Request $request, EntityManagerInterface $manager){
 
         $form = $this->createForm(SlideshowImagesType::class);
 
@@ -317,7 +317,7 @@ class SlideshowController extends AbstractController
 
   
     /**
-     * Permet d'Ajouter une Vidéo
+     * Allow to add a video slide into a diapo pitch
      * 
      * @Route("/projects/{slug}/slideshow/add-video",name="slideshow_video_add")
      * 
@@ -325,7 +325,7 @@ class SlideshowController extends AbstractController
      * 
      * @return Response
      */
-    public function addVideo (PPBasic $pp, Request $request, EntityManagerInterface $manager) {
+    public function addVideoSlide (PPBasic $pp, Request $request, EntityManagerInterface $manager) {
 
         $slide = new Slide ();
 
@@ -373,6 +373,61 @@ class SlideshowController extends AbstractController
         }
 
         return $this->render('slideshow/addVideo.html.twig', [
+
+            'form' => $form->createView(),
+            'slug' => $pp->getSlug(), 
+            'presentation' => $pp,
+            
+        ]);
+
+    }
+
+    /**
+     * Allow to Edit a Video Slide
+     * 
+     * @Route("/projects/{slug}/slideshow/edit-video/{id_slide}",name="slideshow_video_edit")
+     * 
+     *  @Entity("slide", expr="repository.find(id_slide)")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+     * @return Response
+     */
+    public function editVideoSlide (PPBasic $pp, Slide $slide, Request $request, EntityManagerInterface $manager) {
+
+        $form = $this->createForm(AddVideoSlideType::class, $slide);
+
+        // Youtube Video Code Extraction
+
+        $currentUrl = $slide->getUrl();
+        $videoCode = substr( strrchr( $currentUrl, '/' ), 1 );
+        $form->get('url')->setData($videoCode);
+        
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()){
+      
+            $videoUrl = 'https://www.youtube.com/embed/'.$slide->getUrl();
+
+            $videoThumbnail = 'https://img.youtube.com/vi/'.$slide->getUrl().'/mqdefault.jpg';
+
+            $slide->setUrl($videoUrl);
+            $slide->setThumbnail($videoThumbnail);
+
+            $manager->persist($slide);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "La Diapo Vidéo a été Modifiée."
+            );
+
+            return $this->redirectToRoute('slideshow_index', [
+                'slug' => $pp->getSlug(),
+            ]);
+        }
+
+        return $this->render('slideshow/editVideo.html.twig', [
 
             'form' => $form->createView(),
             'slug' => $pp->getSlug(), 

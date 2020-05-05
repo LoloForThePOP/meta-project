@@ -28,8 +28,6 @@
 					
 					{% endif %}
 
-					
-			
 				{% endif %}
 
 				{% if slide.mediaType=='text' %}
@@ -43,6 +41,16 @@
 				{% if slide.mediaType=='video' %}
 
 					<iframe class="" width="100%" height="100%" src="{{slide.url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+					
+					{% if slide.caption %}
+					
+						<div class="h4 pl-md-3 mt-2" style="min-height:65px;">
+							
+							{{slide.caption}}
+
+						</div>
+					
+					{% endif %}
 				
 				{% endif %}
 

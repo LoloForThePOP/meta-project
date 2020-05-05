@@ -51,11 +51,18 @@
 
                             {% elseif slide.mediaType == 'video' %}
 
-                                <img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" height="" width="100%">
+                                <a href="{{path('slideshow_video_edit', {'slug':slug, 'presentation': presentation, 'id_slide' : slide.id })}}" class="text-body text-decoration-none">
+                                    
+                                    <img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" height="" width="100%">
 
-                                <!-- ui css video icon -->
+                                    <!-- ui css video icon -->
 
-                                <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span>                               
+                                    <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span> 
+
+
+
+                                </a>
+                              
 
 
                             {% elseif slide.mediaType == 'text' %}
