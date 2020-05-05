@@ -52,6 +52,12 @@ class PPController extends AbstractController
             $manager->persist($presentation);
             $manager->flush();
 
+            // initialize a unique slug
+
+            $presentation->setSlug($presentation->getSlug().'-'.$presentation->getId());
+            $manager->persist($presentation);
+            $manager->flush();
+
             $this->addFlash(
                 'success',
                 "La Présentation {$presentation->getTitle()} a bien été Créée! Dernière étape nécessaire : choisissez des catégories et des mots-clés pour que les gens puissent trouver votre projet."

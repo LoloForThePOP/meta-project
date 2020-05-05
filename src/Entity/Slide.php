@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
@@ -70,6 +71,11 @@ class Slide implements \Serializable
      * (Not used)
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "Le nombre de caractères pour la légende est fixé à 255 caractères maximum." )
+     *     
      */
     private $caption;
 

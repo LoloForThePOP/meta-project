@@ -368,27 +368,33 @@ class PPBasic implements \Serializable
         $this->applyToPGroups = new ArrayCollection();
         $this->invitedByPGroups = new ArrayCollection();
     }
+ 
 
+    
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+
+
+        
     /**
-     * Initialize Slug
+     * Untitled Projects : Default title Creation 
      * 
      * @ORM\PrePersist
      * @ORM\PreUpdate
      * 
      * @return void
      */
-    public function initializeSlug(){
+    public function untitledDefaultTitles(){
 
-        if(empty($this->slug)){
-
-            $slugify= new Slugify();
-            $this->slug=$slugify->slugify($this->title);
+        if ($this->title == null){
+            
+            $this->title = '(Projet Sans Titre)';
         }
-    }
-
-    public function getId(): ?int
-    {
-        return $this->id;
+  
     }
 
     public function getTitle(): ?string
@@ -417,17 +423,36 @@ class PPBasic implements \Serializable
         return $this;
     }
 
-/**
- * @ORM\PrePersist
- * @ORM\PreUpdate
-*/
-public function updatedTimestamps(): void
-{
-    $this->setUpdatedAt(new \DateTime('now'));    
-    if ($this->getCreatedAt() === null) {
-        $this->setCreatedAt(new \DateTime('now'));
+    /**
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+    */
+    public function timestampsUpdate(): void
+    {
+        if ($this->getCreatedAt() === null) {
+            $this->setCreatedAt(new \DateTime('now'));
+        }
+
+        $this->setUpdatedAt(new \DateTime('now'));
     }
-}
+
+
+
+    
+     /**
+     * Unique Slug Creation
+     * 
+     * @ORM\PrePersist
+     * @ORM\PreUpdate
+     * 
+     * @return void
+     */
+    public function uniqueSlug(){
+
+        $slugify= new Slugify();
+        $this->slug=$slugify->slugify($this->title).'-'.$this->id;
+  
+    }
 
     public function getSlug(): ?string
     {
