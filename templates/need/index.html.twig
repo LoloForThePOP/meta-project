@@ -15,13 +15,13 @@
     <h3 class="my-3 font-weight-bold"> <span class="">Ressources Désirées</span></h3>
 
     <!-- Add a Need Button -->
-
-        <a class="text-decoration-none text-white mr-2" href="{{ path('need_new', {'slug': slug }) }}">
-            <button type="button" class="btn btn-success btn-lg font-weight-bold mb-4"> + Ajouter un Besoin </button>
-        </a>
-
+    
     {% if app.user and app.user == presentation.creator %}
-
+    
+            <a class="text-decoration-none text-white mr-2" href="{{ path('need_new', {'slug': slug }) }}">
+                <button type="button" class="btn btn-success btn-lg font-weight-bold mb-4"> + Ajouter un Besoin </button>
+            </a>
+            
     {% endif %}
     
     <div>

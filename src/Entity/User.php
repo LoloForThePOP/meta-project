@@ -17,7 +17,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  * fields={"email"},
- * message="Un utilisateur s'est déjà inscrit avec cette adresse email. Si cette adresse email est bien la vôtre, vous êtes déjà inscrit sur le site. Si vous ne vous souvenez plus de votre Mot de Passe, Dirigez vous vers la section Mot de Passe Oublié."
+ * message="Un utilisateur s'est déjà inscrit avec cette adresse email. Si cette adresse email est bien la vôtre, vous êtes déjà inscrit sur le site. Si vous ne vous souvenez plus de votre mot de passe, dirigez vous vers la section mot de passe oublié."
  * )
  * @UniqueEntity(
  * fields={"name"},

@@ -122,11 +122,11 @@ class ContactMessageController extends AbstractController
 
     
     /**
-     * Allow to send a private message
-     * @Route("/new", name="contact_message_new", methods={"GET","POST"})
+     * Allow to create and send a private message
+     * @Route("/new/", name="contact_message_new", methods={"GET","POST"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function new (PPBasic $pp, $slug, Request $request): Response
+    public function new (PPBasic $pp, Request $request): Response
     {
         $contactMessage = new ContactMessage();
         $form = $this->createForm(ContactMessageType::class, $contactMessage);
@@ -146,13 +146,13 @@ class ContactMessageController extends AbstractController
             );
 
             return $this->redirectToRoute('project_show', [
-                'slug' => $slug,
+                'slug' => $pp->getSlug(),
             ]);
         }
 
         return $this->render('contact_message/new.html.twig', [
             'contact_message' => $contactMessage,
-            'slug' => $slug,
+            'slug' => $pp->getSlug(),
             'form' => $form->createView(),
         ]);
     }

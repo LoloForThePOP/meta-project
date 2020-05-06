@@ -1,88 +1,99 @@
 
-<!-- Sidebar Items Names paired with their Access Route Names, their icons(future :  and some misc informations for badges)  -->
 
-{% set sidebarItems = [ 
-
-    { 'name': 'Tableau de Bord', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
-    { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
-    { 'name': 'Généralités', 'route': 'project_edit', 'iconName': 'generalities.svg'}, 
-    { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
-    { 'name': 'Diapo Pitch', 'route': 'slideshow_index', 'iconName': 'pitch.svg'}, 
-    { 'name': 'Contact Infos', 'route': 'contact_index', 'iconName': 'contacts.svg'}, 
-    { 'name': 'Besoins', 'route': 'need_index', 'iconName': 'needs.svg'}, 
-    { 'name': 'Catégories', 'route': 'index_categories', 'iconName': 'categories.svg'}, 
-    { 'name': 'Lieux', 'route': 'geodomains_cities_manage', 'iconName': 'geodomains.svg'}, 
-    { 'name': 'Sites Web', 'route': 'websites_index', 'iconName': 'websites.svg'}, 
-    { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'}, 
-
-] %}
+{% if app.user and app.user == presentation.creator %}
 
 
-<!-- Sidebar Template  -->
+    <!-- Sidebar Items Names paired with their Access Route Names, their icons(future :  and some misc informations for badges)  -->
 
-<nav id="sidebar" class="">
+    {% set sidebarItems = [ 
 
-    <ul class="list-unstyled components bg-light border border-primary mt-4">
+        { 'name': 'Tableau de Bord', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
+        { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+        { 'name': 'Généralités', 'route': 'project_edit', 'iconName': 'generalities.svg'}, 
+        { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
+        { 'name': 'Diapo Pitch', 'route': 'slideshow_index', 'iconName': 'pitch.svg'}, 
+        { 'name': 'Contact Infos', 'route': 'contact_index', 'iconName': 'contacts.svg'}, 
+        { 'name': 'Besoins', 'route': 'need_index', 'iconName': 'needs.svg'}, 
+        { 'name': 'Catégories', 'route': 'index_categories', 'iconName': 'categories.svg'}, 
+        { 'name': 'Lieux', 'route': 'geodomains_cities_manage', 'iconName': 'geodomains.svg'}, 
+        { 'name': 'Sites Web', 'route': 'websites_index', 'iconName': 'websites.svg'}, 
+        { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'}, 
 
-        {% for item in sidebarItems %}
+    ] %}
 
-            <li class="d-flex align-items-center ">
 
-                <a href="{{ path(item.route, {'slug':presentation.slug}) }}">  
+    <!-- Sidebar Template  -->
 
-                    <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
- 
-                    {{item.name}}
+    <nav id="sidebar" class="">
 
-                    {% if item.badge is defined %}
-                    <span class="badge badge-primary font-weight-bold ml-1">{{item.badge}}</span>
-                    {% endif %}
+        <ul class="list-unstyled components bg-light border border-primary mt-4">
+
+            {% for item in sidebarItems %}
+
+                <li class="d-flex align-items-center ">
+
+                    <a href="{{ path(item.route, {'slug':presentation.slug}) }}">  
+
+                        <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
+
+                        <span class="textMenu">
+                            {{item.name}}
+                        </span>
+    
+                        
+
+                        {% if item.badge is defined and item.badge is not null %}
+
+                            <span class="badge badge-primary font-weight-bold ml-1">
+                                {{item.badge}}
+                            </span>
+
+                        {% endif %}
+                        
+                    </a>
+
+                </li>
+
+            {% endfor %}
+
+
+        </ul>
+
+        <!-- adjoining ul exemple -->
+
+        <!-- <ul class="list-unstyled CTAs">
+
+        </ul> -->
+
+    </nav>
+
+    <!-- Collapsible Menu Item Example -->
+
+    <!-- 
+            <li class="active h5">
+
+                <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                    <i class="fas fa-home"></i>
+                    Accueil
                 </a>
 
-            </li>
+                <ul class="collapse list-unstyled" id="homeSubmenu">
 
-        {% endfor %}
+                    <li>
+                        <a href="#">Home 1</a>
+                    </li>
 
+                    <li>
+                        <a href="#">Home 2</a>
+                    </li>
 
-    </ul>
+                    <li>
+                        <a href="#">Home 3</a>
+                    </li>
 
-    <!-- adjoining ul exemple -->
+                </ul>
 
-    <!-- <ul class="list-unstyled CTAs">
-
-    </ul> -->
-
-</nav>
-
-<!-- Collapsible Menu Item Example -->
-
-<!-- 
-        <li class="active h5">
-
-            <a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
-                <i class="fas fa-home"></i>
-                Accueil
-            </a>
-
-            <ul class="collapse list-unstyled" id="homeSubmenu">
-
-                <li>
-                    <a href="#">Home 1</a>
-                </li>
-
-                <li>
-                    <a href="#">Home 2</a>
-                </li>
-
-                <li>
-                    <a href="#">Home 3</a>
-                </li>
-
-            </ul>
-
-        </li> -->
+            </li> -->
 
 
-
-
-       <!-- icons examples  🏠  📺  ⮞   ⭐   🖂  🌍    @  ☛  ■ ● www  -->
+{% endif %}
