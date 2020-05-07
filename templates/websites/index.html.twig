@@ -13,31 +13,58 @@
 
         <h3 class="my-3">Gérer les Sites Web</h1>
 
-        <div class="card border-primary h5 mb-3" style="max-width: 35rem;">
+                     
+    <!-- collapsable advice -->	
 
-            <div class="card-header">Info</div>
+        <button class="btn btn-primary d-block font-weight-bold my-3" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
-            <div class="card-body">
+            <span class="h5 font-weight-bold" style="letter-spacing: 2px;"> Conseil en 5 Secondes</span>
+            
+        </button>
+        
+        <div class="collapse my-3 col-md-7" id="collapseExample">
+                    
+            <ul class="h5 list-group">
 
-                <h4 class="card-title">Sites Webs</h4>
+                <li class="list-group-item">Ici vous pouvez lister tous les sites webs et les domaines web en liens avec votre projet (exemple : site web personnel, réseaux sociaux, dépôt Github, Trello, Slack, Discord et autres).</li>
 
-                <p class="card-text">Ici vous pouvez lister tous les sites webs et les domaines web en liens avec votre projet (exemple : site web personnel, réseaux sociaux, dépôt Github, Trello, Slack, Discord et autres).</p>
-
-            </div>
+            </ul>
 
         </div>
 
         {% form_theme form _self '/partials/jquery.collection.html.twig' %}
 
+        <style>
+
+                        
+            input {
+                color:black !important;
+                font-size:1.25em !important;
+                width: 100%;
+                padding: 5px 12px;
+                margin: 4px 0 8px 0;
+                display: inline-block;
+                border-radius: 4px;
+                box-sizing: border-box;
+            }
+
+            label {
+                margin: 0;
+            }
+
+        </style>
+
         {{form_start(form)}}
+
+        {# Submit Button #}
+
+            <button type="submit" class="btn btn-success btn-lg mb-3 mr-2 font-weight-bold">Enregistrer les Modifications</button>
             
         {{form_widget(form)}}
 
-        <div class="mt-3">
 
-                <button type="submit" class="btn btn-success btn-lg mb-4 mr-2 font-weight-bold">Enregistrer</button>
+        <button type="submit" class="btn btn-success btn-lg my-3 mr-2 font-weight-bold">Enregistrer les Modifications</button>
 
-        </div>
 
         {{form_end(form)}}
 
@@ -52,14 +79,23 @@
 <script type="text/javascript">
 
     $('.actions-collection').collection({
+
         position_field_selector: '.my-position',
+
         up: '<button type="button" class="mr-1 btn btn-outline-primary arrowCar font-weight-bold">▲</button>',
-        remove: ' <button type="button" class="mr-1 btn btn-danger font-weight-bold"><span class="">X</span></button>',
+
+        remove: ' <button type="button" class="mr-1 btn btn-danger "><span class="h5 font-weight-bold">Retirer ce site</span></button>',
+
         down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold bg-white mr-1">▼</button>',
+
         add: ' <button type="button" class="btn btn-lg btn-primary font-weight-bold mr-1">+ Ajouter un Site Web</button>',
+
         fade_in: false,
+
         fade_out: false,
+
         add_at_the_end: true,
+
     });
 
 </script>
@@ -82,13 +118,19 @@
 
 {% block _website_collection_websites_entry_widget %}
 
-        <div class="list-item border border-primary rounded col-md-5 p-2 px-3 mb-3" style="background-color:#f0f5e3;"> 
+        <div class="list-item border border-primary rounded col-md-6 p-2 px-3 mb-3" style="background-color: rgb(214, 224, 255);"> 
 
             <div class="">
-                {{ form_row(form.url) }}
+
+                <span class="mr-2"> {{ form_label(form.url) }}</span>
+               
+                {{ form_widget(form.url) }}
             </div>
             <div class="mb-2">
-                {{ form_row(form.description) }}
+
+                <span class="mr-2">{{ form_label(form.description) }}</span>
+                
+                {{ form_widget(form.description) }}
             </div>
             <div class="mb-2">
                 {{ form_row(form.position) }}

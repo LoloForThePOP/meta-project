@@ -1,12 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{{ presentation.title }}{% endblock %}
 
-{% block sidebar %}
+{% block meta %}
 
-    {% include 'partials/sidebar.html.twig' %}
+    <meta name="author" content="{{ presentation.creator.name }}">
+    <meta name="description" content="{{ presentation.goal }}">
+    <meta name="keywords" content="{{ presentation.keywords }}">
+    <meta name="date" content="{{ presentation.createdAt | date}}">
     
 {% endblock %}
+
+
+{% block title %}{{ presentation.title }}{% endblock %}
+
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
 
 {% block body %}
 
@@ -49,6 +56,9 @@
 
                 <!-- Project Contact Message Button (i.e. Direct Private Message) -->
                 {% include 'pp/partials/_privateMessage.html.twig' %}
+
+                <!-- Display Some Metadatas -->
+                {% include 'pp/partials/_metadataDisplay.html.twig' %}
 
             </div>
 

@@ -357,6 +357,8 @@ class PPBasic implements \Serializable
 
     public function __construct()
     {
+        $this->isActiveContactMessages = true;
+
         $this->slides = new ArrayCollection();
         $this->needs = new ArrayCollection();
         $this->contacts = new ArrayCollection();

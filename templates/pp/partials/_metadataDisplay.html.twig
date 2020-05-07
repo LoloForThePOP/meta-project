@@ -1,0 +1,17 @@
+
+
+<!-- Presentation Created At Datetime -->
+
+{% if presentation.createdAt %}
+
+    <div class="col-md-5 mt-4 mb-3 font-weight-bold border border-primary p-2">
+
+        <span class="">
+            Présentation Créée le : 
+        </span>
+
+        {{ presentation.createdAt | date("m/d/Y") }}
+     
+    </div>
+    
+{% endif %}
