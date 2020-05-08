@@ -60,6 +60,12 @@
                 <!-- Display Some Metadatas -->
                 {% include 'pp/partials/_metadataDisplay.html.twig' %}
 
+                <!-- some buttons (example : report abuse; save as pdf; ...) -->
+
+                <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
+                    <button type="button" class="btn btn-light">Signaler un Abus</button>
+                </a>
+                
             </div>
 
             <!-- Project Provider Caps -->

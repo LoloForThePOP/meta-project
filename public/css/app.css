@@ -114,6 +114,18 @@ a {
     100% { transform: rotate(360deg); }
 }
 
+/* BS 4 Form Errors Display */
+
+.form-error-icon{
+    font-size:1.15em;
+    margin-right:2px;
+}
+
+.form-error-message{
+    font-size:1.15em !important;
+    color:red !important;
+}
+
 /* Other Personnal Styles */
 
 .keywords{

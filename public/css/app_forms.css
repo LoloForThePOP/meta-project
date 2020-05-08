@@ -51,18 +51,7 @@ input {
     color: rgb(49, 25, 93)  !important;
   }
 
-  /* BS 4 Form Errors Display */
-
-.form-error-icon{
-    font-size:1.15em;
-    margin-right:2px;
-}
-
-.form-error-message{
-    font-size:1.15em !important;
-}
-
-
+  
 /* BS 4 File Input : show file name */
 
 .custom-file-label { opacity: 0; }

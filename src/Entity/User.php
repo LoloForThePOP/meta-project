@@ -90,6 +90,11 @@ class User implements UserInterface
      */
     private $pGroupsMaster;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Report::class, mappedBy="user")
+     */
+    private $reports;
+
 
     public function __construct()
     {
@@ -98,6 +103,12 @@ class User implements UserInterface
         $this->contactMessages = new ArrayCollection();
         $this->pGroups = new ArrayCollection();
         $this->pGroupsMaster = new ArrayCollection();
+        $this->reports = new ArrayCollection();
+    }
+  
+    public function __toString()
+    {
+        return (string) $this->id;
     }
 
     public function getId(): ?int
@@ -345,6 +356,37 @@ class User implements UserInterface
         if ($this->pGroupsMaster->contains($pGroupsMaster)) {
             $this->pGroupsMaster->removeElement($pGroupsMaster);
             $pGroupsMaster->removeMaster($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->contains($report)) {
+            $this->reports->removeElement($report);
+            // set the owning side to null (unless already changed)
+            if ($report->getUser() === $this) {
+                $report->setUser(null);
+            }
         }
 
         return $this;

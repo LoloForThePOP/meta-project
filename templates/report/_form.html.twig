@@ -1,0 +1,14 @@
+
+{{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <button class="btn btn-success my-3">
+
+        <span class="font-weight-bold">
+            {{ button_label|default('Envoyer') }}
+        </span>
+        
+    </button>
+
+{{ form_end(form) }}

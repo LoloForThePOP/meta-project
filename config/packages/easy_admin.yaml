@@ -1,0 +1,5 @@
+easy_admin:
+  entities:
+    - App\Entity\PPBasic
+    - App\Entity\Slide
+    - App\Entity\Report

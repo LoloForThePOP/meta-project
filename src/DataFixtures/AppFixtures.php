@@ -8,6 +8,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Slide;
 use App\Entity\PGroup;
+use App\Entity\Report;
 use App\Entity\Contact;
 use App\Entity\PPBasic;
 use App\Entity\Website;
@@ -473,16 +474,38 @@ class AppFixtures extends Fixture
                 $manager->persist($dr);
             }
 
-            
             $manager->persist($pp);
             
             $projects[]=$pp;
 
+        }
 
+    
+        // report messages creation (exemple : report a bug; an abuse; a comment; ...)
+
+        for ($j=1; $j<=15; $j++) {
+
+            $report = new Report();
+
+            $createdAt = $faker->dateTimeBetween($startDate = '-4 years', $endDate = 'now');
+
+            $author = $users[ mt_rand(0, count($users)-1) ];
+
+            $context = $projects[ mt_rand(0, count($projects)-1) ]->getTitle();
+
+            $messageContent = join($faker->paragraphs(3));
+
+            $report -> setCreatedAt($createdAt)
+                    -> setUser($author)
+                    -> setContext($context)
+                    -> setMessageContent($messageContent);
+
+            $manager->persist($report);
 
         }
 
-        //dump(count($projects));
+
+        // dump(count($projects));
 
         // Project Groups Creation
 
@@ -602,8 +625,7 @@ class AppFixtures extends Fixture
 
         }
 
-        $manager->flush();        
-        $manager->flush();        
+        $manager->flush();  
 
     }
 
