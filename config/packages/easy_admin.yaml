@@ -1,5 +1,35 @@
 easy_admin:
+
+  site_name: '<span style="font-size:25px;">Projet des Projets</span>'
+
+  formats:
+    datetime: 'd/m/Y H:i:s'
+    date: 'd/m/Y'
+
+  list:
+    max_results: 22
+    actions:
+      - { name: 'show', icon: 'eye'}
+      - { name: 'edit', icon: 'pencil'}
+      - { name: 'delete', icon: 'trash'}
+
+  design:
+    assets:
+      css:
+        - '/css/admin.css'
+    menu:
+          - { entity: 'Report', label: 'Messages', icon: 'comment-alt' }
+
   entities:
-    - App\Entity\PPBasic
-    - App\Entity\Slide
-    - App\Entity\Report
+
+    Report:
+      class: App\Entity\Report
+      label: 'Messages'
+      list:
+        #dql_filter: 'entity.id < 10'
+        fields:
+          - id
+          - createdAt
+          - context
+          - user.id
+          - user.email
