@@ -192,6 +192,10 @@ class AppFixtures extends Fixture
             // Presentation Creator Creation
             $creator=$users[ mt_rand(0, count($users)-1) ];
 
+            // Draft Presentation, or is published?
+
+            $isPublished = array_rand([true,true,true,true,true,true,false]);
+
             // Are Private Messages Activated
             $isActiveContactMessages = array_rand([true,true,true,true,false]);
             
@@ -199,6 +203,7 @@ class AppFixtures extends Fixture
             $pp ->setTitle($title)
                 ->setGoal($faker->paragraph())
                 ->setKeywords($keywords)
+                ->setIsPublished($isPublished)
                 ->setThumbnailName($thumbnailAddress)
                 ->setLogoName($logoAddress)
                 ->setCreatedAt($createdAt)

@@ -354,9 +354,20 @@ class PPBasic implements \Serializable
      */
     private $invitedByPGroups;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isPublished;
+
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $adminValidation;
+
 
     public function __construct()
     {
+        $this->isPublished = true;
         $this->isActiveContactMessages = true;
 
         $this->slides = new ArrayCollection();
@@ -853,6 +864,30 @@ class PPBasic implements \Serializable
     {
     $this->id = unserialize($serialized);
     
+    }
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(?bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getAdminValidation(): ?bool
+    {
+        return $this->adminValidation;
+    }
+
+    public function setAdminValidation(?bool $adminValidation): self
+    {
+        $this->adminValidation = $adminValidation;
+
+        return $this;
     }
 
 

@@ -29,7 +29,7 @@ class SettingsController extends AbstractController
     /** 
      * Allow to switch Contact Messages Activation
      * 
-     * @Route("/ajaxContactMessagesActivation", name="ajax_contact_messages_activation") 
+     * @Route("/ajax-contact-messages-activation", name="ajax_contact_messages_activation") 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
     */ 
 
@@ -43,6 +43,39 @@ class SettingsController extends AbstractController
 
 
             $presentation->setIsActiveContactMessages($activateContactMessages);
+
+            $manager->persist($presentation);
+
+            $manager->flush();
+          
+            $dataResponse = [
+            ];
+
+            return new JsonResponse($dataResponse);
+        }
+
+    }
+
+
+
+    /** 
+     * Allow to Keep Presentation as a Draft, or Publish it
+     * 
+     * @Route("/ajax-publish-presentation", name="ajax_publish_presentation_switch") 
+     * 
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+    */ 
+
+    public function ajaxPublishPresentationSwitch(Request $request, PPBasic $presentation,EntityManagerInterface $manager) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonIsPublishedPresentation = $request->request->get('checkboxValue');
+
+            $isPublishedPresentation = json_decode($jsonIsPublishedPresentation,true);
+
+            $presentation->setisPublished($isPublishedPresentation);
 
             $manager->persist($presentation);
 

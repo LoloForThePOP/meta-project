@@ -21,7 +21,7 @@ class PPController extends AbstractController
     {
         // $presentations = $repo->findAll();
 
-        $lastInsertedProjects = $manager->createQuery('SELECT p.title, p.keywords, p.thumbnailName, p.goal, p.slug, p.title FROM App\Entity\PPBasic p ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
+        $lastInsertedProjects = $manager->createQuery('SELECT p.title, p.keywords, p.thumbnailName, p.goal, p.slug, p.title FROM App\Entity\PPBasic p  WHERE p.isPublished=true ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
         return $this->render('pp/index.html.twig', [
             'presentations' => $lastInsertedProjects,
@@ -139,6 +139,8 @@ class PPController extends AbstractController
      * Allow to Display a Project Presentation Page
      *
      * @Route("/projects/{slug}",name="project_show")
+     * 
+     * @Security("presentation.getIsPublished() == true or user === presentation.getCreator() ")
      * 
      * @return Response
      */
