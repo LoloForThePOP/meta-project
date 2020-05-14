@@ -18,9 +18,74 @@ easy_admin:
       css:
         - '/css/admin.css'
     menu:
-          - { entity: 'Report', label: 'Messages', icon: 'comment-alt' }
+          - { entity: 'User', label: 'Gestion des Utilisateurs', icon: 'user' }
+          - { entity: 'Validation', label: 'Validation des Présentations', icon: 'check' }
+          - { entity: 'Report', label: 'Messages pour les Administrateurs', icon: 'comment-alt' }
+          - { entity: 'Slideshows', label: 'Diaporamas', icon: 'tablet-alt' }
+          - { entity: 'RolesManage', label: 'Gestion des Rôles Administrateurs', icon: 'users', permission: 'ROLE_MASTER_ADMIN' }
 
   entities:
+
+    Slideshows:
+      class: App\Entity\Slide
+      edit:
+        fields:
+          - slideName
+          - textContent
+          - caption
+          - url
+     
+
+    RolesManage:
+      class: App\Entity\User
+      list:
+        fields:
+          - id
+          - name
+          - email
+          - userRoles
+          - isAllowed
+      edit:
+        fields:
+          - name
+          - email
+          - userRoles
+
+    User:
+      class: App\Entity\User
+      list:
+        fields:
+          - id
+          - name
+          - email
+      show:
+        fields:
+          - id
+          - name
+          - email
+          - isAllowed
+          - isAllowedComment
+      edit:
+        fields:
+          - name
+          - email
+          - isAllowed
+          - isAllowedComment
+
+    Validation:
+      class: App\Entity\PPBasic
+      list:
+        fields:
+          - id
+          - title
+          - adminValidation
+      show:
+        fields:
+          - id
+          - adminValidation
+      edit:
+        fields:
+          - adminValidation
 
     Report:
       class: App\Entity\Report

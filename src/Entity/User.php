@@ -95,9 +95,25 @@ class User implements UserInterface
      */
     private $reports;
 
+    /**
+     * Is the User allowed or banished on the website
+     * 
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isAllowed;
+
+    /**
+     * Fiel for comments over a user banishment
+     * 
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $isAllowedComment;
+
 
     public function __construct()
     {
+
+        $this->isAllowed = true;
         $this->presentations = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->contactMessages = new ArrayCollection();
@@ -388,6 +404,30 @@ class User implements UserInterface
                 $report->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsAllowed(): ?bool
+    {
+        return $this->isAllowed;
+    }
+
+    public function setIsAllowed(?bool $isAllowed): self
+    {
+        $this->isAllowed = $isAllowed;
+
+        return $this;
+    }
+
+    public function getIsAllowedComment(): ?string
+    {
+        return $this->isAllowedComment;
+    }
+
+    public function setIsAllowedComment(?string $isAllowedComment): self
+    {
+        $this->isAllowedComment = $isAllowedComment;
 
         return $this;
     }

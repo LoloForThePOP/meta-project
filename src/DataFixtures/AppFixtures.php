@@ -42,19 +42,27 @@ class AppFixtures extends Fixture
 
         // Admin Role Creation
 
-       /*  $adminRole = new Role();
+        $adminRole = new Role();
         $adminRole->setTitle('ROLE_ADMIN');
-        $manager->persist($adminRole); */
+        $manager->persist($adminRole); 
+
+        // Master Admin Role Creation
+
+        $masterAdminRole = new Role();
+        $masterAdminRole->setTitle('ROLE_MASTER_ADMIN');
+        $manager->persist($masterAdminRole);
 
         // a User with Admin Role Creation
 
-        /* $adminUser = new User();
+        $adminUser = new User();
         $adminUser->setName('Lolo')
                 ->setEmail('lolo@symfony.com')
                 ->setHash($this->encoder->encodePassword($adminUser,'password'))
                 ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>')
-                ->addUserRole($adminRole); 
-        $manager->persist($adminUser);*/
+                ->addUserRole($adminRole)
+                ->addUserRole($masterAdminRole)
+            ; 
+        $manager->persist($adminUser);
 
 
         // Project Categories Creation
@@ -120,10 +128,14 @@ class AppFixtures extends Fixture
             $imageUrlEnd="/".$faker->numberBetween(1,99).'.jpg';
             $image=$imageUrlBegin.$randomUserGenre.$imageUrlEnd;
 
-
             // User Hash Creation
-
             $hash=$this->encoder->encodePassword($user,'password');
+
+            // Is it an allowed user, or a banished user? (functionnality not implemented yet)
+            $isAllowed = array_rand([true,true,true,true,true,true,false]);
+            
+            // A comment if the user is not Allowed
+            $isAllowedComment = join($faker->paragraphs(4));
 
             // User Hydrate
 
@@ -132,6 +144,8 @@ class AppFixtures extends Fixture
                 ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(4)). '</p>')
                 ->setImageName($image)
                 ->setHash($hash)
+                ->setIsAllowed($isAllowed)
+                ->setIsAllowedComment($isAllowedComment)
             ;
 
             $manager->persist($user);
@@ -198,6 +212,9 @@ class AppFixtures extends Fixture
 
             // Are Private Messages Activated
             $isActiveContactMessages = array_rand([true,true,true,true,false]);
+
+            // Admin Validation of the Presentation (not implemented yet)
+            $isAdminValidated = array_rand([true,true,true,false,false]);
             
             // Hydrating Project Presentation with Above Attributes
             $pp ->setTitle($title)
@@ -209,6 +226,7 @@ class AppFixtures extends Fixture
                 ->setCreatedAt($createdAt)
                 ->setCreator($creator)
                 ->setIsActiveContactMessages($isActiveContactMessages)
+                ->setAdminValidation($isAdminValidated)
             ;
 
             // Project Cities (with Postal Codes) Creation

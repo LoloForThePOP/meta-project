@@ -119,7 +119,11 @@ class Slide implements \Serializable
     private $updatedAt;
 
 
-
+      
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
 
     public function getId(): ?int
     {

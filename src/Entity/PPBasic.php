@@ -381,6 +381,13 @@ class PPBasic implements \Serializable
         $this->applyToPGroups = new ArrayCollection();
         $this->invitedByPGroups = new ArrayCollection();
     }
+    
+
+       
+    public function __toString()
+    {
+        return (string) $this->id.' '.$this->title;
+    }
  
 
     
