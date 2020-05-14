@@ -23,6 +23,8 @@ class AccountController extends AbstractController
     /**
      * Display login form
      * 
+     * !!! we check if user is disabled by admins, thanks to UserChecker (a security service located in App/Security). The user checker is also activated in security.yaml.
+     * 
      * @Route("/login", name="account_login")
      * 
      * @return Response
@@ -122,7 +124,7 @@ class AccountController extends AbstractController
      * Allow User to Modify his Password
      * 
      * @Route("/account/update-password",name="account_update_password")
-     * @IsGranted("ROLE_USER")
+     * @IsGranted("ROLE_ADMIN")
      * @return Response
      */
     public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager){
