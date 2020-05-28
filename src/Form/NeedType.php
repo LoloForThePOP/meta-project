@@ -19,8 +19,8 @@ class NeedType extends ApplicationType
             ->add(
                 'type', 
                 ChoiceType::class, 
-                $this->getConfiguration("Type du Besoin?", "",[
-                    'placeholder' => 'Choisir une Option',
+                $this->getConfiguration("Type du besoin", "",[
+                    'placeholder' => 'Choisir une option',
                     'choices'  => [
                         'Une Compétence (Ex : un Dessinateur, un Développeur)' => 'skill',
                         'Un Service Ponctuel (Ex : Créer deux Dessins, Préparer un Repas)' => 'task',
@@ -35,17 +35,12 @@ class NeedType extends ApplicationType
             ->add(
                 'title', 
                 TextType::class, 
-                $this->getConfiguration("Titre du Besoin :", "Exemple : Un Local à Paris")
-                )
-            ->add(
-                'description', 
-                TextareaType::class,
-                $this->getConfiguration("Description :", "Exemple : Nous recherchons un local pour pouvoir développer notre projet. L'idéal serait 30 m² au minimum, si possible à une distance raisonnable du centre ville.", ['required' => false])
+                $this->getConfiguration("Titre du besoin", "Exemple : Un Local à Paris")
                 )
             ->add(
                 'paidService', 
                 ChoiceType::class, 
-                $this->getConfiguration("Est-ce Payé ?", "",[
+                $this->getConfiguration("Est-ce payé ?", "",[
                     'placeholder' => 'Choisir une Option',
                     'choices'  => [
                         'Peut-être' => 'maybe',
@@ -56,6 +51,11 @@ class NeedType extends ApplicationType
                     ]
                 )
             )
+            ->add(
+                'description', 
+                TextareaType::class,
+                $this->getConfiguration("Description", "Exemple : Nous recherchons un local pour pouvoir développer notre projet. L'idéal serait 30 m² au minimum, si possible à une distance raisonnable du centre ville.", ['required' => false])
+                )
         ;
     }
 

@@ -101,7 +101,7 @@ class AppFixtures extends Fixture
 
         
 
-        // Website Users Creation
+        // Users Creation
 
         $users=[];
         $userGenres=['male','female'];
@@ -137,6 +137,15 @@ class AppFixtures extends Fixture
             // A comment if the user is not Allowed
             $isAllowedComment = join($faker->paragraphs(4));
 
+            $hasWebsite = array_rand([true,false]); 
+            $website=NULL;
+
+            if ($hasWebsite == true) {
+
+                $website = $faker->url();
+
+            }
+
             // User Hydrate
 
             $user->setName($faker->firstName($userGenre))
@@ -144,6 +153,7 @@ class AppFixtures extends Fixture
                 ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(4)). '</p>')
                 ->setImageName($image)
                 ->setHash($hash)
+                ->setWebsite($website)
                 ->setIsAllowed($isAllowed)
                 ->setIsAllowedComment($isAllowedComment)
             ;

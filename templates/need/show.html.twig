@@ -2,7 +2,15 @@
 
 {% block title %}Affichage d'un Besoin{% endblock %}
 
-{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+{% block sidebar %} 
+
+    {% if app.user and app.user == presentation.creator %}
+    
+        {% include 'partials/sidebar.html.twig' %} 
+
+    {% endif %}
+    
+{% endblock %}
 
 {% block body %}
 

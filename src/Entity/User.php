@@ -13,6 +13,12 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+use Symfony\Component\Validator\Constraints\Image;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
+use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
+use Symfony\Component\HttpFoundation\File\File;
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
@@ -45,9 +51,29 @@ class User implements UserInterface
     private $email;
 
     /**
+     * the name of the image file (example : cat-4234564567.jpg)
+     * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageName;
+
+    
+    /**
+     * NOTE: This is not a mapped field of entity metadata, just a simple property.
+     *@Assert\Image(
+     *     maxSize = "2000k",
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 2000 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas pris en compte. Les formats acceptés sont : {{ types }}"
+     * )
+     *
+     * 
+     * @Vich\UploadableField(mapping="slide_image", fileNameProperty="slideName")
+     * 
+     * @var File|null
+     */
+    public $imageFile;
+
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -109,17 +135,42 @@ class User implements UserInterface
      */
     private $isAllowedComment;
 
+    /**
+     * User can be a Project Owner of several Projects
+     * 
+     * @ORM\OneToMany(targetEntity=Owner::class, mappedBy="user")
+     */
+    private $ownProjects;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $website;
+
 
     public function __construct()
     {
 
         $this->isAllowed = true;
+        $this->createdAt = new \DateTime('now');
         $this->presentations = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->contactMessages = new ArrayCollection();
         $this->pGroups = new ArrayCollection();
         $this->pGroupsMaster = new ArrayCollection();
         $this->reports = new ArrayCollection();
+        $this->ownProjects = new ArrayCollection();
+        
     }
   
     public function __toString()
@@ -432,5 +483,72 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @return Collection|Owner[]
+     */
+    public function getOwnProjects(): Collection
+    {
+        return $this->ownProjects;
+    }
 
+    public function addOwnProject(Owner $ownProject): self
+    {
+        if (!$this->ownProjects->contains($ownProject)) {
+            $this->ownProjects[] = $ownProject;
+            $ownProject->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwnProject(Owner $ownProject): self
+    {
+        if ($this->ownProjects->contains($ownProject)) {
+            $this->ownProjects->removeElement($ownProject);
+            // set the owning side to null (unless already changed)
+            if ($ownProject->getUser() === $this) {
+                $ownProject->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(?\DateTimeInterface $createdAt): self
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): self
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    public function getWebsite(): ?string
+    {
+        return $this->website;
+    }
+
+    public function setWebsite(?string $website): self
+    {
+        $this->website = $website;
+
+        return $this;
+    }
+
+  
 }

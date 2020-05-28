@@ -12,21 +12,21 @@
 			<div class="container-fluid" style="height:465px;">
 
 				{% if slide.mediaType == 'image' %}
+					
+					{% if slide.caption %}
+							
+						<div class="h4 pl-md-3 mt-3" style="min-height:65px;">
+							
+							{{slide.caption}}
+
+						</div>
+				
+					{% endif %}
 
 					<div class="p-0 m-0 d-flex align-items-center justify-content-center" style="height:400px;">
 						<img class="rounded img-fluid" src="/images/slides/{{slide.slideName}}"  alt="{{slide.slideName}}" style="max-width:600px; max-height:390px;"> 
 
 					</div>
-
-					{% if slide.caption %}
-					
-						<div class="h4 pl-md-3 mt-2" style="min-height:65px;">
-							
-							{{slide.caption}}
-
-						</div>
-					
-					{% endif %}
 
 				{% endif %}
 

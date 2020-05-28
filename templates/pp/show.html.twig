@@ -13,7 +13,16 @@
 
 {% block title %}{{ presentation.title }}{% endblock %}
 
-{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+{% block sidebar %} 
+
+    {% if app.user and app.user == presentation.creator %}
+    
+        {% include 'partials/sidebar.html.twig' %} 
+
+    {% endif %}
+    
+{% endblock %}
+
 
 {% block body %}
 
@@ -22,16 +31,12 @@
         <!-- Titre du Projet -->
         <h2 class="h3 font-weight-bold mt-4">{{presentation.title}}</h2>
 
-        {% if app.user and app.user == presentation.creator %}
-
-
-        {% endif %}
 
         <div class="row">
             
             <!-- Project Overview (Project Landing Page) -->
 
-            <div class="col-md-8 mb3">
+            <div class="col-md-8 mb-3">
 
                 <!-- Project Keywords -->
                 {% include 'pp/partials/_keywords.html.twig' %}
@@ -69,10 +74,11 @@
             </div>
 
             <!-- Project Provider Caps -->
-            {% include 'pp/partials/_projectProviderArea.html.twig' %}
+            {% include 'pp/partials/_projectPresenterArea.html.twig' %}
 
 
         </div>
+
     </div>
 
 {% endblock %}

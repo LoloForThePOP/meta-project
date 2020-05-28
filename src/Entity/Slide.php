@@ -80,7 +80,7 @@ class Slide implements \Serializable
     private $caption;
 
     /**
-     * The project presentation targeted by this slide
+     * The project presentation (pp) targeted by this slide
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\PPBasic", inversedBy="slides")
      * @ORM\JoinColumn(nullable=false)
