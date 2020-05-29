@@ -16,9 +16,11 @@ security:
             security: false
         main:
             pattern: ^/
+
             user_checker: App\Security\UserChecker
 
             anonymous: true
+
             provider: in_database
 
             form_login:
@@ -28,6 +30,11 @@ security:
             logout:
                 path: account_logout
                 target: account_login
+
+            remember_me:
+                secret:   '%kernel.secret%'
+                lifetime: 1604800 # 1 week in seconds
+                path:     /
 
 
             # activate different ways to authenticate

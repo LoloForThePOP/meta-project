@@ -124,10 +124,12 @@ class AccountController extends AbstractController
      * Allow User to Modify his Password
      * 
      * @Route("/account/update-password",name="account_update_password")
-     * @IsGranted("ROLE_ADMIN")
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function updatePassword(Request $request, UserPasswordEncoderInterface $encoder, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         
         $passwordUpdate = new PasswordUpdate();
 
