@@ -101,8 +101,8 @@ class NeedController extends AbstractController
     }
 
     /**
-     * @Route("/{id}", name="need_delete", methods={"DELETE"})
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/{id}/delete", name="need_delete")
+     * @Security("is_granted('ROLE_USER') and user === need.getPresentation().getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function delete($slug, Request $request, Need $need): Response
     {
