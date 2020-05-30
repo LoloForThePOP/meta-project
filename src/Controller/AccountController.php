@@ -256,7 +256,7 @@ class AccountController extends AbstractController
 
             // On génère l'e-mail
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom('laurent@projetdesprojets.fr')
+                ->setFrom(['laurent@projetdesprojets.fr'=>'Réinitialisation Mot de Passe - Projet des Projets'])
                 ->setTo($user->getEmail())
                 ->setBody(
                     "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site projetdesprojets.fr. Veuillez cliquer sur le lien suivant : " . $url,
@@ -268,7 +268,7 @@ class AccountController extends AbstractController
             $mailer->send($message);
 
             // On crée le message flash de confirmation
-            $this->addFlash('success', 'Un e-mail de réinitialisation de votre mot de passe vous a été envoyé! Ouvrez le! à bientôt!');
+            $this->addFlash('success', 'Un e-mail de réinitialisation de votre mot de passe vous a été envoyé. Ouvrez le. à bientôt.');
 
             // On redirige vers la page de login
             return $this->redirectToRoute('homepage');
