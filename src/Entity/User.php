@@ -157,6 +157,13 @@ class User implements UserInterface
      */
     private $website;
 
+    /**
+     * when user forget his password
+     * 
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $resetPassToken;
+
 
     public function __construct()
     {
@@ -546,6 +553,18 @@ class User implements UserInterface
     public function setWebsite(?string $website): self
     {
         $this->website = $website;
+
+        return $this;
+    }
+
+    public function getResetPassToken(): ?string
+    {
+        return $this->resetPassToken;
+    }
+
+    public function setResetPassToken(?string $resetPassToken): self
+    {
+        $this->resetPassToken = $resetPassToken;
 
         return $this;
     }

@@ -4,7 +4,6 @@ namespace App\Entity;
 
 use DateTimeImmutable;
 
-
 use DateTimeInterface;
 
 
@@ -115,68 +114,6 @@ class PPBasic implements \Serializable
 
 
 
-
-
-
-
-
-
-
-
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $title;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $slug;
-
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @Assert\Length(
-     *      min = 10,
-     *      max = 255,
-     *      minMessage = "L'objectif doit avoir au moins {{ limit }} caractères",
-     *      maxMessage = "L'objectif doit avoir au plus{{ limit }} caractères"
-     *      )
-     */
-    private $goal;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $createdAt;
-    
-    /**
-     * @ORM\Column(type="datetime")
-     *
-     * @var \DateTimeInterface|null
-     */
-    private $updatedAt;
-
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $keywords;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
      * the name of the logo image file (example : logo-4234564567.jpg)
      * 
@@ -238,55 +175,54 @@ class PPBasic implements \Serializable
         return $this;
     }
 
+
+
+
+
+
+
+
+
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Assert\Length(
+     *      min = 10,
+     *      max = 255,
+     *      minMessage = "L'objectif doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "L'objectif doit avoir au plus{{ limit }} caractères"
+     *      )
+     */
+    private $goal;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $createdAt;
     
+    /**
+     * @ORM\Column(type="datetime")
+     *
+     * @var \DateTimeInterface|null
+     */
+    private $updatedAt;
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $keywords;
 
 
     /**
@@ -372,6 +308,7 @@ class PPBasic implements \Serializable
 
     public function __construct()
     {
+        $this->adminValidation = true;
         $this->isPublished = true;
         $this->isActiveContactMessages = true;
 
@@ -396,16 +333,12 @@ class PPBasic implements \Serializable
     }
  
 
-    
-
     public function getId(): ?int
     {
         return $this->id;
     }
 
 
-
-        
     /**
      * Untitled Projects : Default title Creation 
      * 
