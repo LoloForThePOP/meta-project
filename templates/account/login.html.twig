@@ -16,7 +16,7 @@
 
                 <div class="py-3 px-3">
 
-                    <h3 class="font-weight-bold">Connectez Vous!</h3>
+                    <h3 class="font-weight-bold">Connectez-vous</h3>
 
                     {% if hasError %}
                         <div class="alert alert-danger">Une erreur est survenue, veuillez vérifier votre nom d'utilisateur et votre mot de passe.</div>
@@ -25,14 +25,12 @@
                     <form action="{{path('account_login')}}" method="post">
                 
                         <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="text" name="_username" id="email" class="form-control" placeholder="Ecrire ici votre Adresse Email" value="" required>
+                            <input type="text" name="_username" id="email" class="form-control" placeholder="E-mail" value="" required>
                 
                         </div>
                 
                         <div class="form-group">
-                            <label for="password">Mot de Passe</label>
-                            <input type="password" name="_password" id="" class="form-control" placeholder="Mot de Passe" required>
+                            <input type="password" name="_password" id="" class="form-control" placeholder="Mot de passe" required>
                 
                         </div>
 
@@ -50,11 +48,11 @@
 
                     <div>
                         <div class="font-weight-bold h5">
-                            Pas encore inscrit? 
-                            <a href="{{path('account_register')}}">Rejoignez nous!</a>
+                            Pas encore inscrit ? 
+                            <a href="{{path('account_register')}}">Rejoignez-nous !</a>
                         </div>
 
-                        <div class="font-weight-bold h5">Mot de Passe Oublié?
+                        <div class="font-weight-bold h5">Mot de passe oublié ?
                             <a href="{{path('forgotten_password_request')}}">C'est ici &larr;</a>
                         </div>
 

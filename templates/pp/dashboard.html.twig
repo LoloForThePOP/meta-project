@@ -36,7 +36,14 @@
                       
                       <div class="col">
 
-                        <div class="text-xs font-weight-bold text-uppercase mb-3">Messages</div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Messages</div>
+
+                          {% if presentation.countUnreadMessages() == 0 %}
+                              
+                            <div class="h5 mb-0 font-weight-bold text-gray-800">Pas de nouveau message
+                            </div>
+
+                          {% endif %}
 
                           {% if presentation.countUnreadMessages() > 0 %}
                               
@@ -76,17 +83,11 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Lieux du Projet</div>
 
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                            {% if not presentation.geoDomains %}
-
-                              <span class="">
-                                Aucun Lieu Géographique n'est associé à ce projet.
-                              </span>
-
-                            {% else %}
+                       
+                          {% for geoDomain in presentation.geoDomains | slice(0, 3) %}
 
                             <ul class="list-group">
 
-                              {% for geoDomain in presentation.geoDomains | slice(0, 3) %}
                                 <li class="list-group-item my-0 py-0 border-0 h6">
                                   <span class="font-weight-bold">
                                     {{geoDomain.city | capitalize}}
@@ -98,14 +99,19 @@
                                   </li>
                                 </ul>
 
-                              {% endfor %}
-
+  
                                 <li class="list-group-item my-0 py-0 border-0 h6">
-                                  (...)
-                                </li>
+                                    (...)
+                                  </li>
+                                       
+                                  
+                          {% else %}
+                            
+                            <span class="">
+                              Monde entier
+                            </span>
 
-                            {% endif %}
-
+                          {% endfor %}
 
                         </div>
                       </div>
@@ -122,27 +128,25 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
 
-                        <div class="text-xs font-weight-bold text-uppercase mb-2 border-bottom">Catégories du Projet</div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Catégories du Projet</div>
 
                         <div class="row no-gutters align-items-center">
 
-                          <div class="col">
-
-                            <div class="mt-2">
+                            <div class="h6 font-weight-bold">
 
                               {% for category in presentation.categories %}
 
                               <img id="" class="mr-2 mb-2" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="30" height="30">
                               
                               {% else %}
-                                
-                             
-                                Pas de Catégorie associée à ce projet
-                                {% endfor %}
+
+                              <span class="text-danger" style="font-size:1.15em;">
+                                !!! Pas de catégorie associée à ce projet !!!
+                              </span>
+
+                              {% endfor %}
                               
                             </div>
-
-                          </div>
                         </div>
                       </div>
                      
@@ -158,27 +162,26 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
 
-                        <div class="text-xs font-weight-bold text-uppercase mb-2 border-bottom">Mots-Clés du Projet</div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Mots-Clés du Projet</div>
 
                         <div class="row no-gutters align-items-center">
 
-                          <div class="col">
-
-                            <div class=" keywords mt-2 mb-2 text-left" style="height:1.25em;">
+                          <div class="h6 text-left font-weight-bold" style="color:#065fd4;">
                                                       
                               {% if presentation.keywords | length > 0 %}
                                   
-                                # {{presentation.keywords | replace({"," : " #"}) | slice(0, 64) }}
+                                #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) | capitalize}}
 
                               {% else %}
                                 
-                                Pas de Mot-Clé associé à ce projet.
+                                <span class="text-danger" style="font-size:1.15em;">
+                                  !!! Aucun mot-clé utilisé !!!
+                                </span>
 
                               {% endif %}
                               
                             </div>
 
-                          </div>
                         </div>
                       </div>
                      
@@ -198,16 +201,15 @@
                 <!-- Project Goal -->
                 <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Objectif du Projet</h6>
+                    <h6 class="m-0 h5 font-weight-bold">Objectif du Projet</h6>
                   </div>
                   <div class="card-body">
-                    
-                    <p>{{presentation.goal}}</p>
+                    <p class="fs-15">{{presentation.goal | capitalize }}</p>
                   </div>
                 </div>
   
                 <!-- Approach -->
-                <div class="card shadow mb-4">
+                <!-- <div class="card shadow mb-4">
                   <div class="card-header py-3">
                     <h6 class="m-0 font-weight-bold text-primary">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h6>
                   </div>
@@ -217,14 +219,12 @@
 
                     </p>
                   </div>
-                </div>
+                </div> -->
   
               </div>
 
               <!-- Content Column 2/2 -->
-              <div class="col-lg-6 mb-4">
-    
-                <!-- Color System -->
+              <!-- <div class="col-lg-6 mb-4">
                 <div class="row">
                   <div class="col-lg-6 mb-4">
                     <div class="card bg-primary text-white shadow">
@@ -276,7 +276,7 @@
                   </div>
                 </div>
   
-              </div>
+              </div> -->
 
             </div>
   

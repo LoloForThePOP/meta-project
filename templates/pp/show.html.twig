@@ -29,7 +29,7 @@
     <div class="container pl-md-4">
 
         <!-- Titre du Projet -->
-        <h2 class="h3 font-weight-bold mt-4">{{presentation.title}}</h2>
+        <h2 class="h3 font-weight-bold mt-4">{{presentation.title | capitalize}}</h2>
 
 
         <div class="row">
@@ -74,7 +74,7 @@
             </div>
 
             <!-- Project Provider Caps -->
-            {% include 'pp/partials/_projectPresenterArea.html.twig' %}
+            {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
 
 
         </div>

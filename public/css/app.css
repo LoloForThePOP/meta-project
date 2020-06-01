@@ -78,6 +78,10 @@ a {
     border-width:5px !important;
 }
 
+.fs-15 {
+    font-size: 1.15em !important;
+}
+
 .lh-2 {
     line-height:1.6;
 }

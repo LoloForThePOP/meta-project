@@ -79,9 +79,13 @@ class AppFixtures extends Fixture
             'humane' => "Vivre Ensemble, Humanitaire",
             'health' => "Santé",
             'crisis' => "Crise",
-            'entertain' => "Divertissement",
+            'entertain' => "Divertissements, Sports",
             'history' => "Histoire, Patrimoine",
             'data' => "Organiser des Données",
+            'space' => "Espace",
+            'money' => "Financement, Argent",
+            'animals' => "Animaux",
+            'locate' => "Géolocaliser",
             'other' => "Autres",
         ];
 

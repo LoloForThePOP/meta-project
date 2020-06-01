@@ -29,7 +29,7 @@
 
                         {# we display first five needs by default #}
             
-                            <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar blueArrow">► </span>{{ need.title }}
+                            <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar blueArrow">► </span>{{ need.title | capitalize}}
                             </a>
 
                     </td>
@@ -78,7 +78,7 @@
                                     <a href="{{ showPath }}" class="list-group-item list-group-item-action flex-column align-items-start p-2">
                                       <div class="d-flex w-100 justify-content-between">
                                           
-                                        <h5 class="text-body h6 font-weight-bold">{{ need.title | slice (0,54)}}</h5>
+                                        <h5 class="text-body h6 font-weight-bold">{{ need.title | slice (0,54) | capitalize}}</h5>
 
                                         {% if need.priority %}
 
