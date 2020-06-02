@@ -126,7 +126,7 @@ class ContactMessageController extends AbstractController
      * @Route("/new/", name="contact_message_new", methods={"GET","POST"})
      * @Security("is_granted('ROLE_USER')")
      */
-    public function new (PPBasic $pp, Request $request): Response
+    public function new (PPBasic $pp, Request $request, \Swift_Mailer $mailer): Response
     {
         $contactMessage = new ContactMessage();
         $form = $this->createForm(ContactMessageType::class, $contactMessage);
@@ -144,6 +144,27 @@ class ContactMessageController extends AbstractController
                 'success',
                 "Votre Message a été envoyé"
             );
+
+            //die( dump($pp->getCreator()->getEmail()));
+
+            
+            // we create an e-mail for project creator
+            $message = (new \Swift_Message('Nouveau Message Reçu'))
+                ->setFrom(['noreply@projetdesprojets.fr'=>'Projet des Projets'])
+                ->setTo($pp->getCreator()->getEmail())
+                ->setBody(
+                    $this->renderView(
+                        'emails/newPrivateMessage.html.twig',[
+
+                            'presentation' => $pp,
+                        ]
+                    ),
+                    'text/html'
+                )
+            ;
+
+            // On envoie l'e-mail
+            $mailer->send($message);
 
             return $this->redirectToRoute('project_show', [
                 'slug' => $pp->getSlug(),

@@ -83,7 +83,7 @@ class AccountController extends AbstractController
             );
 
             $message = (new \Swift_Message('Merci pour votre Inscription sur le Site'))
-            ->setFrom(['laurent@projetdesprojets.com'=>'Projet des Projets'])
+            ->setFrom(['contact@projetdesprojets.com'=>'Projet des Projets'])
             ->setTo($user->getEmail())
             ->setBody(
                 $this->renderView(
@@ -256,7 +256,7 @@ class AccountController extends AbstractController
 
             // On génère l'e-mail
             $message = (new \Swift_Message('Mot de passe oublié'))
-                ->setFrom(['laurent@projetdesprojets.fr'=>'Réinitialisation Mot de Passe - Projet des Projets'])
+                ->setFrom(['noreply@projetdesprojets.fr'=>'Réinitialisation Mot de Passe - Projet des Projets'])
                 ->setTo($user->getEmail())
                 ->setBody(
                     "Bonjour,<br><br>Une demande de réinitialisation de mot de passe a été effectuée pour le site projetdesprojets.fr. Veuillez cliquer sur le lien suivant : " . $url,
