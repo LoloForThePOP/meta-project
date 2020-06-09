@@ -390,8 +390,10 @@ class PPBasic implements \Serializable
      */
     public function uniqueSlug(){
 
-        $slugify= new Slugify();
-        $this->slug=$slugify->slugify($this->goal).'-'.$this->id;
+        if(empty($this->slug)) {
+            $slugify = new Slugify();
+            $this->slug=$slugify->slugify($this->goal).'-'.$this->id;
+        }
   
     }
 

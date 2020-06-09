@@ -16,4 +16,18 @@ class FooterController extends AbstractController
             
         ]);
     }
+
+    /**
+     * @Route("/terms", name="terms_show")
+     */
+    public function termsShow()
+    {
+        return $this->render('footer/terms.html.twig', [
+            
+        ]);
+    }
+
+
+
+
 }

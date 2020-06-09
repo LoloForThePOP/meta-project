@@ -23,7 +23,7 @@
             <div class="row">
 
               <!-- Project Messages -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <div class="card border-left-warning shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -65,7 +65,7 @@
               </div>
   
               <!-- Project Geodomains -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('geodomains_cities_manage', {'slug':presentation.slug}) }}">
                   <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
@@ -125,14 +125,14 @@
               </div>
   
               <!-- Project Explanations -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-decoration-none text-body" href="{{ path('slideshow_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
 
-                        <div class="text-xs font-weight-bold text-uppercase mb-2">Expliquer le Projet</div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Photos / Vidéos / Textes</div>
 
                         <div class="row no-gutters align-items-center">
 
@@ -179,7 +179,7 @@
               </div>
   
               <!-- Contact Informations -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class='text-body' href="{{ path('contact_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
@@ -217,7 +217,7 @@
               </div>
   
               <!-- Project Websites -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('websites_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
@@ -265,7 +265,7 @@
               </div>
   
               <!-- Project Needs -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('need_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
@@ -314,7 +314,7 @@
               </div>
   
               <!-- Project Categories -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('index_categories', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
@@ -360,7 +360,7 @@
               </div>
   
               <!-- Project Keywords -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
@@ -406,7 +406,7 @@
               </div>
   
               <!-- Project Logo -->
-              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body pb-0">
@@ -452,34 +452,36 @@
                 
                 <!-- Project Goal -->
                 <div class="card shadow mb-4">
-                  <div class="card-header py-3">
+                  <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
+                    <div class="card-header py-3">
                     <h6 class="m-0 h5 font-weight-bold">Objectif du Projet</h6>
                   </div>
                   <div class="card-body">
                     <p class="fs-15">{{presentation.goal | capitalize }}</p>
                   </div>
+                  </a>
                 </div>
   
                 <!-- Project Title -->
                 <div class="card shadow mb-4">
-                  <div class="card-header py-3">
-                    <h6 class="m-0 h5 font-weight-bold">Titre du Projet</h6>
-                  </div>
-                  <div class="card-body">
-                    <p class="fs-15">
-                      {% if presentation.title | length > 0 %}
-                      
-                        {{presentation.title | capitalize }}
+                  <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
+                    <div class="card-header py-3">
+                      <h6 class="m-0 h5 font-weight-bold">Titre du Projet</h6>
+                    </div>
+                    <div class="card-body">
+                      <p class="fs-15">
+                        {% if presentation.title | length > 0 %}
+                        
+                          {{presentation.title | capitalize }}
 
-                      {% else %}
+                        {% else %}
 
-                        Ce projet n'a pas de titre.
+                          Ce projet n'a pas de titre.
 
-                      {% endif %}
-                     </p>
-
-                  </div>
-                  
+                        {% endif %}
+                      </p>
+                    </div>
+                  </a>
                 </div> 
   
               </div>
