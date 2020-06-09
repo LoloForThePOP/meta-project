@@ -4,14 +4,13 @@
 {% block meta %}
 
     <meta name="author" content="{{ presentation.creator.name }}">
-    <meta name="description" content="{{ presentation.goal }}">
     <meta name="keywords" content="{{ presentation.keywords }}">
     <meta name="date" content="{{ presentation.createdAt | date}}">
     
 {% endblock %}
 
 
-{% block title %}{{ presentation.title | capitalize}}{% endblock %}
+{% block title %}{{ presentation.goal | capitalize}}{% endblock %}
 
 {% block sidebar %} 
 
@@ -31,6 +30,9 @@
         <!-- Titre du Projet -->
         <h2 class="h3 font-weight-bold mt-4">{{presentation.title | capitalize}}</h2>
 
+        <!-- Objectif du Projet -->
+        <h4 class="pl-0 font-weight-bold mt-4 col-md-6" style="font-size:1.45em;">{{presentation.goal | capitalize}}</h4>
+
 
         <div class="row">
             
@@ -42,7 +44,7 @@
                 {% include 'pp/partials/_keywords.html.twig' %}
 
                 <!-- Project Goal Display -->
-                {% include 'pp/partials/_goal.html.twig' %}
+                {# {% include 'pp/partials/_goal.html.twig' %} #}
 
                 <!-- Project Slideshow Pitch -->
                 {% include 'pp/partials/_slideshow.html.twig' %}

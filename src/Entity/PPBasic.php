@@ -338,24 +338,6 @@ class PPBasic implements \Serializable
         return $this->id;
     }
 
-
-    /**
-     * Untitled Projects : Default title Creation 
-     * 
-     * @ORM\PrePersist
-     * @ORM\PreUpdate
-     * 
-     * @return void
-     */
-    public function untitledDefaultTitles(){
-
-        if ($this->title == null){
-            
-            $this->title = '(Projet Sans Titre)';
-        }
-  
-    }
-
     public function getTitle(): ?string
     {
         return $this->title;
@@ -409,7 +391,7 @@ class PPBasic implements \Serializable
     public function uniqueSlug(){
 
         $slugify= new Slugify();
-        $this->slug=$slugify->slugify($this->title).'-'.$this->id;
+        $this->slug=$slugify->slugify($this->goal).'-'.$this->id;
   
     }
 

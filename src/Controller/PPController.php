@@ -60,7 +60,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Présentation {$presentation->getTitle()} a bien été Créée! Dernière étape nécessaire : choisissez des catégories et des mots-clés pour que les gens puissent trouver votre projet."
+                "La Présentation {$presentation->getGoal()} a bien été Créée! une étape importante : choisissez des catégories et des mots-clés pour que les gens puissent trouver votre projet."
             );
 
             // We propose to redirect to Project Categories and Keywords Creation

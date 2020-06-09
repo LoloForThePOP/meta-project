@@ -13,9 +13,9 @@
         <div class="container-fluid mt-4">
 
             <!-- Page Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-4">
+            <div class="d-sm-flex align-items-center justify-content-between mb-2">
               
-              <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1>
+              <!-- <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1> -->
             
             </div>
   
@@ -66,7 +66,8 @@
   
               <!-- Project Geodomains -->
               <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
-                <div class="card border-left-primary shadow h-100 py-2">
+                <a class="text-body" href="{{ path('geodomains_cities_manage', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
 
@@ -83,81 +84,285 @@
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Lieux du Projet</div>
 
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
-                       
-                          {% for geoDomain in presentation.geoDomains | slice(0, 3) %}
 
-                            <ul class="list-group">
+                          {% if presentation.geodomains | length == 0 %}
 
-                                <li class="list-group-item my-0 py-0 border-0 h6">
-                                  <span class="font-weight-bold">
-                                    {{geoDomain.city | capitalize}}
-                                  </span>
-                                
-                                  <span class="font-weight-bold mr-2">
-                                      ({{geoDomain.postalCode}})
-                                  </span>
-                                  </li>
-                                </ul>
-
-  
-                                <li class="list-group-item my-0 py-0 border-0 h6">
-                                    (...)
-                                  </li>
-                                       
-                                  
-                          {% else %}
-                            
                             <span class="">
                               Monde entier
                             </span>
 
-                          {% endfor %}
+                          {% else %}
+                          
+                           <ul class="list-group pl-0">
 
+                            {% for place in presentation.geoDomains | slice(0, 3) %}
+
+                                <li class="list-group-item my-0 py-0 border-0 h6 pl-0">
+                                  <span class="font-weight-bold">
+                                    {{place.placeName}}
+                                  </span>
+                                </li>
+                            {% endfor %}
+
+                            {% if presentation.geodomains | length > 3 %}
+                              <li class="list-group-item my-0 py-0 border-0 h6 pl-0">
+                                ...
+                              </li>
+                            {% endif %}
+
+                            </ul>
+
+                          {% endif %}
+                      
                         </div>
                       </div>
 
                     </div>
                   </div>
                 </div>
+                </a>
+                
               </div>
   
-              <!-- Project Categories -->
+              <!-- Project Explanations -->
               <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
-                <div class="card border-left-info shadow h-100 py-2">
+                <a class="text-decoration-none text-body" href="{{ path('slideshow_index', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
 
-                        <div class="text-xs font-weight-bold text-uppercase mb-2">Catégories du Projet</div>
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Expliquer le Projet</div>
 
                         <div class="row no-gutters align-items-center">
 
                             <div class="h6 font-weight-bold">
 
-                              {% for category in presentation.categories %}
+                              {% if presentation.slides | length == 0 %}
 
-                              <img id="" class="mr-2 mb-2" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="30" height="30">
-                              
+                                <span class="text-danger" style="font-size:1.15em;">
+                                  !!! Pas d'Explication associée à ce projet !!!
+                                </span>
+
                               {% else %}
 
-                              <span class="text-danger" style="font-size:1.15em;">
-                                !!! Pas de catégorie associée à ce projet !!!
-                              </span>
+                                {% set slideCount = presentation.slides | length %}
 
-                              {% endfor %}
-                              
-                            </div>
+                                {% if slideCount == 1 %}
+
+                                  <span class="fs-15">1 diapositive de présentation</span>
+                                  
+                                {% else %}
+                                 
+                                  <span class="fs-15">
+
+                                    {{slideCount}}
+
+                                    diapositives de présentation
+
+                                  </span> 
+
+                                  
+                                {% endif %}
+
+ 
+                              {% endif %}
+
+                              </div>
                         </div>
                       </div>
-                     
                     </div>
                   </div>
                 </div>
+                </a>
+                
+              </div>
+  
+              <!-- Contact Informations -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <a class='text-body' href="{{ path('contact_index', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Infos de Contact</div>
+
+                        <div class="row no-gutters align-items-center">
+
+                            <div class="h6 font-weight-bold">
+
+                              {% if presentation.contacts | length == 0 %}
+
+                                <span class="fs-15">
+                                  Pas d'information de contact présentée
+                                </span>
+
+                              {% else %}
+                                
+                                <span class="fs-15">
+                                  {{presentation.contacts | length}} zone(s) présentée(s)
+                                </span>
+ 
+                              {% endif %}
+
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </a>
+                
+              </div>
+  
+              <!-- Project Websites -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <a class="text-body" href="{{ path('websites_index', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+  
+                          <div class="text-xs font-weight-bold text-uppercase mb-2">Sites Web & réseaux sociaux</div>
+  
+                          <div class="row no-gutters align-items-center">
+  
+                              <div class="h6 font-weight-bold">
+  
+                                {% if presentation.websites | length == 0 %}
+  
+                                  <span class="fs-15">
+                                    Pas de site web associé
+                                  </span>
+  
+                                {% elseif presentation.needs | length == 1  %}
+  
+                                  <span class="fs-15">
+                                    1 Site web
+                                  </span>
+  
+                                {% else %}
+  
+                                  <span class="fs-15">
+  
+                                    {{ presentation.websites | length }}
+  
+                                    sites webs ou réseaux sociaux
+  
+                                  </span>
+  
+                                {% endif %}
+  
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                
+              </div>
+  
+              <!-- Project Needs -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <a class="text-body" href="{{ path('need_index', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+
+                        <div class="text-xs font-weight-bold text-uppercase mb-2">Besoins du Projet</div>
+
+                        <div class="row no-gutters align-items-center">
+
+                            <div class="h6 font-weight-bold">
+
+                              {% if presentation.needs | length == 0 %}
+
+                                <span class="fs-15">
+                                  Pas de besoin présenté pour ce projet
+                                </span>
+
+                              {% elseif presentation.needs | length == 1  %}
+
+                                <span class="fs-15">
+                                  1 besoin présenté
+                                </span>
+
+                              {% else %}
+
+                                <span class="fs-15">
+
+                                  {{ presentation.needs | length }}
+
+                                  besoins présentés
+
+                                </span>
+
+                              {% endif %}
+
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                </a>
+                
+              </div>
+  
+              <!-- Project Categories -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <a class="text-body" href="{{ path('index_categories', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+  
+                          <div class="text-xs font-weight-bold text-uppercase mb-2">Catégories du Projet</div>
+  
+                          <div class="row no-gutters align-items-center">
+  
+                              <div class="h6 font-weight-bold">
+  
+                                {% if presentation.categories | length == 0 %}
+  
+                                  <span class="text-danger" style="font-size:1.15em;">
+                                    !!! Pas de catégorie associée à ce projet !!!
+                                  </span>
+  
+                                {% else %}
+  
+                                  {% for category in presentation.categories | slice (0,4) %}
+  
+                                    <img id="" class="mr-2 mb-2" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="30" height="30">
+  
+                                  {% endfor %}
+  
+                                  {% if presentation.categories | length > 4 %}
+  
+                                    <span class="h5 font-weight-bold">...</span>
+                                  
+                                  {% endif %}
+   
+                                {% endif %}
+  
+                                </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                
               </div>
   
               <!-- Project Keywords -->
               <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
-                <div class="card border-left-info shadow h-100 py-2">
+                <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
@@ -169,8 +374,16 @@
                           <div class="h6 text-left font-weight-bold" style="color:#065fd4;">
                                                       
                               {% if presentation.keywords | length > 0 %}
+
+                                <span class="text-break">
+                                  #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) | capitalize}}
+                                </span>
                                   
-                                #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) | capitalize}}
+                                
+
+                                {% if presentation.keywords | length > 64 %}
+                                  ...
+                                {% endif %}
 
                               {% else %}
                                 
@@ -188,6 +401,45 @@
                     </div>
                   </div>
                 </div>
+                </a>
+                
+              </div>
+  
+              <!-- Project Logo -->
+              <div class="col-xl-3 col-md-6 mb-4 cursor-pointer">
+                <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
+                    <div class="card-body pb-0">
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+
+                          <div class="text-xs font-weight-bold text-uppercase mb-2">Logo du Projet</div>
+
+                          <div class="row no-gutters align-items-center">
+
+                            <div class="h6 text-left font-weight-bold">
+                                                        
+                                {% if presentation.logoName | length == 0 %}
+
+                                  <span class="fs-15">
+                                    Pas de logo associé à ce projet
+                                  </span>
+                                {% else %}
+
+                                <img id="" class="mr-2 mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">      
+
+                                {% endif %}
+                                
+                              </div>
+
+                          </div>
+                        </div>
+                      
+                      </div>
+                    </div>
+                  </div>
+                </a>
+                
               </div>
 
             </div>
@@ -208,18 +460,27 @@
                   </div>
                 </div>
   
-                <!-- Approach -->
-                <!-- <div class="card shadow mb-4">
+                <!-- Project Title -->
+                <div class="card shadow mb-4">
                   <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Lorem ipsum dolor sit amet consectetur adipisicing elit.</h6>
+                    <h6 class="m-0 h5 font-weight-bold">Titre du Projet</h6>
                   </div>
                   <div class="card-body">
-                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Enim distinctio facilis quos. Nobis id dignissimos amet mollitia illo quo sapiente voluptate voluptas est, qui enim quidem tenetur ad, maxime quae!</p>
-                    <p class="mb-0"> Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed provident aliquid ipsum ab cumque in aliquam repellendus officiis, tempore nesciunt.
+                    <p class="fs-15">
+                      {% if presentation.title | length > 0 %}
+                      
+                        {{presentation.title | capitalize }}
 
-                    </p>
+                      {% else %}
+
+                        Ce projet n'a pas de titre.
+
+                      {% endif %}
+                     </p>
+
                   </div>
-                </div> -->
+                  
+                </div> 
   
               </div>
 

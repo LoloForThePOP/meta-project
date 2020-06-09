@@ -8,18 +8,10 @@
 
     {% set sidebarItems = [ 
 
-        { 'name': 'Tableau de Bord', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
-        { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
-        { 'name': 'Généralités', 'route': 'project_edit', 'iconName': 'generalities.svg'}, 
+        { 'name': 'Présentation', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
         { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
-        { 'name': 'Diapo Pitch', 'route': 'slideshow_index', 'iconName': 'pitch.svg'}, 
-        { 'name': 'Contact Infos', 'route': 'contact_index', 'iconName': 'contacts.svg'}, 
-        { 'name': 'Besoins', 'route': 'need_index', 'iconName': 'needs.svg'}, 
-        { 'name': 'Catégories', 'route': 'index_categories', 'iconName': 'categories.svg'}, 
-        { 'name': 'Lieux', 'route': 'geodomains_cities_manage', 'iconName': 'geodomains.svg'}, 
-        { 'name': 'Sites Web', 'route': 'websites_index', 'iconName': 'websites.svg'}, 
-        { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'}, 
-
+        { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
+        { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'},  
     ] %}
 
 
@@ -37,7 +29,7 @@
 
                         <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
 
-                        <span class="textMenu">
+                        <span class="textMenu align-middle">
                             {{item.name}}
                         </span>
     

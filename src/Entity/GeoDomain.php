@@ -45,20 +45,51 @@ class GeoDomain
      */
     private $project;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $departmentName;
-
-    /**
-     * @ORM\Column(type="string", length=10, nullable=true)
-     */
-    private $departmentCode;
 
     /**
      * @ORM\Column(type="string", length=50, nullable=true)
      */
     private $country;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $geoType;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $AdministrativeAreaLevel1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $AdministrativeAreaLevel2;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $route;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $longitude;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $sublocalityLevel1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $placeName;
 
     public function __construct()
     {
@@ -120,30 +151,6 @@ class GeoDomain
         return $this;
     }
 
-    public function getDepartmentName(): ?string
-    {
-        return $this->departmentName;
-    }
-
-    public function setDepartmentName(?string $departmentName): self
-    {
-        $this->departmentName = $departmentName;
-
-        return $this;
-    }
-
-    public function getDepartmentCode(): ?string
-    {
-        return $this->departmentCode;
-    }
-
-    public function setDepartmentCode(?string $departmentCode): self
-    {
-        $this->departmentCode = $departmentCode;
-
-        return $this;
-    }
-
     public function getCountry(): ?string
     {
         return $this->country;
@@ -152,6 +159,102 @@ class GeoDomain
     public function setCountry(?string $country): self
     {
         $this->country = $country;
+
+        return $this;
+    }
+
+    public function getGeoType(): ?string
+    {
+        return $this->geoType;
+    }
+
+    public function setGeoType(?string $geoType): self
+    {
+        $this->geoType = $geoType;
+
+        return $this;
+    }
+
+    public function getAdministrativeAreaLevel1(): ?string
+    {
+        return $this->AdministrativeAreaLevel1;
+    }
+
+    public function setAdministrativeAreaLevel1(?string $AdministrativeAreaLevel1): self
+    {
+        $this->AdministrativeAreaLevel1 = $AdministrativeAreaLevel1;
+
+        return $this;
+    }
+
+    public function getAdministrativeAreaLevel2(): ?string
+    {
+        return $this->AdministrativeAreaLevel2;
+    }
+
+    public function setAdministrativeAreaLevel2(?string $AdministrativeAreaLevel2): self
+    {
+        $this->AdministrativeAreaLevel2 = $AdministrativeAreaLevel2;
+
+        return $this;
+    }
+
+    public function getRoute(): ?string
+    {
+        return $this->route;
+    }
+
+    public function setRoute(?string $route): self
+    {
+        $this->route = $route;
+
+        return $this;
+    }
+
+    public function getLatitude(): ?string
+    {
+        return $this->latitude;
+    }
+
+    public function setLatitude(?string $latitude): self
+    {
+        $this->latitude = $latitude;
+
+        return $this;
+    }
+
+    public function getLongitude(): ?string
+    {
+        return $this->longitude;
+    }
+
+    public function setLongitude(?string $longitude): self
+    {
+        $this->longitude = $longitude;
+
+        return $this;
+    }
+
+    public function getSublocalityLevel1(): ?string
+    {
+        return $this->sublocalityLevel1;
+    }
+
+    public function setSublocalityLevel1(?string $sublocalityLevel1): self
+    {
+        $this->sublocalityLevel1 = $sublocalityLevel1;
+
+        return $this;
+    }
+
+    public function getPlaceName(): ?string
+    {
+        return $this->placeName;
+    }
+
+    public function setPlaceName(?string $placeName): self
+    {
+        $this->placeName = $placeName;
 
         return $this;
     }

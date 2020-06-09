@@ -55,13 +55,31 @@ class GeoDomainController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
+            $geoType = $request->request->get('placeType');
+            $placeName = $request->request->get('placeName');
+            $latitude = $request->request->get('latitude');
+            $longitude = $request->request->get('longitude');
             $postalCode = $request->request->get('postalCode');
             $cityName = $request->request->get('cityName');
+            $country = $request->request->get('country');
+            $route = $request->request->get('route');
+            $sublocalityLevel1 = $request->request->get('sublocalityLevel1');
+            $administrativeAreaLevel1 = $request->request->get('administrativeAreaLevel1');
+            $administrativeAreaLevel2 = $request->request->get('administrativeAreaLevel2');
 
             //!!!!!!Faire une Validation sur le codePostal et le cityName
 
             $newCity = new GeoDomain();
             $newCity-> setPostalCode($postalCode)
+                    -> setGeoType($geoType)
+                    -> setPlaceName($placeName)
+                    -> setLatitude($latitude)
+                    -> setLongitude($longitude)
+                    -> setCountry($country)
+                    -> setAdministrativeAreaLevel1($administrativeAreaLevel1)
+                    -> setAdministrativeAreaLevel2($administrativeAreaLevel2)
+                    -> setSublocalityLevel1($sublocalityLevel1)
+                    -> setRoute($route)
                     -> setCity($cityName);
 
             $presentationCities = $presentation->getGeoDomains();
@@ -73,15 +91,22 @@ class GeoDomainController extends AbstractController
                 $manager->persist($presentation);
                 $manager->flush();
 
-                $lastIdCityProject = $newCity->getId();
+                $lastIdProjectPlace = $newCity->getId();
 
                 $feedbackCode = true;
             }
 
             $dataResponse = [
+                'administrativeAreaLevel1' => $administrativeAreaLevel1,
+                'administrativeAreaLevel2' => $administrativeAreaLevel2,
+                'sublocalityLevel1' => $sublocalityLevel1,
+                'route' => $route,
+                'country' => $country,
                 'postalCode' => $postalCode,
                 'cityName' => $cityName,
-                'idCityProject' =>  $lastIdCityProject,
+                'placeType' => $geoType,
+                'placeName' => $placeName,
+                'projectPlaceId' =>  $lastIdProjectPlace,
                 'feedbackCode' => $feedbackCode,
             ];
 
@@ -105,18 +130,17 @@ class GeoDomainController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $idCityProject = $request->request->get('idCityProject');
-            $cityName = $request->request->get('cityName');
+            $projectPlaceId = $request->request->get('projectPlaceId');
 
-            $cityProject = $geoRepository->findOneById($idCityProject);
+            $projectPlace = $geoRepository->findOneById($projectPlaceId);
 
             $feedbackCode = false;
 
-            if ($presentation->getGeoDomains()->contains($cityProject)) {
+            if ($presentation->getGeoDomains()->contains($projectPlace)) {
 
-                $presentation->removeGeoDomain($cityProject);
+                $presentation->removeGeoDomain($projectPlace);
                 
-                $manager->remove($cityProject);
+                $manager->remove($projectPlace);
 
                 $manager->persist($presentation);
                 $manager->flush();
@@ -125,8 +149,7 @@ class GeoDomainController extends AbstractController
             }
 
             $dataResponse = [
-                'idCityProject' =>  $idCityProject,
-                'cityName' =>  $cityName,
+                'projectPlaceId' =>  $projectPlaceId,
                 'feedbackCode' => $feedbackCode,
             ];
 

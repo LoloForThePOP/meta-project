@@ -1,14 +1,26 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Villes du Projet{% endblock %}
+{% block title %}Lieux du Projet{% endblock %}
 
 {% block body %}
 
     <style>
+          
+          .pac-container, .pac-item {
+            font-size: 1.05em !important;
+        }	  
+          .pac-item-query {
+            font-size: 1.05em !important;
+        }
 
         ul li:hover {
            background-color: rgb(222, 226, 231);
         }
+
+        .table > tbody > tr > td {
+            vertical-align: middle;
+            padding: 3px 14px;;
+       }
 
     </style>
 
@@ -16,7 +28,7 @@
 
         <!-- ui Page Title -->
 
-        <h3 class="mt-3 font-weight-bold">Gérer les Villes du Projet</h3>
+        <h3 class="mt-3 font-weight-bold">Gérer les lieux du projet</h3>
 
             
     <!-- collapsable advice -->	
@@ -37,35 +49,21 @@
 
         </div>
 
-
-
-
-
-
         <!-- Cities Search Bar -->
 
-        <div class="p-0 col-sm-5">
+        <div class="p-0 col-sm-6">
 
             <form action="">
     
                 <div class="form-group mt-2">
-    
-                    <label class="h5 mb-3 font-weight-bold" for="cityPostalCode">Code Postal ou Ville à Ajouter?</label>
-    
-                    <input id="ville" name="cityPostalCode" class="form-control h-50 input-lg border border-4 border-primary" placeholder="Entrer un code postal ou un nom de ville">
+
+                    <label class="h5 mb-3 font-weight-bold" for="cityPostalCode">Ajouter une ville; un département; une région; ou un pays</label>
+
+                    <input type="text" id="autocomplete" class="form-control h-50 input-lg border border-4 border-primary"/>
     
                 </div>
     
             </form>
-    
-            <ul id="cityList" class="list-group cursor-pointer">
-    
-                <li class="cityItem list-group-item p-2 px-1" data-vicopo="#ville">
-                    <strong class="postalCode" data-vicopo-code-postal></strong>
-                    <strong class="cityName" data-vicopo-ville></stong>
-                </li>
-    
-            </ul>
   
         </div>
 
@@ -75,34 +73,56 @@
 
         <!-- This Project Cities Table Display -->
 
-        <table id="projectCitiesTable" class="table table-bordered table-hover rounded">
+        <table id="projectPlacesTable" class="table table-bordered table-hover rounded">
 
             <thead class="cursor-pointer">
                 <tr>
-                    <th id="postalCodeHeader">Code Postal</th>
-                    <th id="cityNameHeader">Ville</th>
+                    <th id="">Type du Lieu</th>
+                    <th id="">Nom du Lieu</th>
                     <th>Retirer?</th>
                 </tr>
             </thead>
     
             <tbody>
+
+            {% for place in presentation.geoDomains %}
+
+                {% set placeType_fr = '' %}
+
+                {% if place.geoType == 'country' %}
+                    {% set placeType_fr = 'Pays' %}
+
+                {% elseif place.geoType == 'locality' %}
+                    {% set placeType_fr = 'Ville' %}
+
+                {% elseif place.geoType == 'administrative_area_level_1' %}
+                    {% set placeType_fr = 'Région' %}
+
+                {% elseif place.geoType == 'administrative_area_level_2' %}
+                    {% set placeType_fr = 'Département' %}
+
+                {% elseif place.geoType == 'sublocality_level_1' %}
+                    {% set placeType_fr = 'Section de Ville' %}
+
+                {% elseif place.geoType == 'route' %}
+                    {% set placeType_fr = 'Rue' %}
+            
+                {% endif %}
     
-            {% for city in presentation.geoDomains %}
-    
-                <tr id="" data-city-id="{{city.id}}" data-city-postal-code="{{city.postalCode}}" data-city-name="{{ city.city}}" class="cityDislayRow cursor-pointer">  
+                <tr id="" data-city-id="{{place.id}}" data-city-postal-code="{{place.postalCode}}" data-city-name="{{place.city}}" class="cityDislayRow cursor-pointer">  
                     
                     
-                    <td id="">{{ city.postalCode }}</td>
-                    <td id="">{{ city.city | upper }}</td>
+                    <td id="">{{ placeType_fr | upper  }}</td>
+                    <td id="">{{ place.placeName | upper }}</td>
                     <td>
-                        <button data-id="{{city.id}}" data-cityname="{{ city.city}}" type="button" class="js-remove-city btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
+                        <button data-project-place-id="{{place.id}}" data-cityname="{{place.city}}" type="button" class="js-remove-city btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
                     </td>
                     
                 </tr>
                 
             {% else %}
                 <tr id="noResult">
-                    <td colspan="9">Aucune Ville Définie pour ce Projet</td>
+                    <td colspan="9">Aucun Lieu est associé à  ce Projet</td>
                 </tr>
             {% endfor %}
     
@@ -118,12 +138,15 @@
 
 
     </div>
+
+
     
 {% endblock %}
 
 {% block javascripts %}
 
-    <script src="/js/vicopoPostalCode.min.js"></script>
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&libraries=places&language=fr"></script>
+
 
     <script>
 
@@ -156,134 +179,188 @@
 
             // Chargement de la page : trier le tableau par noms de villes
 
-            $('#projectCitiesTable #cityNameHeader').tableSortHeader();
+            $('#projectPlacesTable #cityNameHeader').tableSortHeader();
 
             // Possibilité de trier le tableau sur clique d'un titre du tableau
 
-            $('#projectCitiesTable').on('click', 'th', function (){
+            $('#projectPlacesTable').on('click', 'th', function (){
                $(this).tableSortHeader();
             })
 
-            // ajouter une ville
+            var input = document.getElementById('autocomplete');
 
-            // reste à faire : avant d'ajouter une ville : vérifier que cette ville n'existe pas déjà (client : ok + serveur (pas encore fait))
-           
-            $('#cityList').on('click', 'li', function (){
+                        
+            var options = {
+                types: ['(regions)'],
+            };
+    
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
 
-                $('#feedbackBox').html('<div class="loader float-left"></div><span class="h5">Demande en Cours...</span>');
+        // Add a Project Place
+            
+        google.maps.event.addListener(autocomplete, 'place_changed', function(){
+              
+            var place = autocomplete.getPlace().address_components;
+             
+            place_type = place[0].types[0];
+            place_name = place[0]['long_name'];
 
-                var postalCode = $(this).children('li .postalCode').html();
-                var cityName = $(this).children('li .cityName').html();
+            //alert(place_name);
 
-                $('#cityList .cityItem').not('li[style*="display: none"]').remove();
-                $('#ville').val("");
 
-                var alreadyInserted = false; 
 
-                //check if city is already inserted
+            latitude = autocomplete.getPlace().geometry.location.lat(),
+            longitude = autocomplete.getPlace().geometry.location.lng();
+        
+            //console.log(latitude);
+             
+             var componentMap = {
+                 country: '',
+                 postal_code : '',
+                 locality: '',
+                 route : '',
+                 administrative_area_level_1 : '',
+                 administrative_area_level_2 : '',
+                 sublocality_level_1:'',
+             };
+        
+         for(var i = 0; i < place.length; i++){
+        
+             var types = place[i].types; // get types array of each component 
+        
+             for(var j = 0; j < types.length; j++){ // loop through the types array of each component as types is an array and same thing can be indicated by different name.As you can see in the json object above 
+        
+                   var component_type = types[j];
+                   
+                   // check if this type is in your component map. If so that means you want this component
+        
+                   if(componentMap.hasOwnProperty(component_type)){
+                   
+                     //console.log(types[j]);
+                     //console.log(place[i]['long_name']);
+                     //alert(place[i]['long_name'])
+                     componentMap[component_type]=place[i]['long_name'];
+                     //console.log(componentMap[component_type]);
+        
+                   }
+             }
+         }
+              
+              
+              //console.log(place);
+
+              $.ajax({  
+                url: "{{path('ajax_new_city', {'slug': presentation.slug}) }}",
+                type:       'POST',   
+                dataType:   'json',
+                data: {
+                    "latitude": latitude,
+                    "longitude": longitude,
+                    "placeType":  place_type,
+                    "placeName":  place_name,
+                    "postalCode": componentMap.postal_code,
+                    "cityName": componentMap.locality,                 
+                    "country": componentMap.country,                 
+                    "route": componentMap.route,                 
+                    "administrativeAreaLevel1": componentMap.administrative_area_level_1,
+                    "administrativeAreaLevel2": componentMap.administrative_area_level_2,
+                    "sublocalityLevel1": componentMap.sublocality_level_1,
+
+                },
+
+                async: true,  
                 
-                $("#projectCitiesTable tbody tr").each(function() {
+                success: function(data, status) {
 
-                    if ($(this).attr('data-city-name') == cityName && $(this).attr('data-city-postal-code') == postalCode){
-                        
-                        alreadyInserted = true;
+                    var placeName = data.placeName;
+                    var placeType_fr='';
 
-                        return;
+                    switch(data.placeType) {
+                        case 'locality':
+                            placeType_fr='Ville';
+                            break;
+                        case 'sublocality_level_1':
+                            placeType_fr='Section de Ville';
+                            break;
+                        case 'administrative_area_level_2':
+                            placeType_fr='Département'
+                             break;
+                        case 'administrative_area_level_1':
+                            placeType_fr='Région'
+                             break;
+                        case 'country':
+                            placeType_fr='Pays'
+                             break;
+                        case 'route':
+                            placeType_fr='Rue'
+                             break;
+                        default:
+                          // code block
+                      } 
 
-                    }
+                    $('#feedbackBox').html("✅ Le lieu "+placeName+" a été ajouté </br>↪ Vous pouvez ajouter d'autres lieux si vous voulez");
                     
-                });
-
-                if (alreadyInserted == true){
-
-                    $('#feedbackBox').html("⛔ La Ville "+cityName+" a déjà été Ajoutée");
+                    $('#projectPlacesTable > tbody:last-child').append(
+                        '<tr>'
+                            +'<td>'+placeType_fr.toUpperCase()+'</td>'
+                            +'<td>'+placeName.toUpperCase()+'</td>'
+                            +'<td><button data-project-place-id="'+ data.projectPlaceId+'" data-cityname="'+ data.cityName+'" type="button" class="js-remove-city btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button></td></tr>');
                     
-                    return;
-                }
+                    $('#noResult').hide();
+                   
+                },  
 
-                $.ajax({  
-                    url: "{{path('ajax_new_city', {'slug': presentation.slug}) }}",
-                    type:       'POST',   
-                    dataType:   'json',
-                    data: {
-                      "postalCode": postalCode,
-                      "cityName": cityName,
-                    },
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+             }); 
+        })
 
-                    async: true,  
-                    
-                    success: function(data, status) {
+            // Remove a Place
 
-                        $('#feedbackBox').html("✅ La Ville "+data.cityName+" a été Ajoutée </br>↪ Vous Pouvez Ajouter d'Autres Villes si vous Voulez");
-                        
-                        //bug à corriger : quand le tbody n'a pas de row (par exemple initialement), le tbody n'a pas de last child, donc les villes ajoutée se concatènent plutôt que de former des rows.
-
-                        //+ ajouter les data-id et data-cityname dans les deux premiers td
-
-                        //+ ajouter l'icône de suppression avec les données appropriées dans le dernier td
-                        $('#projectCitiesTable > tbody:last-child').append(
-                            '<tr>'
-                                +'<td>'+data.postalCode+'</td>'
-                                +'<td>'+data.cityName+'</td>'
-                                +'<td><button data-id="'+ data.idCityProject+'" data-cityname="'+ data.cityName+'" type="button" class="js-remove-city btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button></td></tr>');
-                        
-                        $('#noResult').hide();
-                       
-                    },  
-
-                    error : function(xhr, textStatus, errorThrown) {  
-                        // alert('Ajax request failed.');  
-                    }  
-                 }); 
-            });
-
-
-
-            // Remove a City
-
-            $('#projectCitiesTable').on('click', '.js-remove-city', function (){
+            $('#projectPlacesTable').on('click', '.js-remove-city', function (){
 
                 $('#feedbackBox').html('<div class="loader float-left"></div><span class="h5">Demande en Cours...</span>');
 
-                var idCityProject = $(this).attr("data-id");
-                var cityName = $(this).attr("data-cityname");
+                var projectPlaceId = $(this).attr("data-project-place-id");
                 //alert(idCityProject);
                 //alert(cityName);
 
-                if (confirm("Voulez vous Retirer cette Ville?"))
+                if (confirm("Voulez vous retirer ce lieu?"))
                 {
+
+                    $(this).html('<div class="loader"></div>');
                     
-                $.ajax({  
+                    $.ajax({  
 
-                    url: "{{path('ajax_remove_city', {'slug': presentation.slug}) }}",
-                    type:       'POST',   
-                    dataType:   'json',
-                    data: {
-                      "idCityProject": idCityProject,
-                      "cityName": cityName,
-                    },
+                        url: "{{path('ajax_remove_city', {'slug': presentation.slug}) }}",
+                        type:       'POST',   
+                        dataType:   'json',
+                        data: {
+                        "projectPlaceId": projectPlaceId,
+                        },
 
-                    async: true,  
-                    
-                    success: function(data, status) {
+                        async: true,  
+                        
+                        success: function(data, status) {
 
-                        $('#feedbackBox').html("✅ La Ville "+data.cityName+" a été Retirée de la Présentation");
+                            $('#feedbackBox').html("✅ Le lieu sélectionné a été retiré de la présentation");
 
-                        $("#projectCitiesTable").find("[data-id="+ data.idCityProject+"]").closest('tr').remove();
+                            $("#projectPlacesTable").find("[data-project-place-id="+ data.projectPlaceId+"]").closest('tr').remove();
 
-                        //ne fonctionne pas
+                            //ne fonctionne pas
 
-                        if ($('#projectCitiesTable tbody tr').length == 0){
-                            $('#noResult').show();
-                        }
-                       
-                    },  
+                            if ($('#projectPlacesTable tbody tr').length == 0){
+                                $('#noResult').show();
+                            }
+                        
+                        },  
 
-                    error : function(xhr, textStatus, errorThrown) {  
-                        // alert('Ajax request failed.');  
-                    }  
-                 }); 
-                    
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                    }); 
+                        
                 }
 
 
@@ -292,6 +369,8 @@
         });  
 
     </script>
+
+   
 
 
 {% endblock %}

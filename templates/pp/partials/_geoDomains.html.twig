@@ -6,7 +6,8 @@
 
         <ul class="list-group">
 
-            {% for geoDomain in presentation.geoDomains | slice(0, 3) %}
+            {% for place in presentation.geoDomains | slice(0, 3) %}
+
 
                 <li class="list-group-item py-1 border-0">
                     
@@ -15,16 +16,24 @@
                     </span>
                     
                     <span class="font-weight-bold h5">
-                        {{geoDomain.city | capitalize}}
+                        {{place.placeName}}
                     </span>
                     
                     <span class="font-weight-bold h5 mr-2">
-                        ({{geoDomain.postalCode}})
+
+                        {% if not place.postalCode == '' %}
+                            ({{place.postalCode}})
+                        {% endif %}
+                       
                     </span>
                 
                 </li>
 
             {% endfor %}
+
+            {% if presentation.geoDomains | length > 3 %}
+                <li class="list-group-item py-1 border-0">...</li>
+            {% endif %}
 
           </ul>
 

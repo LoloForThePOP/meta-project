@@ -17,7 +17,8 @@ class WebsiteType extends AbstractType
         $builder
             ->add('url', UrlType::class, 
                 [
-                    'label' => 'Adresse du Site : ',
+                    
+                    'label' => 'Adresse du site',
                     'attr' => [
                         
                         'placeholder'    => 'www.example.com',
@@ -26,7 +27,7 @@ class WebsiteType extends AbstractType
             )
             ->add('description', TextType::class, 
                 [
-                    'label' => 'Un Titre (Facultatif)? ',
+                    'label' => 'Titre (facultatif)',
                     'attr' => [
                         
                         'placeholder'    => 'Ex : Notre Site Web',

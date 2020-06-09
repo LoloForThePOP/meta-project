@@ -5,9 +5,10 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 
-use Symfony\Component\Validator\Constraints\Url;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
+
+use Symfony\Component\Validator\Constraints\Url;
 
 /**
  * A List of Websites an be related to a presentation of projects (ex : for this project we got a slack, a trello, a github). This Entity represents a project website.
@@ -24,17 +25,15 @@ class Website
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      * @Assert\Url
+     * 
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Length(
-     *      max = 80,
-     *      maxMessage = "Maximum {{ limit }} Caractères",
-     * )
+     *
      */
     private $description;
 
@@ -44,7 +43,6 @@ class Website
     private $presentation;
 
     /**
-     * Project Presenters
      * 
      * @ORM\Column(type="smallint", nullable=true)
      */
@@ -60,7 +58,7 @@ class Website
         return $this->url;
     }
 
-    public function setUrl(string $url): self
+    public function setUrl(? string $url): self
     {
         $this->url = $url;
 

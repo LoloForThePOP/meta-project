@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-
+<nav class="navbar navbar-expand-lg navbar-light bg-light py-1">
+    
     {% if presentation.creator is defined %}
 
         {% if app.user and app.user == presentation.creator %}
@@ -13,9 +13,9 @@
 
     {% endif %}
     
-
-    <a class="navbar-brand" href="{{ path('homepage') }}">The POP</a>
-
+    <a class="navbar-brand ml-2" href="{{ path('homepage') }}"><img src="/images/app/logo.svg" width="20px"></a>
+        
+        
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
