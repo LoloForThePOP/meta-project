@@ -2,24 +2,42 @@
 
 {% form_theme form 'bootstrap_4_layout.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
 {% block title %}Nouvelle Zone de Contact{% endblock %}
 
 {% block body %}
 
-    <div class="container col-sm-7">
+    <div class="container col-sm-6">
         
-        <h2 class="my-3">Nouvelle Zone de Contact</h2>
-
+        <h2 class="my-3">Nouvelle zone de contact</h2>
+<!-- 
         
-        <div class="card border-primary mb-3" style="max-width: 40rem;">
+        <div class="card border-primary mb-5" style="max-width: 40rem;">
             <div class="card-header p-2 h5 font-weight-bold">Conseil
             </div>
             <div class="card-body p-2">
                 <p class="card-text h5 font-weight-bold">Remplissez seulement les informations que vous souhaitez présenter.</p>
             </div>
+        </div> -->
+
+        <div class="mb-5">
+            <!-- Default small shadow-->
+            <div class="card shadow-sm">
+                <div class="card-body p-2">
+                    <h2 class="h5 font-weight-bold">Conseil</h2>
+                    <p class="h5">Remplissez seulement les informations que vous souhaitez présenter</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="">
+
+            {{ include('contacts/_form.html.twig') }}
+
         </div>
         
-        {{ include('contacts/_form.html.twig') }}
+        
 
     </div>
 

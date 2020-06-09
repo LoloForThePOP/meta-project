@@ -47,7 +47,7 @@ input {
   }
   
   ::placeholder {
-    font-size:1.15em !important;
+    font-size:0.95em !important;
     color: rgb(49, 25, 93)  !important;
   }
 

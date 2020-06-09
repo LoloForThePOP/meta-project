@@ -22,8 +22,8 @@ class ContactType extends ApplicationType
                 'email1',
                 EmailType::class,
                 $this->getConfiguration(
-                    "Une Adresse E-Mail? (Recommandé)", 
-                    "Ecrire ici une Adresse Email", 
+                    "Une adresse e-mail ?", 
+                    "Écrire ici une adresse e-mail", 
                     ['required' => false]
                 )
             )
@@ -31,8 +31,8 @@ class ContactType extends ApplicationType
                 'title',
                 TextType::class,
                 $this->getConfiguration(
-                    "Un Nom, un Titre?", 
-                    "Exemples : Laurent Dupond; ou Responsable Communication; etc", 
+                    "Un nom, un titre ?", 
+                    "Exemples : Laurent Dupond ; Responsable Communication", 
                     ['required' => false]
                 )
             )
@@ -40,8 +40,8 @@ class ContactType extends ApplicationType
                 'tel1', 
                 TelType::class,
                 $this->getConfiguration(
-                    "Un Téléphone?", 
-                    "Ecrire le Numéro Ici", 
+                    "Un téléphone ?", 
+                    "Écrire ici un numéro de téléphone", 
                     ['required' => false]
                 )
             )
@@ -50,8 +50,8 @@ class ContactType extends ApplicationType
                 'website1',
                 UrlType::class,
                 $this->getConfiguration(
-                    "Un Site Web?", 
-                    "Ecrire son Adresse Ici", 
+                    "Un site web ?", 
+                    "Écrire ici une adresse web", 
                     ['required' => false]
                 )
             )
@@ -60,7 +60,7 @@ class ContactType extends ApplicationType
                 'postalMail', 
                 TextareaType::class,
                 $this->getConfiguration(
-                    "Une Adresse Postale?", 
+                    "Une adresse postale ?", 
                     "Vous pouvez l'écrire ici", 
                     ['required' => false]
                 ))
@@ -68,8 +68,8 @@ class ContactType extends ApplicationType
                 'remarks',
                 TextareaType::class,
                 $this->getConfiguration(
-                    "Ajouter des Informations, des Remarques?",
-                    "Exemples : Heures d'Ouvertures, Langues Parlées",
+                    "Ajouter des informations, des remarques?",
+                    "Exemples : Heures d'ouverture ; Langues parlées",
                       ['required' => false]
                 )
             )
@@ -77,8 +77,8 @@ class ContactType extends ApplicationType
                 'email2',
                 EmailType::class,
                 $this->getConfiguration(
-                    "Une Autre Adresse E-Mail?", 
-                    "Ecrire Ici", 
+                    "Une autre adresse e-mail ?", 
+                    "Vous pouvez l'écrire ici", 
                     ['required' => false]
                 )
             )
@@ -87,8 +87,8 @@ class ContactType extends ApplicationType
                 'tel2', 
                 TelType::class,
                 $this->getConfiguration(
-                    "Un Autre Téléphone?", 
-                    "Ecrire le Numéro ici", 
+                    "Un autre téléphone ?", 
+                    "Vous pouvez l'écrire ici", 
                     ['required' => false]
                 )
             )

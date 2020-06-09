@@ -103,7 +103,7 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/{id}", name="contact_delete", methods={"DELETE"})
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     *  @Security("is_granted('ROLE_USER') and user === contact.getPresentation().getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function delete($slug, Request $request, Contact $contact): Response
     {
