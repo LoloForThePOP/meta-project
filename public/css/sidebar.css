@@ -89,7 +89,8 @@
 }
 
 #sidebar ul li a {
-    padding: 10px;
+    padding-top: 6px;
+    padding-bottom: 6px;
     font-size: 1.1em;
     display: block;
 }

@@ -8,10 +8,10 @@
 
     {% set sidebarItems = [ 
 
-        { 'name': 'Présentation', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
+        { 'name': 'Éditer', 'route': 'project_dashboard_show', 'iconName': 'home.svg'}, 
+        { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'},  
         { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
         { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
-        { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'},  
     ] %}
 
 
