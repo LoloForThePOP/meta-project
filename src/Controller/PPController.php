@@ -157,6 +157,8 @@ class PPController extends AbstractController
      *
      * @Route("/projects/{slug}/dashboard",name="project_dashboard_show")
      * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * 
      * @return Response
      */
     public function showDashboard($slug, PPBasic $presentation){
