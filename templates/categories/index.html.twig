@@ -6,7 +6,6 @@
 
 {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
 {% block body %}
 
@@ -50,23 +49,42 @@
         background-color: yellow !important;
     }
 
+    
+    input {
+        outline: 0;
+        border-width: 0 0 2px;
+        border-color: blue;
+        border-radius: 0px;
+        width:320px;
+        margin-right:16px;
+      }
+      input:focus {
+        border-color: green
+      }
+            
+      input::placeholder {
+        font-size:0.95em !important;
+        color: rgb(49, 25, 93)  !important;
+      }
+      
+
 </style>
 
 <div class="container">
            
     <!-- ui Page Title -->	
     
-    <h5 class="h4 font-weight-bold my-3 mt-4">Catégories du Projet</h5>
+    <h5 class="h4 font-weight-bold my-3 mt-4 d-inline-block mr-3">Catégories du Projet</h5>
     
     <!-- collapsable advice -->	
 
-    <button class="btn btn-primary d-block font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
-        <span class="h5" style="letter-spacing: 2px;">>  Conseils en 5 sec  <</span>
+        <span class="btn btn-light fs-15 h5 sharp p-1" style="letter-spacing: 2px;">>  Conseils rapides  < </span>
         
-    </button>
+    </a>
     
-    <div class="collapse mt-3" id="collapseExample">
+    <div class="collapse mt-2" id="collapseExample">
                 
         <ul class="h5">
 
@@ -86,7 +104,7 @@
 
     <!-- Categories Grid -->
 
-    <div id="catGrid" class="col-sm-10 clearfix ">
+    <div id="catGrid" class="clearfix pl-3">
 
         {% for category in categories %}
 
@@ -103,23 +121,21 @@
         </div>
 
         {% endfor %}
+
+        <div class="d-inline-block" style="margin-top:35px;">
+
+            {{form_start(form)}}
+            
+            {{form_errors(form.keywords)}}
+            {{form_widget(form.keywords)}}
+
+
+            <button type="submit" class="btn btn-success mb-1 sharp bg-green"><span class="h5 font-weight-bold">Valider</span></button>
+
+            {{form_end(form)}}
+        </div>
         
     </div>
-
-    <!-- Edit Keywords Form -->
-
-      
-        {{form_start(form)}}
-
-        <div class="col-md-7 mt-4 mb-3 alert alert-light border border-primary">
-
-            {{form_row(form.keywords)}}
-
-            <button type="submit" class="btn btn-success mb-1"><span class="h5 font-weight-bold">Valider</span></button>
-
-        </div>
-
-        {{form_end(form)}}
 
 </div>
 

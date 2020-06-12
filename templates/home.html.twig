@@ -2,12 +2,66 @@
 
 {% block body %}
 
-    <!-- Mobile Phone Disclaimer -->
+    <style>
 
-    <div class="alert alert-dismissible alert-danger my-3 h4 d-block">
+
+        /* the blue circle with only one line of text, centered vertically */
+.oneline:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 0;
+    padding-bottom: 100%;
+    background:#ffa500;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+  }
+  .oneline:hover:after {
+    background-color: goldenrod;
+  }
+  .oneline div {
+    float: left;
+    width: 100%;
+    padding-top: 53%;
+    line-height: 1em;
+    margin-top: -1.7em;
+    text-align: center;
+    color: white;
+  }
+  .oneline p {
+    text-align: center;
+    font-size: 1.2em;
+  }
+  
+  @media only screen and (min-width: 350px) {
+    .col {
+      display: inline-block;
+      position: relative;
+      width: 30%;
+      margin: 4% 0 5% 3%;
+      padding: 0;
+      background-color: transparent;
+      border-top: none;
+    }
+    .col .spacer {
+      position: relative;
+      padding-top: 100%;
+    }
+    .col:nth-child(3n + 1) {
+      margin-left: 1%;
+    }
+}
+  
+          
+    </style>
+
+    <!-- Alert Work in Progress -->
+
+    {# <div class="alert alert-dismissible alert-danger my-3 h4 d-block">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>Refonte visuelle du site en cours (oui il y a beaucoup à améliorer!). Merci pour votre compréhension</strong>
-    </div>
+    </div> #}
 
     <!-- Mobile Phone Disclaimer -->
 
@@ -16,9 +70,81 @@
         <strong>L'affichage sur mobile n'est pas encore géré. Merci de votre compréhension.</strong>
     </div>
 
+    
+
+<!-- Design inspired from https://www.hotjar.com/ -->
+<div class="jumbotron sharp pt-5 pb-0 mb-0">
+    <div class="container text-center text-lg-left sharp">
+      
+      <div class="row">
+        <div class="col-lg-8">
+            <h1 class="display-4 text-white" style="text-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
+                Vous avez un Projet ? <br>
+                <span class="highlight-word">Ce site est créé pour vous</span>
+            </h1>
+            <h1 class="h3 text-white" style="text-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
+                Vous pouvez le présenter avec tous ses besoins
+            </h1>
+           
+           <!-- <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+
+          <span class="text-center d-inline-block">
+            <a class="btn btn-primary btn-lg w-100" href="#" role="button">Try it free</a>
+          <p class="text-muted">No credit card required</p>
+          </span>  -->
+          
+        </div>
+
+        <article class="col-lg-3 cursor-pointer oneline">
+            <div class="circle-in h3 mb-0"><p class="mb-0 " style="line-height:1.35; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); color:#21599a;">Ajouter un Projet</p></div>
+        </article>
+
+      </div>
+  
+   
+      </div>
+  </div>
+  
+  
+
+    
+<style>
+    .jumbotron {
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+      background-color: #e9ecef;
+      border-radius: 0.3rem;
+    
+    background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
+    }
+    .hd1{
+        color:#fff;
+    }
+    </style>
+    </head>
+
+
+    <body>
+   <!--  
+     <div class="container">
+        <div class="jumbotron">
+          <h1 class="hd1 h3"> <i class="fa fa-quote-left mr-2"></i>Vous avez un projet ?</h1>
+         <p class="hd1 h3">Ce site est créé pour vous</p>
+        
+        <p class="hd1 h3">Présentez-le avec vos besoins</p>
+        <p class="hd1 h3">Vous pouvez le présenter avec tous ses besoins</p>
+        <p class="lead py-3 ml-2">
+            <a class="btn btn-info btn-lg font-weight-bold py-3 px-2" href="#" role="button">+ Ajouter un Projet</a>
+        </p>
+        </div>
+    </div> --> 
+
 
     <!-- What we do and Call to Action -->
-
+<!-- 
     <section class="pb-2">
         <div class="container">
             <div class="row">
@@ -40,11 +166,11 @@
                 </div>
             </div>
         </div>
-    </section>
-
+    </section> -->
+ 
     <div class="container">
 
-        <h3 class="alert-heading mt-3 pl-1" style="font-size:1.7em;">Des Projets Présentés</h3>
+        <h3 class="alert-heading mt-0 pl-1" style="font-size:1.7em;">Des Projets Présentés</h3>
 
         <div class="mt-3">
 

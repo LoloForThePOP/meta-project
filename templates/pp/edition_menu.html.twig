@@ -66,7 +66,7 @@
   
               <!-- Project Geodomains -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                <a class="text-body" href="{{ path('geodomains_cities_manage', {'slug':presentation.slug}) }}">
+                <a class="text-body" href="{{ path('geodomains_places_manage', {'slug':presentation.slug}) }}">
                   <div class="card border-left-primary shadow h-100 py-2">
                   <div class="card-body">
                     <div class="row no-gutters align-items-center">
@@ -313,19 +313,22 @@
                 
               </div>
   
-              <!-- Project Categories -->
+              <!-- Project Categories and Keywords -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('index_categories', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
+
+                      <!-- Project Categories -->
+
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
   
-                          <div class="text-xs font-weight-bold text-uppercase mb-2">Catégories du Projet</div>
+                          <div class="text-xs font-weight-bold text-uppercase mb-2 ">Catégories du Projet</div>
   
                           <div class="row no-gutters align-items-center">
   
-                              <div class="h6 font-weight-bold">
+                              <div class="h6 font-weight-bold mb-1">
   
                                 {% if presentation.categories | length == 0 %}
   
@@ -353,54 +356,49 @@
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </a>
-                
-              </div>
+
+                      <hr class="mt-1 mb-2 mx-1 border-4">
+
+                      <!-- Project Keywords -->
+
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
   
-              <!-- Project Keywords -->
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
-                  <div class="card border-left-info shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
-
-                        <div class="text-xs font-weight-bold text-uppercase mb-2">Mots-Clés du Projet</div>
-
-                        <div class="row no-gutters align-items-center">
-
-                          <div class="h6 text-left font-weight-bold" style="color:#065fd4;">
-                                                      
-                              {% if presentation.keywords | length > 0 %}
-
-                                <span class="text-break">
-                                  #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) | capitalize}}
-                                </span>
+                          <div class="text-xs font-weight-bold text-uppercase mb-2">Mots-Clés du Projet</div>
+  
+                          <div class="row no-gutters align-items-center">
+  
+                            <div class="h6 text-left font-weight-bold mb-0" style="color:#065fd4;">
+                                                        
+                                {% if presentation.keywords | length > 0 %}
+  
+                                  <span class="text-break">
+                                    #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) | capitalize}}
+                                  </span>
+                                    
                                   
-                                
-
-                                {% if presentation.keywords | length > 64 %}
-                                  ...
+  
+                                  {% if presentation.keywords | length > 64 %}
+                                    ...
+                                  {% endif %}
+  
+                                {% else %}
+                                  
+                                  <span class="text-danger" style="font-size:1.15em;">
+                                    !!! Aucun mot-clé utilisé !!!
+                                  </span>
+  
                                 {% endif %}
-
-                              {% else %}
                                 
-                                <span class="text-danger" style="font-size:1.15em;">
-                                  !!! Aucun mot-clé utilisé !!!
-                                </span>
-
-                              {% endif %}
-                              
-                            </div>
-
+                              </div>
+  
+                          </div>
                         </div>
+                       
                       </div>
-                     
+
                     </div>
                   </div>
-                </div>
                 </a>
                 
               </div>

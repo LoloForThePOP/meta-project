@@ -17,10 +17,10 @@ class AddVideoSlideType extends ApplicationType
         $builder
             ->add('url', TextType::class, 
                 [
-                    'label' => 'Code de la Vidéo : ',
+                    'label' => 'Code de la vidéo',
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici le code de la Vidéo',
+                        'placeholder'    => 'Écrire ici le code de la vidéo',
                     ],
                 ]
             )
@@ -28,7 +28,7 @@ class AddVideoSlideType extends ApplicationType
                 'caption', 
                 TextareaType::class, 
                 $this->getConfiguration(
-                    "Légende / Titre (facultatifs) pour cette vidéo :", 
+                    "Légende / Titre (facultatifs) pour cette vidéo", 
                     "Vous pouvez l'écrire ici",
                     [
                         'required' 	=> false,

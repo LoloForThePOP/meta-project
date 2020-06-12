@@ -20,86 +20,92 @@
 	
     <!-- UI Page Title -->
     
-    <h3 class="my-3 font-weight-bold"> <span class="">Ressources Désirées</span></h3>
+    <h3 class="mt-md-4 mb-md-4 font-weight-bold"> <span class="">Ressources désirées</span></h3>
 
     <!-- Add a Need Button -->
     
     {% if app.user and app.user == presentation.creator %}
     
             <a class="text-decoration-none text-white mr-2" href="{{ path('need_new', {'slug': slug }) }}">
-                <button type="button" class="btn btn-success btn-lg font-weight-bold mb-4"> + Ajouter un Besoin </button>
+                <button type="button" class="btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green" > <span class="mr-2">+</span> Ajouter un besoin </button>
             </a>
             
     {% endif %}
-    
+    {% if presentation.needs | length > 0 %}
     <div>
 
-        <div class="tableWrapper">
-  
-            <div class="table">
-
-            <!-- Table Header -->
-            
-            <div class="row header green">
-                
-                <div class="cell">
-                    Titre
-                </div>
-                <div class="cell">
-                    Description
-                </div>
-                <div class="cell">
-                    Date
-                </div>
-                <div class="cell">
-                    Actions
-                </div>
-
-            </div>
-
-             <!-- Table Content -->
-              
-            {% for need in needs %}
-                
-                {% set showPath = path('need_show', {'id': need.id, 'slug': slug}) %}
-                {% set editPath = path('need_edit', {'need_id': need.id, 'slug': slug}) %}
-              
-              <div class="row cursor-pointer"
-
-                {% if app.user and app.user == presentation.creator %}
-                    onclick="window.location='{{ editPath }}'";>
-                {% else %}
-                    onclick="window.location='{{ showPath }}'";>
-                {% endif %}
-
-                <div class="cell font-weight-bold" data-title="Titre">{{ need.title | slice(0, 35)}}</div>
-                <div class="cell" data-title="Actions">{{ need.description | slice(0, 35) }}</div>
-                <div class="cell" data-title="Date">{{ need.createdAt ? need.createdAt|date('Y-m-d') : '' }}</div>
-
-                <div class="cell" data-title="Actions">
-                    {% if app.user and app.user == presentation.creator %}
+        
+        
+            <div class="tableWrapper">
     
-                        <a href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">modifier</a>
-                    {% else %}
-                        Voir
-                    {% endif %}
+                <div class="table">
+
+                <!-- Table Header -->
+                
+                <div class="row header green">
+                    
+                    <div class="cell">
+                        Titre
+                    </div>
+                    <div class="cell">
+                        Description
+                    </div>
+                    <div class="cell">
+                        Date
+                    </div>
+                    <div class="cell">
+                        Actions
+                    </div>
+
                 </div>
+
+                <!-- Table Content -->
+                
+                {% for need in needs %}
+                    
+                    {% set showPath = path('need_show', {'id': need.id, 'slug': slug}) %}
+                    {% set editPath = path('need_edit', {'need_id': need.id, 'slug': slug}) %}
+                
+                <div class="row cursor-pointer"
+
+                    {% if app.user and app.user == presentation.creator %}
+                        onclick="window.location='{{ editPath }}'";>
+                    {% else %}
+                        onclick="window.location='{{ showPath }}'";>
+                    {% endif %}
+
+                    <div class="cell font-weight-bold" data-title="Titre">{{ need.title | slice(0, 35)}}</div>
+                    <div class="cell" data-title="Description">{{ need.description | slice(0, 35) }}</div>
+                    <div class="cell" data-title="Date">{{ need.createdAt ? need.createdAt|date('Y-m-d') : '' }}</div>
+
+                    <div class="cell" data-title="Actions">
+                        {% if app.user and app.user == presentation.creator %}
+        
+                            <a href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">modifier</a>
+                        {% else %}
+                            Voir
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% else %}
+                    <div class="cell" >Aucun besoin présenté</div>
+                {% endfor %}
+
+                </div>
+                
             </div>
+        
+        
 
-            {% else %}
-                <div class="cell" >Aucun Besoin Présenté</div>
-            {% endfor %}
+    </div>
+    {% endif %}
 
-            </div>
-            
-        </div>
-
-        <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': presentation.slug }) }}">
-            <button type="button" class="btn btn-info btn-lg font-weight-bold mb-4 mt-3">Retour</button>
+    <div>
+         <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': presentation.slug }) }}">
+            <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mt-4">Retour</button>
         </a>
     
-    
-        
     </div>
     
 </div>

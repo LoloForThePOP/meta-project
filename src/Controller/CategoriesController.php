@@ -45,7 +45,7 @@ class CategoriesController extends AbstractController
                 "Les Mots Clés du Projet ont étés mis à jour"
             );
 
-            return $this->redirectToRoute('project_dashboard_show', [
+            return $this->redirectToRoute('project_edition_menu', [
                 'slug' => $presentation->getSlug(),
                 'presentation' => $presentation,
             ]);

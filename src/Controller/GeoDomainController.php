@@ -20,38 +20,24 @@ class GeoDomainController extends AbstractController
 {
 
     /**
-     * @Route("/manage-departments", name="geodomains_departments_manage")
+     * @Route("/manage-places", name="geodomains_places_manage")
      * 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas gérer les lieux de ce projet")
      * 
      */
-    public function manageDepartments(PPBasic $presentation)
+    public function managePlaces(PPBasic $presentation)
     {
   
-        return $this->render('geoDomains/manage-departments.html.twig', [
-            'presentation' => $presentation,
-        ]);
-    }
-
-    /**
-     * @Route("/new-city", name="geodomains_cities_manage")
-     * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas gérer les lieux de ce projet")
-     * 
-     */
-    public function newCity(PPBasic $presentation)
-    {
-  
-        return $this->render('geoDomains/manage-cities.html.twig', [
+        return $this->render('geoDomains/manage_places.html.twig', [
             'presentation' => $presentation,
         ]);
     }
 
     /** 
-     * @Route("/ajaxNewCity", name="ajax_new_city") 
+     * @Route("/ajax-new-place", name="ajax_new_place") 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas ajouter des lieux à ce projet")
     */ 
-    public function ajaxNewCity(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+    public function ajaxNewPlace(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
 
         if ($request->isXmlHttpRequest()) {
 
@@ -67,10 +53,8 @@ class GeoDomainController extends AbstractController
             $administrativeAreaLevel1 = $request->request->get('administrativeAreaLevel1');
             $administrativeAreaLevel2 = $request->request->get('administrativeAreaLevel2');
 
-            //!!!!!!Faire une Validation sur le codePostal et le cityName
-
-            $newCity = new GeoDomain();
-            $newCity-> setPostalCode($postalCode)
+            $newPlace = new GeoDomain();
+            $newPlace-> setPostalCode($postalCode)
                     -> setGeoType($geoType)
                     -> setPlaceName($placeName)
                     -> setLatitude($latitude)
@@ -84,14 +68,15 @@ class GeoDomainController extends AbstractController
 
             $presentationCities = $presentation->getGeoDomains();
             
-            if (!$presentationCities->contains($newCity)) {
-                $presentation->addGeoDomain($newCity);
+            if (!$presentationCities->contains($newPlace)) {
+                $presentation->addGeoDomain($newPlace);
     
-                $manager->persist($newCity);
+                $manager->persist($newPlace);
                 $manager->persist($presentation);
                 $manager->flush();
 
-                $lastIdProjectPlace = $newCity->getId();
+                $lastIdProjectPlace = $newPlace
+                ->getId();
 
                 $feedbackCode = true;
             }
@@ -118,9 +103,9 @@ class GeoDomainController extends AbstractController
 
 
     /**
-     * Permet de Supprimer une Ville dans une Présentation
+     * Allow to remove a project place
      * 
-     * @Route("/ajax-remove-city/", name="ajax_remove_city")
+     * @Route("/ajax-remove-place/", name="ajax_remove_place")
      * 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas supprimer des lieux de ce projet")
      * 

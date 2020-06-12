@@ -2,7 +2,7 @@
         <form class="mt-2" method="post" action="{{ path('need_delete', {'id': need.id, 'slug': slug}) }}" onsubmit="return confirm('Etes vous sûr de vouloir supprimer ce besoin?');">
             <input type="hidden" name="_method" value="DELETE">
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ need.id) }}">
-            <button class="btn btn-lg btn-danger font-weight-bold">Supprimer ce Besoin</button>
+            <button class="btn btn-lg btn-danger sharp font-weight-bold">Supprimer ce besoin</button>
         </form>
 
 

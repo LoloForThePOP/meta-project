@@ -8,7 +8,7 @@
 
     <div class="container">
 
-        <h3 class="h3 font-weight-bold mt-3 mb-2">Diaporama de Présentation</h3>
+        <h3 class="h3 font-weight-bold mt-4 mb-4">Diaporama de présentation</h3>
 
         <!-- Info-Box if Empty Slideshow -->
 
@@ -32,7 +32,7 @@
 
             <div class="container">
 
-                <div id="gridDemo" class="row col-md-9 pl-0">
+                <div id="gridDemo" class="row col-md-8 pl-0">
 
                     {% if presentation.slides | length > 0 %}
 
@@ -40,7 +40,7 @@
 
                         <!-- Thumbnail Container -->
 
-                        <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded-lg overflow-hidden cursor-pointer" style="width:110px; height:90px; border-color: #3f51b5 !important;">
+                        <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded-lg overflow-hidden cursor-pointer" style="width:130px; height:123px; border-color: #4caf50 !important;">
 
                             {% if slide.mediaType == 'image' %}
 
@@ -93,9 +93,9 @@
                                         
                     <!-- Add New Slide Button (Open a Modal)  -->
                         
-                    <div id="newSlide" data-toggle="modal" data-target="#chooseSlideTypeModal" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer" style="text-align:center; width:110px; height:90px; border: dashed 5px #3f51b5;">
+                    <div id="newSlide" data-toggle="modal" data-target="#chooseSlideTypeModal" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer" style="text-align:center; width:130px; height:123px; border: dashed 5px #4caf50;">
                     
-                        <span style="font-size:3em; font-weight:700; color:rgb(46, 138, 46);">+</span>
+                        <span style="font-size:4em; font-weight:700; color:rgb(46, 138, 46);">+</span>
                     
                     </div>    
 
@@ -190,7 +190,7 @@
                 },
             });
 
-            // Remove a City
+            // Remove a Diapo
 
                $('#gridDemo').on('click', '.js-delete-slide', function (){
 

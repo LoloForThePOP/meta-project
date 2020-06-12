@@ -34,7 +34,7 @@ class SlideshowImagesType extends ApplicationType
                 'caption', 
                 TextareaType::class, 
                 $this->getConfiguration(
-                    "Légende / Titre (facultatifs) pour cette image :", 
+                    "Légende / Titre (facultatifs) pour cette image", 
                     "Vous pouvez l'écrire ici",
                     [
                         'required' 	=> false,

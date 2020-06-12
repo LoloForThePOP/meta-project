@@ -5,18 +5,7 @@
             <a class="text-primary text-decoration-none" href="{{path('project_show',{'slug': presentation.slug})}}">
     
                     <div class="">
-    
-                        <!-- Project Keywords -->
-                        {% if presentation.keywords | length > 0 %}
-    
-                            <div class="keywords font-weight-bold my-1 mb-1 h6 text-left" style="line-height:0.7;" >
-    
-                                #{{presentation.keywords | replace({"," : " #"}) | slice(0, 46) }}
-    
-    
-                            </div>
-    
-                        {% endif %}
+   
     
                         <!-- Project Goal -->
     
@@ -29,6 +18,20 @@
                             {% if presentation.title is not empty %}
                                 <h6 class="font-weight-bold mb-0 fs-15">{{presentation.title | slice(0, 63) | capitalize}}</h6>
                             {% endif %}
+
+                             
+                        <!-- Project Keywords -->
+                        {% if presentation.keywords | length > 0 %}
+                        <div class="keywords font-weight-bold my-1 h6 text-left" style="line-height:0.7;" >
+
+
+                            <span class="text-break">
+                                #{{presentation.keywords | replace({" " : "", "," : " #"}) | slice(0, 64) | capitalize}}
+                            </span>
+
+
+                        </div>
+                    {% endif %}
 
                             
 

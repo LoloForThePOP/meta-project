@@ -153,17 +153,33 @@ class PPController extends AbstractController
     }
 
     /**
-     * Allow to Display a Project Presentation Dashboard
+     * Allow to Display a Project Presentation Edition Menu
      *
-     * @Route("/projects/{slug}/dashboard",name="project_dashboard_show")
+     * @Route("/projects/{slug}/edition-menu",name="project_edition_menu")
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      * 
      * @return Response
      */
-    public function showDashboard($slug, PPBasic $presentation){
+    public function showEditionMenu($slug, PPBasic $presentation){
 
-        return $this->render('/pp/dashboard.html.twig',[
+        return $this->render('/pp/edition_menu.html.twig',[
+            'presentation' => $presentation,
+        ]);
+
+    }
+
+    
+    /**
+     * Allow to Display Project Presentation Links Page
+     *
+     * @Route("/projects/{slug}/links",name="presentation_links")
+     * 
+     * @return Response
+     */
+    public function links($slug, PPBasic $presentation){
+
+        return $this->render('/pp/misc/links.html.twig',[
             'presentation' => $presentation,
         ]);
 

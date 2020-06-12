@@ -35,7 +35,7 @@ class NeedType extends ApplicationType
             ->add(
                 'title', 
                 TextType::class, 
-                $this->getConfiguration("Titre du besoin", "Exemple : Un Local à Paris")
+                $this->getConfiguration("Titre du besoin", "Exemple : Un local à Paris")
                 )
             ->add(
                 'paidService', 

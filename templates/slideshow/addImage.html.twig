@@ -3,25 +3,27 @@
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
 
-{% block title %}Ajouter une Image ou un Schéma{% endblock %}
+{% block title %}Ajouter une image ou un schéma{% endblock %}
 
 {% block body %}
 
 <div class="container">
 
-    <h2 class="h3 mt-3">Ajouter une Image ou un Schéma </h2>
+    <h2 class="h3 mt-5 mb-4">Ajouter une image ou un schéma </h2>
 
     {{form_start(form)}}
 
-    <div class="form-group mb-1">
+    <div class="form-group mt-3 mb-3 pl-md-2">
 
         <div class="col-md-7 font-weight-bold">
+
+             <!--Browse Image File -->
            
             <span class="font-weight-bold h5"> 
-                Choisir une Image
+                Choisir une image
             </span>
 
-            <span class="arrowCar">▼ </span>
+            <!-- <span class="arrowCar">▼ </span> -->
 
             <div class="p-0 m-0 alert text-body h5 font-weight-bold">
 
@@ -35,25 +37,32 @@
 
             </div>
             
+            <!-- Add a Caption? -->
+            
             <div class="mt-3">
 
                 {{ form_row(form.caption) }}
                 
             </div>
 
+            <!-- Action Buttons -->
+                
+            <div class="mt-4">
+            
+                <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Valider</button>
+            
+                <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
+                    <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
+                </a>
+                
+            </div>
+
         </div>
 
+ 
+
     </div>
 
-    <div class="mt-4">
-    
-        <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Valider</button>
-    
-        <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
-            <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
-        </a>
-        
-    </div>
 
     {{form_end(form)}}
 
