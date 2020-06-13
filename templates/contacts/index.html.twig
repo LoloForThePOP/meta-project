@@ -6,75 +6,95 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container pt-3">
         
-        <h3 class="my-3">Comment vous contacter ?</h3>
+    <h3 class="my-3 d-inline mr-3">Comment vous contacter ?</h3>
 
-        <div class="card border-primary mb-3" style="max-width: 40rem;">
-            <div class="card-header p-2 h5 font-weight-bold">Conseil
-            </div>
-            <div class="card-body p-2">
-                <p class="card-text h5 font-weight-bold">Si vous ne souhaitez pas afficher des informations de contact, les visiteurs peuvent quand même vous contacter avec la messagerie privée (vous pouvez aussi désactiver les messages privés).</p>
-            </div>
+
+    <!-- collapsable advice -->	
+
+    <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+        <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Conseil </span>
+        
+    </a>
+        
+        <div class="collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            <p class="h5">
+
+                Si vous ne souhaitez pas afficher d'information de contact, les visiteurs peuvent quand même vous contacter avec la messagerie privée (vous pouvez aussi désactiver les messages privés).
+
+            </p>
+
         </div>
         
         <!-- Add a Contact Button -->
     
-        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg font-weight-bold px-4 py-3 mb-3 mr-3">+ Ajouter une Zone Contact</button></a>
+        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg bg-green sharp d-block font-weight-bold px-4 mt-3 py-3 mb-3 mr-3">+ Ajouter une zone de contact</button></a>
+
+        <!-- Manage Contact Zones -->
 
 
-        <div class="col-md-9 pl-0">
+        {% if contacts | length > 0 %}
 
-            <div class="table-responsive">
+            <div class="col-md-9 pl-0">
 
-                <table class="table table-hover table-striped table-bordered">
+                <div class="table-responsive">
 
-                    <thead>
+                    <table class="table table-hover table-striped table-bordered">
 
-                        <tr>
-                            <th>Titre du contact</th>
-                            <th>E-mail 1</th>
-                            <th>Téléphone 1</th>
-                            <th>Adresse</th>
-                        </tr>
+                        <thead>
 
-                    </thead>
+                            <tr>
+                                <th>Titre du contact</th>
+                                <th>E-mail 1</th>
+                                <th>Téléphone 1</th>
+                                <th>Adresse</th>
+                            </tr>
 
-                    <tbody>
+                        </thead>
 
-                    {% for contact in contacts %}
+                        <tbody>
 
-                        {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
-                        {% set editPath = path('contact_edit', {'contact_id': contact.id, 'slug': slug}) %}
-        
-                        <tr class="cursor-pointer"  
-                            
-                            {% if app.user and app.user == presentation.creator %}
-                                onclick="window.location='{{ editPath }}'";>
-                            {% else %}
-                                onclick="window.location='{{ showPath}}'";>
-                            {% endif %}
-                    
-                            <td>{{ contact.title }}</td>
-                            <td>{{ contact.email1 | slice (0,15) }}</td>
-                            <td>{{ contact.tel1 }}</td>
-                            <td>{{ contact.postalMail }}</td>
+                        {% for contact in contacts %}
 
-                        </tr>
+                            {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
+                            {% set editPath = path('contact_edit', {'contact_id': contact.id, 'slug': slug}) %}
+            
+                            <tr class="cursor-pointer"  
+                                
+                                {% if app.user and app.user == presentation.creator %}
+                                    onclick="window.location='{{ editPath }}'";>
+                                {% else %}
+                                    onclick="window.location='{{ showPath}}'";>
+                                {% endif %}
+                        
+                                <td>{{ contact.title }}</td>
+                                <td>{{ contact.email1 | slice (0,15) }}</td>
+                                <td>{{ contact.tel1 }}</td>
+                                <td>{{ contact.postalMail }}</td>
 
-                    {% else %}
+                            </tr>
 
-                        <tr>
-                            <td colspan="9">Aucune Zone Contact pour l'Instant</td>
-                        </tr>
-                    {% endfor %}
+                        {% else %}
 
-                    </tbody>
+                            <tr>
+                                <td colspan="9">Aucune zone contact pour l'instant</td>
+                            </tr>
+                        {% endfor %}
 
-                </table> 
+                        </tbody>
 
+                    </table> 
+
+                </div>
             </div>
-        </div>
+        
+        {% endif %}
+
+
+      
             
 
 

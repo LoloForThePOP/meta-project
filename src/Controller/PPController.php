@@ -32,7 +32,7 @@ class PPController extends AbstractController
     /**
      * Permet de Créer une Présentation de Projet
      * 
-     * @Route("/projects/new",name="projects_create")
+     * @Route("/projects/new",name="create_presentation")
      * @Security("is_granted('ROLE_USER')")
      * 
      * @return Response

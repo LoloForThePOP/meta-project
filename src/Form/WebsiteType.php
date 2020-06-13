@@ -30,7 +30,7 @@ class WebsiteType extends AbstractType
                     'label' => 'Titre (facultatif)',
                     'attr' => [
                         
-                        'placeholder'    => 'Ex : Notre Site Web',
+                        'placeholder'    => 'Exemple : Notre Site Web',
                     ],
                 ]
             )

@@ -19,7 +19,7 @@ class PPBasicType extends ApplicationType
     {
         $builder
 
-            ->add('goal', TextType::class, $this->getConfiguration("Objectif du Projet", "Tapez ici..."))
+            ->add('goal', TextType::class, $this->getConfiguration("Objectif du Projet", "Écrire ici..."))
 
             ->add('title', TextType::class, $this->getConfiguration("Titre du Projet (Optionnel)", "Titre du Projet",['required'=>false]))   
 

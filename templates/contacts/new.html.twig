@@ -9,27 +9,33 @@
 {% block body %}
 
     <div class="container col-sm-6">
-        
-        <h2 class="my-3">Nouvelle zone de contact</h2>
-<!-- 
-        
-        <div class="card border-primary mb-5" style="max-width: 40rem;">
-            <div class="card-header p-2 h5 font-weight-bold">Conseil
-            </div>
-            <div class="card-body p-2">
-                <p class="card-text h5 font-weight-bold">Remplissez seulement les informations que vous souhaitez présenter.</p>
-            </div>
-        </div> -->
 
-        <div class="mb-5">
-            <!-- Default small shadow-->
-            <div class="card shadow-sm">
-                <div class="card-body p-2">
-                    <h2 class="h5 font-weight-bold">Conseil</h2>
-                    <p class="h5">Remplissez seulement les informations que vous souhaitez présenter</p>
-                </div>
+        <div class="my-4" >
+
+            <!-- ui page title -->	
+                    
+            <h2 class="my-3 d-inline mr-3">Nouvelle zone de contact</h2>
+
+            <!-- collapsable advice -->	
+
+            <a class="font-weight-bold mt-2 pb-2" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Conseil </span>
+                
+            </a>
+            
+            <div class="collapse mt-2 mb-4" id="collapseExample">
+
+                <p class="h5">
+
+                    Remplissez seulement les informations que vous souhaitez présenter.
+
+                </p>
+        
             </div>
+
         </div>
+   
 
         <div class="">
 

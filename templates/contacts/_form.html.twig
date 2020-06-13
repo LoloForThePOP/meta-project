@@ -5,10 +5,16 @@
 
 {{ form_widget(form) }}
 
-<button class="btn btn-success btn-lg font-weight-bold mr-2 mb-2">{{ button_label|default('Enregistrer') }}</button>
+<div class="mt-4">
 
-<a href="{{ path('contact_index', {'slug': slug}) }}">
-    <button type="button" class="btn btn-warning btn-lg font-weight-bold mb-2">Annuler</button>
-</a>
+
+    <button class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2 mb-2">{{ button_label|default('Enregistrer') }}</button>
+
+    <a href="{{ path('contact_index', {'slug': slug}) }}">
+        <button type="button" class="btn btn-info sharp btn-lg font-weight-bold mb-2">Annuler</button>
+    </a>
+
+</div>
+
 
 {{ form_end(form) }}

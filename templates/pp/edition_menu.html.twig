@@ -21,48 +21,6 @@
   
             <!-- Content Row -->
             <div class="row">
-
-              <!-- Project Messages -->
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                <div class="card border-left-warning shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-
-                      <div class="col-auto mr-3">
-                        <span style="color:#006e">
-                          <i class="fas fa-comments fa-2x text-gray-300"></i>
-                        </span>
-                      </div>
-                      
-                      <div class="col">
-
-                        <div class="text-xs font-weight-bold text-uppercase mb-2">Messages</div>
-
-                          {% if presentation.countUnreadMessages() == 0 %}
-                              
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">Pas de nouveau message
-                            </div>
-
-                          {% endif %}
-
-                          {% if presentation.countUnreadMessages() > 0 %}
-                              
-                            <div class="h6 mb-0 font-weight-bold text-gray-800">{{ presentation.countUnreadMessages() }} Message(s) Non Lus
-                            </div>
-
-                          {% endif %}
-
-                          {% if not presentation.isActiveContactMessages %}
-                        
-                            !!! Messages Privés Désactivés !!!
-                            
-                          {% endif %}
-
-                    </div>
-                  </div>
-                </div>
-              </div>
-              </div>
   
               <!-- Project Geodomains -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
@@ -81,7 +39,7 @@
 
                       <div class="col">
 
-                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Lieux du Projet</div>
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1"><u>Lieux du Projet</u> </div>
 
                         <div class="h5 mb-0 font-weight-bold text-gray-800">
 
