@@ -15,7 +15,7 @@ cd meta-project
 composer install
 
 #### 4.a- Configure your database access : in the .env file :
-Example for mysql : go to this line : DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+Example for mysql : go to this line : DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name \
 Then, for example, replace like this (adapt to your own) : DATABASE_URL=mysql://root:@127.0.0.1:3306/projo
 
 #### 4.b- Create Database
