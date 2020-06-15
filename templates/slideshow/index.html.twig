@@ -8,24 +8,37 @@
 
     <div class="container">
 
-        <h3 class="h3 font-weight-bold mt-4 mb-4">Diaporama de présentation</h3>
+        <div class="mt-4 mb-3">
 
-        <!-- Info-Box if Empty Slideshow -->
+            <!-- ui page title -->
 
-        {% if presentation.slides | length == 0 %}
+            <h3 class="h3 font-weight-bold d-inline mr-3">Diaporama de présentation</h3>
 
-            <div class="card border-primary mb-3" style="max-width: 37rem;">
-                <div class="card-header p-2">
-                    <h4 class="mb-0 card-title font-weight-bold">!!! Conseil Important !!!</h4>
-                </div>
-                <div class="card-body p-2">
+            <!-- Display an Info-Box if Empty Slideshow -->
+
+            {% if presentation.slides | length == 0 %}
+
+                <!-- collapsable advice -->	
+
+                <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                    <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Info </span>
                     
-                    <p class="card-text lh-2 h5">Images, Schémas, Capsules de Texte et Vidéos peuvent être un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
+                </a>
+                    
+                <div class="collapse col-md-6 mt-0 mb-4" id="collapseExample">
+
+                    <p class="lh-2 h5">Images, schémas, diapositives textes et vidéos sont un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
 
                 </div>
-            </div>
 
-        {% endif %}
+
+            {% endif %}
+
+        </div>
+
+       
+
 
 
         <!-- Slide Thumbnails Grid -->

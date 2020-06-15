@@ -1,7 +1,26 @@
-
 <!-- Slideshow Container -->
 
 {% if presentation.slides | length > 0 %}
+
+
+	<!-- Edit Slideshow Shortcut Button-->
+
+    {% if app.user and app.user == presentation.creator %}
+	
+	<div class="">
+
+        <h2 class="h3 font-weight-bold d-inline mr-2">Diaporama</h2>
+                                
+        <!-- Edit Project Title Button -->
+
+            <a href="{{ path('slideshow_index', {'slug': presentation.slug}) }}" class="">
+
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer le Diaporama</button>
+                
+            </a>
+		
+	</div>
+	{% endif %}
 
 <div class="mt-4 mb-3" style="position : relative;">
 

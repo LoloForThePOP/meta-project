@@ -31,19 +31,19 @@
             
             <!-- Project Overview (Project Landing Page) -->
 
-            <div class="col-md-8 mb-3">
+
+            <div class="col-md-8 pt-4 mb-3">
+
 
                 <!-- Project Title -->
-                <h2 class="h3 font-weight-bold mt-4">{{presentation.title | capitalize}}</h2>
-
+                {% include 'pp/partials/_title.html.twig' %}
+      
                 <!-- Project Goal -->
-                <h4 class="pl-0 font-weight-bold mt-4 col-md-11" style="font-size:1.45em;">{{presentation.goal | capitalize}}</h4>
+                {% include 'pp/partials/_goal.html.twig' %}      
 
                 <!-- Project Keywords -->
                 {% include 'pp/partials/_keywords.html.twig' %}
 
-                <!-- Project Goal Display -->
-                {# {% include 'pp/partials/_goal.html.twig' %} #}
 
                 <!-- Project Slideshow Pitch -->
                 {% include 'pp/partials/_slideshow.html.twig' %}

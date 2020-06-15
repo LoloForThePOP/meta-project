@@ -1,13 +1,30 @@
 
 {% if presentation.contacts | length > 0 %}
 
-    <h3 class="font-weight-bolder mb-4">Nous Contacter</h3>
+    <div class="mb-3">
+                
+        <h2 class="h3 font-weight-bold d-inline mr-2">Nous Contacter</h2>
+                                        
+        <!-- Edit Project Title Button -->
+
+        {% if app.user and app.user == presentation.creator %}
+            <a href="{{ path('contact_index', {'slug': presentation.slug}) }}" class="">
+
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
+                
+            </a>
+        {% endif %}
+
+    </div>
+
 
     <div class="row pl-3">
 
-        <!-- Contact Us Informations Box -->
+        <!-- Contact Us Display Informations -->
 
     {% for contact in presentation.contacts %}
+
+        <!-- A contact us card -->
 
         <div id="" class="col-sm-5 border border-primary border-2 p-2 px-3 mb-4 mr-4
         rounded" style="word-wrap: break-word;">

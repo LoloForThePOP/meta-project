@@ -10,7 +10,7 @@
                         <!-- Project Goal -->
     
                             <h6 class="projectTitle font-weight-bold mb-0" style="font-size:1.25em">
-                                {{presentation.goal | slice(0, 140) | capitalize}}
+                                {{presentation.goal | slice(0, 140) | capitalize}}{% if presentation.goal | length > 141 %}...{% endif %}
                             </h6>
 
                         <!-- Project Title -->

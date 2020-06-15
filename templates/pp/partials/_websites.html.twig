@@ -1,8 +1,22 @@
 {% if presentation.websites | length > 0 %}
-    
-    <div class="container pl-0 my-3">
 
-        <h3 class="mb-1 font-weight-bolder">Sites Web</h3>
+
+    <div class="">
+
+        <h2 class="h3 font-weight-bold d-inline mr-2">Sites Web</h2>
+                                
+        <!-- Edit Project Title Button -->
+
+        {% if app.user and app.user == presentation.creator %}
+            <a href="{{ path('websites_index', {'slug': presentation.slug}) }}" class="">
+
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Sites Web</button>
+                
+            </a>
+        {% endif %}
+
+        
+        <!-- Websites Display List -->
 
         <div class="list-group list-group-flush mb-2 px-2 col-lg-8">
             
@@ -20,7 +34,7 @@
             {% endfor %}
             
         </div>
-        
+
     </div>
 
 {% endif %}

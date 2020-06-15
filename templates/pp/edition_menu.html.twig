@@ -82,7 +82,7 @@
                 
               </div>
   
-              <!-- Project Explanations -->
+              <!-- Project Slideshows -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-decoration-none text-body" href="{{ path('slideshow_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
@@ -222,6 +222,34 @@
                 
               </div>
   
+              <!-- Display Project Presentation -->
+
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2" style="background-color:#f2d01729;">
+                    <div class="card-body">
+                      
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+  
+                          <div class="text-xs font-weight-bold text-uppercase mb-2 ">Voir le Résultat</div>
+  
+                          <div class="row no-gutters align-items-center">
+  
+                            <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="float-left mr-md-3" height:"60px" width="60px">
+
+
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </a>
+                
+              </div>
+
               <!-- Project Needs -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('need_index', {'slug':presentation.slug}) }}">
@@ -270,6 +298,7 @@
                 </a>
                 
               </div>
+              
   
               <!-- Project Categories and Keywords -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">

@@ -25,13 +25,15 @@
        {% include 'partials/header.html.twig' %}
 
        <div class="p-0 m-0 wrapper border-top border-6" style="border-color:orange !important;">
+           
+      
 
         {% block sidebar %}{% endblock %}
 
         <div id="content" class="m-0 p-0">
 
             {% include 'partials/flashmessage.html.twig' %}
-
+            
             {% block body %}{% endblock %}
 
         </div>

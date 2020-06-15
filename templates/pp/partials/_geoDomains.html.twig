@@ -2,7 +2,17 @@
 
     <div class="container pl-0 my-3">
 
-        <h3 class="font-weight-bolder">Des Lieux du Projet</h3>
+        <h3 class="font-weight-bolder d-inline mr-2">Des Lieux du Projet</h3>
+
+        <!-- Edit Geodomains Button -->
+
+        {% if app.user and app.user == presentation.creator %}
+            <a href="{{ path('geodomains_places_manage', {'slug': presentation.slug}) }}" class="">
+
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Lieux</button>
+                
+            </a>
+        {% endif %}
 
         <ul class="list-group">
 

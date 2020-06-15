@@ -60,12 +60,10 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Présentation {$presentation->getGoal()} a bien été Créée! une étape importante : choisissez des catégories et des mots-clés pour que les gens puissent trouver votre projet."
+                "La Présentation {$presentation->getGoal()} a bien été créée! <br> Vous pouvez maintenant ajouter les informations que vous désirez présenter."
             );
 
-            // We propose to redirect to Project Categories and Keywords Creation
-
-            return $this->redirectToRoute('index_categories', [
+            return $this->redirectToRoute('edit_presentation_menu', [
                 'slug' => $presentation->getSlug()
             ]);
         }
@@ -77,7 +75,7 @@ class PPController extends AbstractController
     }
 
     /**
-     * Permet d'éditer une présentation de projet
+     * Allow to edit project title or goal
      * 
      * @Route("/projects/{slug}/edit/", name="project_edit")
      * 
@@ -155,7 +153,7 @@ class PPController extends AbstractController
     /**
      * Allow to Display a Project Presentation Edition Menu
      *
-     * @Route("/projects/{slug}/edition-menu",name="project_edition_menu")
+     * @Route("/projects/{slug}/edition-menu",name="edit_presentation_menu")
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      * 

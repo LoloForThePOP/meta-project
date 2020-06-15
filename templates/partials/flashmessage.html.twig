@@ -2,23 +2,15 @@
 
         {% for label , messages in app.flashes %}
 
-            <div class="container">
+            <div class="d-flex align-items-center alert alert-{{label}} mt-3 h5 font-weight-bold mx-md-4 sharp">
 
-                <div class="row">
+                {% for message in messages %}
 
-                    <div class="d-flex align-items-center alert alert-{{label}} mt-3 col-md-6 h5 font-weight-bold">
+                    <p class=" p-0 m-0">{{message | raw}}</p>
 
-                        {% for message in messages %}
+            {% endfor %}
 
-                            <p class=" p-0 m-0">{{message}}</p>
-
-                    {% endfor %}
-
-                    </div>
-
-                </div>
             </div>
-
             
 
         {% endfor %}

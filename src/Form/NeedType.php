@@ -22,13 +22,13 @@ class NeedType extends ApplicationType
                 $this->getConfiguration("Type du besoin", "",[
                     'placeholder' => 'Choisir une option',
                     'choices'  => [
-                        'Une Compétence (Ex : un Dessinateur, un Développeur)' => 'skill',
-                        'Un Service Ponctuel (Ex : Créer deux Dessins, Préparer un Repas)' => 'task',
+                        'Une Compétence (Ex : un Développeur; un Électricien)' => 'skill',
+                        'Un Service Ponctuel (Ex : Préparer un repas; Créer deux dessins, )' => 'task',
                         'Un Objet, un Outil, du Matériel (Ex : une Perçeuse)' => 'material',
                         'Un Local, un Terrain, une Surface' => 'area',
                         "Un Conseil" => 'advice',
                         "Une Somme d'Argent" => 'money',
-                        'Autre' => 'other',
+                        'Autres' => 'other',
                         ]
                     ])
                 )

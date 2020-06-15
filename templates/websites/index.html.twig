@@ -9,6 +9,25 @@
 
 {% block body %}
 
+    <style>
+                
+        input {
+            color:black !important;
+            font-size:1.25em !important;
+            width: 100%;
+            padding: 5px 12px;
+            margin: 4px 0 8px 0;
+            border-style:solid;
+            display: inline-block;
+            box-sizing: border-box;
+        }
+
+        label {
+            margin: 0;
+        }
+
+    </style>
+
     <div class="container">
 
         <div class="mt-3 mt-md-4 mb-2">
@@ -48,25 +67,6 @@
 
         {% form_theme form '/partials/jquery.collection.html.twig' _self %}
 
-        <style>
-
-                        
-            input {
-                color:black !important;
-                font-size:1.25em !important;
-                width: 100%;
-                padding: 5px 12px;
-                margin: 4px 0 8px 0;
-                border-style:solid;
-                display: inline-block;
-                box-sizing: border-box;
-            }
-
-            label {
-                margin: 0;
-            }
-
-        </style>
 
         {{form_start(form)}}
             
@@ -80,31 +80,57 @@
 
 {% block javascripts %}
 
-<script src="{{ asset('js/jquery.collection.js') }}"></script>
+    <script src="{{ asset('js/jquery.collection.js') }}"></script>
 
-<script type="text/javascript">
+    <script type="text/javascript">
 
-    $('.actions-collection').collection({
+        $('.actions-collection').collection({
 
-        position_field_selector: '.my-position',
+            position_field_selector: '.my-position',
 
-        up: '<button type="button" class="mr-1 btn btn-outline-primary arrowCar font-weight-bold bg-white">▲</button>',
+            up: '<button type="button" class="mr-2 btn btn-outline-primary arrowCar font-weight-bold bg-white">▲</button>',
 
-        remove: ' <button type="button" class="mr-1 btn btn-danger sharp "><span class="h5 font-weight-bold">Retirer ce site</span></button>',
+            remove: ' <button type="button" class="mr-2 btn btn-danger sharp my-1"><span class="h5 font-weight-bold">Retirer ce site</span></button>',
 
-        down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold bg-white mr-1">▼</button>',
+            down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold bg-white mr-1">▼</button>',
 
-        add: ' <button type="button" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un site web</button>',
+            add: ' <button type="button" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un site web</button>',
 
-        fade_in: false,
+            fade_in: false,
 
-        fade_out: false,
+            fade_out: false,
 
-        add_at_the_end: true,
+            add_at_the_end: true,
 
-    });
+        });
 
-</script>
+        // insert submit button into each website box and align it
+
+        $(document).ready(function(){  
+
+            // Submit Button html Tag
+
+            var submitButton = '<button type="submit" class="js-submit-button btn btn-success bg-green sharp my-1 mr-2"><span class="h5 font-weight-bold"> Enregistrer</span></button>';
+
+            // We add Submit button into each box at initialisation
+
+            $(".website_collection_websites-collection-actions").prepend(submitButton)
+
+            // We add Submit button each time add button is clicked
+
+            $(".website_collection_websites-collection-rescue-add").on("click", function(event){ 
+
+                $(".js-submit-button").remove();
+
+                setTimeout(function() {
+                    $(".website_collection_websites-collection-actions").prepend(submitButton);
+                }, 100);
+        
+            });  
+
+        });  
+
+    </script>
 
 {% endblock %}
 
@@ -120,11 +146,12 @@
 
     {{form_widget(form)}}
     
+    
 {% endblock %}
 
 {% block _website_collection_websites_entry_widget %}
 
-        <div class="list-item col-md-6 p-2 px-3 mb-3" style="background-color:#f3f6f8;"> 
+    <div class="list-item col-md-6 p-2 px-3 mb-3" style="background-color:#f3f6f8;"> 
 
             <div class="">
 
@@ -147,8 +174,8 @@
                 {{ form_row(form.position) }}
 
             </div>
-
-            <button type="submit" class="btn btn-success bg-green sharp mt-1 mb-3 mr-2"><span class="h5 font-weight-bold"> Enregistrer</span></button>
+            
+    
 
         </div>    
 

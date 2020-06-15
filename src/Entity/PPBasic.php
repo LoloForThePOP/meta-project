@@ -378,7 +378,6 @@ class PPBasic implements \Serializable
     }
 
 
-
     
      /**
      * Unique Slug Creation
@@ -392,10 +391,11 @@ class PPBasic implements \Serializable
 
         if(empty($this->slug)) {
             $slugify = new Slugify();
-            $this->slug=$slugify->slugify($this->goal).'-'.$this->id;
+            $this->slug=$slugify->slugify(substr($this->goal,0,90)).'-'.$this->id;
         }
-  
+
     }
+
 
     public function getSlug(): ?string
     {
