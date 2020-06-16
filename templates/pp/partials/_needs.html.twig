@@ -1,73 +1,96 @@
 
+
+<!-- Project Desired Ressources Display -->
+
 {% if presentation.needs | length > 0 %}
 
-    <!-- Title (with Plural String Management) -->
-    
-    <h3 class="font-weight-bolder d-inline mr-2">
-        
-        {% if presentation.needs | length == 1 %}
-            Participer (1 besoin)
+    <!-- Structure Container -->
 
-        {% else %}
-            
-            Participer ({{presentation.needs | length}} besoins)
+    <div class="mt-4">
 
-        {% endif %}
-        
-    </h3>
+        <!-- Title Container -->
 
-     <!-- Manage Project Needs Button -->
+        <div class="mb-3">
 
-     {% if app.user and app.user == presentation.creator %}
-        <a href="{{ path('need_index', {'slug': presentation.slug}) }}" class="">
-
-            <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Besoins</button>
-            
-        </a>
-    {% endif %}
-
-
-<div class="container-fluid table-responsive my-2">
-    
-    <table class="table table-hover table-bordered">
-        
-        <tbody>
-
-            {% for need in presentation.needs | slice (0,5) %}
+            <h3 class="font-weight-bolder d-inline mr-2">
                 
-                {% set showPath = path('need_show', {'id': need.id, 'slug': presentation.slug}) %}
+                {% if presentation.needs | length == 1 %}
+                    Participer (1 besoin)
 
-                <tr class="cursor-pointer h5 font-weight-bold">
+                {% else %}
+                    
+                    Participer ({{presentation.needs | length}} besoins)
 
-                    <td  onclick="window.location='{{ showPath }}'">
+                {% endif %}
+                
+            </h3>
 
-                        {# we display first five needs by default #}
+                    
+            <!-- Manage Project Needs Button -->
+
+            {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('need_index', {'slug': presentation.slug}) }}" class="">
+
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Besoins</button>
+                    
+                </a>
+            {% endif %}
+
+        </div>
+
+        <!-- Project Needs Display -->
+     
+        <div class="container-fluid table-responsive my-2">
             
-                            <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar blueArrow">► </span>{{ need.title | capitalize}}
-                            </a>
+            <table class="table table-hover table-borderless">
+                
+                <tbody>
 
-                    </td>
+                    
+                    <!-- we display first five needs by default --> 
 
-                </tr>
+                    {% for need in presentation.needs | slice (0,5) %}
+                        
+                        {% set showPath = path('need_show', {'id': need.id, 'slug': presentation.slug}) %}
 
-            {% endfor %}
-            
-            {# if there are more than 5 needs, we propose a modal box for the user to see them all #}  
+                        <tr class="cursor-pointer h5 font-weight-bold">
 
-            {% if presentation.needs |length > 5 %}
+                            <td  onclick="window.location='{{ showPath }}'">
+                    
+                                    <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar blueArrow">► </span>{{ need.title | capitalize}}
+                                    </a>
 
-                <tr class="cursor-pointer h5 font-weight-bold bg-light">
+                            </td>
 
-                    <td>
-            
-                        <a id="needsModalLink" class="text-body text-decoration-none" data-toggle="modal" data-target="#displayNeedsModal"><span class="arrowCar blueArrow">►►► </span>Afficher tous les Besoins<span class="arrowCar blueArrow"> ◄◄◄</span>
-                        </a>
+                        </tr>
 
-                    </td>
+                    {% endfor %}
 
-                </tr>
+                    <!-- if there are more than 5 needs, we propose a modal box for the user to see them all -->
 
-                <!-- Modal Box Display All Needs -->
+                    {% if presentation.needs |length > 5 %}
+
+                        <tr class="cursor-pointer h5 font-weight-bold bg-light">
+
+                            <td>
+
+                                <!-- Display All Needs "Button" -->
+                    
+                                <a id="needsModalLink" class="text-body text-decoration-none" data-toggle="modal" data-target="#displayNeedsModal"><span class="arrowCar blueArrow">►►► </span>Afficher tous les Besoins<span class="arrowCar blueArrow"> ◄◄◄</span>
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+        
+
+
+
+
+
+
+                <!-- Modal Box (Display All Needs) -->
 
                     <div id="displayNeedsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
@@ -120,11 +143,14 @@
             {% endif %}
 
 
-        </tbody>
+            </tbody>
          
     </table>
 
-</div>
+        </div>
+
+
+    </div>
 
 
 {% endif %}

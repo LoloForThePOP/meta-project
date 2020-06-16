@@ -1,12 +1,25 @@
 
-<h4 class="pl-0 font-weight-bold mt-4 col-md-11 d-inline mr-2" style="font-size:1.45em;">{{presentation.goal | capitalize}}</h4>
 
-{% if app.user and app.user == presentation.creator %}
+<!-- Project Goal Presentation -->
 
-    <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
+<!-- Structure Container -->
 
-        <button class="btn btn-light sharp font-weight-bold fs-15">Éditer</button>
-        
-    </a>
+<div class="mb-2">
 
-{% endif %}
+    <!-- Project Goal Display -->
+    
+    <h4 class="pl-0 font-weight-bold mt-4 col-md-11 d-inline mr-2" style="font-size:1.45em;">{{presentation.goal | capitalize}}</h4>
+
+    <!-- Edit Project Goal Button -->
+
+    {% if app.user and app.user == presentation.creator %}
+
+        <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
+
+            <button class="btn btn-light sharp font-weight-bold fs-15">Éditer</button>
+            
+        </a>
+
+    {% endif %}
+
+</div>

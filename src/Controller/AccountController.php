@@ -79,7 +79,7 @@ class AccountController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Votre Compte a bien été Créé! Vous pouvez maintenant vous connecter.'
+                'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter.'
             );
 
             $message = (new \Swift_Message('Merci pour votre Inscription sur le Site'))

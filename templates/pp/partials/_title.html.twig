@@ -1,17 +1,26 @@
+
+<!-- Project Title Presentation -->
+
 {% if presentation.title is not empty %}
 
-    <div class="">
+    <!-- Structure Container -->
+
+    <div class="mt-4 mb-3">
+
+        <!-- Project Title Display -->
 
         <h2 class="h3 font-weight-bold d-inline mr-2">{{presentation.title | capitalize}}</h2>
                                 
         <!-- Edit Project Title Button -->
 
         {% if app.user and app.user == presentation.creator %}
+
             <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
 
                 <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
                 
             </a>
+
         {% endif %}
 
     </div>

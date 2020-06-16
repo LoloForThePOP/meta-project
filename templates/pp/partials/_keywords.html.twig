@@ -1,11 +1,13 @@
 
+<!-- Project Keywords Presentation -->
 
- <div class="keywords font-weight-bold mt-1 mb-2 h6 text-left" style="min-height:1.25em;" >
-                         
-    {% if presentation.keywords | length > 0 %}
-                        
-        #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+{% if presentation.keywords | length > 0 %}
 
-    {% endif %}
+    <div class="keywords font-weight-bold mt-1 mb-2 h6 text-left" style="min-height:1.25em;" >
+                            
+            #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
 
-</div>
+
+    </div>
+
+{% endif %}

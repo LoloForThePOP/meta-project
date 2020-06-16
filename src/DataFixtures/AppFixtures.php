@@ -86,8 +86,10 @@ class AppFixtures extends Fixture
             'money' => "Financement, Argent",
             'animals' => "Animaux",
             'locate' => "Géolocaliser",
-            'other' => "Autres",
+            
         ];
+
+        // 'other' => "Autres",
 
         $categoriesObjects = [];
 

@@ -1,22 +1,31 @@
+
+<!-- Project Websites Display -->
+
 {% if presentation.websites | length > 0 %}
 
+    <!-- Structure Container -->
 
-    <div class="">
+    <div class="my-4">
 
-        <h2 class="h3 font-weight-bold d-inline mr-2">Sites Web</h2>
-                                
-        <!-- Edit Project Title Button -->
+        <!-- Title Container -->
 
-        {% if app.user and app.user == presentation.creator %}
-            <a href="{{ path('websites_index', {'slug': presentation.slug}) }}" class="">
+        <div class="mb-2">
 
-                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Sites Web</button>
-                
-            </a>
-        {% endif %}
+            <h2 class="h3 font-weight-bold d-inline mr-2">Sites web</h2>
+                                    
+            <!-- Edit Project Title Button -->
+    
+            {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('websites_index', {'slug': presentation.slug}) }}" class="">
+    
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Sites Web</button>
+                    
+                </a>
+            {% endif %}
 
-        
-        <!-- Websites Display List -->
+        </div>
+
+         <!-- Project Websites List Display -->
 
         <div class="list-group list-group-flush mb-2 px-2 col-lg-8">
             

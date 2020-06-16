@@ -57,11 +57,8 @@
                 <!-- Project Geographic Domains -->
                 {% include 'pp/partials/_geoDomains.html.twig' %}
 
-                <!-- Project Contact Us -->
+                <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
-
-                <!-- Project Contact Message Button (i.e. Direct Private Message) -->
-                {% include 'pp/partials/_privateMessage.html.twig' %}
 
                 <!-- Display Some Metadatas -->
                 {% include 'pp/partials/_metadataDisplay.html.twig' %}
@@ -69,7 +66,7 @@
                 <!-- some buttons (example : report abuse; save as pdf; ...) -->
 
                 <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
-                    <button type="button" class="btn btn-light">Signaler un Abus</button>
+                    <button type="button" class="btn btn-light">Signaler un abus</button>
                 </a>
                 
             </div>
