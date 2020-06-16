@@ -8,15 +8,13 @@
 
     <div class="container">
 
-        <div class="row">
+        <div class="row mt-4">
 
-            <div class="col-md-3">&nbsp;</div>
+            <div class="mx-auto col-md-5">
 
-            <div class="col-md-6">
+                <div class="py-3 px-md-3">
 
-                <div class="py-3 px-3">
-
-                    <h3 class="font-weight-bold">Connectez-vous</h3>
+                    <h3 class="font-weight-bold mb-4">Connectez-vous</h3>
 
                     {% if hasError %}
                         <div class="alert alert-danger">Une erreur est survenue, veuillez vérifier votre nom d'utilisateur et votre mot de passe.</div>
@@ -24,36 +22,42 @@
                 
                     <form action="{{path('account_login')}}" method="post">
                 
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <input type="text" name="_username" id="email" class="form-control" placeholder="E-mail" value="" required>
                 
                         </div>
                 
-                        <div class="form-group">
+                        <div class="form-group mb-4">
                             <input type="password" name="_password" id="" class="form-control" placeholder="Mot de passe" required>
                 
                         </div>
 
 
-                        <input type="checkbox" id="remember_me" name="_remember_me" checked/>
+                        <input class="mb-4" type="checkbox" id="remember_me" name="_remember_me" checked/>
                         <label for="remember_me">Se souvenir de moi</label>
                 
                         <div class="form-group">
 
-                            <input type="submit" value="Connexion" class="btn btn-success text-white font-weight-bold">
+                            <input type="submit" value="Connexion" class="btn btn-success bg-green sharp text-white font-weight-bold mr-2">
+
+                            <a href="{{path('homepage')}}">
+                                <button type="button" value="" class="btn btn-info p-2">
+                                    <span class="h5 font-weight-bold">Retour</span> 
+                                </button>
+                            </a>
                 
                         </div>
                 
                     </form>
 
                     <div>
-                        <div class="font-weight-bold h5">
+                        <div class="font-weight-bold h5 mb-3" >
                             Pas encore inscrit ? 
-                            <a href="{{path('account_register')}}">Rejoignez-nous !</a>
+                            <a href="{{path('account_register')}}" class="text-green">Rejoignez-nous !</a>
                         </div>
 
                         <div class="font-weight-bold h5">Mot de passe oublié ?
-                            <a href="{{path('forgotten_password_request')}}">C'est ici &larr;</a>
+                            <a href="{{path('forgotten_password_request')}}" class="text-green">C'est ici &larr;</a>
                         </div>
 
 

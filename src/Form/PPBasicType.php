@@ -21,11 +21,11 @@ class PPBasicType extends ApplicationType
 
             ->add('goal', TextType::class, $this->getConfiguration("Objectif du Projet", "Écrire ici..."))
 
-            ->add('title', TextType::class, $this->getConfiguration("Titre du Projet (Optionnel)", "Titre du Projet",['required'=>false]))   
+            ->add('title', TextType::class, $this->getConfiguration("Titre du Projet (optionnel)", "Titre du Projet",['required'=>false]))   
 
-            ->add('keywords', TextType::class, $this->getConfiguration("Mots-Clés (séparer avec des virgules , ) :", "Mots Clés",['required'=>false]))
+            /* ->add('keywords', TextType::class, $this->getConfiguration("Mots-Clés (séparer avec des virgules , ) :", "Mots Clés",['required'=>false])) */
 
-            ->add('logoFile', VichImageType::class, $this->getConfiguration("Logo du Projet :", "", [
+            ->add('logoFile', VichImageType::class, $this->getConfiguration("Logo du Projet", "", [
                 'required' => false,
                 'allow_delete' => true,
                 'download_label' => false,
@@ -34,14 +34,14 @@ class PPBasicType extends ApplicationType
                 'asset_helper' => true,
             ]))
             
-            ->add('thumbnailFile', VichImageType::class, $this->getConfiguration("Vignette du Projet :", "", [
+            /* ->add('thumbnailFile', VichImageType::class, $this->getConfiguration("Vignette du Projet :", "", [
                 'required' => false,
                 'allow_delete' => true,
                 'download_label' => false,
                 'download_uri' => false,
                 'image_uri' => false,
                 'asset_helper' => true,
-            ]))
+            ])) */
 
         ;
     }

@@ -221,34 +221,6 @@
                 </a>
                 
               </div>
-  
-              <!-- Display Project Presentation -->
-
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
-                  <div class="card border-left-info shadow h-100 py-2" style="background-color:#f2d01729;">
-                    <div class="card-body">
-                      
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
-  
-                          <div class="text-xs font-weight-bold text-uppercase mb-2 ">Voir le Résultat</div>
-  
-                          <div class="row no-gutters align-items-center">
-  
-                            <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="float-left mr-md-3" height:"60px" width="60px">
-
-
-                          </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-                  </div>
-                </a>
-                
-              </div>
 
               <!-- Project Needs -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
@@ -389,12 +361,29 @@
                 </a>
                 
               </div>
-  
-              <!-- Project Logo -->
+
+               
+              <!-- Project Goal; Title; and Logo -->
+
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body pb-0">
+
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
+
+                          <div class="text-xs font-weight-bold text-uppercase mb-2">Objectif & Titre du Projet</div>
+
+                          <div class="row no-gutters align-items-center">
+
+                          </div>
+                        </div>
+                      
+                      </div>
+
+                      <hr class="mt-1 mb-2 mx-1 border-4">
+                      
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
 
@@ -427,106 +416,41 @@
                 
               </div>
 
-            </div>
-
-            <!-- Content Row -->
-            <div class="row">
-
-              <!-- Content Column 1/2 -->
-              <div class="col-lg-6 mb-4">
                 
-                <!-- Project Goal -->
-                <div class="card shadow mb-4">
-                  <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
-                    <div class="card-header py-3">
-                    <h6 class="m-0 h5 font-weight-bold">Objectif du Projet</h6>
-                  </div>
-                  <div class="card-body">
-                    <p class="fs-15">{{presentation.goal | capitalize }}</p>
-                  </div>
-                  </a>
-                </div>
-  
-                <!-- Project Title -->
-                <div class="card shadow mb-4">
-                  <a class="text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
-                    <div class="card-header py-3">
-                      <h6 class="m-0 h5 font-weight-bold">Titre du Projet</h6>
-                    </div>
+              <!-- Display Project Presentation -->
+
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer rounded-circle">
+                <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body">
-                      <p class="fs-15">
-                        {% if presentation.title | length > 0 %}
-                        
-                          {{presentation.title | capitalize }}
-
-                        {% else %}
-
-                          Ce projet n'a pas de titre.
-
-                        {% endif %}
-                      </p>
-                    </div>
-                  </a>
-                </div> 
+                      
+                      <div class="row no-gutters align-items-center">
+                        <div class="col mr-2">
   
+                          <div class="text-xs font-weight-bold text-uppercase mb-2 ">Voir le Résultat</div>
+  
+                          <div class="row no-gutters align-items-center">
+  
+                            <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="float-left mr-md-3" height:"60px" width="60px">
+
+
+                          </div>
+                        </div>
+                      </div>
+
+
+                    </div>
+                  </div>
+                </a>
+                
               </div>
 
-              <!-- Content Column 2/2 -->
-              <!-- <div class="col-lg-6 mb-4">
-                <div class="row">
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-primary text-white shadow">
-                      <div class="card-body">
-                        Primary
-                        <div class="text-white-50 small">#4e73df</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-success text-white shadow">
-                      <div class="card-body">
-                        Success
-                        <div class="text-white-50 small">#1cc88a</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-info text-white shadow">
-                      <div class="card-body">
-                        Info
-                        <div class="text-white-50 small">#36b9cc</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-warning text-white shadow">
-                      <div class="card-body">
-                        Warning
-                        <div class="text-white-50 small">#f6c23e</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-danger text-white shadow">
-                      <div class="card-body">
-                        Danger
-                        <div class="text-white-50 small">#e74a3b</div>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-lg-6 mb-4">
-                    <div class="card bg-secondary text-white shadow">
-                      <div class="card-body">
-                        Secondary
-                        <div class="text-white-50 small">#858796</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-  
-              </div> -->
+
+
+
 
             </div>
+
   
           </div>
 

@@ -10,32 +10,30 @@
 
 {% block body %}
 
-    <div class="container col-sm-7">
+<div class="container col-sm-4 mt-5">
         
-        <h3 class="font-weight-bold my-3">Inscription sur le site</h3>
+    <h3 class="font-weight-bold my-3">Inscription sur le site</h3>
 
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
+        {{form_start(form)}}
 
-        <!-- ui Actions Buttons -->
+        {{form_widget(form)}}
 
-        <div>
+    <!-- ui Actions Buttons -->
 
-            <button type="submit" value="" class="btn btn-success">
-                <span class="h5 font-weight-bold">Valider</span> 
+    <div class="mt-4">
+
+        <button type="submit" value="" class="btn btn-success bg-green mr-2 mb-2">
+            <span class="h5 font-weight-bold">Valider</span> 
+        </button>
+
+        <a href="{{path('homepage')}}">
+            <button type="button" value="" class="btn btn-info mb-2">
+                <span class="h5 font-weight-bold">Retour</span> 
             </button>
-
-            <a href="{{path('homepage')}}">
-                <button type="button" value="" class="btn btn-info">
-                    <span class="h5 font-weight-bold">Retour</span> 
-                </button>
-            </a>
-
-        </div>
-
-
-        {{ form_end(form) }}
+        </a>
 
     </div>
+    {{form_end(form)}}
+</div>
 
 {% endblock %}

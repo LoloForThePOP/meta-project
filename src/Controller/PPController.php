@@ -60,7 +60,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Présentation {$presentation->getGoal()} a bien été créée! <br> Vous pouvez maintenant ajouter les informations que vous désirez présenter."
+                'La présentation "{$presentation->getGoal()}" a bien été créée ! <br> Vous pouvez maintenant ajouter toutes les informations que vous désirez présenter.'
             );
 
             return $this->redirectToRoute('edit_presentation_menu', [
@@ -96,7 +96,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les Modifications de la Présentation du Projet {$presentation->getTitle()} ont bien été enregistrées."
+                "Les modifications de la présentation ont bien été enregistrées."
             );
 
             return $this->redirectToRoute('project_show', [
