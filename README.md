@@ -16,7 +16,7 @@ composer install
 
 #### 4.a- Configure your database access : in the .env file :
 Example for mysql : go to this line : DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name \
-Then, for example, replace like this (adapt to your own) : DATABASE_URL=mysql://root:@127.0.0.1:3306/projo
+Then, for example, replace like this (adapt to your own) : DATABASE_URL=mysql://root:@127.0.0.1:3306/projectofprojects
 
 #### 4.b- Create Database
 php bin/console doctrine:database:create
@@ -27,5 +27,10 @@ php bin/console doctrine:migrations:migrate
 #### 6- Execute Fixtures
 php bin/console doctrine:fixtures:load --no-interaction
 
-#### 7- Launch Localhost
-symfony server:start
+#### 7- Start your Localhost Serveur
+If you already have installed the Symfony Local Web Server (The Symfony server is part of the symfony binary created when you install Symfony), run : symfony server:start 
+
+Otherwise, you can run : php -S localhost:8000 -t public
+
+
+#### I hope it works for you. Let's develop the Project of Projects.
