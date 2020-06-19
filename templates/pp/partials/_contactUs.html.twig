@@ -10,7 +10,7 @@
 
         <!-- Title Container -->
 
-        <div class="mb-4">
+        <div class="pp-struct-title mb-4 pb-1">
                     
             <h2 class="h3 font-weight-bold d-inline mr-2">Nous contacter</h2>
                                             
@@ -26,7 +26,7 @@
 
         </div>
 
-        <div class="row pl-md-4">
+        <div class="row pl-md-3">
 
         <!-- Contact Cards Display-->
         
@@ -34,11 +34,15 @@
         
             <!-- A contact us card -->
         
-            <div id="" class="col-sm-5 border border-primary border-2 p-2 px-3 mb-4 mr-4 " style="word-wrap: break-word;">
+            <div id="" class="col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
         
                 <!-- Contact Name or Title -->
-            
-                <h5 class="font-weight-bold ">{{contact.title}}</h5>
+
+                {% if contact.title is not empty %}
+                    
+                <h5 class="font-weight-bold mb-3">{{contact.title}}</h5>
+                
+                {% endif %}
                 
                 <!-- Contact Email -->
         
@@ -142,8 +146,17 @@
         
                         <div class="pl-4">
 
+                            {# Website Link with potential troncature #}
+
                             <a class="text-decoration-none text-body"
-                            href="{{contact.website1}}">{{contact.website1}}
+                            href="{{contact.website1}}">
+                            
+                                {{contact.website1 | slice (0,55)}}
+
+                                {% if contact.website1 | length > 55 %}
+                                    ...
+                                {% endif %}
+
                             </a>
 
                         </div>
@@ -206,7 +219,7 @@
 
             <div id="" class="col-sm-5 border border-primary border-2 py-3 px-3 mb-4 mr-4 d-flex align-items-center justify-content-middle">
                         
-                            <div class="h5 my-auto mx-auto px-3 py-2 text-center bg-light btn btn-light font-weight-bold" style="letter-spacing: 1.15px;">
+                            <div class="h5 my-auto mx-auto px-4 py-3 text-center bg-light btn btn-light font-weight-bold" style="letter-spacing: 1.15px; font-size:1.20em;">
                                 
             <a class="text-decoration-none text-body" href="{{path('contact_message_new', {'slug':presentation.slug})}}">Envoyer un 
 

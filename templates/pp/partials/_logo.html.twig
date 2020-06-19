@@ -1,0 +1,33 @@
+
+
+<!-- Project Logo Display -->
+
+<div class="mb-2 d-none d-lg-block">
+
+    {% if presentation.logoName %}
+
+        <!-- Box Title with Logo Edit Button -->
+
+        <div class="font-weight-bold text-center mt-4 mb-1">
+
+            <span class="mr-1">Logo du Projet</span>
+
+            {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
+    
+                    <button class="btn  btn-light sharp font-weight-bold mb-2 d-inline fs-15 p-0" style="font-size: 0.8em;">Éditer</button>
+                    
+                </a>
+            {% endif %}
+
+        </div>
+
+        <div class="d-inline-block m-0" >
+
+            <img class="" src="/images/projects/logos/{{ presentation.logoName }}" alt="Logo du Projet" style="width:120px; height:120px;">
+
+        </div>
+
+    {% endif %}
+
+</div>

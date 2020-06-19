@@ -6,7 +6,7 @@
 
     <!-- Structure Container -->
 
-    <div class="mt-4">
+    <div class="" style="">
 
         <!-- Title Container -->
 
@@ -31,7 +31,7 @@
             {% if app.user and app.user == presentation.creator %}
                 <a href="{{ path('need_index', {'slug': presentation.slug}) }}" class="">
 
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Besoins</button>
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les besoins</button>
                     
                 </a>
             {% endif %}
@@ -57,7 +57,16 @@
 
                             <td  onclick="window.location='{{ showPath }}'">
                     
-                                    <a href="{{ showPath }}" class="text-body text-decoration-none"><span class="arrowCar blueArrow">► </span>{{ need.title | capitalize}}
+                                    <a href="{{ showPath }}" class="text-body text-decoration-none">
+
+                                        {# Blue Arrow bullet point #}
+                                        
+                                        <span class="arrowCar blueArrow">► </span>
+
+                                        {# Need Title #}
+                                        
+                                        {{ need.title | capitalize}}
+
                                     </a>
 
                             </td>

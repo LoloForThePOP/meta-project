@@ -68,8 +68,6 @@
                   Changer
                 </div>
 
-                {{form_errors(form.logoFile)}}
-
                 {{form_widget(form.logoFile)}}
 
             </div> 
@@ -83,8 +81,6 @@
       {% else %}
 
         <div class="pt-3">
-
-          {{form_errors(form.logoFile)}}
           
           {{form_widget(form.logoFile)}}
 
@@ -121,9 +117,11 @@
   <script>
       $(document).ready(function(){
 
+        // some Styles
+
         $(".form-check-label").html("Supprimer");
         $(".custom-file").addClass("mt-1");
-        $(".custom-file").after("<hr>");
+        $(".vich-image .form-group").before("<hr>");
 
       });
   </script>

@@ -19,7 +19,7 @@ class ContactMessageType extends AbstractType
                 [
                     'label' => 'Votre adresse e-mail',
                     'attr' => [
-                        'placeholder' => 'Adresse e-mail',
+                        'placeholder' => 'Votre adresse e-mail',
                         ],
                 ]
             )

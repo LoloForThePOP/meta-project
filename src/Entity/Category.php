@@ -38,6 +38,11 @@ class Category
      */
     private $project;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $position;
+
 
     public function __construct()
     {
@@ -107,6 +112,18 @@ class Category
     public function setDescriptionFr(string $descriptionFr): self
     {
         $this->descriptionFr = $descriptionFr;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

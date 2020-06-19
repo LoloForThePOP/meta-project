@@ -68,41 +68,44 @@ class AppFixtures extends Fixture
         // Project Categories Creation
 
         $categories = [
-            'material' => "Construction, Matériel, Objets, Rénovations",
-            'education' => "Informer, Eduquer, Apprendre",
+            'software' => "Informatique, Codage, Internet",
             'science' => "Science, Recherche",
+            'education' => "Informer, Éduquer, Apprendre",
+            'humane' => "Vivre Ensemble, Humanitaire",
+            'material' => "Fabriquer, Construire, Rénover",
             'food' => "Agriculture, Nourriture",
             'ideas' => "Idées, Politique",
-            'environment' => "Environnement (Protection)",
-            'arts' => "Arts, Culture",
-            'software' => "Codage, Internet",
-            'humane' => "Vivre Ensemble, Humanitaire",
+            'environment' => "Environnement",
+            'arts' => "Culture, Arts",
             'health' => "Santé",
-            'crisis' => "Crise",
-            'entertain' => "Divertissements, Sports",
             'history' => "Histoire, Patrimoine",
-            'data' => "Organiser des Données",
-            'space' => "Espace",
+            'data' => "Organiser des données",
             'money' => "Financement, Argent",
             'animals' => "Animaux",
+            'space' => "Espace",
+            'crisis' => "Crise",
             'locate' => "Géolocaliser",
+            'entertain' => "Divertissements, Loisirs, Sports",
             
         ];
 
-        // 'other' => "Autres",
+        // (dropped category) 'other' => "Autres",
 
         $categoriesObjects = [];
 
         $index=0;
+
         foreach ($categories as $key => $value){
+
             $category = new Category();
             $category->setName($key);
             $category->setDescriptionFr($value);
-            //$category->setIcon('https://place-hold.it/24x24/');
+            $category->setPosition($index);
             $manager->persist($category);
 
             $categoriesObjects[]=$category;
             $index++;
+
         }
 
         
@@ -234,7 +237,7 @@ class AppFixtures extends Fixture
             
             // Hydrating Project Presentation with Above Attributes
             $pp ->setTitle($title)
-                ->setGoal($faker->paragraph())
+                ->setGoal($faker->sentence())
                 ->setKeywords($keywords)
                 ->setIsPublished($isPublished)
                 ->setThumbnailName($thumbnailAddress)
@@ -309,7 +312,7 @@ class AppFixtures extends Fixture
                         $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
                         $context = $faker->sentence();
                         $title = $faker->sentence();
-                        $content = join($faker->paragraphs(4));
+                        $content = join($faker->paragraphs(1));
                         $senderEmail = $faker -> email();
                         $receiver = $pp->getCreator();
 

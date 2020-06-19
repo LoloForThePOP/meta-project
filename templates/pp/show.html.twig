@@ -8,7 +8,7 @@
     <meta name="date" content="{{ presentation.createdAt | date}}">
     
 {% endblock %}
-
+    
 
 {% block title %}{{ presentation.goal | capitalize}}{% endblock %}
 
@@ -25,26 +25,57 @@
 
 {% block body %}
 
+
+<style>
+    .pp-struct-title{
+
+       font-weight: robotoro;
+    }
+</style>
+
+    <!-- Project Presentation Display Main Page -->
+
     <div class="container pl-md-4">
 
         <div class="row">
-            
-            <!-- Project Overview (Project Landing Page) -->
 
+            <div class="col-md-9 mt-4 mb-3">
 
-            <div class="col-md-8 pt-4 mb-3">
+                <div class="row pl-3">
 
+                    <!-- Title & Goal & Keywords Display -->
 
-                <!-- Project Title -->
-                {% include 'pp/partials/_title.html.twig' %}
-      
-                <!-- Project Goal -->
-                {% include 'pp/partials/_goal.html.twig' %}      
+                    <div class="col-md-9">
 
-                <!-- Project Keywords -->
-                {% include 'pp/partials/_keywords.html.twig' %}
+                        <div class="row my-2">
+                                          
+                            <!-- Project Title -->
+                            {% include 'pp/partials/_title.html.twig' %}              
 
+                        </div>
 
+                        <div class="row">
+                            
+                            <!-- Project Goal -->
+                            {% include 'pp/partials/_goal.html.twig' %}
+                            
+                            <!-- Project Keywords -->
+                            {% include 'pp/partials/_keywords.html.twig' %}
+                            
+                        </div>
+
+                    </div>
+
+                    <!-- Logo Display -->
+
+                    <div class="col-rest">
+                        
+                        <!-- Project Logo -->
+                        {% include 'pp/partials/_logo.html.twig' %}
+                        
+                    </div>
+                </div>
+                
                 <!-- Project Slideshow Pitch -->
                 {% include 'pp/partials/_slideshow.html.twig' %}
 
@@ -60,6 +91,15 @@
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
+            </div>
+        
+        </div>
+
+        <div class="row">
+            
+            <div class="col-md-8 mb-3">
+
+
                 <!-- Display Some Metadatas -->
                 {% include 'pp/partials/_metadataDisplay.html.twig' %}
 
@@ -72,7 +112,7 @@
             </div>
 
             <!-- Project Provider Caps -->
-            {% include 'pp/partials/_projectPresenterArea.html.twig' %}
+            {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
 
 
         </div>

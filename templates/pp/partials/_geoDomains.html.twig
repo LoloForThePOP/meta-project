@@ -9,7 +9,7 @@
         {% if app.user and app.user == presentation.creator %}
             <a href="{{ path('geodomains_places_manage', {'slug': presentation.slug}) }}" class="">
 
-                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Lieux</button>
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les lieux</button>
                 
             </a>
         {% endif %}
@@ -20,10 +20,10 @@
 
 
                 <li class="list-group-item py-1 border-0">
+
+                    {# Blue Arrow Bullet Point #}
                     
-                    <span class="arrowCar font-weight-bold h5">
-                        ▼
-                    </span>
+                    <span class="arrowCar blueArrow mr-1">► </span>
                     
                     <span class="font-weight-bold h5">
                         {{place.placeName}}
@@ -42,7 +42,9 @@
             {% endfor %}
 
             {% if presentation.geoDomains | length > 3 %}
+
                 <li class="list-group-item py-1 border-0">...</li>
+                
             {% endif %}
 
           </ul>
