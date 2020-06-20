@@ -6,20 +6,20 @@
 
     <!-- Structure Container -->
 
-    <div class="" style="">
+    <div class="">
 
         <!-- Title Container -->
 
         <div class="mb-3">
 
-            <h3 class="font-weight-bolder d-inline mr-2">
+            <h3 class="pp-struct-title d-inline mr-2">
                 
                 {% if presentation.needs | length == 1 %}
-                    Participer (1 besoin)
+                    Participer - 1 besoin -
 
                 {% else %}
                     
-                    Participer ({{presentation.needs | length}} besoins)
+                    Participer - {{presentation.needs | length}} besoins -
 
                 {% endif %}
                 

@@ -42,7 +42,7 @@ class CategoriesController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les Mots Clés du Projet ont étés mis à jour"
+                "Les mots-clés du Projet ont été mis à jour"
             );
 
             return $this->redirectToRoute('edit_presentation_menu', [

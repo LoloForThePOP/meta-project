@@ -31,10 +31,9 @@
             </a>
             
     {% endif %}
+
     {% if presentation.needs | length > 0 %}
     <div>
-
-        
         
             <div class="tableWrapper">
     
@@ -102,7 +101,7 @@
     {% endif %}
 
     <div>
-         <a class="text-decoration-none text-white" href="{{ path('project_show', {'slug': presentation.slug }) }}">
+         <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
             <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mt-4">Retour</button>
         </a>
     

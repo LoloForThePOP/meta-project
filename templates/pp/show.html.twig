@@ -27,10 +27,16 @@
 
 
 <style>
+
     .pp-struct-title{
 
-       font-weight: robotoro;
+        //color: #0f05ef;
+        color: #0000cc;
+        font-weight: 500;
+        font-family: Verdana, sans-serif;
+
     }
+
 </style>
 
     <!-- Project Presentation Display Main Page -->
@@ -39,9 +45,9 @@
 
         <div class="row">
 
-            <div class="col-md-9 mt-4 mb-3">
+            <div class="col-md-10 mt-4 mb-3">
 
-                <div class="row pl-3">
+                <div class="row pl-3 mb-4">
 
                     <!-- Title & Goal & Keywords Display -->
 
@@ -55,9 +61,15 @@
                         </div>
 
                         <div class="row">
-                            
+
+                                                    
                             <!-- Project Goal -->
-                            {% include 'pp/partials/_goal.html.twig' %}
+
+                            <div class="mb-1">
+
+                                {% include 'pp/partials/_goal.html.twig' %}
+
+                            </div>
                             
                             <!-- Project Keywords -->
                             {% include 'pp/partials/_keywords.html.twig' %}
@@ -74,6 +86,7 @@
                         {% include 'pp/partials/_logo.html.twig' %}
                         
                     </div>
+
                 </div>
                 
                 <!-- Project Slideshow Pitch -->

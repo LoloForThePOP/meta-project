@@ -103,9 +103,9 @@
 
         <div class="p-0 m-3">
 
-            <a class="btn btn-success btn-lg font-weight-bold mr-1" href="{{ path('contact_message_new', {'id': need.id, 'slug': slug}) }}">Envoyer un Message</a>
+            <a class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-1" href="{{ path('contact_message_new', {'id': need.id, 'slug': slug}) }}">Envoyer un Message</a>
 
-            <a class="btn btn-info btn-lg font-weight-bold" href="{{ path('need_index',{'slug': slug}) }}">Retour</a>
+            <a class="btn btn-info btn-lg sharp font-weight-bold mr-1" href="{{ path('project_show',{'slug': slug}) }}">Retour</a>
 
             <!-- Presentation Admins Actions -->
         
@@ -113,7 +113,7 @@
 
                 <!-- Edit Need Button -->
 
-                <a class="btn btn-warning btn-lg font-weight-bold mr-1" href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">Modifier ce Besoin</a>
+                <a class="btn btn-warning btn-lg sharp font-weight-bold mr-1" href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">Modifier</a>
 
                 <!-- Delete Need Button -->
 
