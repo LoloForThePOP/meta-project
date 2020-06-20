@@ -1,3 +1,4 @@
+
 {% extends 'base.html.twig' %}
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
@@ -8,6 +9,12 @@
 
 
 {% block body %}
+
+    <!-- Form Theme -->
+
+    {% form_theme form '/partials/jquery.collection.html.twig' _self %}
+
+    <!-- Label & Input Styles -->
 
     <style>
                 
@@ -28,7 +35,11 @@
 
     </style>
 
+    <!-- Content Container -->
+
     <div class="container">
+
+        <!-- Title with Info Button Container -->
 
         <div class="mt-3 mt-md-4 mb-2">
 
@@ -37,7 +48,7 @@
             <h3 class="font-weight-bold d-inline mr-3">Gérer les sites web</h3>
 
             
-            <!-- collapsable advice -->	
+            <!-- collapsable advice trigger button -->	
 
             <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
@@ -46,6 +57,8 @@
             </a>
 
         </div>
+
+        <!-- Collapsible Info Container -->
 
         <div class="collapse col-md-8 mt-0 mb-4" id="collapseExample">
 
@@ -63,10 +76,7 @@
 
         </div>
 
-        <!-- <h3 class="mt-3 mb-2">Gérer les sites web</h3> -->
-
-        {% form_theme form '/partials/jquery.collection.html.twig' _self %}
-
+        <!-- Form Display -->
 
         {{form_start(form)}}
             
@@ -78,7 +88,10 @@
 
 {% endblock %}
 
+
 {% block javascripts %}
+
+    <!-- jquery plugin to manage symfony collections -->
 
     <script src="{{ asset('js/jquery.collection.js') }}"></script>
 
@@ -135,6 +148,7 @@
 {% endblock %}
 
 
+{# Form Structure Display #}
 
 {% block _website_collection_websites_widget %}
 
@@ -145,7 +159,6 @@
 {% block _website_collection_websites_entry_row %}
 
     {{form_widget(form)}}
-    
     
 {% endblock %}
 
@@ -174,10 +187,7 @@
                 {{ form_row(form.position) }}
 
             </div>
-            
-    
 
-        </div>    
+    </div>    
 
-       
 {% endblock %}

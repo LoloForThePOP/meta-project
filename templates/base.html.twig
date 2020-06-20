@@ -22,35 +22,37 @@
 
     <body>
 
+        <!-- Navbar (Header) -->
+
        {% include 'partials/header.html.twig' %}
+
+       <!--Sidebar Container; Content Container-->
 
        <div class="p-0 m-0 wrapper border-top border-6" style="border-color:orange !important;">
            
-      
+            {% block sidebar %}{% endblock %}
 
-        {% block sidebar %}{% endblock %}
+            <div id="content" class="m-0 p-0">
 
-        <div id="content" class="m-0 p-0">
+                {% include 'partials/flashmessage.html.twig' %}
+                
+                {% block body %}{% endblock %}
 
-            {% include 'partials/flashmessage.html.twig' %}
-            
-            {% block body %}{% endblock %}
+            </div>
 
         </div>
 
-    </div>
+        <!-- Footer -->
 
         {% include 'partials/footer.html.twig' %}
 
 
-        <!-- Defaults Javascripts -->
+        <!-- By Defaults Javascripts -->
 
         <script src="/js/jquery.min.js"></script>
         <script src="/js/popper.min.js"></script>
         <script src="/js/bootstrap.min.js"></script>
-{# 
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/solid.js" integrity="sha384-tzzSw1/Vo+0N5UhStP3bvwWPq+uvzCMfrN1fEFe+xBmv1C/AtVX5K0uZtmcHitFZ" crossorigin="anonymous"></script>
-        <script defer src="https://use.fontawesome.com/releases/v5.0.13/js/fontawesome.js" integrity="sha384-6OIrr52G08NpOFSZdxxz1xdNSndlD4vdcf/q2myIUVO0VsqaGHJsB0RaBE01VTOY" crossorigin="anonymous"></script> #}
+
 
         <!-- SideBar Toggle -->
         <script>

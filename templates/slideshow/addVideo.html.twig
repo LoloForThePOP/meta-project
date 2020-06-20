@@ -12,59 +12,70 @@
 
     <div class="container">
 
-        <h3 class="my-4 font-weight-bold">Ajouter une vidéo</h3>
+        <!-- Title with Info Button Container -->
 
-        <!-- Info-Box : "Only Youtube Videos for the Moment"-->
-        <div class="card border-primary mb-3" style="max-width: 35rem;">
-            <div class="card-body p-3">
-                <p class="card-text h5 font-weight-bold">Pour l'instant, seules des vidéos Youtube peuvent être insérées (on veut faire mieux). Merci de votre compréhension</p>
-            </div>
+        <div class="mt-3 mt-md-4 mb-md-3">
+      
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-2">Ajouter une vidéo Youtube</h3>
+
+            <!-- Button with Collapsable Advice : How to Insert a Youtube Vidéo ? -->	
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-info font-weight-bold btn-lg fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Comment faire ?</span>
+                
+            </a>
+
         </div>
+
+        <!-- Collapsible Info Container -->
+
+        <div class="collapse col-md-7 px-4 py-3 bg-success mb-4" id="collapseExample">
+
+            <h5 class="font-weight-bold">Aller sur la page Youtube de la vidéo désirée, puis recopier le code situé comme dans l'exemple ci-dessous :</h5>
+
+            <p class="h5 font-weight-bold">https://www.youtube.com/watch?v=<span class=" px-1 border border-2 border-danger rounded">zL1EvGkKb00</span></p>
+
+        </div>
+
+        <!-- Form Container -->
+
+        <div class="mt-2">
+                
+            {{form_start(form)}}
+
+            <!-- Youtube Video Code Input-->
+
+            <div class="col-md-7 pl-0 mb-4">
+
+                {{form_row(form.url)}}
+
+            </div>
+
+            <!-- Youtube Video Caption Input-->
+
+            <div class="col-md-7 pl-0">
+
+                {{ form_row(form.caption) }}
+                
+            </div>
+
+            <!-- Action Buttons -->
         
-
-         <!-- Info-Box : How To ? : Insert a Youtube Video-->
-        <div class="card border-primary mb-3" style="max-width: 35rem;">
+            <div class="mt-4 pt-2 pl-0">
             
-            <div class="card-header py-1">
-                <h5 class="font-weight-bold">Comment intégrer une vidéo Youtube ? <i class="fa fa-info-circle" style="font-size:1.6em;"></i></h5>
-            </div>
-
-            <div class="card-body py-1">
-                <h5 class="card-title font-weight-bold">Aller sur la page youtube de la vidéo désirée, puis recopier le code situé comme dans l'exemple ci-dessous :</h5>
-                <p class="h5 card-text font-weight-bold">  https://www.youtube.com/watch?v=<span class=" px-1 border border-2 border-danger rounded">zL1EvGkKb00</span></p>
-            </div>
-
-        </div>
-
-        <!-- Youtube Video Code Text Input-->
-
-        {{form_start(form)}}
-
-        <div class="col-md-7 pl-0">
-
-            {{form_row(form.url)}}
-
-        </div>
-
-        <div class="mt-3 col-md-7 pl-0">
-
-            {{ form_row(form.caption) }}
+                <button type="submit" class="btn btn-success bg-green sharp btn-lg h3 font-weight-bold mb-4 mr-1">Intégrer la vidéo</button>
             
+                <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
+                    <button type="button" class="btn btn-danger btn-lg sharp font-weight-bold mb-4">Annuler</button>
+                </a>
+                
+            </div>
+        
+            {{form_end(form)}}
         </div>
-
-        <!-- Action Buttons -->
-     
-         <div class="mt-4 pl-0">
-         
-             <button type="submit" class="btn btn-success btn-lg h3 font-weight-bold mb-4 mr-1">Intégrer la vidéo</button>
-         
-             <a class="text-decoration-none text-white" href="{{ path('slideshow_index', {'slug': slug}) }}">
-                 <button type="button" class="btn btn-danger btn-lg font-weight-bold mb-4">Annuler</button>
-             </a>
-             
-         </div>
-     
-         {{form_end(form)}}
 
     </div>
 
