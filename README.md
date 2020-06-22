@@ -13,13 +13,13 @@ A website platform dedicated to human projects presentation. In particular, you 
 
 * Install **Composer** (Composer is an application-level package manager for the PHP programming language) (https://getcomposer.org/download/)
 
-#### 0-b- Test your configuration: to do so, type the following commands in a Terminal:
+#### 0-b- Test your configuration: to do so, type the following commands in a terminal:
 
-* type the command git in a terminal, and make sure there is no error message
+* type the command **git** in a terminal, and make sure there is no error message
 
-* type the command php -v, and make sure you have et least version 7.1 
+* type the command **php -v**, and make sure you have et least version 7.1 
 
-* type the command composer -V , and make sure there is no error message
+* type the command **composer -V** , and make sure there is no error message
 
 #### Remark: each time you develop, make sure MySQL is launched (to do so, you simply have to run wampserver)
 	
@@ -52,7 +52,7 @@ Otherwise, you can run : php -S localhost:8000 -t public
 
 #### Remarks: if you develop with Visual Studio code:
 
-* for twig files syntax highlighting; snippets; Emmet: you can install Extension Twig Language 2
+* for twig files (syntax highlighting; snippets; Emmet): you can install Extension Twig Language 2.
 
 * to enable Emmet with twig files: go to File -> Preferences -> Setings -> Text Editor -> Files -> Associations -> edit settings.json -> (add following lines) :
 ```
