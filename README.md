@@ -3,9 +3,9 @@ A website platform dedicated to human projects presentation. In particular, you 
 
 # Installation Procedure 
 
-#### Remark : I use Visual Studio Code, along with its included terminal Windows PowerShell
+#### Remark: I use Visual Studio Code, along with its included terminal Windows PowerShell
 
-#### 0-a- Prerequisites : make sure these programs are installed:
+#### 0-a- Prerequisites: make sure these programs are installed:
 
 * Install **Git** (Git is a version control system for tracking changes in computer files) (https://git-scm.com/downloads)
 
@@ -65,7 +65,7 @@ Then, in a terminal, type : symfony server:start
 
 * Twig files management (syntax highlighting; snippets; Emmet): you can install Extension Twig Language 2.
 
-remark : to enable Emmet with twig files: go to File -> Preferences -> Setings -> Text Editor -> Files -> Associations -> edit settings.json -> (add following lines) :
+remark: to enable Emmet with twig files: go to File -> Preferences -> Setings -> Text Editor -> Files -> Associations -> edit settings.json -> (add following lines):
 
 ```
 "emmet.includeLanguages": {
