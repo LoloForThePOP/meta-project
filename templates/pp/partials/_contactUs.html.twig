@@ -6,7 +6,7 @@
 
     <!-- Structure Container -->
 
-    <div class="mt-4 mb-2">
+    <div class="pp-struct-container mt-4 mb-2 pb-3">
 
         <!-- Title Container -->
 
@@ -34,7 +34,7 @@
         
             <!-- A contact us card -->
         
-            <div id="" class="col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
+            <div id="" class="pp-contact-us-card col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
         
                 <!-- Contact Name or Title -->
 
@@ -214,12 +214,9 @@
         
         {% if presentation.isActiveContactMessages %}
 
-
-
-
-            <div id="" class="col-sm-5 border border-primary border-2 py-3 px-3 mb-4 mr-4 d-flex align-items-center justify-content-middle">
+            <div class="pp-private-message-card col-sm-5 border border-primary border-2 py-3 px-3 mb-4 mr-4 d-flex align-items-center justify-content-middle">
                         
-                            <div class="h5 my-auto mx-auto px-4 py-3 text-center bg-light btn btn-light font-weight-bold" style="letter-spacing: 1.15px; font-size:1.20em;">
+                            <div class="h5 my-auto mx-auto px-4 py-3 text-center font-weight-bold" style="letter-spacing: 1.15px; font-size:1.20em;">
                                 
             <a class="text-decoration-none text-body" href="{{path('contact_message_new', {'slug':presentation.slug})}}">Envoyer un 
 

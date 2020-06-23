@@ -1,9 +1,9 @@
 # Meta-Project
 A website platform dedicated to human projects presentation. In particular, you can present your project needs (ex: materials, skills, advices), and people can contact you. Coded with Symfony PHP Framework
 
-
-
 # Installation Procedure 
+
+#### Remark : I use Visual Studio Code, along with its included terminal Windows PowerShell
 
 #### 0-a- Prerequisites : make sure these programs are installed:
 
@@ -12,6 +12,7 @@ A website platform dedicated to human projects presentation. In particular, you 
 * Install **PHP (7.1 minimum)** along with **MySQL**  (to do so, if you use windows os, you can install WAMP Server for example)
 
 * Install **Composer** (Composer is an application-level package manager for the PHP programming language) (https://getcomposer.org/download/)
+
 
 #### 0-b- Test your configuration: to do so, type the following commands in a terminal:
 
@@ -29,32 +30,43 @@ git clone https://github.com/LoloForThePOP/meta-project.git
 #### 2- Move to the right folder
 cd meta-project
 
-#### 3- Install Dependancies
+#### 3- Enable a .env file
+rename the file ".env.example" to ".env" (so you only got to remove ".example" in the file name)
+
+#### 4- Install Dependancies
 composer install
 
-#### 4.a- Configure your database access : in the .env file :
+#### 5- Configure your database access: in the .env file:
 Example for mysql: go to this line: DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name \
 Then, for example, replace like this (adapt to your own): DATABASE_URL=mysql://root:@127.0.0.1:3306/projectofprojects
 
-#### 4.b- Create Database
+#### 6- Create Database
 php bin/console doctrine:database:create
 
-#### 5- Execute migrations
+#### 7- Execute migrations
 php bin/console doctrine:migrations:migrate
 
-#### 6- Execute Fixtures
+#### 8- Execute Fixtures
 php bin/console doctrine:fixtures:load --no-interaction
 
-#### 7- Start your Localhost Serveur
-If you already have installed the Symfony Local Web Server (The Symfony server is part of the symfony binary created when you install Symfony), run: symfony server:start 
+#### 9- Start your Local Web Server
 
-Otherwise, you can run : php -S localhost:8000 -t public
+You can **install "Symfony Local Web Server"** (https://symfony.com/download)
 
-#### Remarks: if you develop with Visual Studio code:
+Then, in a terminal, type : symfony server:start
 
-* for twig files (syntax highlighting; snippets; Emmet): you can install Extension Twig Language 2.
+#### I hope it works for you. Let's develop the Project of Projects.
 
-* to enable Emmet with twig files: go to File -> Preferences -> Setings -> Text Editor -> Files -> Associations -> edit settings.json -> (add following lines) :
+#### Remarks: if you develop with Visual Studio Code, some extensions might help you, in particular:
+
+* PHP Import and expand your class: you can install PHP Namespace Resolver.
+
+* PHP Document your code (example: Completion snippet after /** above a class, function, class property): you can install PHP DocBlocker.
+
+* Twig files management (syntax highlighting; snippets; Emmet): you can install Extension Twig Language 2.
+
+remark : to enable Emmet with twig files: go to File -> Preferences -> Setings -> Text Editor -> Files -> Associations -> edit settings.json -> (add following lines) :
+
 ```
 "emmet.includeLanguages": {
         "twig": "html",
@@ -62,4 +74,3 @@ Otherwise, you can run : php -S localhost:8000 -t public
 ```
 
 
-#### I hope it works for you. Let's develop the Project of Projects.

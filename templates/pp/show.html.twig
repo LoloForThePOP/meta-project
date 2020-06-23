@@ -28,14 +28,56 @@
 
 <style>
 
+
     .pp-struct-title{
 
-        //color: #0f05ef;
-        color: #0000cc;
-        font-weight: 500;
-        font-family: Verdana, sans-serif;
+        color : #2c3e50;
+        font-family : Verdana, Geneva, Tahoma, sans-serif;
+        
 
     }
+
+    .pp-struct-container, .pp-struct-container li, .pp-struct-container a {
+
+       background-color : #eff4ff;
+
+    }
+
+    div.pp-struct-container {
+
+        padding-left:20px;
+        padding-top:18px;
+        border-radius:4px;
+    }
+
+    .pp-struct-container, .pp-struct-container li:hover, .pp-struct-container td:hover, .pp-struct-container a:hover {
+
+       background-color : #eff4ff;
+
+    }
+
+
+    .pp-upper-box-container{
+
+      //border: 5px solid navy;
+      background-color:white;
+      border-radius:4px;
+
+    }
+
+    .pp-contact-us-card, .pp-contact-us-card a {
+
+      background-color : white !important;
+
+    }
+
+    .pp-private-message-card, .pp-private-message-card a {
+
+      background-color : white !important;
+
+    }
+
+
 
 </style>
 
@@ -45,9 +87,9 @@
 
         <div class="row">
 
-            <div class="col-md-10 mt-4 mb-3">
+            <div class="col-md-10 bg-primary mt-4 mb-3 pb-3" style="border-radius:4px !important;">
 
-                <div class="row pl-3 mb-4">
+                <div class="pp-upper-box-container bg-primary text-white row pl-3 pl-md-5 mb-4 pb-4">
 
                     <!-- Title & Goal & Keywords Display -->
 
@@ -80,7 +122,7 @@
 
                     <!-- Logo Display -->
 
-                    <div class="col-rest">
+                    <div class="col-rest pl-3">
                         
                         <!-- Project Logo -->
                         {% include 'pp/partials/_logo.html.twig' %}
@@ -88,6 +130,7 @@
                     </div>
 
                 </div>
+                
                 
                 <!-- Project Slideshow Pitch -->
                 {% include 'pp/partials/_slideshow.html.twig' %}
