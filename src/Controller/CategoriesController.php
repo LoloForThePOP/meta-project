@@ -29,7 +29,7 @@ class CategoriesController extends AbstractController
      */
     public function index(PPBasic $presentation, Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
     {
-        $categories = $categoryRepository->findAll();
+        $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
 
         $form = $this->createForm(KeywordsOnlyType::class, $presentation);
 
