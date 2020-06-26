@@ -8,7 +8,7 @@
 
     {% set sidebarItems = [ 
 
-        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'home.svg'},  { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  { 'name': 'Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
 
         { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
         { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
@@ -17,9 +17,9 @@
 
     <!-- Sidebar Template  -->
 
-    <nav id="sidebar" class="">
+    <nav id="sidebar" class="mr-md-5">
 
-        <ul class="list-unstyled components bg-light border border-primary mt-4">
+        <ul class="list-unstyled rounded components ml-md-3 pl-md-3" style="margin-top:31px; background-color:#eff4ff;">
 
             {% for item in sidebarItems %}
 
@@ -27,9 +27,9 @@
 
                     <a href="{{ path(item.route, {'slug':presentation.slug}) }}">  
 
-                        <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"27px" width="27px">
+                        <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-4" height:"31px" width="31px">
 
-                        <span class="textMenu align-middle">
+                        <span class="align-middle">
                             {{item.name}}
                         </span>
     

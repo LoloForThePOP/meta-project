@@ -9,14 +9,16 @@
 }
 
 #sidebar {
-    min-width: 250px;
-    max-width: 250px;
+    min-width: 225px;
+    max-width: 225px;
     transition: all 0.3s;
+    margin-right: 15px;
+    font-size: 1.15em;
 }
 
 #sidebar.active {
-    min-width: 80px;
-    max-width: 80px;
+    min-width: 125px;
+    max-width: 125px;
     text-align: center;
     padding-left: 0 !important;
 }
@@ -164,6 +166,7 @@ ul.CTAs a {
         max-width: 80px;
         text-align: center;
         margin-left: -80px !important;
+        font-size:1em;
     }
     #sidebar .dropdown-toggle::after {
         top: auto;

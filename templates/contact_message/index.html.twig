@@ -96,7 +96,6 @@
             <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
                 <thead>
                     <tr class="cursor-pointer">
-                        <th>Contexte</th>
                         <th>Titre</th>
                         <th>Contenu</th>
                         <th>Envoyeur</th>
@@ -107,11 +106,6 @@
                 <tbody>
                 {% for contact_message in contact_messages %}
                     <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
-
-
-                        <td>
-                            {{ contact_message.context  | slice(0, 20)}}
-                        </td>
 
                         <td class="{% if not contact_message.hasBeenConsulted %}unreadMessage {% endif %}">
                             {{ contact_message.title  | slice(0, 20)}}

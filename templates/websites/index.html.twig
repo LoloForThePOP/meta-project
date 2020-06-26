@@ -78,11 +78,7 @@
 
         <!-- Form Display -->
 
-        {{form_start(form)}}
-            
-        {{form_widget(form)}}
-
-        {{form_end(form)}}
+        {{ form(form) }}
 
     </div>
 
@@ -103,7 +99,7 @@
 
             up: '<button type="button" class="mr-2 btn btn-outline-primary arrowCar font-weight-bold bg-white">▲</button>',
 
-            remove: ' <button type="button" class="mr-2 btn btn-danger sharp my-1"><span class="h5 font-weight-bold">Retirer ce site</span></button>',
+            remove: ' <button type="submit" class="mr-2 btn btn-danger sharp my-1"><span class="h5 font-weight-bold">Retirer ce site</span></button>',
 
             down: ' <button type="button" class="btn btn-outline-primary arrowCar font-weight-bold bg-white mr-1">▼</button>',
 
@@ -116,32 +112,32 @@
             add_at_the_end: true,
 
         });
-
-        // insert submit button into each website box and align it
-
-        $(document).ready(function(){  
-
-            // Submit Button html Tag
-
-            var submitButton = '<button type="submit" class="js-submit-button btn btn-success bg-green sharp my-1 mr-2"><span class="h5 font-weight-bold"> Enregistrer</span></button>';
-
-            // We add Submit button into each box at initialisation
-
-            $(".website_collection_websites-collection-actions").prepend(submitButton)
-
-            // We add Submit button each time add button is clicked
-
-            $(".website_collection_websites-collection-rescue-add").on("click", function(event){ 
-
-                $(".js-submit-button").remove();
-
-                setTimeout(function() {
-                    $(".website_collection_websites-collection-actions").prepend(submitButton);
-                }, 100);
         
-            });  
+    // insert submit button into each website box and align it
 
+    $(document).ready(function(){  
+
+        // Submit Button html Tag
+
+        var submitButton = '<button type="submit" class="js-submit-button btn btn-success bg-green sharp my-1 mr-2"><span class="h5 font-weight-bold"> Enregistrer</span></button>';
+
+        // We add Submit button into each box at initialisation
+
+        $(".website_collection_websites-collection-actions").prepend(submitButton)
+
+        // We add Submit button each time add button is clicked
+
+        $(".website_collection_websites-collection-rescue-add").on("click", function(event){ 
+
+            $(".js-submit-button").remove();
+
+            setTimeout(function() {
+                $(".website_collection_websites-collection-actions").prepend(submitButton);
+            }, 100);
+    
         });  
+
+    });  
 
     </script>
 

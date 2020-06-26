@@ -29,41 +29,58 @@
 <style>
 
 
-    .pp-struct-title{
 
-        color : #2c3e50;
-        font-family : Verdana, Geneva, Tahoma, sans-serif;
-        
-
-    }
-
-    .pp-struct-container, .pp-struct-container li, .pp-struct-container a {
-
-       background-color : #eff4ff;
-
-    }
 
     div.pp-struct-container {
 
         padding-left:20px;
         padding-top:18px;
-        border-radius:4px;
-    }
+        margin-bottom:35px;
+
+        -webkit-box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+        -moz-box-shadow:  0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+        box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15) !important;
+    
+}
 
     .pp-struct-container, .pp-struct-container li:hover, .pp-struct-container td:hover, .pp-struct-container a:hover {
 
-       background-color : #eff4ff;
+       //background-color : #eef1f8;
 
     }
 
+    
+    .pp-whole-container {
 
+        background-color :  #eff4ff;
+ 
+     }
+     
     .pp-upper-box-container{
 
-      //border: 5px solid navy;
-      background-color:white;
-      border-radius:4px;
+    border-radius:4px;
+
+    border-left: 6px solid #ffa500;
+    border-bottom: 6px solid #ffa500;
+
+   
+    }
+    
+    .pp-struct-container, .pp-struct-container li, .pp-struct-container a {
+
+        background-color : #e6e4ff;
+ 
+     }
+
+     
+    .pp-struct-title{
+
+        color : navy;
+        font-family : Verdana, Geneva, Tahoma, sans-serif;
+        
 
     }
+
 
     .pp-contact-us-card, .pp-contact-us-card a {
 
@@ -77,26 +94,32 @@
 
     }
 
-
+    .pp-project-title{
+        color:navy !important;
+        font-weight:bold;
+    }
 
 </style>
 
-    <!-- Project Presentation Display Main Page -->
 
-    <div class="container pl-md-4">
+    <!-- Project Presentation Display Template -->
 
-        <div class="row">
+    <div class="pp-whole-container col-md-9 mt-md-4 pl-md-4 pt-3">
 
-            <div class="col-md-10 mt-4 mb-3 pb-3" style="border-radius:4px !important;">
+        <!-- upper box container (contains project title; goal; logo) -->
 
-                <div class="pp-upper-box-container row pl-3 pl-md-5 mb-4 pb-4">
+        <div class="row mb-3 mx-1">
 
-                    <!-- Title & Goal & Keywords Display -->
+            <div class="pt-2">
+            
+                <div class="pp-upper-box-container row pl-3 pl-md-3 mb-md-3 ml-0 mr-md-3 pb-4">
 
-                    <div class="col-md-9">
+                    <!-- Title; Goal; Keywords Display -->
 
-                        <div class="row my-2">
-                                          
+                    <div class="col-md-9 pr-4 mr-1">
+
+                        <div class="row">
+                                        
                             <!-- Project Title -->
                             {% include 'pp/partials/_title.html.twig' %}              
 
@@ -107,7 +130,7 @@
                                                     
                             <!-- Project Goal -->
 
-                            <div class="mb-1">
+                            <div class="mb-2">
 
                                 {% include 'pp/partials/_goal.html.twig' %}
 
@@ -122,7 +145,7 @@
 
                     <!-- Logo Display -->
 
-                    <div class="col-rest pl-3">
+                    <div class="col-rest pl-1">
                         
                         <!-- Project Logo -->
                         {% include 'pp/partials/_logo.html.twig' %}
@@ -130,6 +153,16 @@
                     </div>
 
                 </div>
+
+            </div>
+
+
+        </div>
+
+
+        <div class="row pt-2 pl-md-2">
+
+            <div class="col-md-12 pr-md-5 mb-3 pb-3" style="border-radius:4px !important;">
                 
                 
                 <!-- Project Slideshow Pitch -->
@@ -147,31 +180,31 @@
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
+                
+                    
+                    <div class="mt-5 mb-3">
+
+
+                        <!-- Display Some Metadatas -->
+                        {% include 'pp/partials/_metadataDisplay.html.twig' %}
+
+                        <!-- some buttons (example : report abuse; save as pdf; ...) -->
+
+                        <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
+                            <button type="button" class="btn btn-light">Signaler un abus</button>
+                        </a>
+                        
+                    </div>
+
+                    <!-- Project Provider Caps -->
+                    {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
+
+
+
             </div>
         
         </div>
 
-        <div class="row">
-            
-            <div class="col-md-8 mb-3">
-
-
-                <!-- Display Some Metadatas -->
-                {% include 'pp/partials/_metadataDisplay.html.twig' %}
-
-                <!-- some buttons (example : report abuse; save as pdf; ...) -->
-
-                <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
-                    <button type="button" class="btn btn-light">Signaler un abus</button>
-                </a>
-                
-            </div>
-
-            <!-- Project Provider Caps -->
-            {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
-
-
-        </div>
 
     </div>
 
