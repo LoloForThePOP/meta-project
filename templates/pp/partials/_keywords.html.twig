@@ -5,7 +5,19 @@
 
     <div class="keywords font-weight-bold mt-1 mb-2 h6 text-left" style="min-height:1.25em;" >
                             
-            #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+        #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+
+        <!-- Edit Project Keywords Button -->
+
+        {% if app.user and app.user == presentation.creator %}
+
+            <a href="{{ path('index_categories', {'slug': presentation.slug}) }}" class="">
+
+                <button class="btn btn-light btn-sm sharp font-weight-bold mb-2 d-inline">Éditer</button>
+                
+            </a>
+
+        {% endif %}
 
 
     </div>

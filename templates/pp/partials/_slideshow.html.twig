@@ -35,10 +35,6 @@
 				
 				<div class="slide">
 
-					<div class="container-fluid d-flex align-items-center justify-content-center" style="height:465px; ">
-
-						<!-- Possible Slide Caption (for Images and Videos) -->
-
 						{% if slide.caption %}
 												
 							<div class="h4" style="min-height:45px;">
@@ -48,6 +44,11 @@
 							</div>
 				
 						{% endif %}
+
+					<div class="container-fluid d-flex align-items-center justify-content-center" style="height:465px; ">
+
+						<!-- Possible Slide Caption (for Images and Videos) -->
+
 
 						<!-- Case Image Slide -->
 
@@ -62,7 +63,7 @@
 
 						<!-- Case Text Slide -->
 
-						{% if slide.mediaType=='text' %}
+						{% if slide.mediaType=='text' and slide.textContent is not empty %}
 
 							<div class="h4 overflow-hidden border border-primary border-2 rounded m-3 p-4 w-100" style="height:400px">
 								{{slide.textContent | sanitize_html}}

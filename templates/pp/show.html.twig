@@ -28,10 +28,7 @@
 
 <style>
 
-
-
-
-    div.pp-struct-container {
+    .pp-struct-container {
 
         padding-left:20px;
         padding-top:18px;
@@ -66,7 +63,7 @@
    
     }
     
-    .pp-struct-container, .pp-struct-container li, .pp-struct-container a {
+    .pp-struct-container {
 
         background-color : #e6e4ff;
  
@@ -99,6 +96,10 @@
         font-weight:bold;
     }
 
+    .pp-struct-needs {
+        //background-color:yellowgreen;
+    }
+
 </style>
 
 
@@ -109,10 +110,8 @@
         <!-- upper box container (contains project title; goal; logo) -->
 
         <div class="row mb-3 mx-1">
-
-            <div class="pt-2">
             
-                <div class="pp-upper-box-container row pl-3 pl-md-3 mb-md-3 ml-0 mr-md-3 pb-4">
+                <div class="pp-upper-box-container row mb-md-3 mt-2 ml-0 mr-md-3 pl-3 pl-md-3 pb-4">
 
                     <!-- Title; Goal; Keywords Display -->
 
@@ -151,8 +150,6 @@
                         {% include 'pp/partials/_logo.html.twig' %}
                         
                     </div>
-
-                </div>
 
             </div>
 

@@ -8,7 +8,8 @@
 
         <!-- Project Title Display -->
 
-        <h2 class="pp-project-title d-inline mr-2" style="line-height:0.8;">{{presentation.title | capitalize}}</h2>
+        <h2 class="pp-project-title d-inline mr-2" style="line-height:0.8;">{{presentation.title[:1] | upper ~ presentation.title[1:]}}</h2>
+
                                 
         <!-- Edit Project Title Button -->
 

@@ -18,36 +18,55 @@
             {% if app.user and app.user == presentation.creator %}
                 <a href="{{ path('websites_index', {'slug': presentation.slug}) }}" class="">
     
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Sites Web</button>
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les sites web</button>
                     
                 </a>
             {% endif %}
 
         </div>
 
-         <!-- Project Websites List Display -->
+        <!-- Project Websites Grid Display -->
 
-        <div class="list-group list-group-flush mb-2 px-2 col-lg-8">
-            
-            {% for website in presentation.websites %}
+        <div class="row pl-md-3">
 
-                <a href="{{website.url}}" class="list-group-item list-group-item-action border-0 flex-column align-items-start text-decoration-none text-body p-1">
+             {% for website in presentation.websites %}
 
-                    <div class="text-body p-1 w-100">
+                <div class="pl-md-3 col-sm-5 bg-white border border-light p-1 mb-4 mr-4" style="overflow-wrap: break-word;">
 
-                        {% if website.description is not null %}
+                    <a href="{{website.url}}" class="list-group-item list-group-item-action border-0 flex-column align-items-start text-decoration-none text-body p-1">
 
-                            <h5 class="mb-1 font-weight-bold">{{website.description}}</h5>
+                        <div class="text-body p-1 w-100">
 
-                        {% endif %}
+                            {% if website.description is not null %}
 
-                        <p class="mb-1">{{website.url}}</p>
+                                <h4 class="mb-1 font-weight-bold">
+                                    
+                                    {{website.description | slice(0,50)}}
 
-                    </div>
-                </a>
+                                    {% if website.description | length > 50 %}
+                                    ...
+                                    {% endif %}
 
+                                </h4>
+
+                            {% endif %}
+
+                            <p class="mb-1" style="font-size:1.3em;">
+
+                                {{website.url | slice(0,50)}}
+
+                                {% if website.url | length > 50 %}
+                                (...)
+                                {% endif %}
+                            
+                            </p>
+
+                        </div>
+                    </a>
+
+                </div>
             {% endfor %}
-            
+
         </div>
 
     </div>

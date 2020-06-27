@@ -8,6 +8,21 @@
 
 {% block body %}
 
+
+<style>
+
+  
+.cat-menu-title {
+  color:#0051fc !important;
+  font-size: 1.15em;
+  font-weight:bold;
+  text-transform: uppercase;
+  text-align:center;
+  margin-bottom:15px;
+}
+
+</style>
+
     <div class="container pl-md-4">
 
         <div class="container-fluid mt-4">
@@ -39,13 +54,13 @@
 
                       <div class="col">
 
-                        <div class="cat-menu-title mb-1">Lieux du Projet</div>
+                        <div class="cat-menu-title text-center mb-1">Lieux du Projet</div>
 
                         <div class="h5 mb-0 text-gray-800">
 
                           {% if presentation.geodomains | length == 0 %}
 
-                            <span class="">
+                            <span class="d-block mt-3">
                               Monde entier
                             </span>
 
@@ -90,7 +105,7 @@
                     <div class="row no-gutters align-items-center">
                       <div class="col mr-2">
 
-                        <div class="cat-menu-title text-xs font-weight-bold mb-2" >
+                        <div class="cat-menu-title text-xs text-center font-weight-bold mb-2" >
                           <span class="text-uppercase">Description du Projet</span>
                            <br>
                           Photos - Vidéos - Textes
@@ -199,10 +214,10 @@
                                     Pas de site web associé
                                   </span>
   
-                                {% elseif presentation.needs | length == 1  %}
+                                {% elseif presentation.websites | length == 1  %}
   
                                   <span class="fs-15">
-                                    1 site web
+                                    1 site web (ou réseau social)
                                   </span>
   
                                 {% else %}
@@ -211,7 +226,7 @@
   
                                     {{ presentation.websites | length }}
   
-                                    sites webs ou réseaux sociaux
+                                    sites webs (ou réseaux sociaux)
   
                                   </span>
   
@@ -244,7 +259,7 @@
                               {% if presentation.needs | length == 0 %}
 
                                 <span class="fs-15">
-                                  Pas de besoin présenté pour ce projet
+                                  Aucun besoin présenté pour ce projet
                                 </span>
 
                               {% elseif presentation.needs | length == 1  %}
@@ -297,7 +312,7 @@
                                 {% if presentation.categories | length == 0 %}
   
                                   <span class="text-danger" style="font-size:1.15em;">
-                                    !!! Pas de catégorie associée à ce projet !!!
+                                    !!! Aucune catégorie associée à ce projet !!!
                                   </span>
   
                                 {% else %}
@@ -337,7 +352,9 @@
                                 {% if presentation.keywords | length > 0 %}
   
                                   <span class="text-break">
-                                    #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) | capitalize}}
+
+                                    #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+                                    
                                   </span>
                                     
                                   
@@ -378,7 +395,7 @@
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
 
-                          <div class="cat-menu-title mb-2">Objectif & Titre du Projet</div>
+                          <div class="cat-menu-title text-center mb-2">Objectif & Titre du Projet</div>
 
                           <div class="row no-gutters align-items-center">
 
@@ -392,25 +409,25 @@
                       <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
 
-                          <div class="cat-menu-title  mb-2">Logo du Projet</div>
+                          <div class="cat-menu-title text-center mb-2">Logo du Projet</div>
 
-                          <div class="row no-gutters align-items-center">
+                          <div class="row no-gutters">
 
-                            <div class="h6 text-left font-weight-bold">
-                                                        
-                                {% if presentation.logoName | length == 0 %}
-
-                                  <span class="fs-15">
+                            {% if presentation.logoName | length == 0 %}
+                              
+                            <div class="h6 text-center font-weight-bold">
+              
+                                  <span class="fs-15 text-center">
                                     Pas de logo associé à ce projet
                                   </span>
-                                {% else %}
+                            </div>
 
-                                <img id="" class="mr-2 mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">      
+                            {% else %}
 
-                                {% endif %}
-                                
-                              </div>
+                              <img id="" class="mx-auto mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">      
 
+                            {% endif %}
+                              
                           </div>
                         </div>
                       
@@ -427,19 +444,19 @@
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer rounded-circle">
                 <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
-                    <div class="card-body">
+                    <div class="card-body d-flex align-items-center justify-content-center">
                       
-                      <div class="row no-gutters align-items-center">
+                      <div class="row no-gutters">
                         <div class="col mr-2">
   
-                          <div class="cat-menu-title  mb-2 ">Voir le Résultat</div>
-  
-                          <div class="row no-gutters align-items-center">
-  
-                            <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="float-left mr-md-3" height:"60px" width="60px">
+                          <div class="cat-menu-title mb-md-4 ">Voir le Résultat</div>
+    
+                            <div class="row no-gutters">
+    
+                              <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="mx-auto" height:"65px" width="65px">
 
 
-                          </div>
+                            </div>
                         </div>
                       </div>
 

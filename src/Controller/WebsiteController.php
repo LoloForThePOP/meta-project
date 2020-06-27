@@ -42,7 +42,7 @@ class WebsiteController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les Modifications ont étées effectuées!"
+                "Les modifications ont été effectuées !"
             );
         }
     

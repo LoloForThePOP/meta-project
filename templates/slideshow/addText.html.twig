@@ -60,7 +60,6 @@
       mode : "specific_textareas",
       editor_selector : "tinymce",
       content_css : '/css/tinymce.css',
-      placeholder: "La place disponible est délimitée par une bordure noire",
       width : "620",
       height: "500",
       entity_encoding : "raw",
@@ -78,7 +77,7 @@
 
       toolbar: "undo redo formatselect emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
 
-      content_style: "body {padding: 0px 15px; height:500px; border-bottom:5px solid black;}",
+      content_style: "body {padding: 0px 15px; height:500px; border-bottom:5px solid black;}html::after {content: \" Ne pas dépasser cette ligne !\";}",
 
       //link_title: false, (only when links plugin will be integrated)
       //target_list: false,

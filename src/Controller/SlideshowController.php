@@ -160,7 +160,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Diapo a été Ajoutée à la Fin du Diaporama"
+                "Le texte a bien été ajouté"
             );
 
             return $this->redirectToRoute('slideshow_index', [
@@ -201,7 +201,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Diapo a été Modifiée"
+                "Le texte a bien été modifié"
             );
 
             return $this->redirectToRoute('slideshow_index', [
@@ -257,7 +257,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "L'image a été ajoutée à la fin du Diaporama"
+                "L'image a bien été ajoutée"
             );
 
             return $this->redirectToRoute('slideshow_index', [
@@ -297,7 +297,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La diapo texte a été mise à jour"
+                "L'image a bien été mise à jour"
             );
 
             return $this->redirectToRoute('slideshow_index', [
@@ -364,7 +364,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Vidéo a bien été Ajoutée à la Fin du Diaporama"
+                "La vidéo a bien été ajoutée"
             );
 
             return $this->redirectToRoute('slideshow_index', [
@@ -419,7 +419,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La Diapo Vidéo a été Modifiée."
+                "La vidéo a bien été modifiée"
             );
 
             return $this->redirectToRoute('slideshow_index', [
