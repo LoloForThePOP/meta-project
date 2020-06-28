@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+
 {% block title %}Modifier une Zone Contact{% endblock %}
 
 {% block body %}
 
-    <div class="container">
+    <div class="container col-md-6 pt-md-3">
 
-        <h3 class="my-4">Modifier une Zone Contact</h3>
+        <h3 class="my-4">Modifier une zone de contact</h3>
 
         {{ include('contacts/_form.html.twig', {'button_label': 'Enregistrer'}) }}
 

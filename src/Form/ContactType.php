@@ -18,15 +18,7 @@ class ContactType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'email1',
-                EmailType::class,
-                $this->getConfiguration(
-                    "Une adresse e-mail ?", 
-                    "Écrire ici une adresse e-mail", 
-                    ['required' => false]
-                )
-            )
+
             ->add(
                 'title',
                 TextType::class,
@@ -36,6 +28,17 @@ class ContactType extends ApplicationType
                     ['required' => false]
                 )
             )
+
+            ->add(
+                'email1',
+                EmailType::class,
+                $this->getConfiguration(
+                    "Une adresse e-mail ?", 
+                    "Écrire ici une adresse e-mail", 
+                    ['required' => false]
+                )
+            )
+
             ->add(
                 'tel1', 
                 TelType::class,
@@ -61,14 +64,14 @@ class ContactType extends ApplicationType
                 TextareaType::class,
                 $this->getConfiguration(
                     "Une adresse postale ?", 
-                    "Vous pouvez l'écrire ici", 
+                    "Écrire ici une adresse postale", 
                     ['required' => false]
                 ))
             ->add(
                 'remarks',
                 TextareaType::class,
                 $this->getConfiguration(
-                    "Ajouter des informations, des remarques?",
+                    "Ajouter des informations, des remarques ?",
                     "Exemples : Heures d'ouverture ; Langues parlées",
                       ['required' => false]
                 )
