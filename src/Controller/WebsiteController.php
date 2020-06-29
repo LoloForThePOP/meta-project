@@ -86,7 +86,7 @@ class WebsiteController extends AbstractController
                 "Les modifications ont bien été effectuées !"
             );
 
-            return $this->redirectToRoute('test_websites_index', [
+            return $this->redirectToRoute('websites_index', [
                 'slug' => $presentation->getSlug(),
                 'presentation' => $presentation,
             ]);
