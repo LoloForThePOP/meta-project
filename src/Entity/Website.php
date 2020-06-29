@@ -26,27 +26,38 @@ class Website
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Assert\Url
+     * 
+     * @Assert\Url(
+     *    message = "Cette adresse '{{ value }}' n'est pas une url valide",
+     * )
      * 
      */
     private $url;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * 
+     * @Assert\Length(
+     *      max = 255,
+     *      maxMessage = "La description doit faire au maximum {{ limit }} caractères",
+     * )
      *
      */
     private $description;
-
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\PPBasic", inversedBy="websites")
-     */
-    private $presentation;
 
     /**
      * 
      * @ORM\Column(type="smallint", nullable=true)
      */
     private $position;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\PPBasic", inversedBy="websites")
+     * 
+     */
+    private $presentation;
+
 
     public function getId(): ?int
     {

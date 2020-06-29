@@ -21,7 +21,7 @@ class WebsiteType extends AbstractType
                     'label' => 'Adresse du site',
                     'attr' => [
                         
-                        'placeholder'    => 'www.example.com',
+                        'placeholder'    => 'www.exemple.com',
                     ],
                 ]
             )

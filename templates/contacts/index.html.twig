@@ -8,16 +8,19 @@
 
     <div class="container pt-3">
         
+    <!-- Page Title -->	
+
     <h3 class="my-3 d-inline mr-3">Comment vous contacter ?</h3>
 
-
-    <!-- collapsable advice -->	
+    <!-- Collapsable Advice Button -->	
 
     <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
         <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Conseil </span>
         
     </a>
+
+    <!-- Collapsable Box -->
         
     <div class="collapse col-md-8 mt-0 mb-4" id="collapseExample">
 
@@ -28,13 +31,18 @@
             </p>
 
     </div>
-        
-        <!-- Add a Contact Button -->
     
-        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg bg-green sharp d-block font-weight-bold px-4 mt-3 py-3 mb-4 mr-3">+ Ajouter une zone de contact</button></a>
+    <!-- "Add a Contact Card" Button -->
 
-        <!-- Manage Contact Zones -->
+    <div class="mb-4">
+            
+        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg bg-green sharp d-block font-weight-bold px-4 mt-3 py-3 mr-3">+ Ajouter une zone de contact</button></a>
 
+    </div>
+
+    <!-- "Manage Contact Cards" Table -->
+
+    <div class="mb-3">
 
         {% if contacts | length > 0 %}
 
@@ -92,6 +100,15 @@
             </div>
         
         {% endif %}
+
+    </div>
+
+
+    <!-- Back Button -->
+
+    <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+        <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
+    </a>
 
 
       

@@ -40,9 +40,9 @@
     
 }
 
-    .pp-struct-container, .pp-struct-container li:hover, .pp-struct-container td:hover, .pp-struct-container a:hover {
+.pp-struct-container li, .pp-struct-container li:hover, .pp-struct-container td:hover, .pp-struct-container a:hover {
 
-       //background-color : #eef1f8;
+        background-color :  #e6e4ff;
 
     }
 
@@ -85,6 +85,11 @@
 
     }
 
+    .pp-website-card, .pp-website-card > * {
+
+        background-color: #fafafa;
+    }
+
     .pp-private-message-card, .pp-private-message-card a {
 
       background-color : white !important;
@@ -105,7 +110,18 @@
 
     <!-- Project Presentation Display Template -->
 
-    <div class="pp-whole-container col-md-9 mt-md-4 pl-md-4 pt-3">
+    <div class="pp-whole-container col-md-9 mt-md-5 pl-md-4 pt-3
+    
+    {# we center the presentation display when just in consultation mode #}
+
+    {% if not app.user == presentation.creator %}
+    
+        container  
+
+    {% endif %}
+    
+    
+    ">
 
         <!-- upper box container (contains project title; goal; logo) -->
 

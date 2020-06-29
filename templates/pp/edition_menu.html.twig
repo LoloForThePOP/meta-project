@@ -56,7 +56,7 @@
 
                         <div class="cat-menu-title text-center mb-1">Lieux du Projet</div>
 
-                        <div class="h5 mb-0 text-gray-800">
+                        <div class="h5 mb-0 text-gray-800 text-center">
 
                           {% if presentation.geodomains | length == 0 %}
 
@@ -66,7 +66,7 @@
 
                           {% else %}
                           
-                           <ul class="list-group pl-0">
+                           <ul class="list-group pl-0 text-left">
 
                             {% for place in presentation.geoDomains | slice(0, 3) %}
 
@@ -226,8 +226,9 @@
 
                       <hr class="mt-1 mb-2 mx-1 border-4">
                       
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
+                      <div class="row no-gutters">
+                        
+                        <div class="col pt-2 mr-2">
 
                           <div class="cat-menu-title text-center mb-2">Logo du Projet</div>
 
@@ -240,6 +241,7 @@
                                   <span class="fs-15 text-center">
                                     Pas de logo associé à ce projet
                                   </span>
+
                             </div>
 
                             {% else %}
@@ -369,7 +371,7 @@
   
                                   <span class="text-break">
 
-                                    #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+                                    #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) }}
                                     
                                   </span>
                                     

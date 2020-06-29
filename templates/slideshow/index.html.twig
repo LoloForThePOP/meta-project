@@ -40,89 +40,91 @@
 
         </div>
 
-       
-
-
 
         <!-- Slide Thumbnails Grid -->
 
-            <div class="container">
+        <div class="container mb-3">
 
-                <div id="gridDemo" class="row col-md-8 pl-0">
+            <div id="gridDemo" class="row col-md-8 pl-0">
 
-                    {% if presentation.slides | length > 0 %}
+                {% if presentation.slides | length > 0 %}
 
-                    {% for slide in presentation.slides %}
+                {% for slide in presentation.slides %}
 
-                        <!-- Thumbnail Container -->
+                    <!-- Thumbnail Container -->
 
-                        <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded-lg overflow-hidden cursor-pointer" style="width:130px; height:123px; border-color: #5a74ff !important;">
+                    <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded-lg overflow-hidden cursor-pointer" style="width:130px; height:123px; border-color: #5a74ff !important;">
 
-                            {% if slide.mediaType == 'image' %}
+                        {% if slide.mediaType == 'image' %}
 
-                                <a href="{{path('slideshow_image_edit', {'slug':slug,'id_slide' : slide.id })}}" class="text-body text-decoration-none">
+                            <a href="{{path('slideshow_image_edit', {'slug':slug,'id_slide' : slide.id })}}" class="text-body text-decoration-none">
 
-                                    <img src="/images/projects/slides_images/{{slide.slideName}}" alt="{{slide.slideName}}" height="" width="100%">
-                                </a>
-
-                            {% elseif slide.mediaType == 'video' %}
-
-                                <a href="{{path('slideshow_video_edit', {'slug':slug, 'presentation': presentation, 'id_slide' : slide.id })}}" class="text-body text-decoration-none">
-                                    
-                                    <img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" height="" width="100%">
-
-                                    <!-- ui css video icon -->
-
-                                    <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span> 
-
-
-
-                                </a>
-                              
-
-
-                            {% elseif slide.mediaType == 'text' %}
-
-                            <a href="{{path('slideshow_text_edit', {'slug':slug,'slide_id' : slide.id })}}" class="text-body text-decoration-none">
-
-                                <div class="text-break p-1 cursor-pointer" style="width:100%; line-height:1.15em;">
-    
-                                    {{slide.textContent|striptags|length > 20 ? slide.textContent|striptags|slice(0,20)|striptags : slide.textContent|raw }}
-                                    {{slide.textContent|striptags|length > 20 ? '...' : ''}}
-
-                                </div>
-
+                                <img src="/images/projects/slides_images/{{slide.slideName}}" alt="{{slide.slideName}}" height="" width="100%">
                             </a>
 
-                                     
-                            {% endif %}
+                        {% elseif slide.mediaType == 'video' %}
 
-                            <!-- Remove Slide button (a red cross on each slide) -->
-            
-                            <button type="button" class="js-delete-slide d-inline position-absolute btn btn-danger" data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
+                            <a href="{{path('slideshow_video_edit', {'slug':slug, 'presentation': presentation, 'id_slide' : slide.id })}}" class="text-body text-decoration-none">
+                                
+                                <img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" height="" width="100%">
 
-                        </div>
+                                <!-- ui css video icon -->
 
-                    {% endfor %}
+                                <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span> 
 
-                    {% endif %}
-                                        
-                    <!-- Add New Slide Button (Open a Modal)  -->
-                        
-                    <div id="newSlide" data-toggle="modal" data-target="#chooseSlideTypeModal" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer" style="text-align:center; width:130px; height:123px; border: dashed 5px #5a74ff;">
+
+
+                            </a>
+                            
+
+
+                        {% elseif slide.mediaType == 'text' %}
+
+                        <a href="{{path('slideshow_text_edit', {'slug':slug,'slide_id' : slide.id })}}" class="text-body text-decoration-none">
+
+                            <div class="text-break p-1 cursor-pointer" style="width:100%; line-height:1.15em;">
+
+                                {{slide.textContent|striptags|length > 20 ? slide.textContent|striptags|slice(0,20)|striptags : slide.textContent|raw }}
+                                {{slide.textContent|striptags|length > 20 ? '...' : ''}}
+
+                            </div>
+
+                        </a>
+
+                                    
+                        {% endif %}
+
+                        <!-- Remove Slide button (a red cross on each slide) -->
+        
+                        <button type="button" class="js-delete-slide d-inline position-absolute btn btn-danger" data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
+
+                    </div>
+
+                {% endfor %}
+
+                {% endif %}
+                                    
+                <!-- Add New Slide Button (Open a Modal)  -->
                     
-                        <span style="font-size:4em; font-weight:700; color:rgb(46, 138, 46);">+</span>
-                    
-                    </div>    
+                <div id="newSlide" data-toggle="modal" data-target="#chooseSlideTypeModal" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer" style="text-align:center; width:130px; height:123px; border: dashed 5px #5a74ff;">
+                
+                    <span style="font-size:4em; font-weight:700; color:rgb(46, 138, 46);">+</span>
+                
+                </div>    
 
-                    <!-- ui Modal Box to Choose Which Slide Type to Insert -->
+                <!-- ui Modal Box to Choose Which Slide Type to Insert -->
 
-                    {% include '/slideshow/partials/_chooseSlideTypeAdd.html.twig' %}
-
-                </div>
+                {% include '/slideshow/partials/_chooseSlideTypeAdd.html.twig' %}
 
             </div>
 
+        </div>
+
+        <!-- Back Button -->
+
+        <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+            <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
+        </a>
 
     </div>
 
@@ -152,7 +154,7 @@
             });
 
             // Allow drag and drop slides reorder (front-end)
-            // and ùmanage an ajax request to update slides positions (back-end)
+            // and manage an ajax request to update slides positions (back-end)
 
 
             $('#gridDemo').sortable({

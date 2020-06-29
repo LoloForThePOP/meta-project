@@ -2,7 +2,7 @@
 
 <!-- Contact Us Infos & Send Private Message Button Display -->
 
-{% if presentation.contacts | length > 0 %}
+{% if presentation.contacts | length > 0 or  presentation.isActiveContactMessages %}
 
     <!-- Structure Container -->
 
