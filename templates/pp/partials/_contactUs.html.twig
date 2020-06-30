@@ -1,6 +1,6 @@
 
 
-<!-- Contact Us Infos & Send Private Message Button Display -->
+<!-- "Contact Us Cards" & "Send Private Message Button" Display -->
 
 {% if presentation.contacts | length > 0 or  presentation.isActiveContactMessages %}
 
@@ -14,7 +14,7 @@
                     
             <h2 class="h3 pp-struct-title d-inline mr-2">Nous contacter</h2>
                                             
-            <!-- Edit Project Title Button -->
+            <!-- Edit Project Contact Cards Button -->
 
             {% if app.user and app.user == presentation.creator %}
                 <a href="{{ path('contact_index', {'slug': presentation.slug}) }}" class="">

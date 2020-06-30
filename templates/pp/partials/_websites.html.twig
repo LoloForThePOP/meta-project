@@ -39,7 +39,7 @@
 
                             {% if website.description is not null %}
 
-                                <h4 class="mb-1 font-weight-bold">
+                                <h5 class="mb-1 font-weight-bold">
                                     
                                     {{website.description | slice(0,50)}}
 
@@ -47,11 +47,11 @@
                                     ...
                                     {% endif %}
 
-                                </h4>
+                                </h5>
 
                             {% endif %}
 
-                            <p class="mb-1" style="font-size:1.3em;">
+                            <p class="mb-1 fs-15">
 
                                 {{website.url | slice(0,50)}}
 

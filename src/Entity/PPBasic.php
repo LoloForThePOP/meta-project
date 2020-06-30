@@ -305,6 +305,12 @@ class PPBasic implements \Serializable
      */
     private $owners;
 
+    /**
+     * @ORM\OneToMany(targetEntity=QuestionAnswer::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $questionAnswers;
+
 
     public function __construct()
     {
@@ -323,6 +329,7 @@ class PPBasic implements \Serializable
         $this->applyToPGroups = new ArrayCollection();
         $this->invitedByPGroups = new ArrayCollection();
         $this->owners = new ArrayCollection();
+        $this->questionAnswers = new ArrayCollection();
     }
     
 
@@ -845,6 +852,37 @@ class PPBasic implements \Serializable
             // set the owning side to null (unless already changed)
             if ($owner->getPresentation() === $this) {
                 $owner->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|QuestionAnswer[]
+     */
+    public function getQuestionAnswers(): Collection
+    {
+        return $this->questionAnswers;
+    }
+
+    public function addQuestionAnswer(QuestionAnswer $questionAnswer): self
+    {
+        if (!$this->questionAnswers->contains($questionAnswer)) {
+            $this->questionAnswers[] = $questionAnswer;
+            $questionAnswer->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeQuestionAnswer(QuestionAnswer $questionAnswer): self
+    {
+        if ($this->questionAnswers->contains($questionAnswer)) {
+            $this->questionAnswers->removeElement($questionAnswer);
+            // set the owning side to null (unless already changed)
+            if ($questionAnswer->getPresentation() === $this) {
+                $questionAnswer->setPresentation(null);
             }
         }
 

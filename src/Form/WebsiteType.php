@@ -32,6 +32,7 @@ class WebsiteType extends AbstractType
                         
                         'placeholder'    => 'Exemple : Notre Site Web',
                     ],
+                    'required'   => false,
                 ]
             )
             ->add('position', HiddenType::class, 

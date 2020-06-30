@@ -4,33 +4,11 @@
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Sites Web du Projet{% endblock %}
+{% block title %}Questions et Réponses du Projet{% endblock %}
 
 {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
-
 {% block body %}
-    
-    <!-- Label & Input Styles -->
-
-    <style>
-                
-        input {
-            color:black !important;
-            font-size:1.25em !important;
-            width: 100%;
-            padding: 5px 12px;
-            margin: 4px 0 8px 0;
-            border-style:solid;
-            display: inline-block;
-            box-sizing: border-box;
-        }
-
-        label {
-            margin: 0;
-        }
-
-    </style>
 
     <!-- Content Container -->
 
@@ -42,7 +20,7 @@
 
             <!-- ui Page Title -->
 
-            <h3 class="font-weight-bold d-inline mr-3">Gérer les sites web</h3>
+            <h3 class="font-weight-bold d-inline mr-3">Gérer les Questions / Réponses</h3>
 
             
             <!-- collapsable advice trigger button -->	
@@ -61,29 +39,23 @@
 
             <p class="h5">
 
-                Vous pouvez lister ici tous les sites webs en liens avec votre projet. 
-
-            </p>
-
-            <p class="h5">
-
-                Exemples : site web personnel; réseaux sociaux; serveur Discord; dépôt Github; Trello; Slack et autres.
+                Vous pouvez lister ici toutes les questions que les gens vous posent, et vos réponses,  afin de ne pas avoir à réécrire à chaque fois les mêmes réponses. 
 
             </p>
 
         </div>
 
-        <!-- Add Website Button -->
+        <!-- Add Q&A Button -->
 
         <div class="mb-4">
 
-            <button type="button" data-toggle="modal" data-target="#websiteFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un site web</button> 
+            <button type="button" data-toggle="modal" data-target="#qaFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une Question / Réponse</button> 
 
         </div>
 
         <!-- Form Display (in a Modal Box) -->
 
-        <div class="modal fade" id="websiteFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="qaFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 
             <div class="modal-dialog" role="document">
 
@@ -91,7 +63,7 @@
 
                     <div class="modal-header">
 
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un site web</h5>
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter une Question / Réponse</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -123,34 +95,35 @@
 
         </div>
 
-        <!-- Presentation Websites List -->
+        <!-- Presentation Q&A List -->
 
         <div class="container mb-2">
 
-            <div id="websitesList" class="row col-md-10 pl-0">
+            <div id="qaList" class="row col-md-6 pl-0">
 
-                {% if presentation.websites | length > 0 %}
+                {% if presentation.questionAnswers | length > 0 %}
 
-                    {% for website in presentation.websites %}
+                    {% for qa in presentation.questionAnswers %}
 
-                        <!-- Thumbnail Container -->
+                        <!-- Grid Container -->
 
-                        <div id="{{website.id}}" class="col-md-5 mr-md-4 js-sortableGridItem d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
+                        <div id="{{qa.id}}" class="col-12 mr-md-4 js-sortableGridItem d-flex align-items-center position-relative mb-3 p-1 border border-primary overflow-hidden cursor-pointer">
 
-                            <a href="{{path('edit_website', {'slug':slug,'idWebsite' : website.id })}}" class="w-100 h-100 text-body text-decoration-none">
+                            <a href="{{path('edit_qa', {'slug':slug,'idQA' : qa.id })}}" class="w-100 h-100 text-body text-decoration-none">
+
+                                <div class="font-weight-bold mb-1">
+                                    {{ qa.question | slice (0,35) }}...
+                                </div>
                                 
-
-                                {{ website.description }}
-
-                                <br>
-
-                                {{ website.url }}
+                                <div>
+                                    {{ qa.answer | slice (0,35) | raw }}...
+                                </div>
 
                             </a>
      
-                            <!-- Remove Website Button (Red Cross) -->
+                            <!-- Remove Q&A Button (Red Cross) -->
             
-                            <button type="button" class="js-delete-website d-inline position-absolute btn btn-danger sharp" data-id="{{website.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
+                            <button type="button" class="js-delete-qa d-inline position-absolute btn btn-danger sharp" data-id="{{qa.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
 
                         </div>
 
@@ -177,6 +150,7 @@
 {% endblock %}
 
 
+
 {% block javascripts %}
 
     <!-- sortable plugin in order to reorder slides -->
@@ -191,7 +165,7 @@
 
         $(document).ready(function(){
 
-            $('#websitesList').sortable({
+            $('#qaList').sortable({
 
                 animation: 150,
 
@@ -203,29 +177,29 @@
                     return evt.related.className.indexOf('disabled') === -1;
                 },
 
-                // drag and drop implies websites positions updates ajax call
+                // drag and drop implies qa positions updates ajax call
 
                 onEnd: function (evt) {
 
                     // an array storing slides id position
 
-                    var websitesPosition = [];
+                    var qasPosition = [];
 
                     
-                    $('#websitesList div.js-sortableGridItem').each(function(index){
+                    $('#qaList div.js-sortableGridItem').each(function(index){
                         
-                        websitesPosition.push($(this).attr('id'));
+                        qasPosition.push($(this).attr('id'));
                    
                     });
 
-                    jsonWebsitesPosition = JSON.stringify(websitesPosition);
+                    jsonQAsPosition = JSON.stringify(qasPosition);
                     
                     $.ajax({  
-                        url: "{{path('ajax_reorder_websites', {'slug': presentation.slug})}}",
+                        url: "{{path('ajax_reorder_qas', {'slug': presentation.slug})}}",
                         type:       'POST',   
                         dataType:   'json',
                         data: {
-                            "jsonWebsitesPosition": jsonWebsitesPosition,
+                            "jsonQAsPosition": jsonQAsPosition,
                         },
     
                         async: true,  
@@ -243,25 +217,25 @@
             });
                         
             
-            // Remove a Website
+            // Remove a Q&A
 
-            $('#websitesList').on('click', '.js-delete-website', function (){
+            $('#qaList').on('click', '.js-delete-qa', function (){
 
-                var idWebsite = $(this).attr("data-id");
+                var idQA = $(this).attr("data-id");
 
-                if (confirm("Confimez vous enlever ce site web ?"))
+                if (confirm("Confimez vous enlever cette Question / Réponse ?"))
                 {
 
                 $(this).html('<div class="loader"></div>');
                     
                 $.ajax({  
 
-                    url: "{{path('ajax_remove_website', {'slug': presentation.slug}) }}",
+                    url: "{{path('ajax_remove_qa', {'slug': presentation.slug}) }}",
                     type:       'POST',   
                     dataType:   'json',
                     
                     data: {
-                        "idWebsite": idWebsite,
+                        "idQA": idQA,
                     },
 
                     async: true,  
@@ -269,7 +243,7 @@
                     success: function(data, status) {
 
 
-                        $("#websitesList #"+idWebsite).remove();
+                        $("#qaList #"+idQA).remove();
                         
                     },  
 

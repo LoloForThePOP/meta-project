@@ -97,7 +97,7 @@
                 
               </div>
   
-              <!-- Project Slideshows -->
+              <!-- Project Slideshow -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-decoration-none text-body" href="{{ path('slideshow_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
@@ -145,6 +145,59 @@
 
  
                               {% endif %}
+
+                              </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                </a>
+                
+              </div>
+  
+              <!-- Project Q&A -->
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                <a class="text-decoration-none text-body" href="{{ path('qa_manage', {'slug':presentation.slug}) }}">
+                  <div class="card border-left-info shadow h-100 py-2">
+                  <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                      <div class="col mr-2">
+
+                        <div class="cat-menu-title text-xs text-center font-weight-bold" >
+
+                          <span class="text-uppercase">Questions & Réponses</span>
+                                            
+                        </div>
+
+                        <div class="row no-gutters d-flex justify-content-center">
+
+                            <div class="h6 font-weight-bold">
+
+                              
+                                {% if presentation.questionAnswers | length == 0 %}
+  
+                                  <span class="fs-15">
+                                    Pas de Question / Réponse
+                                  </span>
+  
+                                {% elseif presentation.questionAnswers | length == 1  %}
+  
+                                  <span class="fs-15">
+                                    1 Question / Réponse
+                                  </span>
+  
+                                {% else %}
+  
+                                  <span class="fs-15">
+  
+                                    {{ presentation.questionAnswers | length }}
+  
+                                    Questions / Réponses
+  
+                                  </span>
+  
+                                {% endif %}
 
                               </div>
                         </div>

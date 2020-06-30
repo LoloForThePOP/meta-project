@@ -15,6 +15,7 @@ use App\Entity\Website;
 use App\Entity\Category;
 use App\Entity\GeoDomain;
 use App\Entity\ContactMessage;
+use App\Entity\QuestionAnswer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -269,6 +270,38 @@ class AppFixtures extends Fixture
                 }
 
             }
+
+            // Project Questions and Answers Creation (= QA)
+
+            $numQA = mt_rand(0,7);
+            
+            if ($numQA > 0){
+
+                for ($j=1; $j<=$numQA; $j++){
+                
+                    $qa = new QuestionAnswer();
+
+                    $createdAt = $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+                    $question = $faker->sentence();
+                    $answer =  '<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>';
+                    $position = $j;
+
+                    $qa-> setCreatedAt($createdAt)
+                            -> setQuestion($question)
+                            -> setAnswer($answer)
+                            -> setPosition($j)
+                            -> setPresentation($pp);
+
+                    $manager->persist($qa);
+                }
+
+            }
+
+
+
+
+
+
 
             // Project Websites Creation
 

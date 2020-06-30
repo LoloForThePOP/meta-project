@@ -1,0 +1,103 @@
+
+<style>
+   
+    .accordion-section .panel-default > .panel-heading {
+        border: 0;
+        background: #f4f4f4;
+        padding: 0;
+    }
+    .accordion-section .panel-default .panel-title a {
+        display: block;
+        font-size: 1.2rem;
+    }
+    .accordion-section .panel-default .panel-title a:after {
+       
+        font-size: .1.5rem;
+        content: "▲";
+        float: right;
+    }
+    .accordion-section .panel-default .panel-title a.collapsed:after {
+        content: "▼";
+    }
+    .accordion-section .panel-default .panel-body {
+        font-size: 1.2rem;
+    }
+</style>
+
+
+<!-- Question & Answers Display -->
+
+{% if presentation.questionAnswers | length > 0 %}
+
+    <!-- Structure Container -->
+
+
+    <div class="pp-struct-container pb-3">
+
+        <!-- Title Container -->
+
+        <div class="mb-4 pb-1">
+                    
+            <h2 class="h3 pp-struct-title d-inline mr-2">Questions / Réponses</h2>
+                                            
+            <!-- Edit Project Q&A Button -->
+
+            {% if app.user and app.user == presentation.creator %}
+                <a href="" class="">
+
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
+                    
+                </a>
+            {% endif %}
+
+        </div>
+
+         <!-- Q & A (Collapsible) -->
+            
+        <section class="accordion-section clearfix mt-3" aria-label="QuestionAccordions">
+
+            <div class="container">
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    
+                    {% for qa in presentation.questionAnswers %}
+
+                    <div class="panel panel-default border border-light">
+
+                        <div class="panel-heading p-1 mb-3" role="tab" id="heading{{ qa.id }}">
+                            <h5 class="panel-title">
+                                <a class="collapsed text-body bg-light" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ qa.id }}" aria-expanded="true" aria-controls="collapse{{ qa.id }}">
+                                    {{ qa.question }}
+                                </a>
+                            </h5>
+                        </div>
+
+                        <div id="collapse{{ qa.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ qa.id }}">
+                            
+                            <div class="panel-body px-3 mb-4">
+                        
+                                {{ qa.answer | raw }}
+
+                            </div>
+
+                            {{ qa.createdAt | date("d/m/Y") }}
+
+                        </div>
+                    </div>
+                    
+                    {% endfor %}
+
+
+
+                </div>
+            
+            </div>
+
+        </section>
+
+
+
+
+    </div>
+
+{% endif %}

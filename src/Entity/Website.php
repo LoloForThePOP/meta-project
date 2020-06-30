@@ -11,7 +11,8 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Validator\Constraints\Url;
 
 /**
- * A List of Websites an be related to a presentation of projects (ex : for this project we got a slack, a trello, a github). This Entity represents a project website.
+ * 
+ * Allow to create a List of Websites related to a project (ex : "for this project we got : a slack, a trello, a github").
  * 
  * @ORM\Entity(repositoryClass="App\Repository\WebsiteRepository")
  */
