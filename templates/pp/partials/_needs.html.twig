@@ -29,7 +29,7 @@
             <!-- Manage Project Needs Button -->
 
             {% if app.user and app.user == presentation.creator %}
-                <a href="{{ path('need_index', {'slug': presentation.slug}) }}" class="">
+                <a href="{{ path('need_index', {'slug': presentation.slug}) }}">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les besoins</button>
                     
@@ -38,36 +38,55 @@
 
         </div>
 
-        <!-- Project Needs Display -->
-     
-        <div class="container-fluid table-responsive my-2">
+        <!-- Project Needs Display List -->
+    
+        <div class="container-fluid table-responsive my-2 pl-0 pl-md-3">
             
-            <table class="table table-hover table-borderless">
+            <table id="needsDisplayTable" class="table table-hover table-borderless">
                 
                 <tbody>
 
-                    
-                    <!-- we display first five needs by default --> 
+                    {% for need in presentation.needs %}
 
-                    {% for need in presentation.needs | slice (0,5) %}
-                        
-                        {% set showPath = path('need_show', {'id': need.id, 'slug': presentation.slug}) %}
+                        <!-- Is it a Paid Service ? We set the Answer. -->
 
-                        <tr class="cursor-pointer h5 font-weight-bold">
+                        {% if need.paidService %}
+                      
+                            {% if need.paidService == 'yes' %}
+                                {% set isPaid = "Payé" %}
 
-                            <td  onclick="window.location='{{ showPath }}'">
-                    
-                                    <a href="{{ showPath }}" class="text-body text-decoration-none">
+                            {% elseif need.paidService == 'no' %}
+                                {% set isPaid = "Non Payé" %}
 
-                                        {# Blue Arrow bullet point #}
-                                        
-                                        <span class="arrowCar blueArrow">► </span>
+                            {% elseif need.paidService == 'maybe' %}
+                                {% set isPaid = "Peut-être Payé" %}
 
-                                        {# Need Title #}
-                                        
-                                        {{ need.title | capitalize}}
+                            {% else %}
 
-                                    </a>
+                            {% set isPaid = "" %}
+                            
+                            {% endif %}
+
+                        {% endif %}
+
+                        <!-- ui Table Row : Need Title Display -->
+
+
+                        <tr id="{{ need.id }}" data-need-title = "{{ need.title }}" data-need-date = "{{need.createdAt |date('d-m-Y')}}" data-need-isPaid = "{{ isPaid }}" class="cursor-pointer h5 font-weight-bold">
+
+                            <td>
+                
+                                <a data-toggle="modal" data-target="#displayNeedDescriptionModal" class="text-body text-decoration-none">
+
+                                    {# Blue Arrow bullet point #}
+                                    
+                                    <span class="arrowCar blueArrow">► </span>
+
+                                    {# Need Title #}
+                                    
+                                    {{ need.title | capitalize}}
+
+                                </a>
 
                             </td>
 
@@ -75,106 +94,95 @@
 
                     {% endfor %}
 
-                    <!-- if there are more than 5 needs, we propose a modal box for the user to see them all -->
 
-                    {% if presentation.needs |length > 5 %}
+                </tbody>
+        
+            </table>
 
-                        <tr class="cursor-pointer h5 font-weight-bold bg-light">
+        </div>
 
-                            <td>
-
-                                <!-- Display All Needs "Button" -->
-                    
-                                <a id="needsModalLink" class="text-body text-decoration-none" data-toggle="modal" data-target="#displayNeedsModal"><span class="arrowCar blueArrow">►►► </span>Afficher tous les Besoins<span class="arrowCar blueArrow"> ◄◄◄</span>
-                                </a>
-
-                            </td>
-
-                        </tr>
-
-                <!-- Modal Box (Display All Needs) -->
-
-                    <div id="displayNeedsModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-                        <div class="modal-dialog" role="document">
-
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Besoins du Projet</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            </div>
-                            <div class="modal-body">
-
-                                <div class="list-group">
-
-                                    {% for need in presentation.needs %}
                 
-                                    {% set showPath = path('need_show', {'id': need.id, 'slug': presentation.slug}) %}
+        <!-- Display a Need Description (in a Modal Box) -->
 
-                                    <a href="{{ showPath }}" class="list-group-item list-group-item-action flex-column align-items-start p-2">
-                                      <div class="d-flex w-100 justify-content-between">
-                                          
-                                        <h5 class="text-body h6 font-weight-bold">{{ need.title | slice (0,54) | capitalize}}</h5>
+        <div class="modal fade" id="displayNeedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="displayNeedDescriptionModalLabel" aria-hidden="true">
 
-                                        {% if need.priority %}
+            <div class="modal-dialog" role="document">
 
-                                        <h6 class="m-0"> <span class="badge badge-warning">Priorité!</span></h6>
+                <div class="modal-content">
 
-                                        {% endif %}
-                                      </div>
-                                      
-                                    </a>
-                                    {% endfor %}
-                               
-                                </div>
+                    <!-- Need Title Display -->
 
-                            </div>
-                            <div class="modal-footer">
-                            <button type="button" class="btn btn-info font-weight-bold"  data-dismiss="modal">Retour</button>
-                            </div>
+                    <div class="modal-header">
+                        
+                        <h5 id="titleNeedModal" class="modal-title font-weight-bold" id="displayNeedDescriptionModalLabel"></h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body fs-15" >
+
+                        <!-- Date Display -->
+
+                        <div class = "mb-2" >
+
+                            <span class="">
+                                Publié le 
+                            </span>
+
+                            <span id="dateNeedModal"></span>
+
                         </div>
+
+                        <!-- + Info Display -->
+
+                        <div class = "mb-3" >
+
+                            <span class="font-weight-bold">
+                                Info + : 
+                            </span>
+                            
+                            <span id="isPaidNeedModal" class="h6 p-1 font-weight-bold rounded bg-primary text-white"></span>
+
+                        </div>
+
+                        <!-- Need Description Display -->
+
+                        <div id="descriptionNeedModal" style="white-space:pre-wrap;">
 
                         </div>
 
                     </div>
 
-        
-            {% endif %}
 
+                    <!-- Action Buttons -->
 
-            </tbody>
-         
-    </table>
+                    <div class="modal-footer">
+
+                        <!-- Back Button -->
+
+                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
+
+                        <!-- Send a Private Message Button -->
+
+                        <a href="{{path('contact_message_new', {'slug':presentation.slug})}}">
+                            <button type="button" class="btn btn-primary sharp font-weight-bold">Entrer en contact</button>
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
 
         </div>
-
 
     </div>
 
 
 {% endif %}
 
-
-{% block javascripts %}
-       
-    <script>
-
-        $(document).ready(function(){
-
-            // When Click on "Display all Needs", a modal box pop up.
-
-            $('#needsModalLink').on('click', function (){
-
-    
-               $('#displayNeedsModal').modal('show');
-
-            });
-
-        });
-
-    </script>
-
-{% endblock %}

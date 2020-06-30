@@ -43,7 +43,7 @@
             <!-- Edit Project Q&A Button -->
 
             {% if app.user and app.user == presentation.creator %}
-                <a href="" class="">
+                <a href="{{ path('qa_manage', {'slug': presentation.slug}) }}">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
                     
@@ -76,7 +76,7 @@
                             
                             <div class="panel-body px-3 mb-4">
                         
-                                {{ qa.answer | raw }}
+                                {{ qa.answer | nl2br }}
 
                             </div>
 

@@ -6,9 +6,11 @@ use App\Entity\Need;
 use App\Form\NeedType;
 use App\Entity\PPBasic;
 use App\Repository\NeedRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -34,17 +36,25 @@ class NeedController extends AbstractController
     }
 
     /**
-     * @Route("/new", name="need_new", methods={"GET","POST"})
-     *  @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/new/{needType}", name="need_new", methods={"GET","POST"})
+     * 
+     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
      */
-    public function new(PPBasic $pp, $slug, Request $request): Response
+    public function new(PPBasic $pp, $needType, $slug, Request $request): Response
     {
+
         $need = new Need();
-        $form = $this->createForm(NeedType::class, $need);
+
+        $form = $this->createForm(NeedType::class, $need)->remove('type');
+
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $need->setPresentation($pp);
+
+            $need->setType($needType)
+                 ->setPresentation($pp);
+
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($need);
             $entityManager->flush();
@@ -60,6 +70,49 @@ class NeedController extends AbstractController
             'slug' => $pp->getSlug(),
         ]);
     }
+
+     
+    /** 
+     * Allow to Get Need Details and Display them (ajax request)
+     * 
+     * @Route("/ajaxShowNeed", name="ajax_get_need_details") 
+     *
+    */ 
+ 
+    public function ajaxNeedDetails(Request $request, NeedRepository $needRepository, EntityManagerInterface $manager, PPBasic $presentation) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $needId = $request->request->get('needId');
+
+            // We get Need's Details we'd like to Show
+
+            $need = $needRepository->findOneById($needId);
+
+            $needDescription = $need->getDescription();
+
+            $needCreatedAt = $need->getCreatedAt();
+
+            $needIsPaid = $need->getPaidService();
+
+            $dataResponse = [
+
+                'needDescription' => $needDescription,
+
+                'needCreatedAt' => $needCreatedAt,
+
+                'needIsPaid' => $needIsPaid,
+                
+            ];
+
+            return new JsonResponse($dataResponse);
+            
+        }
+
+    }
+
+
+
 
     /**
      * @Route("/{id}", name="need_show", methods={"GET"})
