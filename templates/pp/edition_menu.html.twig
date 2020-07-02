@@ -38,11 +38,17 @@
             <div class="row">
   
               <!-- Project Geodomains -->
+
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('geodomains_places_manage', {'slug':presentation.slug}) }}">
+
                   <div class="card border-left-primary shadow h-100 py-2">
+
                   <div class="card-body">
-                    <div class="row no-gutters align-items-center">
+
+                    <div class="row no-gutters">
+
+                      <!-- Icon Area -->
 
                       <div class="col-auto mr-3">
                         <span style="color: DarkGreen">
@@ -51,6 +57,7 @@
                         
                       </div>
 
+                      <!-- Title & Informations Display  -->
 
                       <div class="col">
 
@@ -91,68 +98,117 @@
                       </div>
 
                     </div>
+
                   </div>
+
                 </div>
+
                 </a>
                 
               </div>
   
-              <!-- Project Slideshow -->
+              <!-- Project Description Text;  Images & Videos -->
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                <a class="text-decoration-none text-body" href="{{ path('slideshow_index', {'slug':presentation.slug}) }}">
+               
                   <div class="card border-left-info shadow h-100 py-2">
-                  <div class="card-body">
-                    <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
 
-                        <div class="cat-menu-title text-xs text-center font-weight-bold" >
-                          <span class="text-uppercase">Description du Projet</span>
-                           <br>
-                          Photos - Vidéos - Textes
-                        
+                    <div class="card-body">
+                                  
+                      <!-- Project Text Description -->
+
+                      <a class="text-decoration-none text-body" href="{{ path('edit_text_description', {'slug':presentation.slug}) }}">
+
+                        <div class="row no-gutters align-items-center">
+                          <div class="col">
+
+                            <div class="cat-menu-title mb-2">
+
+                              Description du Projet
+
+                            </div>
+
+                            <div class="row no-gutters">
+
+                                <div class="h6 font-weight-bold mb-1 text-center">
+
+                                  {% if presentation.textDescription | length == 0 or presentation.textDescription.content is empty %}
+
+                                    <span class="text-danger" style="font-size:1.15em;">
+                                      !!! Aucune description texte associée à ce projet !!!
+                                    </span>
+
+                                  {% endif %}
+
+
+                                </div>
+
+                            </div>
+
+                          </div>
+
                         </div>
 
+                      </a>
+
+                      <!-- Separation (Horizontal Rule) -->
+
+                      <hr class="mt-1 mb-2 mx-1 border-4">
+
+                      <!-- Project Images & Videos -->
+
+                      <a class="text-decoration-none text-body" href="{{ path('slideshow_index', {'slug':presentation.slug}) }}">
+                          
                         <div class="row no-gutters d-flex justify-content-center">
 
-                            <div class="h6 font-weight-bold">
+                            <div class="cat-menu-title mb-2">Images & Vidéos</div>
 
-                              {% if presentation.slides | length == 0 %}
+                            <div class="row no-gutters text-center">
 
-                                <span class="text-danger" style="font-size:1.15em;">
-                                  !!! Pas d'Explication associée à ce projet !!!
-                                </span>
+                              <div class="h6 font-weight-bold mb-0" >
 
-                              {% else %}
+                                {% if presentation.slides | length == 0 %}
 
-                                {% set slideCount = presentation.slides | length %}
+                                  <span class="text-danger" style="font-size:1.15em;">
+                                    !!! Pas d'image ou vidéo associée à ce projet !!!
+                                  </span>
 
-                                {% if slideCount == 1 %}
-
-                                  <span class="fs-15">1 diapositive de présentation</span>
-                                  
-                                {% else %}
-                                 
-                                  <span class="fs-15">
-
-                                    {{slideCount}}
-
-                                    diapositives de présentation
-
-                                  </span> 
-
-                                  
                                 {% endif %}
 
- 
+                            {% if presentation.slides | length > 0 %}
+
+                              {% set slideCount = presentation.slides | length %}
+
+                              {% if slideCount == 1 %}
+
+                                <span class="fs-15">1 image ou vidéo de présentation</span>
+                                
+                              {% else %}
+                              
+                                <span class="fs-15">
+
+                                  {{slideCount}}
+
+                                  image/s ou vidéo/s présentées
+
+                                </span> 
+
+                                
                               {% endif %}
 
-                              </div>
-                        </div>
-                      </div>
+
+                            {% endif %}
+                                  
+                                </div>
+
+                            </div>
+
+                          </div>
+
+                      </a>
+
                     </div>
-                  </div>
+
                 </div>
-                </a>
                 
               </div>
   
@@ -213,15 +269,18 @@
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class='text-body' href="{{ path('contact_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
+
                   <div class="card-body">
+
                     <div class="row no-gutters align-items-center">
-                      <div class="col mr-2">
+
+                      <div class="col">
 
                         <div class="cat-menu-title mb-md-3">Infos de Contact</div>
 
-                        <div class="row no-gutters d-flex justify-content-center">
+                        <div class="row no-gutters">
 
-                            <div class="h6 font-weight-bold">
+                            <div class="h6 font-weight-bold text-center">
 
                               {% if presentation.contacts | length == 0 %}
 
@@ -266,13 +325,10 @@
                     <div class="card-body pb-0">
 
                       <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
+                        <div class="col">
 
                           <div class="cat-menu-title text-center mb-2">Objectif & Titre du Projet</div>
 
-                          <div class="row no-gutters align-items-center">
-
-                          </div>
                         </div>
                       
                       </div>
@@ -285,11 +341,11 @@
 
                           <div class="cat-menu-title text-center mb-2">Logo du Projet</div>
 
-                          <div class="row no-gutters">
+                          <div class="row no-gutters d-flex justify-content-center">
 
                             {% if presentation.logoName | length == 0 %}
                               
-                            <div class="h6 text-center font-weight-bold">
+                            <div class="h6 font-weight-bold">
               
                                   <span class="fs-15 text-center">
                                     Pas de logo associé à ce projet
@@ -315,18 +371,22 @@
 
 
               <!-- Project Needs -->
+              
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+
                 <a class="text-body" href="{{ path('need_index', {'slug':presentation.slug}) }}">
+
                   <div class="card border-left-info shadow h-100 py-2">
+
                   <div class="card-body">
-                    <div class="row no-gutters">
-                      <div class="col mr-2">
+
+                    <div class="row no-gutters d-flex justify-content-center">
 
                         <div class="cat-menu-title mb-md-5">Besoins du Projet</div>
 
-                        <div class="row no-gutters d-flex justify-content-center">
+                        <div class="row no-gutters text-center">
 
-                            <div class="h6 font-weight-bold">
+                            <div class="h6 font-weight-bold  d-flex justify-content-center">
 
                               {% if presentation.needs | length == 0 %}
 
@@ -354,7 +414,6 @@
 
                               </div>
                         </div>
-                      </div>
                     </div>
                   </div>
                 </div>
@@ -364,19 +423,23 @@
               </div>
               
               <!-- Project Categories and Keywords -->
+
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+
                 <a class="text-body" href="{{ path('index_categories', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
+
                     <div class="card-body">
 
                       <!-- Project Categories -->
 
-                      <div class="row no-gutters align-items-center">
-                        <div class="col mr-2">
+                      <div class="row no-gutters text-center">
+
+                        <div class="col">
   
                           <div class="cat-menu-title mb-2 ">Catégories du Projet</div>
   
-                          <div class="row no-gutters d-flex justify-content-center">
+                          <div class="row no-gutters">
   
                               <div class="h6 font-weight-bold mb-1">
   
@@ -407,12 +470,11 @@
                         </div>
                       </div>
 
-                      <hr class="mt-1 mb-2 mx-1 border-4">
+                      <hr class="my-3 mx-1 border-4">
 
                       <!-- Project Keywords -->
 
-                      <div class="row no-gutters">
-                        <div class="col mr-2">
+                      <div class="row no-gutters d-flex justify-content-center">
   
                           <div class="cat-menu-title mb-2">Mots-Clés du Projet</div>
   
@@ -428,16 +490,19 @@
                                     
                                   </span>
                                     
-                                  
   
                                   {% if presentation.keywords | length > 64 %}
+
                                     ...
+
                                   {% endif %}
   
                                 {% else %}
                                   
-                                  <span class="text-danger" style="font-size:1.15em;">
+                                  <span class="text-danger fs-15">
+
                                     !!! Aucun mot-clé utilisé !!!
+
                                   </span>
   
                                 {% endif %}
@@ -445,9 +510,8 @@
                               </div>
   
                           </div>
+
                         </div>
-                       
-                      </div>
 
                     </div>
                   </div>
@@ -456,11 +520,14 @@
               </div>
 
               <!-- Project Websites -->
+
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-body" href="{{ path('websites_index', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
                     <div class="card-body ">
-                      <div class="row no-gutters">
+
+                      <div class="row no-gutters d-flex justify-content-center align-items-center">
+
                         <div class="col">
   
                           <div class="cat-menu-title mb-md-4">Sites Web & réseaux sociaux</div>

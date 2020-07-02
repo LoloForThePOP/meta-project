@@ -38,7 +38,7 @@
 
     <h3 class="my-4 font-weight-bold">Messages du Projet</h3>
     
-    <!-- "Display Message" Modal Box -->
+    <!-- Display Specific Message (in a Modal Box) -->
 
     <div class="modal fade" id="modalBox" tabindex="-1" role="dialog" aria-labelledby="modalBoxTitle" aria-hidden="true">
 
@@ -93,69 +93,122 @@
 
     </div>
 
-    <!-- "Manage Messages" Table -->
+    <!-- Manage Messages (in a Table) -->
 
     <div class="container-fluid mb-3">
-    
-            <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
-                <thead>
-                    <tr class="cursor-pointer">
-                        <th>Titre</th>
-                        <th>Contenu</th>
-                        <th>Envoyeur</th>
-                        <th>Date</th>
-                        <th>Actions</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for contact_message in contact_messages %}
-                    <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
 
-                        <td class="{% if not contact_message.hasBeenConsulted %}unreadMessage {% endif %}">
-                            {{ contact_message.title  | slice(0, 20)}}
+        <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
 
-                           <span class="unreadBadge badge badge-success">nouveau</span>
+            <thead>
 
-                        </td>
-                        
-                        <td>
-                            {{ contact_message.content | slice(0, 20)}}
-                        </td>
+                <tr class="cursor-pointer">
 
-                        <td>
-                            {{ contact_message.senderEmail }}
-                        </td>
+                    <th>Titre</th>
+                    <th>Contenu</th>
+                    <th>Envoyeur</th>
+                    <th>Date</th>
+                    <th>Actions</th>
 
-                        <td>
-                            {{ contact_message.createdAt ? contact_message.createdAt | date('Y-m-d H:i:s') : '' }}
-                        </td>
+                </tr>
 
-                        <td class="messagesActions">
-                            <button type="button" class="js-delete-message btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
-                        {#   <a href="{{ path('contact_message_show', {'id': contact_message.id}) }}">show</a>
-                            <a href="{{ path('contact_message_edit', {'id': contact_message.id}) }}">edit</a> #}
-                        </td>
+            </thead>
 
-                    </tr>
-                {% else %}
-                    <tr>
-                        <td colspan="7">Aucun Message</td>
-                    </tr>
-                {% endfor %}
-                </tbody>
-            </table>
+            <tbody>
+
+            {% for contact_message in contact_messages %}
+                <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
+
+                    <!-- Message Title -->
+
+                    <td class="{% if not contact_message.hasBeenConsulted %}unreadMessage {% endif %}">
+
+                        {% if contact_message.title | length > 40 %}
+
+                            {{ contact_message.title | slice (0,37) }}...
+
+                        {% else %}
+
+                            {{ contact_message.title }}
+
+                        {% endif %}
+
+                        <span class="ml-2 unreadBadge badge badge-success">nouveau</span>
+
+                    </td>
+
+                    <!-- Message Content -->
+                    
+                    <td>
+
+                        {% if contact_message.content | length > 40 %}
+
+                            {{ contact_message.content | slice (0,37) }}...
+
+                        {% else %}
+
+                            {{ contact_message.content }}
+
+                        {% endif %}
+
+                    </td>
+
+                    <!-- Message Provider (email address) -->
+
+                    <td>
+
+                        {{ contact_message.senderEmail }}
+
+                    </td>
+
+                    <!-- Message Date -->
+
+                    <td>
+
+                        {{ contact_message.createdAt ? contact_message.createdAt | date('Y-m-d H:i:s') : '' }}
+
+                    </td>
+
+                    <!-- Action Buttons (delete a message) -->
+
+                    <td class="messagesActions">
+
+                        <button type="button" class="js-delete-message btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
+
+                    </td>
+
+                </tr>
+
+            {% else %}
+
+                <tr>
+
+                    <td colspan="7">Aucun Message</td>
+
+                </tr>
+
+            {% endfor %}
+
+            </tbody>
+
+        </table>
     
     </div>
+
 
     <!-- Back button -->
 
     <div>
+
         <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
-            <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">
+                
+                Retour
+            
+            </button>
+
         </a>
+
     </div>
-
-
 
 </div>
 

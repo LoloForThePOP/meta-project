@@ -311,6 +311,11 @@ class PPBasic implements \Serializable
      */
     private $questionAnswers;
 
+    /**
+     * @ORM\OneToOne(targetEntity=TextDescription::class, mappedBy="presentation", cascade={"persist", "remove"})
+     */
+    private $textDescription;
+
 
     public function __construct()
     {
@@ -884,6 +889,24 @@ class PPBasic implements \Serializable
             if ($questionAnswer->getPresentation() === $this) {
                 $questionAnswer->setPresentation(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getTextDescription(): ?TextDescription
+    {
+        return $this->textDescription;
+    }
+
+    public function setTextDescription(?TextDescription $textDescription): self
+    {
+        $this->textDescription = $textDescription;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPresentation = null === $textDescription ? null : $this;
+        if ($textDescription->getPresentation() !== $newPresentation) {
+            $textDescription->setPresentation($newPresentation);
         }
 
         return $this;

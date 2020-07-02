@@ -16,6 +16,7 @@ use App\Entity\Category;
 use App\Entity\GeoDomain;
 use App\Entity\ContactMessage;
 use App\Entity\QuestionAnswer;
+use App\Entity\TextDescription;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -249,6 +250,36 @@ class AppFixtures extends Fixture
                 ->setAdminValidation($isAdminValidated)
             ;
 
+            // Project Text Description Creation
+
+
+            $hasTextDescriptionOdds = [true, true, true, false];
+
+            $hasTextDescription = $hasTextDescriptionOdds [array_rand($hasTextDescriptionOdds)];
+
+            if ($hasTextDescription){
+                
+                $textDescription = new TextDescription();
+
+                $content = '<p>'.join('</p><p>',$faker->paragraphs(5)).'</p>';
+
+                $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+
+                $textDescription 
+                    ->setContent($content)
+                    ->setCreatedAt($createdAt)
+                    ->setPresentation($pp)
+                ;
+
+                $manager->persist($textDescription);
+            }
+
+            
+
+
+
+
+
             // Project Cities (with Postal Codes) Creation
 
             $numPostalCodes = mt_rand(0,3);
@@ -296,12 +327,6 @@ class AppFixtures extends Fixture
                 }
 
             }
-
-
-
-
-
-
 
             // Project Websites Creation
 

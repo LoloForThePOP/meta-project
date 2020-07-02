@@ -1,0 +1,105 @@
+<!-- Project Text Description Display -->
+
+{% if presentation.textDescription | length > 0 and  presentation.textDescription.content is not empty %}
+
+    <!-- Structure Container -->
+
+    <div class="pp-struct-container pb-3">
+
+        <!-- Title Container with Edit Button -->
+
+        <div class="mb-3">
+
+            <!-- Structure Title -->
+
+            <h3 class="pp-struct-title d-inline mr-2 mb-2">Description du Projet</h3>
+    
+            <!-- Edit Text Description Button -->
+    
+            {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('edit_text_description', {'slug': presentation.slug}) }}">
+    
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
+                    
+                </a>
+            {% endif %}
+
+        </div>
+
+        <!-- Project Text Description Display -->
+
+        {% set textDescription = presentation.textDescription.content %}
+
+
+        <style>
+                        
+            #moduleCollapseTextDescription a.collapsed:after {
+                content: '+ Afficher Plus';
+            }
+            
+            #moduleCollapseTextDescription a:not(.collapsed):after {
+                content: '- Réduire';
+            }
+            
+            #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
+                display: block;
+                /* height = lineheight * no of lines to display */
+                height: 4.4em;
+                overflow: hidden;
+            }
+            
+            #moduleCollapseTextDescription #collapseTextDescription.collapsing {
+                height: 4.4em;
+            }
+        </style>
+
+        <!-- Text Description Display (2 cases : short text; long text) -->
+
+        <!-- Case 1: short Text: we display the entire text -->
+
+        {% if textDescription | length < 300 %}
+        
+            <div class="container fs-15 pl-md-3">
+                
+                {{ textDescription | sanitize_html }}
+
+            </div>
+            
+        {% else %}
+            
+            <div id="moduleCollapseTextDescription" class="container fs-15 pl-md-3">
+
+                <!-- Text Description (Display) -->
+
+                <div class="collapse" id="collapseTextDescription" aria-expanded="false">
+
+                    {{ textDescription | sanitize_html }}
+
+                </div>
+
+                <!-- Toggle Collapse Button -->
+
+                <div class="d-flex">
+
+                    <a role="button" class="collapsed btn btn-primary btn-sm sharp font-weight-bold" data-toggle="collapse" href="#collapseTextDescription" aria-expanded="false" aria-controls="collapseTextDescription"></a>
+                    
+                </div>
+
+                
+            </div>
+                
+
+            
+        {% endif %}
+
+
+        <!-- Case 2: long Text: we use a collapsible text -->
+
+
+
+
+
+
+    </div>
+
+{% endif %}

@@ -4,23 +4,11 @@
 
 /* This Stylesheet provides styles for :
 
-    - edit a text slide for a slideshow (edit within tinymce editor) 
+    - edit a Project Presentation Text Description (using tinymce editor) 
     
 */
 
 p, li {
-    font-size:1.40em;
-    font-weight: 500;
+    font-size:1.2em;
     line-height: 1.2;
 }
-
-h1 {
-    font-size: 3rem !important;
-    font-weight: 500 !important;
-}
-
-h2 {
-    font-size: 2.5rem !important;
-    font-weight: 500 !important;
-}
-

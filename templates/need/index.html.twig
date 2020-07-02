@@ -20,18 +20,27 @@
 	
     <!-- UI Page Title -->
     
-    <h3 class="mt-md-4 mb-md-4 font-weight-bold"> <span class="">Ressources désirées</span></h3>
+    <h3 class="mt-md-4 mb-md-4 font-weight-bold"> 
 
-    <!-- Add a Need Button -->
+        <span class="">
+
+            Ressources désirées
+
+        </span>
+    </h3>
+
+    <!-- Add a Need (Open a Modal Box and allows user to select a Need Type) -->
     
     {% if app.user and app.user == presentation.creator %}
-    
+
+        <div class="m-0 p-0">
+
             <!-- Button trigger modal -->
 
             <button type="button" class="btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green" data-toggle="modal" data-target="#needTypeModal" > <span class="mr-2">+</span> Ajouter un besoin </button>
 
 
-            <!-- Need Types Items -->
+            <!-- Need Types Possibilitiess -->
 
             {% set needTypesItems = 
                 
@@ -82,94 +91,90 @@
                 ] 
 
             %}
+            
+            <!-- Modal Box (Select a Need Type) -->
 
             <!-- Modal Styles -->
 
-            <style>
+                <style>
 
-                .needTypeChoice:hover {
-                    background-color: yellow;
-                  }
+                    .needTypeChoice:hover {
+                        background-color: yellow;
+                    }
 
-            </style>
+                </style>
 
-            
-            <!-- Modal -->
+            <!-- Modal Structure & Content -->
 
-            <div class="modal fade" id="needTypeModal" tabindex="-1" role="dialog" aria-labelledby="needTypeModalLabel" aria-hidden="true">
+                <div class="modal fade" id="needTypeModal" tabindex="-1" role="dialog" aria-labelledby="needTypeModalLabel" aria-hidden="true">
 
-                <div class="modal-dialog" role="document">
+                    <div class="modal-dialog" role="document">
 
-                    <div class="modal-content">
+                        <div class="modal-content">
 
-                        <!-- Modal Title  -->
+                            <!-- Modal Title  -->
 
-                        <div class="modal-header">
+                            <div class="modal-header">
 
-                            <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Choisir le type de besoin</h5>
+                                <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Choisir le type de besoin</h5>
 
-                            <!-- Close Modal Cross Button  -->
+                                <!-- Close Modal Cross Button  -->
 
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-
-                        </div>
-
-                        <!-- Modal Content  -->
-
-                        <div class="modal-body">
-
-                            <div class="container-fluid">
-
-                                {% for item in needTypesItems %}
-
-                                    <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': slug, 'needType': item.type })}}">
-
-                                       <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center" style="height:55px;">
-
-                                            <div class="col-3 d-flex justify-content-center align-items-center">
-                                                <img src="https://place-hold.it/30x30" alt="">
-                                            </div>
-
-                                            <div class="col">
-
-                                                <span class="font-weight-bold">
-                                                    {{ item.title_fr }} 
-                                                </span>
-
-                                                <br>
-
-                                                <span class="">
-                                                    {{ item.example_fr}} 
-                                                </span>
-                                                
-                                            </div>
-                                            
-                                        </div> 
-
-                                    </a>
-
-
-                                     
-
-                                   
-
-                                {% endfor %}
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
 
                             </div>
-      
-                               
 
-                        </div>
+                            <!-- Modal Content  -->
 
-                        <!-- Action Buttons  -->
+                            <div class="modal-body">
 
-                        <div class="modal-footer">
+                                <div class="container-fluid">
 
-                            <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
+                                    {% for item in needTypesItems %}
 
-                            <button type="button" class="btn btn-success bg-green sharp">Valider</button>
+                                        <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': slug, 'needType': item.type })}}">
+
+                                        <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center" style="height:55px;">
+
+                                                <div class="col-3 d-flex justify-content-center align-items-center">
+                                                    <img src="https://place-hold.it/30x30" alt="">
+                                                </div>
+
+                                                <div class="col">
+
+                                                    <span class="font-weight-bold">
+                                                        {{ item.title_fr }} 
+                                                    </span>
+
+                                                    <br>
+
+                                                    <span class="">
+                                                        {{ item.example_fr}} 
+                                                    </span>
+                                                    
+                                                </div>
+                                                
+                                            </div> 
+
+                                        </a>
+
+                                    {% endfor %}
+
+                                </div>   
+
+                            </div>
+
+                            <!-- Action Buttons  -->
+
+                            <div class="modal-footer">
+
+                                <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
+
+                                <button type="button" class="btn btn-success bg-green sharp">Valider</button>
+
+                            </div>
 
                         </div>
 
@@ -177,81 +182,138 @@
 
                 </div>
 
-            </div>
+        </div>
             
     {% endif %}
 
+    <!-- Project Needs Display -->
+
     {% if presentation.needs | length > 0 %}
-    <div>
         
-            <div class="tableWrapper">
+        <div class="tableWrapper">
     
                 <div class="table">
 
-                <!-- Table Header -->
-                
-                <div class="row header green">
+                    <!-- Table Header -->
                     
-                    <div class="cell">
-                        Titre
-                    </div>
-                    <div class="cell">
-                        Description
-                    </div>
-                    <div class="cell">
-                        Date
-                    </div>
-                    <div class="cell">
-                        Actions
-                    </div>
+                    <div class="row header green">
+                        
+                        <div class="cell">
+                            Titre
+                        </div>
+                        
+                        <div class="cell">
+                            Description
+                        </div>
 
-                </div>
+                        <div class="cell">
+                            Date
+                        </div>
+
+                        <div class="cell">
+                            Actions
+                        </div>
+
+                    </div>
 
                 <!-- Table Content -->
-                
-                {% for need in needs %}
                     
-                    {% set showPath = path('need_show', {'id': need.id, 'slug': slug}) %}
-                    {% set editPath = path('need_edit', {'need_id': need.id, 'slug': slug}) %}
-                
-                <div class="row cursor-pointer"
+                    {% for need in needs %}
 
-                    {% if app.user and app.user == presentation.creator %}
-                        onclick="window.location='{{ editPath }}'";>
-                    {% else %}
-                        onclick="window.location='{{ showPath }}'";>
-                    {% endif %}
+                    
+                    <div class="row cursor-pointer">                    
 
-                    <div class="cell font-weight-bold" data-title="Titre">{{ need.title | slice(0, 35)}}</div>
-                    <div class="cell" data-title="Description">{{ need.description | slice(0, 35) }}</div>
-                    <div class="cell" data-title="Date">{{ need.createdAt ? need.createdAt|date('Y-m-d') : '' }}</div>
+                        <div class="cell font-weight-bold" data-title="Titre">
 
-                    <div class="cell" data-title="Actions">
-                        {% if app.user and app.user == presentation.creator %}
-        
-                            <a href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">modifier</a>
-                        {% else %}
-                            Voir
-                        {% endif %}
+                            {% if need.title | length > 40 %}
+
+                                {{ need.title | slice (0,37) }}...
+
+                            {% else %}
+
+                                {{ need.title }}
+
+                            {% endif %}
+                            
+
+                        </div>
+
+                        <div class="cell" data-title="Description">
+
+                            {% if need.description | length > 40 %}
+                            
+                                {{ need.description | slice (0,37) }}...
+
+                            {% else %}
+
+                                {{ need.description }}
+
+                            {% endif %}
+                            
+
+                        </div>
+
+                        <div class="cell" data-title="Date">
+
+                            {{ need.createdAt ? need.createdAt|date('Y-m-d') : '' }}
+
+                        </div>
+
+                        <!-- Actions Possibilities -->
+
+                        <div class="cell" data-title="Actions">
+
+                            {% if app.user and app.user == presentation.creator %}
+
+                                <!-- Modify Need "Button" -->
+            
+                                <a href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">
+
+                                    modifier
+
+                                </a>
+            
+                                <!-- Delete Need "Button" -->
+
+                                {{ include('need/_delete_form.html.twig') }}
+
+                            {% else %}
+
+                                Voir
+
+                            {% endif %}
+
+                        </div>
+
                     </div>
-                </div>
 
-                {% else %}
-                    <div class="cell" >Aucun besoin présenté</div>
-                {% endfor %}
+                    {% else %}
+
+                        <div class="cell" >
+
+                            Aucun besoin présenté
+                        
+                        </div>
+
+                    {% endfor %}
 
                 </div>
                 
-            </div>
-        
+        </div>
         
 
-    </div>
     {% endif %}
 
+    <!-- Back Button -->
+
     <div>
+
          <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
-            <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mt-4">Retour</button>
+
+            <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mt-4">
+                Retour
+            </button>
+
         </a>
     
     </div>

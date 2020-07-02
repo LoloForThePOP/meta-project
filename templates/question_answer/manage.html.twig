@@ -107,16 +107,36 @@
 
                         <!-- Grid Container -->
 
-                        <div id="{{qa.id}}" class="col-12 mr-md-4 js-sortableGridItem d-flex align-items-center position-relative mb-3 p-1 border border-primary overflow-hidden cursor-pointer">
+                        <div id="{{qa.id}}" class="fs-15 col-12 mr-md-4 js-sortableGridItem d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
 
                             <a href="{{path('edit_qa', {'slug':slug,'idQA' : qa.id })}}" class="w-100 h-100 text-body text-decoration-none">
 
                                 <div class="font-weight-bold mb-1">
-                                    {{ qa.question | slice (0,35) }}...
+
+                                    {% if qa.question | length > 45 %}
+
+                                        {{ qa.question | slice (0,45) }}...
+
+                                    {% else %}
+
+                                        {{ qa.question }}
+
+                                    {% endif %}
+                                    
                                 </div>
                                 
                                 <div>
-                                    {{ qa.answer | slice (0,35) | raw }}...
+                                    
+                                    {% if qa.answer | length > 70 %}
+
+                                        {{ qa.answer | slice (0,70) }}...
+
+                                    {% else %}
+
+                                        {{ qa.answer }}
+
+                                    {% endif %}
+
                                 </div>
 
                             </a>

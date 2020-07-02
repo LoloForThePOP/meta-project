@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Diaporama de Présentation{% endblock %}
+{% block title %}Images et Vidéos{% endblock %}
 
 {% block sidebar %} {% include 'partials/sidebar.html.twig' %}{% endblock %}
 
@@ -8,14 +8,13 @@
 
     <div class="container">
 
-
         <!-- Title Container with Collapsible Info-Box -->
 
         <div class="mt-md-5 mb-4">
 
             <!-- ui page title -->
 
-            <h3 class="h3 font-weight-bold d-inline mr-3">Diaporama de présentation</h3>
+            <h3 class="h3 font-weight-bold d-inline mr-3">Images & Vidéos</h3>
 
             <!-- Display an Info-Box if Empty Slideshow -->
 
@@ -31,7 +30,7 @@
                     
                 <div class="collapse col-md-6 mt-0 mb-4" id="collapseExample">
 
-                    <p class="lh-2 h5">Images, schémas, diapositives textes et vidéos sont un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
+                    <p class="lh-2 h5">Images légendées, schémas, et vidéos sont un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
 
                 </div>
 
@@ -72,26 +71,8 @@
 
                                 <span class="position-absolute rounded-circle bg-danger p-2" style="bottom:3px; left:3px;"> </span> 
 
-
-
                             </a>
-                            
-
-
-                        {% elseif slide.mediaType == 'text' %}
-
-                        <a href="{{path('slideshow_text_edit', {'slug':slug,'slide_id' : slide.id })}}" class="text-body text-decoration-none">
-
-                            <div class="text-break p-1 cursor-pointer" style="width:100%; line-height:1.15em;">
-
-                                {{slide.textContent|striptags|length > 20 ? slide.textContent|striptags|slice(0,20)|striptags : slide.textContent|raw }}
-                                {{slide.textContent|striptags|length > 20 ? '...' : ''}}
-
-                            </div>
-
-                        </a>
-
-                                    
+                                 
                         {% endif %}
 
                         <!-- Remove Slide button (a red cross on each slide) -->

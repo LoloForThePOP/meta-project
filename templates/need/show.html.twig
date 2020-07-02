@@ -16,24 +16,41 @@
 
     <div class="rounded mt-4 m3-3 col-sm-8 ml-md-4">
 
+        <!-- Need Information Display (in a Table) -->
+
         <table class="table table-borderless">
 
             <tbody>
 
+                <!-- Need Title Display -->
+
                 <tr>
+
                     <th class="font-weight-bold h5">Titre</th>
+
                     <td>
                         <h2 class="font-weight-bold h4">{{ need.title }}</h2>
 
                     </td>
+
                 </tr>
 
+
+                <!-- Need Date Display -->
+
                 <tr>
+
                     <th class="font-weight-bold h5">Date</th>
+
                     <td class="font-weight-bold h5">
+
                         Le {{ need.createdAt ? need.createdAt|date('d-m-Y H:i:s') : ''}}
                     </td>
+
                 </tr>
+
+
+                <!-- Need Additional Informations Display -->
 
                 <tr>
 
@@ -56,29 +73,39 @@
                         {% if need.paidService %}
                       
                             {% if need.paidService == 'yes' %}
+
                                 {% set isPaid = "Payé" %}
 
                             {% elseif need.paidService == 'no' %}
+
                                 {% set isPaid = "Non Payé" %}
 
                             {% elseif need.paidService == 'maybe' %}
+
                                 {% set isPaid = "Peut-être Payé" %}
 
                             {% else %}
 
-                            {% set isPaid = "" %}
+                                {% set isPaid = "" %}
                             
                             {% endif %}
                         
-                            <span class="h6 p-1 font-weight-bold rounded bg-primary text-white">{{isPaid}}</span>
+                            <span class="h6 p-1 font-weight-bold rounded bg-primary text-white">
+
+                                {{isPaid}}
+
+                            </span>
    
                         {% endif %}
 
                     </td>
+
                 </tr>
 
+                <!-- Need Description Display -->
                 
                 <tr>
+
                     <th class="font-weight-bold h5">Description</th>
 
                     <td class="h5">
@@ -95,10 +122,10 @@
                     
                     </td>
 
-
                 </tr>
             
             </tbody>
+            
         </table>
 
         <div class="p-0 m-3">
@@ -115,9 +142,6 @@
 
                 <a class="btn btn-warning btn-lg sharp font-weight-bold mr-1" href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">Modifier</a>
 
-                <!-- Delete Need Button -->
-
-                {{ include('need/_delete_form.html.twig') }}
             
             {% endif %}
         
