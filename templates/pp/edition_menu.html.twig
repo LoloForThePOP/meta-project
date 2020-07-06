@@ -35,6 +35,7 @@
             </div>
   
             <!-- Content Row -->
+
             <div class="row">
   
               <!-- Project Geodomains -->
@@ -118,7 +119,7 @@
 
                       <a class="text-decoration-none text-body" href="{{ path('edit_text_description', {'slug':presentation.slug}) }}">
 
-                        <div class="row no-gutters align-items-center">
+                        <div class="row no-gutters">
                           <div class="col">
 
                             <div class="cat-menu-title mb-2">
@@ -127,7 +128,7 @@
 
                             </div>
 
-                            <div class="row no-gutters">
+                            <div class="row no-gutters d-flex justify-content-center">
 
                                 <div class="h6 font-weight-bold mb-1 text-center">
 
@@ -135,6 +136,12 @@
 
                                     <span class="text-danger" style="font-size:1.15em;">
                                       !!! Aucune description texte associée à ce projet !!!
+                                    </span>
+
+                                  {% else %}
+
+                                    <span class="" style="font-size:1.15em;">
+                                      1 texte présenté
                                     </span>
 
                                   {% endif %}
@@ -152,7 +159,7 @@
 
                       <!-- Separation (Horizontal Rule) -->
 
-                      <hr class="mt-1 mb-2 mx-1 border-4">
+                      <hr class="my-2 mx-1 border-4">
 
                       <!-- Project Images & Videos -->
 
@@ -212,7 +219,69 @@
                 
               </div>
   
+              <!-- Project Documents -->
+
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+
+                <a class="text-decoration-none text-body" href="{{ path('manage_documents', {'slug':presentation.slug}) }}">
+
+                  <div class="card border-left-info shadow h-100 py-2">
+
+                    <div class="card-body">
+
+                      <div class="row no-gutters align-items-center">
+
+                        <div class="col">
+
+                          <div class="cat-menu-title text-xs text-center font-weight-bold" >
+
+                            <span class="text-uppercase">Documents</span>
+                                              
+                          </div>
+
+                          <div class="row no-gutters d-flex justify-content-center">
+
+                              <div class="h6 font-weight-bold">
+
+                                
+                                  {% if presentation.documents | length == 0 %}
+    
+                                    <span class="fs-15">
+                                      Pas de document présenté
+                                    </span>
+    
+                                  {% elseif presentation.documents | length == 1  %}
+    
+                                    <span class="fs-15">
+                                      1 document présenté
+                                    </span>
+    
+                                  {% else %}
+    
+                                    <span class="fs-15">
+    
+                                      {{ presentation.documents | length }}
+    
+                                      documents présentés
+    
+                                    </span>
+    
+                                  {% endif %}
+
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                    </div>
+
+                  </div>
+
+                </a>
+      
+              </div>
+  
               <!-- Project Q&A -->
+
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                 <a class="text-decoration-none text-body" href="{{ path('qa_manage', {'slug':presentation.slug}) }}">
                   <div class="card border-left-info shadow h-100 py-2">
@@ -315,7 +384,6 @@
                 </a>
                 
               </div>
-  
                
               <!-- Project Goal; Title; and Logo -->
 
@@ -368,7 +436,6 @@
                 </a>
                 
               </div>
-
 
               <!-- Project Needs -->
               
@@ -570,9 +637,6 @@
                 
               </div>
 
-  
-
-                
               <!-- Display Project Presentation -->
 
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer rounded-circle">

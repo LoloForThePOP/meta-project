@@ -13,6 +13,7 @@ use App\Entity\Contact;
 use App\Entity\PPBasic;
 use App\Entity\Website;
 use App\Entity\Category;
+use App\Entity\Document;
 use App\Entity\GeoDomain;
 use App\Entity\ContactMessage;
 use App\Entity\QuestionAnswer;
@@ -324,6 +325,35 @@ class AppFixtures extends Fixture
                             -> setPresentation($pp);
 
                     $manager->persist($qa);
+                }
+
+            }
+
+
+            // Project Documents
+
+            $hasDocumentsOdds = [true, false];
+
+            $hasDocuments = $hasDocumentsOdds [array_rand($hasDocumentsOdds)];
+
+            if ($hasDocuments){
+
+            $numDocuments = mt_rand(1,7);
+
+                for ($j=1; $j<=$numDocuments; $j++){
+                
+                    $document = new Document();
+
+                    $createdAt = $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+                    $title = $faker->sentence();
+                    $position = $j;
+
+                    $document-> setCreatedAt($createdAt)
+                            -> setTitle($title)
+                            -> setPosition($j)
+                            -> setPresentation($pp);
+
+                    $manager->persist($document);
                 }
 
             }

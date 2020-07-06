@@ -30,7 +30,7 @@ class QuestionAnswerController extends AbstractController
      * 
      * @Route("/", name="qa_manage")
      */
-    public function index (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
+    public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
         $qa = new QuestionAnswer ();
         

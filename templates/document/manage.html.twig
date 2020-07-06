@@ -1,0 +1,333 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Documents du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% block body %}
+
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <!-- Title with Info Button Container -->
+
+        <div class="mt-3 mt-md-4 mb-2">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Documents du Projet</h3>
+
+            <!-- collapsable advice trigger button -->	
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+                
+            </a>
+
+        </div>
+
+        <!-- Collapsible Info Container -->
+
+        <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            <p class="h5">
+
+                Vous pouvez partager ici des documents liés à votre projet. <br> <br>
+                Les formats prévus sont :
+
+            </p>
+
+            <ul class="font-weight-bold">
+
+                <li>pdf</li>
+                <li>word document; open document texte; rtf</li>
+                <li>excel</li>
+                <li>powerpoint</li>
+                <li>epub</li>   
+
+            </ul>
+
+            <p class="h5">
+
+                Limite du nombre de documents : <b>{{ constant('MAX_ALLOWED_DOCUMENTS', presentation)}} documents</b>
+
+            </p>
+
+            <p class="h5">
+
+                Poids maximal accepté pour chaque fichier : <b>1 Mo</b>
+
+            </p>
+
+        </div>
+
+        <!-- Add Documents Possibilities (according to max limit) -->
+
+        <div class="mb-4">
+
+    
+            {% if presentation.documents | length < constant('MAX_ALLOWED_DOCUMENTS', presentation) %}
+          
+                <!-- Add a Document Button -->
+                    
+                <button type="button" data-toggle="modal" data-target="#documentFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un document</button> 
+
+            {% else %}
+                
+                <p class="fs-15 bg-light d-inline-block p-2 mb-0">La limite maximale de {{ constant('MAX_ALLOWED_DOCUMENTS', presentation)}} documents est atteinte. </p>
+    
+    
+            {% endif %}
+
+
+
+        </div>
+
+
+
+        
+
+       
+
+        <!-- Form Display (in a Modal Box) -->
+
+        <div class="modal fade" id="documentFormModal" tabindex="-1" role="dialog" aria-labelledby="documentModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="documentModalLabel">Ajouter un document</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        {{ form_start(form) }}
+
+                        <div class="mt-3 mb-5 px-3">
+
+                            {{ form_row(form.file) }}
+
+                        </div>
+
+                        <div class="mb-5 px-3">
+
+                            {{ form_row(form.title) }}
+
+                        </div>
+
+                        
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-lg btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                        <button class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
+                        
+                    </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Project Documents List -->
+
+        <div class="container mb-2">
+
+            <div id="documentList" class="row col-md-7 pl-0">
+
+                {% if presentation.documents | length > 0 %}
+
+                    {% for document in presentation.documents %}
+
+                     <!-- Document Icon with Title -->
+
+                    <div id="{{document.id}}" class="js-sortableGridItem position-relative mr-4 mb-3 cursor-pointer" >
+
+                        <a href="{{path('edit_document', {'slug':slug,'idDocument' : document.id })}}" class="w-100 h-100 text-body text-decoration-none">
+
+                            {% include 'document/_icons_display.html.twig' %}
+
+                        </a>
+
+                        <!-- Remove Document (Button with Red Cross) -->
+        
+                        <button type="button" class="js-delete-document d-inline position-absolute btn btn-danger sharp p-1 px-2" data-id="{{document.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
+
+                        
+                    </div>
+
+                    {% endfor %}
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+
+        <!-- Back Button -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+                <button type="button" class="btn btn-info btn-lg bg-blue font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            </a>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+    <!-- sortable plugin in order to reorder Documents -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // 
+
+            {% if not form.vars.valid %}
+
+                $('#documentFormModal').modal('show');
+
+            {% endif %}
+
+            // Reorder Documents with drag and drop
+
+            $('#documentList').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                // drag and drop implies qa positions updates ajax call
+
+                onEnd: function (evt) {
+
+                    // an array storing slides id position
+
+                    var documentsPosition = [];
+
+                    
+                    $('#documentList div.js-sortableGridItem').each(function(index){
+                        
+                        documentsPosition.push($(this).attr('id'));
+                
+                    });
+
+                    jsonDocumentsPosition = JSON.stringify(documentsPosition);
+                    
+                    $.ajax({  
+
+                        url: "{{path('ajax_reorder_documents', {'slug': presentation.slug})}}",
+
+                        type:       'POST',   
+
+                        dataType:   'json',
+
+                        data: {
+
+                            "jsonDocumentsPosition": jsonDocumentsPosition,
+
+                        },
+
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                
+                        },  
+
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                    }); 
+
+                },
+            });
+
+                                    
+            // Remove a Document
+
+            $('#documentList').on('click', '.js-delete-document', function (){
+
+                var idDocument = $(this).attr("data-id");
+
+                if (confirm("Confimez vous enlever ce document ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: "{{path('ajax_remove_document', {'slug': presentation.slug}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "idDocument": idDocument,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+
+                        $("#documentList #"+idDocument).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+                        // alert('Ajax request failed.');  
+                    }  
+                    }); 
+                    
+                }
+    
+            });
+
+        }); 
+
+        
+    </script>
+
+{% endblock %}
+

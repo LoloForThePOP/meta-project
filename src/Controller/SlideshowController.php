@@ -128,18 +128,12 @@ class SlideshowController extends AbstractController
 
             $slide = $form->getData();
 
-            // count previous slide in order to set new slide position
-            $countPreviousSlides = 0;
+            // count previous slide in order to set a new slide position
 
-            if(!$pp->getSlides()->isEmpty()){
+            $countPreviousSlides = count($pp->getSlides());
 
-                foreach ($pp->getSlides() as $key ) {
-                    $countPreviousSlides = $countPreviousSlides + 1 ;
-                }
-            }
-            
             $slide->setMediaType("image");
-            $slide->setPosition($countPreviousSlides+1);
+            $slide->setPosition($countPreviousSlides);
             $slide->setPP($pp);
             
             $manager->persist($slide);
@@ -227,16 +221,9 @@ class SlideshowController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()){
 
             // count previous slide in order to set new slides positions
-            $counterPreviousSlides = 0;
+            $countPreviousSlides = count($pp->getSlides());
 
-            if(!$pp->getSlides()->isEmpty()){
-
-                foreach ($pp->getSlides() as $key ) {
-                    $counterPreviousSlides ++ ;
-                }
-            }
-
-            $newSlidePosition = $counterPreviousSlides;
+            $newSlidePosition = $countPreviousSlides;
       
             $videoUrl = 'https://www.youtube.com/embed/'.$slide->getUrl();
 

@@ -12,16 +12,15 @@ use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\JoinTable;
 use Doctrine\ORM\Mapping\PreUpdate;
-
-
 use Doctrine\ORM\Mapping\PrePersist;
+
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Image;
 
+use Symfony\Component\Validator\Constraints\Image;
 use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -307,6 +306,7 @@ class PPBasic implements \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity=QuestionAnswer::class, mappedBy="presentation")
+     * 
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $questionAnswers;
@@ -315,6 +315,20 @@ class PPBasic implements \Serializable
      * @ORM\OneToOne(targetEntity=TextDescription::class, mappedBy="presentation", cascade={"persist", "remove"})
      */
     private $textDescription;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="presentation")
+     * 
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $documents;
+
+    public const MAX_ALLOWED_DOCUMENTS = 7;
+
+    function getMaxAllowedDocuments() 
+    {
+        return  self::MAX_ALLOWED_DOCUMENTS;
+    }
 
 
     public function __construct()
@@ -335,6 +349,7 @@ class PPBasic implements \Serializable
         $this->invitedByPGroups = new ArrayCollection();
         $this->owners = new ArrayCollection();
         $this->questionAnswers = new ArrayCollection();
+        $this->documents = new ArrayCollection();
     }
     
 
@@ -907,6 +922,38 @@ class PPBasic implements \Serializable
         $newPresentation = null === $textDescription ? null : $this;
         if ($textDescription->getPresentation() !== $newPresentation) {
             $textDescription->setPresentation($newPresentation);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Document[]
+     * 
+     */
+    public function getDocuments(): Collection
+    {
+        return $this->documents;
+    }
+
+    public function addDocument(Document $document): self
+    {
+        if (!$this->documents->contains($document)) {
+            $this->documents[] = $document;
+            $document->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeDocument(Document $document): self
+    {
+        if ($this->documents->contains($document)) {
+            $this->documents->removeElement($document);
+            // set the owning side to null (unless already changed)
+            if ($document->getPresentation() === $this) {
+                $document->setPresentation(null);
+            }
         }
 
         return $this;

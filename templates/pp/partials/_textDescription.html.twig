@@ -44,14 +44,17 @@
             #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
                 display: block;
                 /* height = lineheight * no of lines to display */
-                height: 4.4em;
+                height: 7.5em;
                 overflow: hidden;
             }
             
             #moduleCollapseTextDescription #collapseTextDescription.collapsing {
-                height: 4.4em;
+                height: 7.5em;
             }
+            
         </style>
+
+     
 
         <!-- Text Description Display (2 cases : short text; long text) -->
 
@@ -64,6 +67,8 @@
                 {{ textDescription | sanitize_html }}
 
             </div>
+
+        <!-- Case 2: long Text: we use a collapsible text -->
             
         {% else %}
             
@@ -79,7 +84,7 @@
 
                 <!-- Toggle Collapse Button -->
 
-                <div class="d-flex">
+                <div class="mt-4 mb-2">
 
                     <a role="button" class="collapsed btn btn-primary btn-sm sharp font-weight-bold" data-toggle="collapse" href="#collapseTextDescription" aria-expanded="false" aria-controls="collapseTextDescription"></a>
                     
@@ -91,13 +96,6 @@
 
             
         {% endif %}
-
-
-        <!-- Case 2: long Text: we use a collapsible text -->
-
-
-
-
 
 
     </div>

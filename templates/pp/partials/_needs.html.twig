@@ -50,6 +50,8 @@
 
                         <!-- Is it a Paid Service ? We set the Answer. -->
 
+                        {% set isPaid = '' %}
+
                         {% if need.paidService %}
                       
                             {% if need.paidService == 'yes' %}
@@ -63,7 +65,7 @@
 
                             {% else %}
 
-                            {% set isPaid = "" %}
+                                {% set isPaid = "" %}
                             
                             {% endif %}
 
