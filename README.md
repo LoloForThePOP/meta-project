@@ -37,13 +37,20 @@ rename the file ".env.example" to ".env" (so you only got to remove ".example" i
 composer install
 
 #### 5- Configure your database access: in the .env file:
-Example for mysql: go to this line: DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name \
-Then, for example, replace like this (adapt to your own): DATABASE_URL=mysql://root:@127.0.0.1:3306/projectofprojects
+Example for mysql: go to this line: DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+
+Then, for example, replace it like this (adapt to your own): DATABASE_URL=mysql://root:@127.0.0.1:3306/projectofprojects
+
+#### 4-b Update Dependancies
+composer update
 
 #### 6- Create Database
 php bin/console doctrine:database:create
 
-#### 7- Execute migrations
+#### 7-a Ensures that the metadata storage is at the latest version
+doctrine:migrations:sync-metadata-storage
+
+#### 7-b Execute migrations
 php bin/console doctrine:migrations:migrate
 
 #### 8- Execute Fixtures
