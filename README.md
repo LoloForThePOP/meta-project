@@ -41,14 +41,8 @@ Example for mysql: go to this line: DATABASE_URL=mysql://db_user:db_password@127
 
 Then, for example, replace it like this (adapt to your own): DATABASE_URL=mysql://root:@127.0.0.1:3306/projectofprojects
 
-#### 4-b Update Dependancies
-composer update
-
 #### 6- Create Database
 php bin/console doctrine:database:create
-
-#### 7-a Ensures that the metadata storage is at the latest version
-doctrine:migrations:sync-metadata-storage
 
 #### 7-b Execute migrations
 php bin/console doctrine:migrations:migrate
