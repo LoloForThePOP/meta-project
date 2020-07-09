@@ -49,19 +49,19 @@
                     {
                         'type': 'skill', 
                         'title_fr': 'Une Compétence', 
-                        'example_fr': 'Ex : un Développeur; un Électricien'
+                        'example_fr': ''
                     },
 
                     {
                         'type': 'task', 
                         'title_fr': 'Un Service Ponctuel', 
-                        'example_fr': 'Ex : Préparer un repas; Créer deux dessins'
+                        'example_fr': ''
                     },  
 
                     {
                         'type': 'material', 
                         'title_fr': 'Un Objet, un Outil, du Matériel', 
-                        'example_fr': 'Ex : une Perçeuse'
+                        'example_fr': ''
                     },  
                     
                     {
@@ -118,7 +118,7 @@
 
                                 <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Choisir le type de besoin</h5>
 
-                                <!-- Close Modal Cross Button  -->
+                                <!-- Close Modal (Cross Button)  -->
 
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -126,7 +126,7 @@
 
                             </div>
 
-                            <!-- Modal Content  -->
+                            <!-- Modal Content  (select a Need Type) -->
 
                             <div class="modal-body">
 
@@ -136,19 +136,29 @@
 
                                         <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': slug, 'needType': item.type })}}">
 
-                                        <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center" style="height:55px;">
+                                        <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer" style="height:55px;">
+
+                                                <!-- Need type Icon  -->
 
                                                 <div class="col-3 d-flex justify-content-center align-items-center">
-                                                    <img src="https://place-hold.it/30x30" alt="">
+
+                                                    <img src="/images/icons/needs/types/{{ item.type}}.svg" alt="{{ item.type }}" width="30px" height="30px">
+
                                                 </div>
 
+                                                <!-- Need type title with Example  -->
+
                                                 <div class="col">
+
+                                                    <!-- Need type title  -->
 
                                                     <span class="font-weight-bold">
                                                         {{ item.title_fr }} 
                                                     </span>
 
                                                     <br>
+
+                                                    <!-- Need type concrete example  -->
 
                                                     <span class="">
                                                         {{ item.example_fr}} 

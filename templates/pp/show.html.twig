@@ -114,7 +114,11 @@
     
     {# we center the presentation display when just in consultation mode #}
 
-    {% if not app.user == presentation.creator %}
+
+    {% if app.user == presentation.creator %}
+
+
+    {% else %}
     
         container  
 

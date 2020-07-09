@@ -33,7 +33,7 @@ class DocumentType extends AbstractType
                     'label' => 'Donner un titre au document',
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici le titre du document',
+                        'placeholder'    => 'Écrire ici',
                     ],
                     'required'   => true,
                 ]
