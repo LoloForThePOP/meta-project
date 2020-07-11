@@ -47,14 +47,24 @@
     {% else %}
 
         {% set fileType = 'FILE' %}
+
+        {% set bgColor = '#000000' %}
         
     {% endif %}
 
-    
+    <style>
+
+        .documentRepresentation:hover 
+        {
+            background-color: gainsboro;
+
+        }
+
+    </style>
 
     <!-- Documents Icon Display -->
 
-    <div class="col border border-primary" style="width:140px; height:170px;">
+    <div class="documentRepresentation col border border-primary" style="width:140px; height:170px;">
 
         <div class="row h-100">
 

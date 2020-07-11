@@ -1,0 +1,188 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Catégories du Projet{% endblock %}
+
+
+{% block body %}
+
+<style>
+
+    .hoverButton:hover, .hoverButton:hover>* {
+        background-color:gainsboro !important;
+    }
+    
+    /* La selection de la classe parente Permet de passer outre la déclaration hover */
+
+    #categoriesChoices .selectedCategory, #categoriesChoices .selectedCategory:hover {
+        background-color: yellow !important;
+    }
+    
+</style>
+
+<div class="container pt-2">
+           
+    <!-- ui Page Title -->	
+    
+    <h5 class="h4 font-weight-bold my-3 mt-4 d-inline-block mr-3">Rechercher par catégories</h5>
+        
+    <!-- Button trigger modal -->
+
+    <button type="button" class="d-block btn btn-primary" data-toggle="modal" data-target="#categorySelectionModal">
+
+        Chercher par catégories
+
+    </button>
+
+    <!-- Modal -->
+
+    <div class="modal fade" id="categorySelectionModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+
+    <div class="modal-dialog modal-lg" role="document">
+
+        <div class="modal-content">
+
+        <div class="modal-header">
+
+            <h5 class="modal-title" id="modalLabel"><b>Choisir une ou plusieurs catégories</b></h5>
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+
+        </div>
+
+        <div class="modal-body">
+
+        <!-- Categories Search -->
+
+            <div class="container">
+
+            <ul id="categoriesChoices" class="row row-cols-3 row-cols-sm-4 row-cols-lg-6 row-cols-xl-8 list-unstyled list">
+
+                {% for category in categories %}
+
+                <li id="{{ category.id }}" class="rounded hoverButton cursor-pointer col mb-4">
+
+                    <a class="d-block text-dark bg-white text-decoration-none h-100">
+
+                    <div class="pt-2 pb-0 text-center">
+
+                        <img id="" class="" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="35" height="35">
+
+                    </div>
+
+                    <div class="name text-body text-decoration-none text-center font-weight-bold pt-1">
+
+                        {{category.descriptionFr}}
+
+                    </div>
+
+                    </a>
+
+                </li>
+
+                {% endfor %}
+
+                <li id="searchByCategories" class="bg-green rounded cursor-pointer col mb-4 d-flex justify-content-center align-items-center">
+
+                <a class="d-block text-dark bg-white text-decoration-none d-flex justify-content-center align-items-center">
+
+                    <div class="bg-green text-white d-flex justify-content-center align-items-center">
+
+                        <span class="h2 font-weight-bold">Go !</span>
+
+                    </div>
+
+                </a>
+
+                </li>
+            
+            </ul>
+
+            </div>
+
+    
+
+        </div>
+
+        <div class="modal-footer">
+
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-primary">Save changes</button>
+
+        </div>
+
+        </div>
+
+    </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+    $(document).ready(function(){  
+
+        $('#categoriesChoices').on('click', '.hoverButton', function (event){
+
+            var catId = $(this).attr('id');
+
+            $(this).toggleClass("selectedCategory");
+            $(this).children().toggleClass("selectedCategory");
+    
+        });  
+
+        $('#searchByCategories').on('click', function (event){
+
+        // we group selected categories ids in an array
+
+        var selectedCategoriesIds = [];
+
+        $('#categoriesChoices .selectedCategory').each(function(index){
+            
+            selectedCategoriesIds.push($(this).attr('id'));
+    
+        });
+        
+        $.ajax({
+
+            url: "{{ path('ajax_search_by_cat') }}",
+
+            type:       'POST',  
+
+            dataType:   'json',
+
+            data: {
+
+            "selectedCategoriesIds": selectedCategoriesIds,
+
+            },
+
+            async: true,  
+            
+            success: function(data, status) {  
+                // alert(data.catId)
+            
+            },
+
+            error : function(xhr, textStatus, errorThrown) {  
+                // alert('Ajax request failed.');  
+            }  
+            
+        });  
+
+    
+        });  
+
+    });  
+
+    </script>
+
+{% endblock %}

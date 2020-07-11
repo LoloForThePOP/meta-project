@@ -271,6 +271,35 @@
 
                 </a>
 
+                <!-- Display Project Presentation -->
+
+                <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
+
+                  <div class="hoverZone card border-left-info shadow py-2">
+
+                    <div class="card-body d-flex align-items-center justify-content-center">
+                      
+                      <div class="row no-gutters">
+                        <div class="col mr-2">
+  
+                          <div class="cat-menu-title mb-md-4 ">Voir le Résultat</div>
+    
+                            <div class="d-flex align-items-center justify-content-center">
+
+                              <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="mx-auto" height:"65px" width="65px"> 
+
+                            </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                </a>
+
               </div>
 
               <!-- End of First column -->
@@ -554,9 +583,7 @@
                               
                             <div class="d-flex align-items-center justify-content-center h6 font-weight-bold">
               
-                                  <span class="fs-15 text-center">
-                                    Pas de logo associé à ce projet
-                                  </span>
+                              <img src="/images/icons/edit_presentation/menu/none.svg" width="27px" height="27px" alt="">
 
                             </div>
 
@@ -699,7 +726,8 @@
                           {% else %}
 
                             <span class="badgeCount badge badge-light">
-                                {{ presentation.keywords | length }}
+
+                                {{ presentation.keywords | split(',') | length }}
                             </span>
 
                           {% endif %}
@@ -717,42 +745,6 @@
               </div>
 
               <!-- End of Third Column -->
-
-              
-              
-
-
-              <!-- Display Project Presentation -->
-
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer rounded-circle">
-                <a class=" hoverZone text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
-                  <div class="card border-left-info shadow py-2">
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                      
-                      <div class="row no-gutters">
-                        <div class="col mr-2">
-  
-                          <div class="cat-menu-title mb-md-4 ">Voir le Résultat</div>
-    
-                            <div class="row no-gutters">
-    
-                              <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="mx-auto" height:"65px" width="65px">
-
-
-                            </div>
-                        </div>
-                      </div>
-
-
-                    </div>
-                  </div>
-                </a>
-                
-              </div>
-
-
-
-
 
             </div>
 

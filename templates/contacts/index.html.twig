@@ -7,18 +7,18 @@
 {% block body %}
 
     <div class="container pt-3">
-        
-    <!-- Page Title -->	
+            
+        <!-- Page Title -->	
 
-    <h3 class="my-3 d-inline mr-3">Comment vous contacter ?</h3>
+        <h3 class="my-3 d-inline mr-3">Comment vous contacter ?</h3>
 
-    <!-- Collapsable Advice Button -->	
+        <!-- Collapsable Advice Button -->	
 
-    <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
-        <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Conseil </span>
-        
-    </a>
+            <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Conseil </span>
+            
+        </a>
 
     <!-- Collapsable Box -->
         
@@ -32,77 +32,59 @@
 
     </div>
     
-    <!-- "Add a Contact Card" Button -->
+    <!-- "Add a Contact Card" (Button) -->
 
     <div class="mb-4">
             
-        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg bg-green sharp d-block font-weight-bold px-4 mt-3 py-3 mr-3">+ Ajouter une zone de contact</button></a>
+        <a href="{{ path('contact_new', {'slug': slug}) }}"><button class="btn btn-success btn-lg bg-green sharp d-block font-weight-bold px-4 mt-3 py-3 mr-3">+ Ajouter</button></a>
 
     </div>
 
-    <!-- "Manage Contact Cards" Table -->
 
-    <div class="mb-3">
+    <!-- Style Contact Cards -->
 
-        {% if contacts | length > 0 %}
+    <style>
 
-            <div class="col-md-9 pl-0">
+        .hoverZone:hover {
+            background-color: blue !important;
+        }
 
-                <div class="table-responsive">
+    </style>
 
-                    <table class="table table-hover table-striped table-bordered">
 
-                        <thead>
+    <!-- Contact Cards Grid -->
 
-                            <tr>
-                                <th>Titre du contact</th>
-                                <th>E-mail 1</th>
-                                <th>Téléphone 1</th>
-                                <th>Adresse</th>
-                            </tr>
+    <div id="contactCardsGrid" class="row pl-md-3">
+     
+        {% for contact in presentation.contacts %}
 
-                        </thead>
+            <!-- Contact Card Item -->
 
-                        <tbody>
+            <div id="{{contact.id}}" class="js-sortableGridItem position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
 
-                        {% for contact in contacts %}
+                <!-- Contact Card Content -->
 
-                            {% set showPath = path('contact_show', {'id': contact.id, 'slug': slug}) %}
-                            {% set editPath = path('contact_edit', {'contact_id': contact.id, 'slug': slug}) %}
-            
-                            <tr class="cursor-pointer"  
-                                
-                                {% if app.user and app.user == presentation.creator %}
-                                    onclick="window.location='{{ editPath }}'";>
-                                {% else %}
-                                    onclick="window.location='{{ showPath}}'";>
-                                {% endif %}
-                        
-                                <td>{{ contact.title }}</td>
-                                <td>{{ contact.email1 | slice (0,15) }}</td>
-                                <td>{{ contact.tel1 }}</td>
-                                <td>{{ contact.postalMail }}</td>
+                <a href="{{  path('contact_edit', {'contact_id': contact.id, 'slug': slug})  }}" class="w-100 h-100 text-body text-decoration-none">
 
-                            </tr>
+                    {% include 'contacts/_icons_display.html.twig' %}
+    
+                </a>  
+                
+                <!-- Remove a Contact Card (Button with Red Cross) -->
+    
+                <div class="d-inline position-absolute p-0" data-id="{{contact.id}}" style="top:0; right:0;">
 
-                        {% else %}
-
-                            <tr>
-                                <td colspan="9">Aucune zone contact pour l'instant</td>
-                            </tr>
-                        {% endfor %}
-
-                        </tbody>
-
-                    </table> 
-
+                    <span class="font-weight-bold">
+                        {{ include('contacts/_delete_form.html.twig') }}
+                    </span>
+                    
                 </div>
+
             </div>
         
-        {% endif %}
+        {% endfor %}
 
     </div>
-
 
     <!-- Back Button -->
 
@@ -118,3 +100,91 @@
     </div>
 
 {% endblock %}
+
+
+
+{% block javascripts %}
+
+    <!-- sortable plugin in order to reorder Contact Cards -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // Reorder Contact Cards positions with drag and drop
+
+            $('#contactCardsGrid').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                
+                // reorder contact cards position (drag and drop)
+
+                onEnd: function (evt) {
+
+                    // an array storing slides id position
+
+                    var contactCardsPosition = [];
+
+                    
+                    $('#contactCardsGrid div.js-sortableGridItem').each(function(index){
+                        
+                        contactCardsPosition.push($(this).attr('id'));
+                
+                    });
+
+                    jsonContactCardsPosition = JSON.stringify(contactCardsPosition);
+                    
+                    $.ajax({  
+
+                        url: "{{path('ajax_reorder_contact_cards', {'slug': presentation.slug})}}",
+
+                        type:       'POST',   
+
+                        dataType:   'json',
+
+                        data: {
+
+                            "jsonContactCardsPosition": jsonContactCardsPosition,
+
+                        },
+
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                
+                        },  
+
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                    }); 
+
+                },
+
+
+            });
+
+
+        }); 
+
+        
+    </script>
+
+{% endblock %}
+
+

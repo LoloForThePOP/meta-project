@@ -16,24 +16,46 @@
 
 {% block body %}
 
-<div class="container">
-	
-    <!-- UI Page Title -->
+    <!-- Content Container -->
+
+    <div class="container">
+
+        <!-- Title with Info Button Container -->
+
+        <div class="mt-3 mt-md-5 mb-3">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Ressources désirées</h3>
+         
+            <!-- collapsable advice trigger button -->	
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+                
+            </a>
+
+            <!-- Collapsible Advice Container -->
     
-    <h3 class="mt-md-4 mb-md-4 font-weight-bold"> 
+            <div class="info-box collapse col-md-7 mt-2 mb-4" id="collapseExample">
+    
+                <p class="h5">
+    
+                    Vous recherchez un local; du matériel; un développeur web, etc ? Ici vous pouvez présenter vos besoins. Les visiteurs peuvent ensuite vous contacter.
+    
+                </p>
+    
+            </div>
 
-        <span class="">
+        </div>
 
-            Ressources désirées
 
-        </span>
-    </h3>
-
-    <!-- Add a Need (Open a Modal Box and allows user to select a Need Type) -->
+    <!-- Add a Need Button (Open a Modal Box and allows user to select a Need Type) -->
     
     {% if app.user and app.user == presentation.creator %}
 
-        <div class="m-0 p-0">
+        <div class="mb-3 p-0">
 
             <!-- Button trigger modal -->
 
@@ -196,123 +218,66 @@
             
     {% endif %}
 
-    <!-- Project Needs Display -->
+    <!-- Project Needs Display Listing -->
 
     {% if presentation.needs | length > 0 %}
+
+        <div id="needsList" class="row col-md-10">
+
+                {% for need in presentation.needs %}
+
+                    <!-- Thumbnail Container -->
+
+                    <div id="{{need.id}}" class="js-sortableGridItem fs-15 col-md-5 mr-md-4 d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer" style="border-left : 6px solid rgb(95, 30, 30) !important; border-bottom : 6px solid orange !important;">
+
+                        <a href="{{path('need_edit', {'slug':slug,'need_id' : need.id })}}" class="w-100 h-100 text-body text-decoration-none" >
+                            
+                            <div class="font-weight-bold mb-1">
+
+                                {% if need.title | length > 45 %}
+
+                                    {{ need.title | slice (0,45) }}...
+
+                                {% else %}
+
+                                    {{ need.title }}
+
+                                {% endif %}
+                                
+                            </div>
+                            
+                            <div>
+                                
+                                {% if need.description | length > 70 %}
+
+                                    {{ need.description | slice (0,70) }}...
+
+                                {% else %}
+
+                                    {{ need.description }}
+
+                                {% endif %}
+
+                            </div>
+
+                        </a>
+
+                        <!-- Remove a Need Button (Red Cross) -->
         
-        <div class="tableWrapper">
-    
-                <div class="table">
+                        <div class="d-inline position-absolute" data-id="{{need.id}}" style="top:0; right:0;">
 
-                    <!-- Table Header -->
-                    
-                    <div class="row header green">
-                        
-                        <div class="cell">
-                            Titre
-                        </div>
-                        
-                        <div class="cell">
-                            Description
-                        </div>
-
-                        <div class="cell">
-                            Date
-                        </div>
-
-                        <div class="cell">
-                            Actions
-                        </div>
-
-                    </div>
-
-                <!-- Table Content -->
-                    
-                    {% for need in needs %}
-
-                    
-                    <div class="row cursor-pointer">                    
-
-                        <div class="cell font-weight-bold" data-title="Titre">
-
-                            {% if need.title | length > 40 %}
-
-                                {{ need.title | slice (0,37) }}...
-
-                            {% else %}
-
-                                {{ need.title }}
-
-                            {% endif %}
-                            
-
-                        </div>
-
-                        <div class="cell" data-title="Description">
-
-                            {% if need.description | length > 40 %}
-                            
-                                {{ need.description | slice (0,37) }}...
-
-                            {% else %}
-
-                                {{ need.description }}
-
-                            {% endif %}
-                            
-
-                        </div>
-
-                        <div class="cell" data-title="Date">
-
-                            {{ need.createdAt ? need.createdAt|date('Y-m-d') : '' }}
-
-                        </div>
-
-                        <!-- Actions Possibilities -->
-
-                        <div class="cell" data-title="Actions">
-
-                            {% if app.user and app.user == presentation.creator %}
-
-                                <!-- Modify Need "Button" -->
-            
-                                <a href="{{ path('need_edit', {'need_id': need.id, 'slug': slug}) }}">
-
-                                    modifier
-
-                                </a>
-            
-                                <!-- Delete Need "Button" -->
-
-                                {{ include('need/_delete_form.html.twig') }}
-
-                            {% else %}
-
-                                Voir
-
-                            {% endif %}
+                            {{ include('need/_delete_form.html.twig') }}
 
                         </div>
 
                     </div>
 
-                    {% else %}
+                {% endfor %}
 
-                        <div class="cell" >
+            {% endif %}
 
-                            Aucun besoin présenté
-                        
-                        </div>
-
-                    {% endfor %}
-
-                </div>
-                
         </div>
-        
 
-    {% endif %}
 
     <!-- Back Button -->
 
@@ -321,7 +286,9 @@
          <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
 
             <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mt-4">
+
                 Retour
+
             </button>
 
         </a>
@@ -330,4 +297,82 @@
     
 </div>
 
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <!-- sortable plugin in order to reorder project needs -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+            $('#needsList').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                // when drag and drop ends : ajax request to reorder positions
+
+                onEnd: function (evt) {
+
+                    // an array storing slides id position
+
+                    var needsPositions = [];
+                  
+                    $('#needsList div.js-sortableGridItem').each(function(index){
+                        
+                        needsPositions.push($(this).attr('id'));
+                   
+                    });
+
+                    jsonNeedsPositions = JSON.stringify(needsPositions);
+                    
+                    $.ajax({  
+
+                        url: "{{path('ajax_reorder_needs', {'slug': presentation.slug})}}",
+
+                        type:       'POST',   
+
+                        dataType:   'json',
+
+                        data: {
+                            "jsonNeedsPositions": jsonNeedsPositions,
+                        },
+    
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                 
+                        },  
+    
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+
+                     }); 
+
+                },
+
+            });
+
+        }); 
+
+        
+    </script>
+   
 {% endblock %}

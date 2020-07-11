@@ -14,18 +14,14 @@
     .catButton {
     
         height:61.2px;
-
         font-size:1.1em;
-
         margin-right:23px;
         margin-bottom:-5px;
-
         line-height:1.4em !important;
         
         border-color:black !important;
         
     }
-
     .catButton:hover{
         background-color:gainsboro;
     }
@@ -43,12 +39,10 @@
         width:190px;
         padding-left:5px;
     }
-
     /* La selection de la classe parente Permet un Override du Hover */
     #catGrid .selectedCategory, #catGrid .selectedCategory:hover {
         background-color: yellow !important;
     }
-
     
     input {
         outline: 0;
@@ -68,7 +62,6 @@
         color: rgb(49, 25, 93)  !important;
       }
       
-
 </style>
 
 <div class="container pt-2">
@@ -77,29 +70,33 @@
     
     <h5 class="h4 font-weight-bold my-3 mt-4 d-inline-block mr-3">Catégories du Projet</h5>
     
-    <!-- collapsable advice -->	
-
-    <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-
+    <!-- collapsable advice -->
+    
+      <!-- Trigger Button -->
+      
+      <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        
         <span class="btn btn-light fs-15 h5 sharp p-1" style="letter-spacing: 2px;">Conseils rapides</span>
         
-    </a>
-    
-    <div class="collapse mt-2" id="collapseExample">
-                
-        <ul class="h5">
+      </a>
+      
+      <!-- Advice -->
 
-            <li>On peut <strong>Combiner les Catégories</strong></li>
+      <div class="info-box collapse mt-2" id="collapseExample">
+                  
+          <ul class="h5">
 
-            <li>Exemple: Environnement ET Construction</li>
+              <li>On peut <strong>combiner les catégories</strong></li>
 
-            <li>Maximum Recommandé : 6</li>
+              <li>Exemple: Environnement ET Construction</li>
 
-            <li><strong>Compléter avec des Mots-Clés est Efficace</strong></li>
+              <li>Maximum recommandé : 6</li>
 
-        </ul>
+              <li><strong>Compléter avec des mots-clés est efficace</strong></li>
 
-    </div>
+          </ul>
+
+      </div>
 
 
     <!-- Categories Grid -->
@@ -144,15 +141,10 @@
 {% block javascripts %}
 
     <script>
-
         $(document).ready(function(){  
-
             $("#catGrid .catButton").on("click", function(event){ 
-
                var catId = $(this).attr('id');
-
                $(this).toggleClass("selectedCategory");
-
                $.ajax({  
                   url: "{{path('ajax_update_category', {'slug': presentation.slug}) }}",
                   type:       'POST',   
@@ -172,7 +164,6 @@
                });  
             });  
         });  
-
     </script>
 
 

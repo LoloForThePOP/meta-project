@@ -6,9 +6,11 @@ use App\Entity\Contact;
 use App\Entity\PPBasic;
 use App\Form\ContactType;
 use App\Repository\ContactRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -117,4 +119,54 @@ class ContactController extends AbstractController
             'slug' => $slug,
         ]);
     }
+
+        
+    /**
+     * Allow to reorder contact caards positions with an ajax request
+     *
+     * @Route("/ajax-reorder-contact-cards/", name="ajax_reorder_contact_cards")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+    */ 
+    public function ajaxReorderContactCards(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonContactCardsPosition = $request->request->get('jsonContactCardsPosition');
+
+            $contactCardsPosition = json_decode($jsonContactCardsPosition,true);
+
+            foreach ($presentation->getContacts() as $contact){
+
+                $newContactCardPosition = array_search($contact->getId(), $contactCardsPosition, false);
+                
+                $contact->setPosition($newContactCardPosition);
+
+                $manager->persist($contact);
+            }
+            
+            $manager->persist($presentation);
+
+            $manager->flush();
+
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 }

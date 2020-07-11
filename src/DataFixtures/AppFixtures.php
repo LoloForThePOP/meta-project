@@ -36,26 +36,27 @@ class AppFixtures extends Fixture
 
         $faker= Factory::create('fr-FR');
 
-        // a User Account for the Demo
+        // Create a website User
+
         $demoUser = new User();
         $demoUser->setName('testUser')
                 ->setEmail('test@test.com')
                 ->setHash($this->encoder->encodePassword($demoUser,'test'));
         $manager->persist($demoUser);
 
-        // Admin Role Creation
+        // Create an Admin Role
 
         $adminRole = new Role();
         $adminRole->setTitle('ROLE_ADMIN');
         $manager->persist($adminRole); 
 
-        // Master Admin Role Creation
+        // Create a Master Admin Role 
 
         $masterAdminRole = new Role();
         $masterAdminRole->setTitle('ROLE_MASTER_ADMIN');
         $manager->persist($masterAdminRole);
 
-        // a User with Admin Role Creation
+        // Create a User with Admin Role
 
         $adminUser = new User();
         $adminUser->setName('Lolo')
@@ -71,6 +72,7 @@ class AppFixtures extends Fixture
         // Project Categories Creation
 
         $categories = [
+
             'software' => "Informatique, Codage, Internet",
             'science' => "Science, Recherche",
             'education' => "Informer, Éduquer, Apprendre",
@@ -91,8 +93,6 @@ class AppFixtures extends Fixture
             'entertain' => "Divertissements, Loisirs, Sports",
             
         ];
-
-        // (dropped category) 'other' => "Autres",
 
         $categoriesObjects = [];
 
@@ -184,11 +184,7 @@ class AppFixtures extends Fixture
 
             $pp = new PPBasic ();
 
-            // Title Creation
-
-            //future fixture not for the moment : In Prod dome Titles won't be filled (untitled-project-id title pattern might be used in this case). I don't treat this case for the moment.
-            
-            //$title='Projet Sans Titre';
+            // Project Title Creation
 
             $filledTitle=array_rand([true,true,true,true, false]);
 
@@ -250,9 +246,8 @@ class AppFixtures extends Fixture
                 ->setIsActiveContactMessages($isActiveContactMessages)
                 ->setAdminValidation($isAdminValidated)
             ;
-
+            
             // Project Text Description Creation
-
 
             $hasTextDescriptionOdds = [true, true, true, false];
 
@@ -424,20 +419,29 @@ class AppFixtures extends Fixture
 
 
                         
-            // Project Categories Creation
+            // Set some categories to this Project Presentation
             
-            $numCat = mt_rand(0,4); // random number of categories for this project
+            $numCat = mt_rand(0,8); // random number of categories for this project
 
             if ($numCat>0){ //si le projet a des catégories, on en prend au hasard et on lui ajoute
-               $catRandKeys = array_rand($categoriesObjects,$numCat);
+
+               $catRandKeys = array_rand($categoriesObjects, $numCat);
+
                if ($numCat==1){
+
                    $pp->addCategories($categoriesObjects[$numCat]);
+
                }
+
                else {
+
                    foreach ($catRandKeys as $index){
+
                        $pp->addCategories($categoriesObjects[$index]);
-                   }                 
+                   }            
+
                }
+               
             }
 
             // Slides Creation
@@ -507,7 +511,7 @@ class AppFixtures extends Fixture
 
             // Contact Us Boxes Creation
 
-            for($j=1;$j<=mt_rand(0,4);$j++){
+            for($j=1; $j<=mt_rand(0,4); $j++){
                 
                 $contact = new Contact();
 
@@ -551,6 +555,7 @@ class AppFixtures extends Fixture
                 $remarks = $remarksPossibilities[array_rand($remarksPossibilities)];
 
                 $contact  
+                    ->setPosition($j)
                     ->setTitle($title)
                     ->setEmail1($email1)
                     ->setEmail2($email2)

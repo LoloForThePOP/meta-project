@@ -106,13 +106,12 @@
     margin-right: 15px !important;
 }
 
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
+#sidebar ul li.active>a, #sidebar a[aria-expanded="true"] {
     background: #ffffff;
     font-weight: bold;
 }
 
-a[data-toggle="collapse"] {
+#sidebar a[data-toggle="collapse"] {
     position: relative;
 }
 

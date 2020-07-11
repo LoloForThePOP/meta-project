@@ -26,204 +26,67 @@
 
         </div>
 
+            
+        <!-- Contact Cards Styles -->
+
+        <style>
+
+            .pp-contact-us-card, .pp-contact-us-card a {
+
+                background-color : white !important;
+            
+                }
+
+        </style>
+
          <!-- Contact Cards grid -->
 
         <div class="row pl-md-3">
      
             {% for contact in presentation.contacts %}
-            
-                <!-- A contact us card -->
-            
-                <div id="" class="pp-contact-us-card col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
-            
-                    <!-- Contact Name or Title -->
 
-                    {% if contact.title is not empty %}
-                        
-                    <h5 class="font-weight-bold mb-3">{{contact.title}}</h5>
-                    
-                    {% endif %}
-                    
-                    <!-- Contact Email -->
-            
-                    {% if ( contact.email1 is not null ) or ( contact.email2 is not null ) %}
-                    
-                        <div class="mb-2">
-            
-                            <div class="font-weight-bold">
-                                Email :
-                            </div>
-            
-                            <div class="pl-4">
-            
-                                <style>
-                                                        
-                                    .cryptedmail:after {
-            
-                                        content: attr(data-name) "@" attr(data-domaintld); 
-                                    }
-            
-                                </style>
-            
-            
-                                {% if contact.email1 is not null %}
-                                
-                                    <a href="#" class="cryptedmail text-decoration-none text-body" 
-                                    data-name="{{ contact.email1|split('@')[0] }}"
-                                    data-domaintld="{{ contact.email1|split('@')[1] }}"
-                                    onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
-                                    </a>
-                                    
-                        
-                                    
-            
-                                {% endif %}
-            
-                                
-                                {% if contact.email2 is not null %}
-            
-                                    <a href="#" class="cryptedmail text-decoration-none text-body" 
-                                        data-name="{{ contact.email2|split('@')[0] }}"
-                                        data-domaintld="{{ contact.email2|split('@')[1] }}"
-                                        onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
-                                    </a>
-            
-                                {% endif %}
-            
-            
-                            </div>
-            
-            
-                        </div>
-            
-            
-                    {% endif %}
-                    
-                    <!-- Contact Telephone(s) -->
-            
-                    {% if ( contact.tel1 is not null ) or ( contact.tel2 is not null ) %}
                 
-                        <div class="mb-2"> 
-                        
-                            <div class="font-weight-bold">
-                            
-                                Téléphone :
-                                
-                            </div>
-            
-                            <div class="pl-4">
-            
-                                {% if contact.tel1 is not null %}
-                            
-                                    <a class="text-decoration-none text-body" href="tel:{{contact.tel1}}">{{contact.tel1}}</a><br>
-            
-                                {% endif %}
-                                
-                                {% if contact.tel2 is not null %}
-                            
-                                    <a class="text-decoration-none text-body" href="tel:{{contact.tel2}}">{{contact.tel2}}</a>
-            
-                                {% endif %}
-                            
-                            </div>
-                        
-                        </div>
-            
-                    {% endif %}
-                    
-                    
-                    <!-- Contact Websites -->
-            
-                    {% if contact.website1 is not null %}
+                <div id="" class="pp-contact-us-card col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
+           
+                    {% include 'contacts/_icons_display.html.twig' %}
 
-                        <div class="mb-2"> 
-                            
-                            <div class="font-weight-bold">
-                            
-                                Site web :
-                                
-                            </div>
-            
-                            <div class="pl-4">
-
-                                {# Website Link with potential troncature #}
-
-                                <a class="text-decoration-none text-body"
-                                href="{{contact.website1}}">
-                                
-                                    {{contact.website1 | slice (0,55)}}
-
-                                    {% if contact.website1 | length > 55 %}
-                                        ...
-                                    {% endif %}
-
-                                </a>
-
-                            </div>
-
-                        </div>
-                    
-                    {% endif %}
-                    
-                    <!-- Contact Postal Mail -->
-            
-                    {% if contact.postalMail is not null %}
-                    
-                        <div class="mb-2">
-                        
-                            <div class="font-weight-bold">Adresse :</div> 
-                        
-                            <div class="pl-4">
-                            
-                                {{ contact.postalMail | nl2br }}
-                                
-                            </div>
-                            
-                        </div>
-            
-                    {% endif %}
-                    
-                    <!-- More Informations & Remarks -->
-            
-                    {% if contact.remarks is not null %}
-    
-                    <div class="mb-2"> 
-                            
-                        <div class="font-weight-bold">
-                        
-                        + Info :
-                            
-                        </div>
-        
-                        <div class="pl-4 font-weight-bold">
-
-                            {{contact.remarks}}
-
-                        </div>
-
-                    </div>
-                    
-            
-                    {% endif %}
-            
                 </div>
             
             {% endfor %}
+
+        
+        <!-- Style for Private Messages Button -->  
+
+        <style>
+
+            .pp-private-message-card, .pp-private-message-card a {
+
+                background-color : white !important;
+
+            }
+
+            .pp-private-message-card:hover, .pp-private-message-card>* :hover {
+
+                background-color:aliceblue  !important; 
+            }
+
+        </style>
      
         <!-- Private Messages Button -->  
         
         {% if presentation.isActiveContactMessages %}
 
-            <div class="pp-private-message-card col-sm-5 border border-primary border-2 py-3 px-3 mb-4 mr-4 d-flex align-items-center justify-content-middle">
+            <div class="pp-private-message-card cursor-pointer col-sm-5 border border-primary border-2 mb-4 mr-4">
                         
-                <div class="h5 my-auto mx-auto px-4 py-3 text-center font-weight-bold" style="letter-spacing: 1.15px; font-size:1.20em;">
+                <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
                                 
-                    <a class="text-decoration-none text-body" href="{{path('contact_message_new', {'slug':presentation.slug})}}">Envoyer un <br> message privé </a>
+                    <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('contact_message_new', {'slug':presentation.slug})}}">Envoyer un <br> message privé </a>
                 </div>
             
             </div>
        
         {% endif %}
+
 
         </div>
 

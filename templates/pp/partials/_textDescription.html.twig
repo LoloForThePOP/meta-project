@@ -32,12 +32,12 @@
 
 
         <style>
-                        
-            #moduleCollapseTextDescription a.collapsed:after {
+                
+            #moduleCollapseTextDescription button.collapsed:after {
                 content: '+ Afficher Plus';
             }
             
-            #moduleCollapseTextDescription a:not(.collapsed):after {
+            #moduleCollapseTextDescription button:not(.collapsed):after {
                 content: '- Réduire';
             }
             
@@ -86,7 +86,7 @@
 
                 <div class="mt-4 mb-2">
 
-                    <a role="button" class="collapsed btn btn-primary btn-sm sharp font-weight-bold" data-toggle="collapse" href="#collapseTextDescription" aria-expanded="false" aria-controls="collapseTextDescription"></a>
+                    <button class="collapsed btn btn-primary btn-sm sharp font-weight-bold" data-toggle="collapse" data-target="#collapseTextDescription"></button>
                     
                 </div>
 

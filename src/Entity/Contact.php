@@ -91,6 +91,11 @@ class Contact
      */
     private $website3;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $position;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -260,6 +265,18 @@ class Contact
     public function setWebsite3(?string $website3): self
     {
         $this->website3 = $website3;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

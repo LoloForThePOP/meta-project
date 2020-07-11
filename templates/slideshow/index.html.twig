@@ -16,19 +16,23 @@
 
             <h3 class="h3 font-weight-bold d-inline mr-3">Images & Vidéos</h3>
 
-            <!-- Display an Info-Box if Empty Slideshow -->
+            <!-- Display an Info-Box (if Empty Slideshow) -->
 
             {% if presentation.slides | length == 0 %}
 
                 <!-- collapsable advice -->	
+
+                <!-- Trigger Button -->	
 
                 <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
                     <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Info </span>
                     
                 </a>
+
+                <!-- Advice -->	
                     
-                <div class="collapse col-md-6 mt-0 mb-4" id="collapseExample">
+                <div class="info-box collapse col-md-6 mt-0 mb-4" id="collapseExample">
 
                     <p class="lh-2 h5">Images, schémas, et vidéos sont un Moyen RAPIDE ET EFFICACE pour <strong>transmettre vos Idées</strong> .</p>
 

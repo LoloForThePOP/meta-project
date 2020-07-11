@@ -169,4 +169,44 @@ class NeedController extends AbstractController
             'slug' => $slug,
         ]);
     }
+
+    
+    
+    /**
+     * Allow to modify Needs positions with an ajax request
+     *
+     * @Route("/ajax-reorder-needs/", name="ajax_reorder_needs")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+    */ 
+    public function ajaxReorderNeeds(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonNeedsPositions = $request->request->get('jsonNeedsPositions');
+
+            $needsPositions = json_decode($jsonNeedsPositions,true);
+
+            foreach ($presentation->getNeeds() as $need){
+
+                $newNeedPosition = array_search($need->getId(), $needsPositions, false);
+                
+                $need->setPosition($newNeedPosition);
+
+                $manager->persist($need);
+            }
+            
+            $manager->persist($presentation);
+
+            $manager->flush();
+
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+    }
+
+    
 }

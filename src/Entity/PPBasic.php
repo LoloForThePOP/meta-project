@@ -232,6 +232,7 @@ class PPBasic implements \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Need", mappedBy="presentation", orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $needs;
 
@@ -243,6 +244,7 @@ class PPBasic implements \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Contact", mappedBy="presentation", orphanRemoval=true)
+     * @ORM\OrderBy({"position" = "ASC"})
      */
     private $contacts;
 

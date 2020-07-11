@@ -3,7 +3,7 @@
 
 {% if presentation.websites | length > 0 %}
 
-    <!-- Structure Container -->
+    <!-- Whole Structure Container -->
 
     <div class="pp-struct-container pb-2">
 
@@ -27,15 +27,30 @@
 
         <!-- Project Websites Grid Display -->
 
+
+        <style>
+
+            
+            .pp-website-card, .pp-website-card >* {
+
+                background-color: #fafafa;
+            }
+
+            .pp-website-card:hover, .pp-website-card:hover a{
+                background-color:gainsboro !important;
+            }
+
+        </style>
+
         <div class="row pl-md-3">
 
              {% for website in presentation.websites %}
 
-                <div class="pp-website-card pl-md-3 col-sm-5 border border-light p-1 mb-4 mr-4" style="overflow-wrap: break-word;">
+                <div class="pp-website-card cursor-pointer col-sm-5 pl-md-3 border border-primary p-1 mb-4 mr-md-4 d-flex align-items-center justify-content-around" style="overflow-wrap: break-word;">
 
-                    <a href="{{website.url}}" class="list-group-item list-group-item-action border-0 flex-column align-items-start text-decoration-none text-body p-1">
+                    <a href="{{website.url}}" class="list-group-item border-0 flex-column align-items-start text-decoration-none text-body p-1">
 
-                        <div class="text-body p-1 w-100">
+                        <div class="p-1 w-100">
 
                             {% if website.description is not null %}
 

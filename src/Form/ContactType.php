@@ -81,7 +81,7 @@ class ContactType extends ApplicationType
                 EmailType::class,
                 $this->getConfiguration(
                     "Une autre adresse e-mail ?", 
-                    "Vous pouvez l'écrire ici", 
+                    "Écrire ici", 
                     ['required' => false]
                 )
             )
@@ -91,7 +91,7 @@ class ContactType extends ApplicationType
                 TelType::class,
                 $this->getConfiguration(
                     "Un autre téléphone ?", 
-                    "Vous pouvez l'écrire ici", 
+                    "Écrire ici", 
                     ['required' => false]
                 )
             )

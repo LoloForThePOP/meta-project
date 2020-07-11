@@ -99,7 +99,7 @@ class PPController extends AbstractController
                 "Les modifications de la présentation ont bien été enregistrées."
             );
 
-            return $this->redirectToRoute('project_show', [
+            return $this->redirectToRoute('edit_presentation_menu', [
                 'slug' => $presentation->getSlug()
             ]);
         }

@@ -1,54 +1,71 @@
-{% if presentation.geoDomains | length > 0 %}
+<!-- Project Geodomains Display -->
 
-    <div class="pp-struct-container pb-3">
+    <!-- Styles -->
 
-        <h3 class="pp-struct-title d-inline mr-2">Lieux du projet</h3>
+    <style>
 
-        <!-- Edit Geodomains Button -->
+        .geodomains li, .geodomains li:hover {
 
-        {% if app.user and app.user == presentation.creator %}
-            <a href="{{ path('geodomains_places_manage', {'slug': presentation.slug}) }}" class="">
+            background-color : aliceblue;
 
-                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les lieux</button>
-                
-            </a>
-        {% endif %}
+        }
 
-        <ul class="list-group pt-3">
+    </style>
 
-            {% for place in presentation.geoDomains | slice(0, 3) %}
+    <!-- Geodomains Display List -->
 
+    {% if presentation.geoDomains | length > 0 %}
 
-                <li class="list-group-item py-1 border-0">
+        <div class="pp-struct-container geodomains pb-3">
 
-                    {# Blue Arrow Bullet Point #}
+            <h3 class="pp-struct-title d-inline mr-2">Lieux du projet</h3>
+
+            <!-- Edit Geodomains Button -->
+
+            {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('geodomains_places_manage', {'slug': presentation.slug}) }}" class="">
+
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les lieux</button>
                     
-                    <span class="arrowCar blueArrow mr-1">► </span>
-                    
-                    <span class="font-weight-bold h5">
-                        {{place.placeName}}
-                    </span>
-                    
-                    <span class="font-weight-bold h5 mr-2">
-
-                        {% if not place.postalCode == '' %}
-                            ({{place.postalCode}})
-                        {% endif %}
-                       
-                    </span>
-                
-                </li>
-
-            {% endfor %}
-
-            {% if presentation.geoDomains | length > 3 %}
-
-                <li class="list-group-item py-1 border-0">...</li>
+                </a>
                 
             {% endif %}
 
-          </ul>
+            <ul class="list-group pt-3 col-md-7">
 
-    </div>
+                {% for place in presentation.geoDomains | slice(0, 3) %}
 
-{% endif %}
+
+                    <li class="list-group-item py-1 border-0">
+
+                        {# Blue Arrow Bullet Point #}
+                        
+                        <span class="arrowCar blueArrow mr-1">► </span>
+                        
+                        <span class="font-weight-bold h5">
+                            {{place.placeName}}
+                        </span>
+                        
+                        <span class="font-weight-bold h5 mr-2">
+
+                            {% if not place.postalCode == '' %}
+                                ({{place.postalCode}})
+                            {% endif %}
+                        
+                        </span>
+                    
+                    </li>
+
+                {% endfor %}
+
+                {% if presentation.geoDomains | length > 3 %}
+
+                    <li class="list-group-item py-1 border-0">...</li>
+                    
+                {% endif %}
+
+            </ul>
+
+        </div>
+
+    {% endif %}
