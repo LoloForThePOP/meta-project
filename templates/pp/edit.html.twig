@@ -16,85 +16,115 @@
   
   {{form_start(form)}}
 
-  <div class="mt-4 mb-3 col-md-7 bg-light p-4">
+  <div class="mt-5 mb-3 col-md-11">
 
-    <div class="form-group">
+    <div class="row">
 
-       {{form_row(form.goal)}}
+      <!-- First Column -->
 
-    </div>
+      <!-- Project Goal & Title Edition -->
+
+      <div class="col-md-5 mb-sm-3 mb-md-0 p-3 mr-md-3 bg-light border border-warning">
+
+        <!-- Project Goal -->
+
+        <div class="form-group">
     
-
-    <div class="form-group">
-
-      {{form_row(form.title)}}
-
-    </div>
-   
-
+           {{form_row(form.goal)}}
     
+        </div>
 
+        <!-- Project Title -->        
+    
+        <div class="form-group">
+    
+          {{form_row(form.title)}}
+    
+        </div>
+        
+      </div>
 
-    <!-- Project Logo -->
+      <!-- Second Column -->
+
+      <!-- Project Logo Edition -->
+
+      <div class="col-md-4 p-3 bg-light border border-warning">
 
       <span class="textblack"> {{form_label(form.logoFile)}}</span>
 
-       <!-- Case a Logo already Exist -->
+      <!-- Case a Logo already Exist -->
 
-      {% if presentation.logoName %}
+     {% if presentation.logoName %}
 
-        <div class="row mx-md-1 border rounded alert bg-white text-body">
+       <div class="row mx-md-1 border rounded alert bg-white text-body">
 
-          <div class="col-md-auto">
+         <div class="col-md-auto mb-sm-2 mb-md-0">
 
-              <div class="d-inline-block position-relative">
+             <div class="d-inline-block position-relative">
 
-                <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
+               <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
 
-                  <img class="d-block" src="/images/projects/logos/{{presentation.logoName}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
+                 <img class="d-block" src="/images/projects/logos/{{presentation.logoName}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
 
-                </div>
+               </div>
 
 
-              </div>
+             </div>
 
-          </div>
+         </div> 
 
-          <div class="col pl-md-3">
+         <div class="col pl-md-3">
 
-            <div class="row d-inline-block">
-              
-                <div class="h5 font-weight-bold my-2">
-                  Changer
-                </div>
+           <div class="row d-inline-block">
+             
+               <div class="h5 font-weight-bold my-2">
 
-                {{form_widget(form.logoFile)}}
+                 Changer
 
-            </div> 
+               </div>
 
-          </div>
+               {{form_widget(form.logoFile)}}
 
-        </div>
+           </div> 
 
-      <!-- Case no logo yet -->
+         </div>
 
-      {% else %}
+       </div>
 
-        <div class="pt-3">
-          
-          {{form_widget(form.logoFile)}}
+     <!-- Case no logo yet -->
 
-        </div>
+     {% else %}
 
-      {% endif %}
+       <div class="pt-3">
+         
+         {{form_widget(form.logoFile)}}
 
-  <button type="submit" class="btn btn-success bg-green sharp fs-15 font-weight-bold mt-4 mr-2">Enregistrer</button>
+       </div>
 
-  <a href="{{path('edit_presentation_menu', {'slug':presentation.slug})}}">
-    <button type="button" value="" class="btn btn-info sharp fs-15 mt-4">
-        <span class=" font-weight-bold">Retour</span> 
-    </button>
-  </a>
+     {% endif %}
+
+      </div>
+
+    </div>
+
+    <!-- Action buttons -->
+
+    <div class="">
+
+      <!-- Save Button -->
+
+      <button type="submit" class="btn btn-success bg-green sharp fs-15 font-weight-bold mt-4 mr-2">Enregistrer</button>
+
+      <!-- Cancel Button -->
+
+      <a href="{{path('edit_presentation_menu', {'slug':presentation.slug})}}">
+        <button type="button" value="" class="btn btn-info sharp fs-15 mt-4">
+            <span class=" font-weight-bold">Retour</span> 
+        </button>
+      </a>
+
+    </div>
+
 
   </div>
 
@@ -105,8 +135,6 @@
     {{form_end(form)}}
 
     <!-- <a onClick="return confirm (`Êtes vous sûr de vouloir supprimer la Présentation {{presentation.title}}?`)" href= "{{path("project_delete",{'slug':presentation.slug})}}" class="btn btn-danger">Supprimer cette Présentation</a> -->
-
-</div>
 
 
 {% endblock %}

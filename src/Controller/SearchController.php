@@ -2,9 +2,11 @@
 
 namespace App\Controller;
 
+use App\Repository\PPBasicRepository;
 use App\Repository\CategoryRepository;
-use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class SearchController extends AbstractController
@@ -13,7 +15,7 @@ class SearchController extends AbstractController
     /**
      * Display Project Categories so that people can search project or needs by categories
      * 
-     * @Route("/search-by-cat", name="searchByCatRepo")
+     * @Route("/search-by-cat", name="search_by_cat")
     */
 
     public function searchByCategories(CategoryRepository $categoryRepository)
@@ -29,26 +31,45 @@ class SearchController extends AbstractController
      * @Route("/ajax-search-by-cat", name="ajax_search_by_cat") 
     */ 
 
-     public function ajaxSearchByCat(EntityManagerInterface $manager) {
+     public function ajaxSearchByCat(PPBasicRepository $repo, Request $request) {
 
         if ($request->isXmlHttpRequest()) {
 
-            $jsonSelectedCategoriesIds = $request->request->get('selectedCategoriesIds');
+            //get selected categories
+
+            $jsonSelectedCategoriesIds = $request->request->get('jsonSelectedCategoriesIds');
 
             $selectedCategoriesIds = json_decode($jsonSelectedCategoriesIds,true);
 
-            $result = $manager->createQuery('SELECT p.title, p.keywords, p.thumbnailName, p.goal, p.slug FROM App\Entity\PPBasic p WHERE p.isPublished=true ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
+            //count selected categories
 
-            /* $category = $categoryRepository->findOneById($categoryId);
-                
-            $presentationCategories = $presentation->getCategories(); */
+            $countSelectedCategories = $request->request->get('countSelectedCategories');
 
-           /*  $arrData = [
-                'catId' => $categoryId,
+            //maximum categories allowed
+
+            //$maxCategories =  $countSelectedCategories + 2;
+
+            //get search results
+
+            $results = $repo->findByCategories($selectedCategoriesIds);
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'search/by_categories_results.html.twig', 
+
+                    [
+                        'results' => $results,
+                    ]
+                ),
             ];
 
-            return new JsonResponse($arrData); */
+            //dump($dataResponse);
 
+            return new JsonResponse($dataResponse);
+
+        
         }
 
     }

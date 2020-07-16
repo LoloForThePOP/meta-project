@@ -1,0 +1,63 @@
+
+
+<div class="container pt-2">
+
+    {# <pre>
+        {{ dump(results) }}
+    </pre> #}
+           
+    <!-- ui Page Title -->	
+    
+    <h5 class="h4 font-weight-bold my-3 mt-4 d-inline-block mr-3">Résultats par catégories</h5>
+
+    <ul>
+        {% for result in results %}
+
+            <li class="js-search-result mb-2 list-style-none">
+
+                <span class="font-weight-bold mr-2">Project {{result.project.id}}:</span> 
+
+                {% for category in result.project.categories %}
+                
+                <img class="js-category-icon mr-2" data-category-id="{{ category.id }}" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="24" height="24">
+                    
+                {% endfor %}
+
+                <span class="js-other-categories mr-2" style="display:none;">
+
+                    <span class="h4 font-weight-bold mr-2">
+                        +
+                    </span>
+
+                </span>
+                
+                <span class=""><b>(match: {{result.nbMatchCat}})</b></span>
+
+            </li>
+            
+        {% endfor %}
+
+    </ul>
+
+
+</div>
+
+
+{% block javascripts %}
+
+<script>
+
+    $(document).ready(function(){  
+
+       
+
+     
+    });  
+
+</script>
+
+
+
+    
+
+{% endblock %}

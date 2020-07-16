@@ -18,6 +18,26 @@ class PPBasicRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PPBasic::class);
     }
+    
+
+    public function findByCategories (array $category) {
+
+            return $this->createQueryBuilder('p')
+            ->select('p as project, COUNT(c) as nbMatchCat')
+            ->join('p.categories', 'c')
+            ->orWhere('c.id in (:category)')
+            ->setParameter('category', $category)
+            ->addOrderBy('COUNT(c)', 'DESC')
+            ->addOrderBy('SIZE(p.categories)', 'ASC')
+            ->addOrderBy('c.id', 'ASC')
+            ->groupBy('p.id')
+            ->having('SIZE(p.categories) <= COUNT(c) + 2 ')
+            ->setMaxResults(100)
+            ->getQuery()
+            ->getResult()
+        ;
+
+    }
 
     // /**
     //  * @return PPBasic[] Returns an array of PPBasic objects

@@ -180,7 +180,7 @@ class AppFixtures extends Fixture
 
         $projects=[];
         
-        for($i=1; $i<=35; $i++) {
+        for($i=1; $i<=300; $i++) {
 
             $pp = new PPBasic ();
 
@@ -421,7 +421,7 @@ class AppFixtures extends Fixture
                         
             // Set some categories to this Project Presentation
             
-            $numCat = mt_rand(0,8); // random number of categories for this project
+            $numCat = mt_rand(0,6); // random number of categories for this project
 
             if ($numCat>0){ //si le projet a des catégories, on en prend au hasard et on lui ajoute
 
@@ -644,7 +644,7 @@ class AppFixtures extends Fixture
 
         // Project Groups Creation
 
-        for($i=1; $i<=15; $i++){
+        for($i=1; $i<=1; $i++){
 
             $projectGroup = new PGroup();
 
