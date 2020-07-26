@@ -1,0 +1,36 @@
+
+
+<div class="container pt-2">
+
+    {#<pre>
+        {{ dump(results) }}
+    </pre> #}
+           
+    <!-- ui Page Title -->	
+    
+    <h5 class="h4 font-weight-bold my-3 mt-3 d-inline-block mr-3">Résultats par lieux</h5>
+
+    <ul>
+        
+        {% for result in results %}
+
+            <li class="js-search-result mb-2 list-style-none">
+
+                <span class="mr-2 font-weight-bold">{{ result.project.id }}</span>
+
+                    {% for geoDomain in result.project.geoDomains %}
+
+                        <span class="mr-2 text-primary"> {{ geoDomain.geoType }} </span>
+                
+                        <span class="mr-2 font-weight-bold"> {{ geoDomain.placeName }} </span>
+
+                    {% endfor %}
+
+            </li>
+            
+        {% endfor %}
+
+    </ul>
+
+
+</div>

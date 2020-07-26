@@ -23,7 +23,7 @@ class ContactType extends ApplicationType
                 'title',
                 TextType::class,
                 $this->getConfiguration(
-                    "Un nom, un titre ?", 
+                    "Un nom, une fonction ?", 
                     "Exemples : Laurent Dupond ; Responsable Communication", 
                     ['required' => false]
                 )

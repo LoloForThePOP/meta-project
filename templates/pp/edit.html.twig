@@ -24,7 +24,7 @@
 
       <!-- Project Goal & Title Edition -->
 
-      <div class="col-md-5 mb-sm-3 mb-md-0 p-3 mr-md-3 bg-light border border-warning">
+      <div class="col-md-5 mb-3 p-3 mr-md-3 bg-light border border-warning">
 
         <!-- Project Goal -->
 
@@ -50,85 +50,90 @@
 
       <div class="col-md-4 p-3 bg-light border border-warning">
 
-      <span class="textblack"> {{form_label(form.logoFile)}}</span>
+        <!-- Form Logo Label -->
 
-      <!-- Case a Logo already Exist -->
+        <div class="mb-2">
 
-     {% if presentation.logoName %}
+          <span class="textblack"> {{form_label(form.logoFile)}}</span>
 
-       <div class="row mx-md-1 border rounded alert bg-white text-body">
+        </div>
 
-         <div class="col-md-auto mb-sm-2 mb-md-0">
+        <!-- Case a Logo already Exist -->
 
-             <div class="d-inline-block position-relative">
+        {% if presentation.logoName %}
 
-               <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
+          <div class="row mx-md-1 border rounded alert bg-white text-body">
 
-                 <img class="d-block" src="/images/projects/logos/{{presentation.logoName}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
+            <div class="col-md-auto mb-sm-2 mb-md-0">
 
-               </div>
+                <div class="d-inline-block position-relative">
+
+                  <div class="m-0 p-0 d-flex align-items-center justify-content-center ">
+
+                    <img class="d-block" src="/images/projects/logos/{{presentation.logoName}}" style="min-width:100px; min-height:100px;max-width:150px; max-height:150px" alt="">
+
+                  </div>
 
 
-             </div>
+                </div>
 
-         </div> 
+            </div> 
 
-         <div class="col pl-md-3">
+            <div class="col pl-md-3">
 
-           <div class="row d-inline-block">
-             
-               <div class="h5 font-weight-bold my-2">
+              <div class="row d-inline-block">
+                
+                  <div class="h5 font-weight-bold my-2">
 
-                 Changer
+                    Changer
 
-               </div>
+                  </div>
 
-               {{form_widget(form.logoFile)}}
+                  {{form_widget(form.logoFile)}}
 
-           </div> 
+              </div> 
 
-         </div>
+            </div>
 
-       </div>
+          </div>
 
-     <!-- Case no logo yet -->
+        <!-- Case no logo yet -->
 
-     {% else %}
+        {% else %}
 
-       <div class="pt-3">
-         
-         {{form_widget(form.logoFile)}}
+          <div class="pt-3">
+            
+            {{form_widget(form.logoFile)}}
 
-       </div>
+          </div>
 
-     {% endif %}
+        {% endif %}
 
       </div>
 
     </div>
 
-    <!-- Action buttons -->
-
-    <div class="">
-
-      <!-- Save Button -->
-
-      <button type="submit" class="btn btn-success bg-green sharp fs-15 font-weight-bold mt-4 mr-2">Enregistrer</button>
-
-      <!-- Cancel Button -->
-
-      <a href="{{path('edit_presentation_menu', {'slug':presentation.slug})}}">
-        <button type="button" value="" class="btn btn-info sharp fs-15 mt-4">
-            <span class=" font-weight-bold">Retour</span> 
-        </button>
-      </a>
-
-    </div>
 
 
   </div>
 
+  <!-- Action buttons -->
 
+  <div class="">
+
+    <!-- Save Button -->
+
+    <button type="submit" class="btn btn-success bg-green sharp fs-15 font-weight-bold mr-2">Enregistrer</button>
+
+    <!-- Cancel Button -->
+
+    <a href="{{path('edit_presentation_menu', {'slug':presentation.slug})}}">
+      <button type="button" value="" class="btn btn-info sharp fs-15">
+          <span class=" font-weight-bold">Retour</span> 
+      </button>
+    </a>
+
+  </div>
 
 </div>
     
@@ -143,6 +148,7 @@
 {% block javascripts %}
 
   <script>
+    
       $(document).ready(function(){
 
         // some Styles
@@ -152,6 +158,7 @@
         $(".vich-image .form-group").before("<hr>");
 
       });
+
   </script>
 
 {% endblock %}

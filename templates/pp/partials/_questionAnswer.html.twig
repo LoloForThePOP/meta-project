@@ -1,39 +1,54 @@
 
 <style>
    
-    .accordion-section .panel-default > .panel-heading {
-        border: 0;
-        padding: 0;
-    }
-    .accordion-section .panel-default .panel-title a {
-        display: block;
-        font-size: 1.2rem;
-    }
-    .accordion-section .panel-default .panel-title a:after {
-       
-        font-size: .1.5rem;
-        content: "▲";
-        float: right;
-    }
-    .accordion-section .panel-default .panel-title a.collapsed:after {
-        content: "▼";
-    }
-    .accordion-section .panel-default .panel-body {
-        font-size: 1.2rem;
-    }
 
-    .panel-heading:hover {
+    .questionRow:hover {
         background-color: gainsboro !important;
     }
 
-    .question{
-        font-size:1.10em;
+    .question {
+
+        font-size: 1.15em;
+
+        line-height: 1.5em;
+
     }
 
-    .panel-body{
+    .answer {
 
-        border-left: 3px solid purple;
-        padding-bottom:2px;
+        font-size: 1.15em;
+
+        line-height: 1.5em;
+
+    }
+
+    .questionRow .collapseSymbolDisplay:after {
+
+        font-size: 1.2rem !important;
+        content: "▲";
+    }
+
+    .collapsed .collapseSymbolDisplay:after {
+        content: "▼";
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .question{
+
+            font-size:17px;
+
+        }
+
+        .answer{
+
+            font-size: 16px;
+            line-height: 1.5em;
+
+        }
+        
+
+
     }
 
 </style>
@@ -45,11 +60,11 @@
 
     <!-- Whole Structure Container -->
 
-    <div class="pp-struct-container pb-3">
+    <div class="pp-struct-container pb-md-2">
 
         <!-- Title Container -->
 
-        <div class="mb-4 pb-1">
+        <div class="pp-struct-title-container pb-1">
                     
             <h2 class="h3 pp-struct-title d-inline mr-2">Questions / Réponses</h2>
                                             
@@ -67,64 +82,68 @@
         </div>
 
          <!-- Q & A (Collapsible) -->
-            
-        <section class="accordion-section clearfix mt-3" aria-label="QuestionAccordions">
 
-            <div class="container">
+        <div class="container mt-3">
 
-                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                    
-                {% for qa in presentation.questionAnswers %}
+                
+            {% for qa in presentation.questionAnswers %}
 
-                    <div class="panel panel-default cursor-pointer">
+                <!-- Question with Collapse Symbol Display -->
+                
+                <div class="questionRow row p-1 mb-2 mb-md-3 cursor-pointer collapsed" data-toggle="collapse" href="#collapse{{ qa.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ qa.id }}">
+                                                
+                    <!-- Question Display -->
 
-                        <div class="panel-heading p-1 mb-3" role="tab" id="heading{{ qa.id }}">
+                    <div class="col-11 pr-0">
 
-                            <h5 class="panel-title">
+                        <span class="question">
 
-                                <a class="collapsed text-body" role="button" title="" data-toggle="collapse" data-parent="#accordion" href="#collapse{{ qa.id }}" aria-expanded="true" aria-controls="collapse{{ qa.id }}">
+                            {{ qa.question }}
 
-                                    <span class="question">
-                                        {{ qa.question }}
-                                    </span>
+                        </span>
 
-                                </a>
+                    </div>
 
-                            </h5>
+                    <!-- Collapse Symbol Display -->
 
+                    <div class="collapseSymbolDisplay col-1 d-flex justify-content-center px-0">
+
+                    </div>
+
+                </div>
+
+                <!-- Answer Display -->
+
+                <div class="collapse mb-2 mb-md-4" id="collapse{{ qa.id }}">
+
+                    <div class="p-2 " style="background-color: aliceblue;">
+
+                        <div class="answer mb-2">
+                            
+                            {{ qa.answer | nl2br }}
+                        
                         </div>
 
-                        <div id="collapse{{ qa.id }}" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading{{ qa.id }}">
-                            
-                            <div class="panel-body px-3 mb-4">
+                        <!-- Answer's Date Display -->
 
-                                <div class="mb-2">
-                                    
-                                    {{ qa.answer | nl2br }}
-                                
-                                </div>
+                        <div class="">
 
-                                <div class="">
+                            <span class="h6 font-weight-bold">
 
-                                    <span class="h6 font-weight-bold">
-                                        {{ qa.createdAt | date("d/m/Y") }}
-                                    </span>                                    
-                                
-                                </div>
+                                {{ qa.createdAt | date("d/m/Y") }}
+
+                            </span>                                    
                         
-                            </div>
-
                         </div>
 
                     </div>
-                    
-                {% endfor %}
 
                 </div>
-            
-            </div>
+                
+            {% endfor %}
 
-        </section>
+        
+        </div>
 
     </div>
 

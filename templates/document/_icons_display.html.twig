@@ -76,15 +76,15 @@
                     {{ fileType }}
                 </div>
 
-            </div>
+            </div> 
+
 
             <!--Document Title (as renamed by user) -->
 
-            <div class="col-8 h6 font-weight-bold d-flex justify-content-center align-items-center dont-break-out" style="text-transform:uppercase;">
+            <div class="col-8 h6 font-weight-bold d-flex justify-content-center align-items-center pt-3 px-1" style="text-transform:uppercase; word-break: break-word;">
 
-                {{ document.title | slice (0,33) }}
+                {{ document.title | striptags | length > 33 ? document.title | striptags | slice(0, 33) ~ ' ...' : document.title | striptags }}
 
-                {% if document.title | length > 34 %}...{% endif %}
                 
 
             </div>

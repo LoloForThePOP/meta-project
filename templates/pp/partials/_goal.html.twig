@@ -1,9 +1,34 @@
 
 <!-- Project Goal Presentation -->
 
+
+
+<!-- Some Styles -->
+
+<style>
+
+    .pp-project-goal{
+
+        font-family: Tahoma, Geneva, Verdana, sans-serif;
+
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .pp-project-goal{
+
+            font-size: 1.1em;
+            font-weight: normal;
+        }
+
+    }
+
+</style>
+
     <!-- Project Goal Display -->
     
-    <h4 class="pl-0 font-weight-bold mt-4 d-inline mr-2" style="font-size:1.45em;">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</h4>
+    <h4 class="pp-project-goal d-inline-block mb-0 mr-2 mr-md-3">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</h4>
 
     <!-- Edit Project Goal Button -->
 

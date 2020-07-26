@@ -1,10 +1,31 @@
 
+<style>
+
+    .contactCardTitle {
+
+        font-weight: bold;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .contactCardTitle {
+
+            font-size: 1.30em;
+            font-weight: normal;
+
+        }
+
+    }
+
+</style>
+
 
     <!-- Contact Name or Title -->
 
     {% if contact.title is not empty %}
         
-    <h5 class="font-weight-bold mb-3">{{contact.title}}</h5>
+    <h5 class="contactCardTitle mb-3">{{contact.title}}</h5>
     
     {% endif %}
     
@@ -153,7 +174,7 @@
 
     <div class="mb-2"> 
             
-        <div class="font-weight-bold">
+        <div class="font-weight-bold mb-2">
         
         + Info :
             

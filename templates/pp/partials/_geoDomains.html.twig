@@ -7,6 +7,23 @@
         .geodomains li, .geodomains li:hover {
 
             background-color : aliceblue;
+            margin-bottom : 15px !important;
+            font-size: 1.17em;
+
+            font-weight: bold;
+
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .geodomains li, .geodomains li:hover {
+
+                font-size: 1.15em;
+                font-weight: normal;
+
+                margin-bottom : 3px !important;
+    
+            }
 
         }
 
@@ -14,39 +31,50 @@
 
     <!-- Geodomains Display List -->
 
+    <!-- Whole Structure Container -->
+
     {% if presentation.geoDomains | length > 0 %}
 
         <div class="pp-struct-container geodomains pb-3">
 
+        
+        <!-- Title Container -->
+
+        <div class="pp-struct-title-container">
+
+            <!-- Structure Title -->
+
             <h3 class="pp-struct-title d-inline mr-2">Lieux du projet</h3>
-
-            <!-- Edit Geodomains Button -->
-
+                                    
+            <!-- Edit Project Title Button -->
+    
             {% if app.user and app.user == presentation.creator %}
-                <a href="{{ path('geodomains_places_manage', {'slug': presentation.slug}) }}" class="">
+            <a href="{{ path('geodomains_places_manage', {'slug': presentation.slug}) }}" class="">
 
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les lieux</button>
-                    
-                </a>
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les lieux</button>
                 
-            {% endif %}
+            </a>
+            
+        {% endif %}
 
-            <ul class="list-group pt-3 col-md-7">
+        </div>
+ 
+
+            <ul class="list-group mt-0 pt-0 col-md-7">
 
                 {% for place in presentation.geoDomains | slice(0, 3) %}
 
-
-                    <li class="list-group-item py-1 border-0">
+                    <li class="list-group-item py-0 border-0">
 
                         {# Blue Arrow Bullet Point #}
                         
-                        <span class="arrowCar blueArrow mr-1">► </span>
+                        <span class="fs-15 blueArrow mr-1">● </span>
                         
-                        <span class="font-weight-bold h5">
+                        <span class="">
                             {{place.placeName}}
                         </span>
                         
-                        <span class="font-weight-bold h5 mr-2">
+                        <span class="mr-2">
 
                             {% if not place.postalCode == '' %}
                                 ({{place.postalCode}})
@@ -60,7 +88,7 @@
 
                 {% if presentation.geoDomains | length > 3 %}
 
-                    <li class="list-group-item py-1 border-0">...</li>
+                    <li class="list-group-item mt-0 pt-0 pb-2 border-0">...</li>
                     
                 {% endif %}
 

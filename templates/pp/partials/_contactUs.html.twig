@@ -10,7 +10,7 @@
 
         <!-- Title Container -->
 
-        <div class="mb-4 pb-1">
+        <div class="pp-struct-title-container">
                     
             <h2 class="h3 pp-struct-title d-inline mr-2">Nous contacter</h2>
                                             
@@ -41,55 +41,56 @@
 
          <!-- Contact Cards grid -->
 
-        <div class="row pl-md-3">
-     
-            {% for contact in presentation.contacts %}
+        <div class="container pl-md-3">
 
+            <div class="row">
+
+                {% for contact in presentation.contacts %}
+
+                    
+                    <div id="" class="pp-contact-us-card col-md-5 border border-primary border-2 p-4 mb-4 mr-0 mr-md-4" style="word-wrap: break-word;">
+            
+                        {% include 'contacts/_icons_display.html.twig' %}
+
+                    </div>
                 
-                <div id="" class="pp-contact-us-card col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
-           
-                    {% include 'contacts/_icons_display.html.twig' %}
+                {% endfor %}
 
-                </div>
+                  <!-- Style for Private Messages Button -->  
+
+                <style>
+
+                    .pp-private-message-card, .pp-private-message-card a {
+
+                        background-color : white !important;
+
+                    }
+
+                    .pp-private-message-card:hover, .pp-private-message-card>* :hover {
+
+                        background-color:aliceblue  !important; 
+                    }
+
+                </style>
             
-            {% endfor %}
+                <!-- Private Messages Button -->  
+                
+                {% if presentation.isActiveContactMessages %}
 
-        
-        <!-- Style for Private Messages Button -->  
-
-        <style>
-
-            .pp-private-message-card, .pp-private-message-card a {
-
-                background-color : white !important;
-
-            }
-
-            .pp-private-message-card:hover, .pp-private-message-card>* :hover {
-
-                background-color:aliceblue  !important; 
-            }
-
-        </style>
-     
-        <!-- Private Messages Button -->  
-        
-        {% if presentation.isActiveContactMessages %}
-
-            <div class="pp-private-message-card cursor-pointer col-sm-5 border border-primary border-2 mb-4 mr-4">
-                        
-                <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
+                    <div class="pp-private-message-card cursor-pointer col-md-5 border border-primary border-2 mb-4 mr-0 mr-md-4" style="min-height: 150px;">
                                 
-                    <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('contact_message_new', {'slug':presentation.slug})}}">Envoyer un <br> message privé </a>
-                </div>
+                        <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
+                                        
+                            <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('contact_message_new', {'slug':presentation.slug})}}">Envoyer un <br> message privé </a>
+                        </div>
+                    
+                    </div>
             
+                {% endif %}
+
             </div>
-       
-        {% endif %}
-
-
+   
         </div>
-
 
     </div>
 

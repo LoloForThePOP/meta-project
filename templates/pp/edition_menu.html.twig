@@ -30,265 +30,211 @@
 
 </style>
 
-    <div class="container pl-md-4">
+    <div class="container pl-0">
 
         <div class="container-fluid mt-4">
 
-            <!-- Page Heading -->
+            <!-- Central Container Heading -->
             <div class="d-sm-flex align-items-center justify-content-between mb-2">
               
               <!-- <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1> -->
             
             </div>
   
-            <!-- Content Row -->
+            <!-- Central Container Content-->
 
             <div class="row">
 
               <!-- First Column -->
-
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-
-                <!-- Project Geodomains -->
-
-                <a class='text-body' href="{{ path('geodomains_places_manage', {'slug':presentation.slug}) }}">
+              
+              <div class="col-xl-4 col-md-6 pl-0 mb-4 cursor-pointer">
+                
+                <!-- Project Goal; Title; and Logo -->
+                
+                <a class=" text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
 
                   <div class="hoverZone card border-left-info shadow py-2 mb-3">
 
-                    <div class="card-body">
+                    <div class="card-body pb-0">
 
-                        <div class=" row no-gutters align-items-center">
+                      <div class="row no-gutters align-items-center">
 
-                          <!-- Icon Left Column-->
-                                        
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                            
-                            <span style="color: DarkGreen">
-                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
-                              <img src="/images/icons/edit_presentation/menu/geodomains.svg" width="37px" height="37px" alt="">
-                            </span>
-                            
+                        <div class="col">
+
+                          <div class="cat-menu-title text-center mb-2">
+                            Objectif & Titre du Projet
                           </div>
 
-                          <!-- Title Middle Column -->
-                          
-                          <div class="col">
+                        </div>
+                      
+                      </div>
 
-                            <div class="cat-menu-title text-xs d-flex align-items-center justify-content-center" >
+                      <hr class="mt-1 mb-2 mx-1 border-4">
+                      
+                      <div class="row no-gutters">
+                        
+                        <div class="col pt-2">
 
-                              <span class="text-uppercase">Lieux du Projet</span>
-                                                
+                          <div class="cat-menu-title text-center mb-2">
+
+                            Logo du Projet
+
+                          </div>
+
+                          <div class="row no-gutters d-flex justify-content-center">
+
+                            {% if presentation.logoName | length == 0 %}
+                              
+                            <div class="d-flex align-items-center justify-content-center h6 font-weight-bold">
+              
+                              <img src="/images/icons/edit_presentation/menu/none.svg" width="27px" height="27px" alt="">
+
                             </div>
 
-                              {% if presentation.geodomains | length == 0 %}
+                            {% else %}
 
-                               <h5 class="mt-2 text-center"> Monde Entier</h5>
+                              <div class="d-flex align-items-center justify-content-center">
 
-                              {% endif %}
-                    
-                          </div>
+                                <img id="" class="mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">  
 
-                          <!-- Counter (Third Column) -->
-
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                            
-                            {% if presentation.geodomains | length > 0 %}
-
-                              <span class="badgeCount badge badge-light">
-
-                                  {{ presentation.geodomains | length }}
-
-                              </span>
+                              </div>
 
                             {% endif %}
-
+                              
                           </div>
 
                         </div>
-
+                      
+                      </div>
                     </div>
-
                   </div>
-
                 </a>
 
-                <!-- Project Websites -->
-
-                <a class='text-body' href="{{ path('websites_index', {'slug':presentation.slug}) }}">
-
-                  <div class="hoverZone card border-left-info shadow py-2 mb-3">
-
-                    <div class="card-body">
-
-                        <div class=" row no-gutters align-items-center">
-
-                          <!-- Icon Left Column-->
-                                        
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                            
-                            <span style="color: DarkGreen">
-                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
-                              <img src="/images/icons/edit_presentation/menu/websites.svg" width="37px" height="37px" alt="">
-                            </span>
-                            
-                          </div>
-
-                          <!-- Title Middle Column -->
-                          
-                          <div class="col d-flex align-items-center justify-content-center">
-
-                            <div class="cat-menu-title text-xs" >
-
-                              <span class="text-uppercase">Sites Web <br> réseaux sociaux</span>
-                                                
-                            </div>
-                    
-                          </div>
-
-                          <!-- Counter (Third Column) -->
-
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-
-                            <span class="badgeCount badge badge-light">
-
-                              {{ presentation.websites | length }}
-  
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                    </div>
-
-                  </div>
-
-                </a>
                 
-                <!-- Project Contact Us Informations -->
+                <!-- Project Categories and Keywords -->
 
-                <a class='text-body' href="{{ path('contact_index', {'slug':presentation.slug}) }}">
-
-                  <div class="hoverZone card border-left-info shadow py-2 mb-3">
-
-                    <div class="card-body">
-
-                        <div class=" row no-gutters align-items-center">
-
-                          <!-- Icon Left Column-->
-                                        
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                            
-                            <span style="color: DarkGreen">
-                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
-                              <img src="/images/icons/edit_presentation/menu/contact_us.svg" width="37px" height="37px" alt="">
-                            </span>
-                            
-                          </div>
-
-                          <!-- Title Middle Column -->
-                          
-                          <div class="col d-flex align-items-center justify-content-center">
-
-                            <div class="cat-menu-title text-xs" >
-
-                              <span class="text-uppercase">Infos de Contact</span>
-                                                
-                            </div>
-                    
-                          </div>
-
-                          <!-- Counter (Third Column) -->
-
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-
-                            <span class="badgeCount badge badge-light">
-
-                              {{ presentation.contacts | length }}
-  
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                    </div>
-
-                  </div>
-
-                </a>
-
-                <!-- Project Q&A -->
-
-                <a class=" text-decoration-none text-body" href="{{ path('qa_manage', {'slug':presentation.slug}) }}">
-
-                  <div class="hoverZone card border-left-info shadow py-2 mb-3">
-
-                    <div class="card-body">
-
-                        <div class=" row no-gutters align-items-center">
-
-                          <!-- Icon Left Column-->
-                                        
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                            
-                            <span style="color: DarkGreen">
-                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
-                              <img src="/images/icons/edit_presentation/menu/qa.svg" width="37px" height="37px" alt="">
-                            </span>
-                            
-                          </div>
-
-                          <!-- Title Middle Column -->
-                          
-                          <div class="col d-flex align-items-center justify-content-center">
-
-                            <div class="cat-menu-title text-xs" >
-
-                              <span class="text-uppercase">Questions <br> & Réponses</span>
-                                                
-                            </div>
-                    
-                          </div>
-
-                          <!-- Counter (Third Column) -->
-
-                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-
-                            <span class="badgeCount badge badge-light">
-
-                              {{ presentation.questionAnswers | length }}
-  
-                            </span>
-
-                          </div>
-
-                        </div>
-
-                    </div>
-
-                  </div>
-
-                </a>
-
-                <!-- Display Project Presentation -->
-
-                <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
+                <a class=" hoverZone text-body" href="{{ path('index_categories', {'slug':presentation.slug}) }}">
 
                   <div class="hoverZone card border-left-info shadow py-2">
 
-                    <div class="card-body d-flex align-items-center justify-content-center">
-                      
-                      <div class="row no-gutters">
-                        <div class="col mr-2">
-  
-                          <div class="cat-menu-title mb-md-4 ">Voir le Résultat</div>
+                    <div class="card-body">
+
+                      <!-- Project Categories -->
+
+                      <div class=" row no-gutters text-center">
     
-                            <div class="d-flex align-items-center justify-content-center">
+                        <!-- Icon Left Column-->
+                                      
+                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                          
+                          <span style="color: DarkGreen">
+                          <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                            <img src="/images/icons/edit_presentation/menu/categories.svg" width="37px" height="37px" alt="">
+                          </span>
+                          
+                        </div>
 
-                              <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="mx-auto" height:"65px" width="65px"> 
+                        <!-- Title Middle Column -->
+                        
+                        <div class="col d-flex align-items-center justify-content-center">
 
-                            </div>
+                          <div class="cat-menu-title text-xs" >
+
+                            <span class="text-uppercase">Catégories du Projet</span>
+                                              
+                          </div>
+                  
+                        </div>
+
+                        <!-- Counter (Third Column) -->
+
+                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+                          {% if presentation.categories | length == 0 %}
+
+                          <span class="badgeCount badge badge-light text-danger">0</span>
+
+                          {% else %}
+
+                            <span class="badgeCount badge badge-light">
+                                {{ presentation.categories | length }}
+                            </span>
+
+                          {% endif %}
+
+                        </div>
+
+                      </div>
+
+                      <!-- Line Separator -->
+
+                      <hr class="my-3 mx-1 border-4">
+
+                      <!-- Project Keywords -->
+                      
+                      <div class=" row no-gutters text-center">
+    
+                        <!-- Icon Left Column-->
+                                      
+                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                          
+                          <span style="color: DarkGreen">
+                          <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                            <!-- <img src="/images/icons/sidebar/settings.svg" width="37px" height="37px" alt=""> -->
+                          </span>
+                          
+                        </div>
+
+                        <!-- Title Middle Column -->
+                        
+                        <div class="col">
+
+                          <div class="cat-menu-title row text-xs d-flex align-items-center justify-content-center" >
+
+                            <span class="text-uppercase">Mots-Clés</span>
+                          
+                          </div>
+
+                          <!-- We Display Some Keywords -->
+
+                          <div class="row font-weight-bold  d-flex align-items-center justify-content-center">
+
+                              {% if presentation.keywords | length > 0 %}
+
+                                <span class="text-break">
+
+                                  #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) }}
+                                  
+                                </span>
+                                    
+                                {% if presentation.keywords | length > 64 %}
+
+                                  ...
+
+                                {% endif %}
+
+                              {% endif %}
+                                              
+                          </div>
+                  
+                        </div>
+
+                        <!-- Counter (Third Column) -->
+
+                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+                          {% if presentation.keywords | length == 0 %}
+
+                          <span class="badgeCount badge badge-light text-danger">0</span>
+
+                          {% else %}
+
+                            <span class="badgeCount badge badge-light">
+
+                                {{ presentation.keywords | split(',') | length }}
+                            </span>
+
+                          {% endif %}
 
                         </div>
 
@@ -299,22 +245,23 @@
                   </div>
 
                 </a>
-
+                
               </div>
-
+              
               <!-- End of First column -->
-
-
+              
+              
               <!-- Second Column -->
-
+              
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
                       
                 <!-- Project Text Description -->
-
+                
                 <a class=" text-decoration-none text-body" href="{{ path('edit_text_description', {'slug':presentation.slug}) }}">
-               
+                  
                   <div class="hoverZone card border-left-info shadow py-2">
-
+                    
+                    
                     <div class="card-body">
                    
 
@@ -542,195 +489,249 @@
   
   
               <!-- Third Column -->
-
+              
               <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                
-                <!-- Project Goal; Title; and Logo -->
-                
-                <a class=" text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
+                    
+                <!-- Project Geodomains -->
+
+                <a class='text-body' href="{{ path('geodomains_places_manage', {'slug':presentation.slug}) }}">
 
                   <div class="hoverZone card border-left-info shadow py-2 mb-3">
 
-                    <div class="card-body pb-0">
+                    <div class="card-body">
 
-                      <div class="row no-gutters align-items-center">
+                        <div class=" row no-gutters align-items-center">
 
-                        <div class="col">
-
-                          <div class="cat-menu-title text-center mb-2">
-                            Objectif & Titre du Projet
+                          <!-- Icon Left Column-->
+                                        
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                            
+                            <span style="color: DarkGreen">
+                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                              <img src="/images/icons/edit_presentation/menu/geodomains.svg" width="37px" height="37px" alt="">
+                            </span>
+                            
                           </div>
 
-                        </div>
-                      
-                      </div>
+                          <!-- Title Middle Column -->
+                          
+                          <div class="col">
 
-                      <hr class="mt-1 mb-2 mx-1 border-4">
-                      
-                      <div class="row no-gutters">
-                        
-                        <div class="col pt-2">
+                            <div class="cat-menu-title text-xs d-flex align-items-center justify-content-center" >
 
-                          <div class="cat-menu-title text-center mb-2">
-
-                            Logo du Projet
-
-                          </div>
-
-                          <div class="row no-gutters d-flex justify-content-center">
-
-                            {% if presentation.logoName | length == 0 %}
-                              
-                            <div class="d-flex align-items-center justify-content-center h6 font-weight-bold">
-              
-                              <img src="/images/icons/edit_presentation/menu/none.svg" width="27px" height="27px" alt="">
-
+                              <span class="text-uppercase">Lieux du Projet</span>
+                                                
                             </div>
 
-                            {% else %}
+                              {% if presentation.geodomains | length == 0 %}
 
-                              <div class="d-flex align-items-center justify-content-center">
+                               <h5 class="mt-2 text-center"> Monde Entier</h5>
 
-                                <img id="" class="mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">  
+                              {% endif %}
+                    
+                          </div>
 
-                              </div>
+                          <!-- Counter (Third Column) -->
+
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                            
+                            {% if presentation.geodomains | length > 0 %}
+
+                              <span class="badgeCount badge badge-light">
+
+                                  {{ presentation.geodomains | length }}
+
+                              </span>
 
                             {% endif %}
-                              
+
                           </div>
 
                         </div>
-                      
-                      </div>
+
                     </div>
+
                   </div>
+
                 </a>
 
-                
-                <!-- Project Categories and Keywords -->
+                <!-- Project Websites -->
 
-                <a class=" hoverZone text-body" href="{{ path('index_categories', {'slug':presentation.slug}) }}">
+                <a class='text-body' href="{{ path('websites_index', {'slug':presentation.slug}) }}">
 
-                  <div class="hoverZone card border-left-info shadow py-2">
+                  <div class="hoverZone card border-left-info shadow py-2 mb-3">
 
                     <div class="card-body">
 
-                      <!-- Project Categories -->
+                        <div class=" row no-gutters align-items-center">
 
-                      <div class=" row no-gutters text-center">
-    
-                        <!-- Icon Left Column-->
-                                      
-                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                          
-                          <span style="color: DarkGreen">
-                          <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
-                            <img src="/images/icons/edit_presentation/menu/categories.svg" width="37px" height="37px" alt="">
-                          </span>
-                          
-                        </div>
-
-                        <!-- Title Middle Column -->
-                        
-                        <div class="col d-flex align-items-center justify-content-center">
-
-                          <div class="cat-menu-title text-xs" >
-
-                            <span class="text-uppercase">Catégories du Projet</span>
-                                              
+                          <!-- Icon Left Column-->
+                                        
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                            
+                            <span style="color: DarkGreen">
+                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                              <img src="/images/icons/edit_presentation/menu/websites.svg" width="37px" height="37px" alt="">
+                            </span>
+                            
                           </div>
-                  
-                        </div>
 
-                        <!-- Counter (Third Column) -->
+                          <!-- Title Middle Column -->
+                          
+                          <div class="col d-flex align-items-center justify-content-center">
 
-                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                            <div class="cat-menu-title text-xs" >
 
-                          {% if presentation.categories | length == 0 %}
+                              <span class="text-uppercase">Sites Web &<br> réseaux sociaux</span>
+                                                
+                            </div>
+                    
+                          </div>
 
-                          <span class="badgeCount badge badge-light text-danger">0</span>
+                          <!-- Counter (Third Column) -->
 
-                          {% else %}
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
 
                             <span class="badgeCount badge badge-light">
-                                {{ presentation.categories | length }}
+
+                              {{ presentation.websites | length }}
+  
                             </span>
 
-                          {% endif %}
+                          </div>
 
                         </div>
 
-                      </div>
+                    </div>
 
-                      <!-- Line Separator -->
+                  </div>
 
-                      <hr class="my-3 mx-1 border-4">
+                </a>
+                
+                <!-- Project Contact Us Informations -->
 
-                      <!-- Project Keywords -->
+                <a class='text-body' href="{{ path('contact_index', {'slug':presentation.slug}) }}">
+
+                  <div class="hoverZone card border-left-info shadow py-2 mb-3">
+
+                    <div class="card-body">
+
+                        <div class=" row no-gutters align-items-center">
+
+                          <!-- Icon Left Column-->
+                                        
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                            
+                            <span style="color: DarkGreen">
+                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                              <img src="/images/icons/edit_presentation/menu/contact_us.svg" width="37px" height="37px" alt="">
+                            </span>
+                            
+                          </div>
+
+                          <!-- Title Middle Column -->
+                          
+                          <div class="col d-flex align-items-center justify-content-center">
+
+                            <div class="cat-menu-title text-xs" >
+
+                              <span class="text-uppercase">Infos de Contact</span>
+                                                
+                            </div>
+                    
+                          </div>
+
+                          <!-- Counter (Third Column) -->
+
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+                            <span class="badgeCount badge badge-light">
+
+                              {{ presentation.contacts | length }}
+  
+                            </span>
+
+                          </div>
+
+                        </div>
+
+                    </div>
+
+                  </div>
+
+                </a>
+
+                <!-- Project Q&A -->
+
+                <a class=" text-decoration-none text-body" href="{{ path('qa_manage', {'slug':presentation.slug}) }}">
+
+                  <div class="hoverZone card border-left-info shadow py-2 mb-3">
+
+                    <div class="card-body">
+
+                        <div class=" row no-gutters align-items-center">
+
+                          <!-- Icon Left Column-->
+                                        
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                            
+                            <span style="color: DarkGreen">
+                            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                              <img src="/images/icons/edit_presentation/menu/qa.svg" width="37px" height="37px" alt="">
+                            </span>
+                            
+                          </div>
+
+                          <!-- Title Middle Column -->
+                          
+                          <div class="col d-flex align-items-center justify-content-center">
+
+                            <div class="cat-menu-title text-xs" >
+
+                              <span class="text-uppercase">Questions <br> & Réponses</span>
+                                                
+                            </div>
+                    
+                          </div>
+
+                          <!-- Counter (Third Column) -->
+
+                          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+                            <span class="badgeCount badge badge-light">
+
+                              {{ presentation.questionAnswers | length }}
+  
+                            </span>
+
+                          </div>
+
+                        </div>
+
+                    </div>
+
+                  </div>
+
+                </a>
+
+                <!-- Display Project Presentation -->
+
+                <a class="text-body" href="{{ path('project_show', {'slug':presentation.slug}) }}">
+
+                  <div class="hoverZone card border-left-info shadow py-2">
+
+                    <div class="card-body d-flex align-items-center justify-content-center">
                       
-                      <div class=" row no-gutters text-center">
+                      <div class="row no-gutters">
+                        <div class="col mr-2">
+  
+                          <div class="cat-menu-title mb-md-4 ">Voir le Résultat</div>
     
-                        <!-- Icon Left Column-->
-                                      
-                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-                          
-                          <span style="color: DarkGreen">
-                          <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
-                            <!-- <img src="/images/icons/sidebar/settings.svg" width="37px" height="37px" alt=""> -->
-                          </span>
-                          
-                        </div>
+                            <div class="d-flex align-items-center justify-content-center">
 
-                        <!-- Title Middle Column -->
-                        
-                        <div class="col">
+                              <img src="/images/icons/sidebar/presentation.svg" alt="See result icon" class="mx-auto" height:"65px" width="65px"> 
 
-                          <div class="cat-menu-title row text-xs d-flex align-items-center justify-content-center" >
-
-                            <span class="text-uppercase">Mots-Clés</span>
-                          
-                          </div>
-
-                          <!-- We Display Some Keywords -->
-
-                          <div class="row font-weight-bold  d-flex align-items-center justify-content-center">
-
-                              {% if presentation.keywords | length > 0 %}
-
-                                <span class="text-break">
-
-                                  #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 64) }}
-                                  
-                                </span>
-                                    
-                                {% if presentation.keywords | length > 64 %}
-
-                                  ...
-
-                                {% endif %}
-
-                              {% endif %}
-                                              
-                          </div>
-                  
-                        </div>
-
-                        <!-- Counter (Third Column) -->
-
-                        <div class="col-auto d-flex align-items-center justify-content-center ml-2">
-
-                          {% if presentation.keywords | length == 0 %}
-
-                          <span class="badgeCount badge badge-light text-danger">0</span>
-
-                          {% else %}
-
-                            <span class="badgeCount badge badge-light">
-
-                                {{ presentation.keywords | split(',') | length }}
-                            </span>
-
-                          {% endif %}
+                            </div>
 
                         </div>
 
@@ -741,7 +742,7 @@
                   </div>
 
                 </a>
-                
+
               </div>
 
               <!-- End of Third Column -->

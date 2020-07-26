@@ -1,12 +1,41 @@
-
 <!-- Project Keywords Presentation -->
+
+<!-- Some Styles -->
+
+<style>
+
+    .pp-project-keywords{
+
+        font-size: 15px;
+
+        font-weight: bold;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .pp-project-keywords{
+
+           
+        }
+
+    }
+
+</style>
+
 
 {% if presentation.keywords | length > 0 %}
 
-    <div class="keywords font-weight-bold mt-1 mb-2 h6 text-left" style="min-height:1.25em;" >
-                            
-        #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+    <div class="keywords text-left" >
 
+        <!-- Project Keywords Display -->
+
+        <span class="d-inline-block mr-2">
+
+            #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+
+        </span>
+       
         <!-- Edit Project Keywords Button -->
 
         {% if app.user and app.user == presentation.creator %}

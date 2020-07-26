@@ -1,0 +1,155 @@
+
+<!--  Box Containing Project Title + Goal + Logo -->
+
+<!-- Upper-box Container (Contains Project Title; Goal; Keywords; Logo -->
+
+
+<style>
+
+    .pp-upper-box-container{
+        
+        margin-bottom:35px;
+
+        padding-left: 17px; 
+        padding-top: 14px;
+        padding-bottom: 16px;
+
+        background-color : aliceblue;
+
+        border-left: 6px solid #ffa500;
+        border-bottom: 6px solid #ffa500;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .pp-upper-box-container{
+
+            padding-left:10px;
+            padding-bottom: 6px;
+
+            border:none;
+    
+        }
+
+    }
+
+</style>
+
+<!-- Upper Box Structure (Small Screen Version) -->
+
+    <div class="container mb-3 d-md-none" >
+
+        <div class="row ">
+
+            <!-- Project Title Display -->
+
+            {% include 'pp/partials/_title.html.twig' %}
+
+        </div>
+
+        <div class="row">
+
+            <!-- Project Logo Display -->
+
+            {% if presentation.logoName %}
+
+                <div class="col-4 px-0 pt-2">
+
+                    {% include 'pp/partials/_logo.html.twig' %}
+
+                </div>
+
+            {% endif %}
+
+            <div class="col-8 pl-2 pr-0 d-flex align-items-center">
+
+                <div class="container">
+                    
+                    <!-- Project Goal Display -->
+
+                    <div class="row">
+
+                        {% include 'pp/partials/_goal.html.twig' %}
+
+                    </div>
+
+                     <!-- Project Keywords Display -->
+
+                    <div class="row">
+
+                        {% include 'pp/partials/_keywords.html.twig' %}
+
+                    </div>
+
+                </div>   
+
+            </div>
+
+        </div>
+
+    </div>
+
+<!-- Upper Box Structure (Bigger Screen Version) -->
+
+    <!-- One Row Containing Two Columns -->
+
+    <div class="pp-upper-box-container d-none d-md-block">
+
+        <div class="row">
+
+        <!-- Left Column -->
+
+            {% if presentation.logoName %}
+
+                <div class="col-2 d-flex align-items-center justify-content-center">
+
+                    <!-- Project Logo Display -->
+
+                    {% include 'pp/partials/_logo.html.twig' %}
+
+                </div>
+                
+             {% endif %}
+
+            <!-- Right Column -->
+
+            <div class="col-10 mb-0 d-flex align-items-center">
+
+                <div class="container">
+
+                     <!-- Project Title Display -->
+
+                    <div class="row ">
+                        
+                        {% include 'pp/partials/_title.html.twig' %}
+                    
+                    </div>
+
+                    <!-- Project Goal Display -->
+
+                    <div class="row pt-1 mb-2 pr-2">
+
+                        {% include 'pp/partials/_goal.html.twig' %}
+                  
+                    </div>
+
+                    {% if presentation.keywords | length > 0 %}
+
+                        <!-- Project Keywords Display -->
+
+                        <div class="row">
+                            
+                            {% include 'pp/partials/_keywords.html.twig' %}
+                        
+                        </div>
+
+                    {% endif %}
+
+                </div>
+        
+        </div>
+
+    </div>
+
+</div>

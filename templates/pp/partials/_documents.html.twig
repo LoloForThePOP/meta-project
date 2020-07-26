@@ -8,7 +8,7 @@
 
         <!-- Title Container with Edit Button -->
 
-        <div class="mb-3">
+        <div class="pp-struct-title-container">
 
             <!-- Structure Title -->
 
@@ -18,11 +18,13 @@
     
             {% if app.user and app.user == presentation.creator %}
 
-                <a href="{{ path('manage_documents', {'slug': presentation.slug}) }}">
+
+                <a class="" href="{{ path('manage_documents', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les documents</button>
                     
                 </a>
+
 
             {% endif %}
 
@@ -33,22 +35,28 @@
 
         <!-- Four First Documents are Displayed by defaults -->
 
-        <div class="container mb-2">
+        <div class="container mb-2 pr-0">
 
-            <div class="row col-md-12 pl-0">
+            <div class="row col-md-12 pl-0 pl-md-2 pr-0">
 
                 {% for document in presentation.documents | slice (0,4) %}
 
-                    <!-- Document Icon with Title -->
+                    <!-- Documents Icons with Title -->
 
-                    <div class="mr-4 mb-3 cursor-pointer" >
+                    <div class= "mb-3 cursor-pointer
 
+                        {# manage tiny screens display #}
+
+                        {{ loop.index0 is odd ? ' pr-0 pr-md-4' : ' pr-3 pr-md-4' }}
+                        
+                    ">
+                        
                         <!-- Download Document / Display Document (Link) -->
 
                         <a href="/files/projects/documents/{{document.fileName}}" class="w-100 h-100 text-body text-decoration-none">
                             
                             {% include 'document/_icons_display.html.twig' %}
-
+                            
                         </a>
                         
                     </div>
@@ -58,8 +66,6 @@
             </div>
 
         </div>
-
-
 
         <!-- If more than four documents, they can be displayed via a Collapsible -->
 
@@ -79,15 +85,21 @@
 
         {% if presentation.documents | length > 4 %}
             
-            <div class="container mb-2">
+            <div class="container mb-2 pr-0">
 
-                <div id="moduleCollapseDocuments" class="collapse mb-3 row col-md-12 pl-0" >
+                <div id="moduleCollapseDocuments" class="collapse mb-3 row col-md-12 pl-0 pl-md-2 pr-0" >
 
                     {% for document in presentation.documents [4:] %}
 
                         <!-- Document Icon with Title -->
 
-                        <div class="mr-4 mb-3 cursor-pointer" >
+                        <div class="mb-3 cursor-pointer
+                        
+                            {# manage tiny screens display #}
+
+                            {{ loop.index0 is odd ? ' pr-0 pr-md-4' : ' pr-3 pr-md-4' }}
+                            
+                        ">
 
                             <!-- Download Document / Display Document (Link) -->
 
@@ -102,13 +114,20 @@
                     {% endfor %}
 
                 </div>
+
+                <div class="row pl-md-2" >
+
+                    <!-- Display More Documents Button -->
+                        
+                    <button id="moreDocuments" class="collapsed btn btn-primary sharp font-weight-bold" data-toggle="collapse" data-target="#moduleCollapseDocuments"></button> 
+
+                </div>
+
+                         
+             
+
     
             </div>
-                  
-            <button id="moreDocuments" class="collapsed btn btn-primary sharp font-weight-bold" data-toggle="collapse" data-target="#moduleCollapseDocuments">
-
-
-            </button>
 
         {% endif %}
 

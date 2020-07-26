@@ -1,17 +1,16 @@
-
 <!-- Project Presentation Slideshow Display -->
 
 {% if presentation.slides | length > 0 %}
 
 	<!-- Structure Container -->
 
-	<div class="mb-3" >
-		
-		<!-- Title Container with Edit Slideshow Shortcut Button-->
+	<div class="px-0 container mb-4 pb-md-2">
+
+		<!-- Edit Slideshow Shortcut Button-->
 
 		{% if app.user and app.user == presentation.creator %}
-			
-			<div class="mb-2">
+		
+			<div class="mb-3 mb-md-4">
 
 				<!-- Structure Title -->
 
@@ -29,105 +28,496 @@
 
 		{% endif %}
 
+
 		<!-- Slideshow Container -->
-	
-		<div class="m-0 p-0" style="position : relative;">
 
-			{% for slide in presentation.slides %}
-				
-				<div class="slide">
+		<div class="container">
+			
+			<div class="row">
 
-						{% if slide.caption %}
-												
-							<div class="h4" style="min-height:45px;">
-								
-								{{slide.caption}}
+				<!-- First column contains slide + caption -->
 
-							</div>
-				
-						{% endif %}
+				<div class="px-0 mx-auto col-md-9 col-sm-12">
 
-					<div class="container-fluid d-flex align-items-center justify-content-center" style="height:465px; ">
+					<div class="SlideshowContainer">
 
-						<!-- Possible Slide Caption (for Images and Videos) -->
+						<!-- Caption Container -->
 
-
-						<!-- Case Image Slide -->
-
-						{% if slide.mediaType == 'image' %}
-
-							<div class="p-0 m-0">
-								<img class="rounded img-fluid" src="/images/projects/slides_images/{{slide.slideName}}"  alt="{{slide.slideName}}" style="max-width:600px; max-height:390px;"> 
-
-							</div>
-
-						{% endif %}
-
-						<!-- Case Text Slide -->
-
-						{% if slide.mediaType=='text' and slide.textContent is not empty %}
-
-							<div class="h4 overflow-hidden border border-primary border-2 rounded m-3 p-4 w-100" style="height:400px">
-								{{slide.textContent | sanitize_html}}
-							</div>
+						<!-- We show caption container only if there is at least one caption -->				
 						
-						{% endif %}
+						<div class="caption-container d-none 
 
-						<!-- Case Video Slide -->
+							{% for slide in presentation.slides %}
 
-						{% if slide.mediaType=='video' %}
+								{% if slide.caption %}
+														
+									d-block 
 
-							<iframe width="100%" height="100%" src="{{slide.url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+								{% endif %}
 							
+							{% endfor %}
+							
+							">
+					
+							<p id="caption">
 						
-						{% endif %}
+							</p>
+						
+						</div>
+
+						<!-- Slides Container -->
+
+						<div class="slides-container">
+										
+							{% for slide in presentation.slides %}
+
+								<div class="mySlides">
+
+									<!-- Current Slide Number Display (only on small screens) -->
+
+									<div class="numbertext d-md-none">
+										
+										{{loop.index}} / {{ presentation.slides | length }}
+									
+									</div>
+
+									<!-- Case Slide is an Image -->
+
+									{% if slide.mediaType=='image' %}
+									
+										<img src="/images/projects/slides_images/{{slide.slideName}}">
+
+									{% endif %}
+
+									<!-- Case Video Slide -->
+
+									{% if slide.mediaType=='video' %}
+
+										<iframe width="100%" height="100%" src="{{slide.url}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+									
+									{% endif %}
+								
+								</div>
+								
+							{% endfor %}
+
+							<!-- Slideshow Navigation Lateral Buttons (only if there is more than one slide) -->
+
+							{% if presentation.slides | length > 1 %}
+										
+								<div class="nav-buttons">
+									
+									<a class="prev" onclick="plusSlides(-1)">❮</a>
+								
+									<a class="next" onclick="plusSlides(1)">❯</a>
+								
+								</div>	
+
+							{% endif %}
+		
+						</div>
+			
+					</div>
+
+				</div>
+
+				<!--Second Column - Contains Thumbnails - Not displayed on small screens - Not Displayed if there is only one slide -->
+
+				{% if presentation.slides | length > 1 %}
+
+					<div class="col-md-3 pr-0 d-none d-md-block">
+
+						<!--Thumbnails Container -->
+
+						<div class="thumbnails-container">
+
+							<div class="container">
+
+								<div class="row">
+
+									<div class="col pl-5 pt-5">
+										
+										{% for slide in presentation.slides | slice (0,4) %}
+
+										<div class="row mb-5">
+				
+											<div onclick="currentSlide({{loop.index}})" class="thumbnail">
+				
+												{% if slide.mediaType == 'video' %}	
+				
+													<div class="SlideImage position-relative">
+				
+														<img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" width="80" height="50"	
+														alt="
+														
+														{% if slide.caption %}
+														
+															{{ slide.caption[:1] | upper ~ slide.caption[1:] }} 
+										
+														{% endif %}
+														
+														"/>
+						
+														<!-- ui css video icon -->
+						
+														<span class="position-absolute rounded-circle p-2" style="bottom:3px; left:3px;"> </span> 
+				
+				
+					
+													</div>
+													
+												{% else %}
+				
+													<img class="SlideImage" src="{{ asset('/images/projects/slides_images/' ~ slide.slideName) | imagine_filter('slide_thumbnail') }}"
+													
+													alt="
+														
+														{% if slide.caption %}
+														
+															{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+				
+														{% endif %}
+													
+													"/>
+													
+												{% endif %}
+				
+											</div>
+				
+										</div>
+									
+									{% endfor %}
+									</div>
+
+									<!--Second Thumbnail Column if more than 4 slides -->
+
+									{% if presentation.slides | length > 4 %}
+									
+										<div class="col pt-5 px-0">
+											
+											{% for slide in presentation.slides | slice (4,8) %}
+					
+											<div class="row mb-4">
+					
+												<div onclick="currentSlide({{loop.index}})" class="thumbnail">
+					
+													{% if slide.mediaType == 'video' %}	
+					
+														<div class="SlideImage position-relative">
+					
+															<img src="{{slide.thumbnail}}" alt="{{slide.slideName}}" width="80" height="50"	
+															alt="
+															
+															{% if slide.caption %}
+															
+																{{ slide.caption[:1] | upper ~ slide.caption[1:] }} 
+											
+															{% endif %}
+															
+															"/>
+							
+															<!-- ui css video icon -->
+							
+															<span class="position-absolute rounded-circle p-2" style="bottom:3px; left:3px;"> </span> 
+					
+					
+						
+														</div>
+														
+													{% else %}
+					
+														<img class="SlideImage" src="{{ asset('/images/projects/slides_images/' ~ slide.slideName) | imagine_filter('slide_thumbnail') }}"
+														
+														alt="
+															
+															{% if slide.caption %}
+															
+																{{ slide.caption[:1] | upper ~ slide.caption[1:] }}
+					
+															{% endif %}
+														
+														"/>
+														
+													{% endif %}
+					
+												</div>
+					
+											</div>
+											
+										{% endfor %}
+										</div>
+
+									{% endif %}
+									
+								</div>
+							</div>
+
+
+					
+						</div>
 
 					</div>
-							
-				</div>	
 
-			{% endfor %}
+				{% endif %}
 
-			<!-- Slideshow Button (only if there are more than one slide) -->
-
-			{% if presentation.slides | length > 1 %}
-				
-				<button class="btn p-3 rounded font-weight-bold bg-primary text-white" style="position: absolute;
-				top: 44%;" onclick="plusDivs(-1)"><span class="h3">&#10094;</span></button>
-
-				
-				<button class="btn p-3 rounded font-weight-bold bg-primary text-white" style="position: absolute;
-				top: 44%;  right: 0;" onclick="plusDivs(1)"><span class="h3">&#10095;</span></button>
-
-			{% endif %}
+			</div>
 
 		</div>
 
 	</div>
 
 {% endif %}
-		
-<!-- Slideshow Mechanics -->
+
+
+
 
 <script>
 
 	var slideIndex = 1;
-	
-	showDivs(slideIndex);
 
-	function plusDivs(n) {
-		showDivs(slideIndex += n);
+	showSlides(slideIndex);
+
+	function plusSlides(n) {
+
+		showSlides(slideIndex += n);
+		
 	}
 
-	function showDivs(n) {
+	function currentSlide(n) {
+		showSlides(slideIndex = n);
+	}
+
+	function showSlides(n) {
+
 		var i;
-		var x = document.getElementsByClassName("slide");
-		if (n > x.length) {slideIndex = 1}
-		if (n < 1) {slideIndex = x.length}
-		for (i = 0; i < x.length; i++) {
-		x[i].style.display = "none";  
+		var slides = document.getElementsByClassName("mySlides");
+		var dots = document.getElementsByClassName("SlideImage");
+		var thumbnail = document.getElementsByClassName("thumbnail");
+		var captionText = document.getElementById("caption");
+		
+		if (n > slides.length) {slideIndex = 1}
+		
+		if (n < 1) {slideIndex = slides.length}
+		
+		for (i = 0; i < slides.length; i++) {
+			slides[i].style.display = "none";
 		}
-		x[slideIndex-1].style.display = "block";  
+		
+		for (i = 0; i < dots.length; i++) {
+			dots[i].className = dots[i].className.replace(" active", "");
+			thumbnail[i].className = thumbnail[i].className.replace(" active", "");
+		}
+		
+		slides[slideIndex-1].style.display = "block";
+		
+		dots[slideIndex-1].className += " active";
+		thumbnail[slideIndex-1].className += " active";
+		
+		captionText.innerHTML = dots[slideIndex-1].alt;
 	}
-	
+
 </script>
+
+
+
+<style>
+
+	/* Position the image container (needed to position the left and right arrows) */
+
+	.SlideshowContainer {
+		
+	}
+
+	.slides-container {
+
+		position: relative;
+		
+	}
+
+	/* Hide the images by default */
+
+	.mySlides {
+
+		display: none;
+		height:400px;
+	}
+
+	.mySlides > img {
+		
+		max-width:100%;
+		max-height:100%;
+
+		display:block;
+		margin:auto;
+		
+		/* Vertically center an Image */
+		
+		position: relative;
+		top: 50%;
+		transform: translateY(-50%);
+
+	}
+
+	/* Next & previous buttons */
+	.prev,
+	.next {
+		
+		cursor: pointer;
+		position: absolute;
+		top: 170px;
+
+		font-weight: bold;
+
+		user-select: none;
+		-webkit-user-select: none;
+
+		width: 50px;
+		height: 50px;
+
+		border-radius: 50%;
+		font-size: 20px;
+		color: #fff !important;
+		line-height: 50px;
+		text-align: center;
+		background-color:rgba(0, 0, 0, 0.3);
+	}
+
+	/* Position the "previous button" to the left */
+	.prev {
+		margin-left:10px;
+	}
+
+	/* Position the "next button" to the right */
+	.next {
+		right: 0;
+		margin-right:10px;
+	}
+
+	/* On hover, add a black background color with a little bit see-through */
+	.prev:hover,
+	.next:hover {
+		background-color: rgba(0, 0, 0, 0.8);
+	}
+
+
+	/* Container for Captions */
+
+	.caption-container {
+
+		min-height: 72px;
+
+		padding: 8px 0px;
+
+		padding-left: 30px;
+		
+		background-color: #222;
+		
+		font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+		color: white;
+
+		font-size:1.20em;
+		
+	}
+
+	.caption-container p {
+		
+		margin-bottom: 0;
+	}
+
+
+	.thumbnails-container{
+
+		background-color:inherit;
+
+	}
+
+	.thumbnail {
+
+		cursor: pointer;
+		opacity: 0.8; /* Add a transparency effect for thumnbail images */
+
+	}
+
+	.active,
+	.thumbnail:hover {
+
+		opacity: 1;
+
+	}
+
+	
+    
+    @media screen and (max-width: 580px) {
+
+		.mySlides {
+			
+			height:190px;
+		}
+
+		/* Next & previous buttons */
+
+		.prev,
+		.next {
+			
+			top: 75px;
+
+			width: 30px;
+			height: 30px;
+
+			font-size: 0.9em;
+
+			line-height: 30px;
+		}
+
+		/* Position the "previous button" to the left */
+
+		.prev {
+			margin-left:-10px;
+		}
+
+		/* Position the "next button" to the right */
+
+		.next {
+			right: 0;
+			margin-right:-10px;
+		}
+			
+		.caption-container {
+
+			min-height: 50px;
+
+			padding: 4px 9px;
+			
+			background-color: #222;
+			
+			font-size: 14px;
+			font-weight:normal;
+			
+		}
+
+		/* Number text (1/3 etc) */
+
+		.numbertext {
+
+			z-index:10;
+			
+			position: absolute;
+			top: 0;
+
+			margin: 8px 12px;
+			padding: 1px 2px;
+
+			font-size: 13px;
+			color:white;
+			text-shadow: 3px 3px 3px rgba(0,0,0,0.5);
+
+			background-color: rgba(0,0,0,0.3);
+			
+			
+		}
+
+    }
+
+</style>
+		

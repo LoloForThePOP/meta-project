@@ -1,0 +1,200 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Rechercher par Lieux de Projets{% endblock %}
+
+{% block body %}
+
+    <style>
+          
+          .pac-container, .pac-item {
+            font-size: 1.05em !important;
+        }	  
+          .pac-item-query {
+            font-size: 1.05em !important;
+        }
+
+        ul li:hover {
+           background-color: rgb(222, 226, 231);
+        }
+
+        .table > tbody > tr > td {
+            vertical-align: middle;
+            padding: 3px 14px;;
+       }
+
+       /* Place Holders */
+
+  ::-webkit-input-placeholder { /* Edge */
+    font-size:1.15em;
+    color: rgb(49, 25, 93);
+  }
+  
+  :-ms-input-placeholder { /* Internet Explorer 10-11 */
+    font-size:1.15em;
+    color: rgb(49, 25, 93);
+  }
+  
+  ::placeholder {
+    font-size:1.15em !important;
+    color: rgb(49, 25, 93)  !important;
+  }
+
+    </style>
+
+    <div class="container pl-md-3">
+
+        <div class="mt-3 mt-md-5 mb-4">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Rechercher par lieux</h3>
+
+
+        </div>
+
+        <!-- Places Search Bar -->
+
+        <div class="p-0 col-sm-6 mb-4">
+
+            <form action="">
+    
+                <div class="form-group mt-2">
+
+                    <input type="text" id="autocomplete" class="form-control input-lg border sharp bg-light fs-15" placeholder="Ville; département; région; pays" style="height:54px;"/>
+    
+                </div>
+    
+            </form>
+  
+        </div>
+
+        <!-- Search Results -->
+
+        <div id="searchResults" class="">
+            
+        </div>
+
+    </div>
+
+
+    
+{% endblock %}
+
+{% block javascripts %}
+
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyByeac-uQWF2vbkmpxGa0ISzV1M4aCrVVk&libraries=places&language=fr"></script>
+
+
+    <script>
+
+        $(document).ready(function(){  
+
+            // Initialize Google Places Input 
+            
+            var input = document.getElementById('autocomplete');
+
+            var options = {
+                types: ['(regions)'],
+            };
+    
+            var autocomplete = new google.maps.places.Autocomplete(input, options);
+
+        // Add a Project Place
+            
+        google.maps.event.addListener(autocomplete, 'place_changed', function(){
+              
+            var place = autocomplete.getPlace().address_components;
+             
+            place_type = place[0].types[0];
+            place_name = place[0]['long_name'];
+
+            //alert(place_name);
+
+            latitude = autocomplete.getPlace().geometry.location.lat(),
+            longitude = autocomplete.getPlace().geometry.location.lng();
+        
+             
+             var componentMap = {
+                 country: '',
+                 postal_code : '',
+                 locality: '',
+                 route : '',
+                 administrative_area_level_1 : '',
+                 administrative_area_level_2 : '',
+                 sublocality_level_1:'',
+             };
+        
+         for(var i = 0; i < place.length; i++){
+        
+             var types = place[i].types; // get types array of each component 
+        
+             for(var j = 0; j < types.length; j++){ // loop through the types array of each component as types is an array and same thing can be indicated by different name.As you can see in the json object above 
+        
+                   var component_type = types[j];
+                   
+                   // check if this type is in your component map. If so that means you want this component
+        
+                   if(componentMap.hasOwnProperty(component_type)){
+                   
+                     //console.log(types[j]);
+                     //console.log(place[i]['long_name']);
+                     //alert(place[i]['long_name'])
+                     componentMap[component_type]=place[i]['long_name'];
+                     //console.log(componentMap[component_type]);
+        
+                   }
+             }
+         }
+                    
+              //console.log(place);
+
+              $('#searchResults').html('<div class="loader float-left"></div><span class="h5">Demande en Cours...</span>');
+
+              $.ajax({  
+
+                url: "{{ path('ajax_search_by_places') }}",
+
+                type:       'POST',   
+
+                dataType:   'json',
+
+                data: {
+
+                    //"latitude": latitude,
+                    //"longitude": longitude,
+                    "placeType":  place_type,
+                    "placeName":  place_name,
+
+                    "sublocalityLevel1": componentMap.sublocality_level_1,
+                    "cityName": componentMap.locality,
+                    "administrativeAreaLevel2": componentMap.administrative_area_level_2,
+                    "administrativeAreaLevel1": componentMap.administrative_area_level_1,
+                    "country": componentMap.country, 
+
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    $('#searchResults').html(data.html);
+
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+
+             });
+              
+        })
+
+             
+        });  
+
+    </script>
+
+   
+
+
+{% endblock %}

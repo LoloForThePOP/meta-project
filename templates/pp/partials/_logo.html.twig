@@ -2,29 +2,45 @@
 
 <!-- Project Logo Display -->
 
-<div class="mb-2 d-none d-lg-block">
+<div class="mb-md-2">
 
     {% if presentation.logoName %}
 
-        <!-- Box Title with Logo Edit Button -->
+        <!-- Logo Edit Button -->
+        
+        {% if app.user and app.user == presentation.creator %}
 
-        <div class="font-weight-bold text-center mt-3 mb-1">
-
-            {% if app.user and app.user == presentation.creator %}
+            <div class="font-weight-bold text-center mt-3 mb-1">  
 
                 <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
-    
+
                     <button class="btn  btn-light sharp font-weight-bold mb-2 d-inline fs-15 p-0" style="font-size: 0.8em;">Éditer le logo</button>
                     
                 </a>
 
-            {% endif %}
+            </div>
+        
+        {% endif %}
 
-        </div>
+        <!-- Logo Edit Button -->
 
-        <div class="d-inline-block m-0 bg-white" >
+        <div class="d-inline-block m-0 d-flex align-items-center justify-content-center" >
 
-            <img class="" src="/images/projects/logos/{{ presentation.logoName }}" alt="Logo du Projet" style="width:140px; height:140px;">
+            <!-- Small Screens -->
+
+            <div class="d-md-none">
+
+                 <img class="" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_sm') }}" alt="Logo du Projet">
+
+            </div>
+
+            <!-- Larger Screens -->
+
+            <div class="d-none d-md-block">
+
+                 <img class="" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_md') }}" alt="Logo du Projet">
+
+            </div>
 
         </div>
 

@@ -10,16 +10,16 @@
 
         <!-- Title Container -->
 
-        <div class="mb-3">
+        <div class="pp-struct-title-container">
 
             <h3 class="pp-struct-title d-inline mr-2">
                 
                 {% if presentation.needs | length == 1 %}
-                    Participer - 1 besoin -
+                    Participer - 1 besoin
 
                 {% else %}
                     
-                    Participer - {{presentation.needs | length}} besoins -
+                    Participer - {{presentation.needs | length}} besoins
 
                 {% endif %}
                 
@@ -50,26 +50,54 @@
 
             }
 
+            #needsDisplayTable tbody tr:first-child {
+                        
+                /* margin-top:0px !important;
+                padding-top:0px !important;
+
+                background-color: brown; */
+
+            }
+
+
+            @media screen and (max-width: 580px) {
+
+                #needsDisplayTable td {
+
+                    font-size: 17px;
+                    font-weight: normal;
+
+                    padding-top: 9px;
+                    padding-bottom: 9px;
+
+                }
+
+
+            }
+
         </style>
         
         
         
         <!-- Project Needs Display List -->
     
-        <div class="container-fluid table-responsive my-2 pl-0 pl-md-3">
+        <div class="container-fluid table-responsive pl-0 pl-md-3">
             
-            <table id="needsDisplayTable" class="table table-hover table-borderless">
+            <table id="needsDisplayTable" class="table mb-1 mb-md-3 table-hover table-borderless">
                 
                 <tbody>
 
                     {% for need in presentation.needs %}
 
-                        <!-- Is it a Paid Service ? We set the Answer. -->
+                        <!-- Needs Titles Display (in a Table) -->
+
+                                    
+                        <!-- Is it a Paid Service ? We prepare the Answer. -->
 
                         {% set isPaid = '' %}
 
                         {% if need.paidService %}
-                      
+                        
                             {% if need.paidService == 'yes' %}
                                 {% set isPaid = "Payé" %}
 
@@ -86,9 +114,6 @@
                             {% endif %}
 
                         {% endif %}
-
-                        <!-- ui Table Row : Need Title Display -->
-
 
                         <tr id="{{ need.id }}" data-need-title = "{{ need.title }}" data-need-date = "{{need.createdAt |date('d-m-Y')}}" data-need-isPaid = "{{ isPaid }}" class="cursor-pointer h5 font-weight-bold">
 
@@ -120,7 +145,7 @@
         </div>
 
                 
-        <!-- Display a Need Description (in a Modal Box) -->
+        <!-- Display Need Details (in a Modal Box) -->
 
         <div class="modal fade" id="displayNeedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="displayNeedDescriptionModalLabel" aria-hidden="true">
 

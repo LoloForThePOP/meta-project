@@ -19,4 +19,9 @@
 ###> multimedia ###
 /public/files/
 /public/images/projects
+/public/images/test
 ###< multimedia ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###

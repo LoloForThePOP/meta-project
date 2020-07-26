@@ -166,6 +166,7 @@ ul.CTAs a {
         text-align: center;
         margin-left: -80px !important;
         font-size:1em;
+        margin-right: 0px;
     }
     #sidebar .dropdown-toggle::after {
         top: auto;

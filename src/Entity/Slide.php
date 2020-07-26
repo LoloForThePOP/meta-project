@@ -42,7 +42,7 @@ class Slide implements \Serializable
      * )
      *
      * 
-     * @Vich\UploadableField(mapping="slide_image", fileNameProperty="slideName")
+     * @Vich\UploadableField(mapping="slide_image", fileNameProperty="slideName", dimensions="dimensions")
      * 
      * @var File|null
      */
@@ -118,6 +118,11 @@ class Slide implements \Serializable
      */
     private $updatedAt;
 
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $dimensions = [];
+
 
       
     public function __toString()
@@ -191,7 +196,7 @@ class Slide implements \Serializable
         return $this->caption;
     }
 
-    public function setCaption(string $caption): self
+    public function setCaption(?string $caption): self
     {
         $this->caption = $caption;
 
@@ -307,5 +312,19 @@ class Slide implements \Serializable
     $this->id = unserialize($serialized);
     
     }
+
+    public function getDimensions(): ?array
+    {
+        return $this->dimensions;
+    }
+
+    public function setDimensions(?array $dimensions): self
+    {
+        $this->dimensions = $dimensions;
+
+        return $this;
+    }
+
+   
 
 }
