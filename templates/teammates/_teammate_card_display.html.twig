@@ -1,0 +1,48 @@
+
+                                                          
+    <!-- Teammate Display Card Template -->
+
+
+    <!-- Some Styles -->
+
+    <style>
+
+        
+
+    </style>
+
+    <!-- Teammate card -->
+
+    <div id="{{teammate.id}}" class="">
+
+        <!-- Teammate Name -->
+
+        <div class="font-weight-bold mt-3 mb-1">
+
+            {{ teammate.name }}
+
+        </div>
+
+        <!-- Teammate Description -->
+        
+        <div>
+            
+            {{ teammate.description }}
+
+        </div>
+
+        <!-- Teammate Image -->
+        
+        <div>
+
+            {% if teammate.image %}
+            
+                <img class="rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}">
+
+            {% endif %}
+
+            
+        </div> 
+
+        
+    </div>

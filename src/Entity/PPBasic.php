@@ -254,12 +254,12 @@ class PPBasic implements \Serializable
     private $categories;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\GeoDomain", mappedBy="project")
+     * @ORM\ManyToMany(targetEntity="App\Entity\GeoDomain", mappedBy="project", orphanRemoval=true)
      */
     private $geoDomains;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Website", mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity="App\Entity\Website", mappedBy="presentation", orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $websites;
@@ -318,6 +318,9 @@ class PPBasic implements \Serializable
      */
     private $textDescription;
 
+
+
+
     /**
      * @ORM\OneToMany(targetEntity=Document::class, mappedBy="presentation")
      * 
@@ -326,11 +329,40 @@ class PPBasic implements \Serializable
     private $documents;
 
     public const MAX_ALLOWED_DOCUMENTS = 7;
+    
 
     function getMaxAllowedDocuments() 
     {
         return  self::MAX_ALLOWED_DOCUMENTS;
     }
+
+
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=Teammate::class, mappedBy="project")
+     * 
+     * @ORM\OrderBy({"position" = "ASC"})
+     * 
+     */
+    private $teammates;
+
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="project")
+     */
+    private $events;
+    
+    public const MAX_ALLOWED_TEAMMATES = 100;
+    
+
+    function getMaxAllowedTeammates() 
+    {
+        return  self::MAX_ALLOWED_TEAMMATES;
+    }
+
+
+
 
 
     public function __construct()
@@ -352,6 +384,8 @@ class PPBasic implements \Serializable
         $this->owners = new ArrayCollection();
         $this->questionAnswers = new ArrayCollection();
         $this->documents = new ArrayCollection();
+        $this->teammates = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
     
 
@@ -955,6 +989,68 @@ class PPBasic implements \Serializable
             // set the owning side to null (unless already changed)
             if ($document->getPresentation() === $this) {
                 $document->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Teammate[]
+     */
+    public function getTeammates(): Collection
+    {
+        return $this->teammates;
+    }
+
+    public function addTeammate(Teammate $teammate): self
+    {
+        if (!$this->teammates->contains($teammate)) {
+            $this->teammates[] = $teammate;
+            $teammate->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTeammate(Teammate $teammate): self
+    {
+        if ($this->teammates->contains($teammate)) {
+            $this->teammates->removeElement($teammate);
+            // set the owning side to null (unless already changed)
+            if ($teammate->getProject() === $this) {
+                $teammate->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getProject() === $this) {
+                $event->setProject(null);
             }
         }
 

@@ -1,0 +1,451 @@
+
+<!-- Some Styles -->
+
+
+{% block stylesheets %}
+
+    <!--Styles for Slick Slideshow -->
+
+    <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
+
+    <link rel="stylesheet" type="text/css" href="/css/slick-theme.css"/>
+    
+{% endblock %}
+
+<style>
+
+    .teamMemberCard{
+
+        width:164px; 
+        min-height:140px; 
+
+        margin-right:10px; 
+    
+    }
+
+    
+    .avatar-circle {
+        width: 115px;
+        height: 115px;
+    }
+
+    
+    .initials {
+        position: relative;
+        top: 27px; /* 25% of parent */
+        font-size: 58px; /* 50% of parent */
+        line-height: 58px; /* 50% of parent */
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        /* One Letter Avatars */
+
+            .avatar-circle {
+                width: 82px;
+                height: 82px;
+            }
+
+            
+            .initials {
+                position: relative;
+                top: 20px; /* 25% of parent */
+                font-size: 40px; /* 50% of parent */
+                line-height: 40px; /* 50% of parent */
+            }
+
+
+    }
+
+
+
+</style>
+
+
+<!-- Project Team Display -->
+
+{% if presentation.teammates | length > 0 %}
+
+    <!-- Structure Container -->
+
+    <div class="pp-struct-container pb-3">
+
+        <!-- Title Container with Edit Button -->
+
+        <div class="pp-struct-title-container">
+
+            <!-- Structure Title -->
+
+            <h3 class="pp-struct-title d-inline mr-2 mb-2">Membres</h3>
+    
+            <!-- Edit Text Description Button -->
+    
+            {% if app.user and app.user == presentation.creator %}
+
+
+                <a class="" href="{{ path('manage_teammates', {'slug': presentation.slug}) }}">
+    
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les membres</button>
+                    
+                </a>
+
+
+            {% endif %}
+
+        </div>
+
+       
+
+
+        <div class="container">
+
+            <div class="teammatesSlideshow">
+
+                {% for teammate in presentation.teammates %}
+
+                <!-- Team Member Card -->
+
+                <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="">
+
+                    <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
+
+                    <!-- Teammate Missions -->
+
+                    <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+
+                        {{ teammate.missions | length < 35 ? teammate.missions : teammate.missions|slice(0, 35) ~ '...' }}
+
+                        {% if teammate.missions | length == 0 %} {% endif %}
+
+                    </div>
+
+                    <!-- Teammate Image -->
+                    
+                    <div class="text-center mb-2">
+
+                        {% if teammate.image %}
+                        
+                           {# <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}"> #} 
+
+
+                           <img class="d-block mx-auto img-fluid rounded-circle border border-primary" src="{{ teammate.image }}" height="115px" width="115px">
+                           
+                        {% else %}
+                                                
+                           <div class="avatar-circle mx-auto">
+                               <span class="initials">
+                                   {{teammate.name | slice (0,1) }}
+                               </span>
+                           </div>
+                       
+                       {% endif %}
+
+                    </div> 
+                                          
+                    <!-- Teammate Name -->
+
+                    <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+
+                        {{ teammate.name | length < 50 ? teammate.name : teammate.name|slice(0, 50) ~ '...' }}
+
+                    </div>
+
+                                          
+                    <!-- Teammate Show More Info (if more info available) -->
+
+                    {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
+                        
+                        <div class="font-weight-bold mb-2 text-center" >
+
+                            <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
+
+                        </div>
+
+                    {% endif %}
+
+
+                    </a>
+
+                    
+                    
+                   
+
+                </div>   
+
+                
+                       
+    
+
+            {% endfor %}
+
+              </div>
+
+              {% for teammate in presentation.teammates %}
+
+              <!-- Modal to Display Teammate Details -->
+
+              <div class="modal fade" id="teammateDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="teammateDisplayLabel{{ loop.index }}" aria-hidden="true">
+                        
+                <div class="modal-dialog" role="">
+    
+                  <div class="modal-content">
+
+                    <!-- Modal Header -->
+    
+                    <div class="modal-header">
+
+                        <!-- Teammate Name -->
+
+                        <div class="row pl-4 font-weight-bold"> 
+
+                            <div class="h5" >
+
+                                {{ teammate.name }}
+
+                            </div>
+                        
+                        </div>
+
+    
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        
+                            <span aria-hidden="true">&times;</span>
+        
+                        </button>
+    
+                    </div>
+
+                    <!-- Modal Body -->
+    
+                    <div class="modal-body">
+
+                        <div class="container pt-md-3">
+
+
+                            <!-- Upper Box (contains teammate image; name & missions) -->
+
+                            <div class="row mb-4">
+
+                                <div class="col-4">
+                                    
+                                    <!-- Teammate Image -->
+
+                                    {% if teammate.image %}
+                                    
+                                        <img class="img-fluid rounded-circle border border-primary" src="{{ teammate.image }}" height="115px" width="115px">
+
+                                        {% else %}
+                                                                                        
+                                        <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
+
+                                                <span class="initials" style="font-size: 60px; top:45px;">
+
+                                                    {{teammate.name | slice (0,1) }}
+
+                                                </span>
+
+                                        </div>
+                                    
+                                    {% endif %}
+
+                                    
+
+                                </div>
+
+                                <div class="col-8">
+
+                                    <div class="container">
+
+                                        <!-- Teammate Missions -->
+
+                                        <div class="row mb-2 mb-md-3"> 
+
+                                            <div class="h5">
+
+                                                {{ teammate.missions }}
+
+                                            </div>
+
+                                        </div>
+
+                                        
+                                        <!-- Teammate Name -->
+
+                                        <div class="row"> 
+
+                                            <div class="h5" >
+
+                                                {{ teammate.name }}
+
+                                            </div>
+                                        
+                                        </div>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <!-- Team Member Description / Comments (Potential) -->
+
+                            {% if teammate.description %}
+
+                                <div class="row px-3 mb-4" style="font-size:1.09em;">
+
+                                    {{ teammate.description | nl2br }}
+
+                                </div>
+
+                            
+                            {% endif %}
+
+                        <!-- Team Member Email (Potential) -->
+
+                        {% if teammate.email %}
+
+                        <div class=" mb-2 mb-md-3">
+
+                                      <!-- Email (Label) -->
+
+                                      <span class="font-weight-bold h5 text-primary">
+
+                                        Email : 
+    
+                                    </span>
+
+                                    <!-- Email (Display) -->
+            
+
+                                    <span class="font-weight-bold">
+
+                                        <a href="mailto:{{ teammate.email }}">
+
+                                            {{ teammate.email }}
+
+                                        </a>
+            
+                                    </span>
+
+
+                        </div>
+                            
+                  
+                        
+                        {% endif %}
+
+                        <!-- Team Member Potential Websites or Social Networks -->
+
+                        {% if teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
+
+                            <!-- Label for Team Member Potential Websites or Social Networks -->
+
+                            <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
+
+                                Sites Webs / Réseaux Sociaux
+
+                            </div>
+
+                        {% endif %}
+
+
+                        {% if teammate.webdomain1 is not empty %}
+
+                            <!-- Team Member Webdomain 1 (Potential) -->
+    
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ teammate.webdomain1}}"> 
+                                    
+                                    {{ teammate.webdomain1 | length < 30 ? teammate.webdomain1 : teammate.webdomain1 | slice(0, 30) ~ '...' }}
+
+                                </a>
+    
+                            </div>
+                        
+                        {% endif %}
+
+                         <!-- Team Member Webdomain 2 (Potential) -->
+
+                        {% if teammate.webdomain2 is not empty %}
+                        
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ teammate.webdomain2}}"> 
+                                    
+                                    {{ teammate.webdomain2 | length < 30 ? teammate.webdomain2 : teammate.webdomain2 | slice(0, 30) ~ '...' }}
+
+                                </a>
+    
+                            </div>
+
+                        {% endif %}
+
+                         <!-- Team Member Webdomain 3 (Potential) -->
+
+                        {% if teammate.webdomain3 is not empty %}
+                        
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ teammate.webdomain3}}"> 
+                                    
+                                    {{ teammate.webdomain3 | length < 30 ? teammate.webdomain3 : teammate.webdomain3 | slice(0, 30) ~ '...' }}
+
+                                </a>
+    
+                            </div>
+
+                        {% endif %}
+
+                         <!-- Team Member Webdomain 4 (Potential) -->
+
+                        {% if teammate.webdomain4 is not empty %}
+                        
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ teammate.webdomain4}}"> 
+                                    
+                                    {{ teammate.webdomain4 | length < 30 ? teammate.webdomain4 : teammate.webdomain4 | slice(0, 30) ~ '...' }}
+
+                                </a>
+    
+                            </div>
+
+                        {% endif %}
+
+                        <!-- End of Modal Body Container -->
+
+                        </div>
+
+                    <!-- End of Modal Body -->
+
+                    </div>
+
+                    <!-- Modal footer -->
+    
+                    <div class="modal-footer">
+    
+                      <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
+    
+                    </div>
+    
+                  </div>
+    
+                </div>
+    
+            </div>  
+
+
+              {% endfor %}
+
+        </div>
+
+ 
+
+
+
+    </div>
+
+
+{% endif %}

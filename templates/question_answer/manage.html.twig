@@ -111,6 +111,8 @@
 
                             <a href="{{path('edit_qa', {'slug':slug,'idQA' : qa.id })}}" class="w-100 h-100 text-body text-decoration-none">
 
+                                <!-- Question Display -->
+
                                 <div class="font-weight-bold mb-1">
 
                                     {% if qa.question | length > 45 %}
@@ -124,6 +126,8 @@
                                     {% endif %}
                                     
                                 </div>
+
+                                <!-- Answer Display -->
                                 
                                 <div>
                                     

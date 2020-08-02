@@ -4,7 +4,7 @@
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Documents du Projet{% endblock %}
+{% block title %}Membres de l'équipe du Projet{% endblock %}
 
 {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
@@ -21,7 +21,7 @@
 
             <!-- ui Page Title -->
 
-            <h3 class="font-weight-bold d-inline-block mb-2 mr-3">Documents du Projet</h3>
+            <h3 class="font-weight-bold d-inline-block mb-2 mr-3">Membres de l'équipe</h3>
 
             <!-- collapsable advice trigger button -->	
 
@@ -39,49 +39,25 @@
 
             <p class="h5">
 
-                Vous pouvez partager ici des documents liés à votre projet. <br> <br>
-                Les formats acceptés sont :
-
-            </p>
-
-            <ul class="font-weight-bold">
-
-                <li>pdf</li>
-                <li>word document; open document texte; rtf</li>
-                <li>excel</li>
-                <li>powerpoint</li>
-                <li>epub</li>   
-
-            </ul>
-
-            <p class="h5">
-
-                Limite du nombre de documents : <b>{{ constant('MAX_ALLOWED_DOCUMENTS', presentation)}} documents</b>
-
-            </p>
-
-            <p class="h5">
-
-                Poids maximal accepté pour chaque fichier : <b>1 Mo</b>
-
+                Ici vous pouvez présenter les membres de votre équipe. <br> <br>
+               
             </p>
 
         </div>
 
-        <!-- Add a Document (according to max limit) -->
+        <!-- Add a Teammate (according to max limit) -->
 
         <div class="mb-4">
 
-    
-            {% if presentation.documents | length < constant('MAX_ALLOWED_DOCUMENTS', presentation) %}
+            {% if presentation.teammates | length < constant('MAX_ALLOWED_TEAMMATES', presentation) %}
           
-                <!-- Add a Document Button -->
+                <!-- Add a Teammate Button -->
                     
-                <button type="button" data-toggle="modal" data-target="#documentFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un document</button> 
+                <button type="button" data-toggle="modal" data-target="#teammateFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un membre</button> 
 
             {% else %}
                 
-                <p class="fs-15 bg-light d-inline-block p-2 mb-0">La limite maximale de {{ constant('MAX_ALLOWED_DOCUMENTS', presentation)}} documents est atteinte. </p>
+                <p class="fs-15 bg-light d-inline-block p-2 mb-0">La limite maximale de {{ constant('MAX_ALLOWED_TEAMMATES', presentation)}} membres d'équipe est atteinte. </p>
     
     
             {% endif %}
@@ -91,25 +67,22 @@
         </div>
 
 
-
-        
-
-       
-
         <!-- Form Display (in a Modal Box) -->
 
-        <div class="modal fade" id="documentFormModal" tabindex="-1" role="dialog" aria-labelledby="documentModalLabel" aria-hidden="true">
+        <div class="modal fade" id="teammateFormModal" tabindex="-1" role="dialog" aria-labelledby="teammateModalLabel" aria-hidden="true">
 
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog" role="">
 
                 <div class="modal-content">
 
                     <div class="modal-header">
 
-                        <h5 class="modal-title" id="documentModalLabel">Ajouter un document</h5>
+                        <h5 class="modal-title" id="documentModalLabel">Ajouter un Membre</h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
                             <span aria-hidden="true">&times;</span>
+
                         </button>
 
                     </div>
@@ -118,18 +91,29 @@
 
                         {{ form_start(form) }}
 
-                        <div class="mt-3 mb-5 px-3">
+                        <div class="mt-3 mb-3 px-3">
 
-                            {{ form_row(form.file) }}
-
-                        </div>
-
-                        <div class="mb-5 px-3">
-
-                            {{ form_row(form.title) }}
+                            {{ form_row(form.name) }}
 
                         </div>
 
+                        <div class="mb-3 px-3">
+
+                            {{ form_row(form.missions) }}
+
+                        </div>
+
+                        <div class="mb-3 px-3">
+
+                            {{ form_row(form.imageFile) }}
+
+                        </div>
+
+                        <div class="d-none">
+
+                            {{ form_rest(form) }}
+                            
+                        </div>
                         
 
                     </div>
@@ -151,32 +135,33 @@
         </div>
 
 
-        <!-- Project Documents Grid -->
+        <!-- Project teammates Grid -->
 
         <div class="container mb-2">
 
-            <div id="documentList" class="row col-md-7 pl-0">
+            <div id="teammatesList" class="row col-md-12 pl-0">
 
-                {% if presentation.documents | length > 0 %}
+                {% if presentation.teammates | length > 0 %}
 
-                    {% for document in presentation.documents %}
+                    {% for teammate in presentation.teammates %}
 
-                     <!-- Document Icon with Title -->
+                     <!-- Teammate Card -->
 
-                    <div id="{{document.id}}" class="js-sortableGridItem position-relative mr-4 mb-3 cursor-pointer" >
-
-                        <a href="{{path('edit_document', {'slug':slug,'idDocument' : document.id })}}" class="w-100 h-100 text-body text-decoration-none">
-
-                            {% include 'document/_icons_display.html.twig' %}
-
+                     <div id="{{teammate.id}}" class="js-sortableGridItem position-relative mr-4 mb-4 cursor-pointer col-2 border border-primary rounded pb-4" style="min-height:140px;">   
+                         
+                        <a href="{{path('edit_teammate', {'slug':slug,'id_teammate' : teammate.id })}}" class="w-100 h-100 text-body text-decoration-none">
+                         
+                            {% include 'teammates/_teammate_card_display.html.twig' %}
+                                
                         </a>
 
-                        <!-- Remove Document (Button with Red Cross) -->
-        
-                        <button type="button" class="js-delete-document d-inline position-absolute btn btn-danger sharp p-1 px-2" data-id="{{document.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
+                                        
+                        <!-- Remove Teammate (Button with Red Cross) -->
 
-                        
-                    </div>
+                        <button type="button" class="js-delete-teammate d-inline position-absolute btn btn-danger sharp p-1 px-2" data-id="{{teammate.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
+
+
+                     </div>         
 
                     {% endfor %}
 
@@ -202,7 +187,6 @@
 {% endblock %}
 
 
-
 {% block javascripts %}
 
     <!-- sortable plugin in order to reorder Documents -->
@@ -221,13 +205,13 @@
 
             {% if not form.vars.valid %}
 
-                $('#documentFormModal').modal('show');
+                $('#teammateFormModal').modal('show');
 
             {% endif %}
 
-            // Reorder Documents with drag and drop
+            // Reorder teammates displa with drag and drop
 
-            $('#documentList').sortable({
+            $('#teammatesList').sortable({
 
                 animation: 150,
 
@@ -243,22 +227,22 @@
 
                 onEnd: function (evt) {
 
-                    // an array storing slides id position
+                    // an array storing teammates id position
 
-                    var documentsPosition = [];
+                    var teammatesPositions = [];
 
                     
-                    $('#documentList div.js-sortableGridItem').each(function(index){
+                    $('#teammatesList div.js-sortableGridItem').each(function(index){
                         
-                        documentsPosition.push($(this).attr('id'));
+                        teammatesPositions.push($(this).attr('id'));
                 
                     });
 
-                    jsonDocumentsPosition = JSON.stringify(documentsPosition);
+                    jsonTeammatesPositions = JSON.stringify(teammatesPositions);
                     
                     $.ajax({  
 
-                        url: "{{path('ajax_reorder_documents', {'slug': presentation.slug})}}",
+                        url: "{{path('ajax_reorder_teammates', {'slug': presentation.slug})}}",
 
                         type:       'POST',   
 
@@ -266,7 +250,7 @@
 
                         data: {
 
-                            "jsonDocumentsPosition": jsonDocumentsPosition,
+                            "jsonTeammatesPositions": jsonTeammatesPositions,
 
                         },
 
@@ -284,45 +268,57 @@
                 },
             });
 
-                                    
-            // Remove a Document
+                                                
+            // Remove a Teammate
 
-            $('#documentList').on('click', '.js-delete-document', function (){
+            $('#teammatesList').on('click', '.js-delete-teammate', function (){
 
-                var idDocument = $(this).attr("data-id");
+                var idTeammate = $(this).attr("data-id");
 
-                if (confirm("Confimez vous enlever ce document ?"))
+                if (confirm("Confimez vous enlever cet équipier ?"))
                 {
 
                 $(this).html('<div class="loader"></div>');
                     
                 $.ajax({  
 
-                    url: "{{path('ajax_remove_document', {'slug': presentation.slug}) }}",
+                    url: "{{path('ajax_remove_teammate', {'slug': presentation.slug}) }}",
                     type:       'POST',   
                     dataType:   'json',
                     
                     data: {
-                        "idDocument": idDocument,
+                        "idTeammate": idTeammate,
                     },
 
                     async: true,  
                     
                     success: function(data, status) {
 
-
-                        $("#documentList #"+idDocument).remove();
+                        $("#teammatesList #"+idTeammate).remove();
                         
                     },  
 
                     error : function(xhr, textStatus, errorThrown) {  
-                        // alert('Ajax request failed.');  
+
+                        alert('Ajax request failed.');
+
                     }  
+
                     }); 
                     
                 }
     
             });
+
+
+
+
+
+
+
+
+
+
 
         }); 
 
@@ -330,4 +326,3 @@
     </script>
 
 {% endblock %}
-

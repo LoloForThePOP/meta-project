@@ -2,130 +2,152 @@
 
 {% block body %}
 
-    <!-- Style : Call to Action Circle -->
-
     <style>
 
-        /* the blue circle with only one line of text, centered vertically */
+        .questionHomePage{
 
-        .oneline:after {
-            content: "";
-            display: block;
-            width: 100%;
-            height: 0;
-            padding-bottom: 100%;
-            background:#ffa500;
-            -moz-border-radius: 50%;
-            -webkit-border-radius: 50%;
-            border-radius: 50%;
+            font-size: 2rem;
+
+            line-height: 40px;
         }
 
-        .oneline:hover:after {
-            background-color: goldenrod;
+        
+        .secondLineHomePage{
+
+            font-size: 1.65em;
+            margin-bottom: 0px;
         }
 
-        .oneline div {
-            float: left;
-            width: 100%;
-            padding-top: 50%;
-            line-height: 1em;
-            margin-top: -1.7em;
-            text-align: center;
-            color: white;
+        @media screen and (max-width: 580px) {
+
+            .questionHomePage{
+
+                font-size: 1.9em;
+
+                margin-bottom:5px;
+
+                line-height: 35px;
+            }
+
+            .secondLineHomePage{
+
+                font-size: 1.65em;
+            }
+
+            .catCol{
+
+                border: 1px solid black;
+                border-radius: 4px;
+                padding: 15px 5px;
+            }
+
+            .seeExampleCat{
+
+                padding: 15px 5px;
+            }
+
+
         }
         
-        .oneline p {
-            text-align: center;
-            font-size: 1.2em;
-        }
-        
-        @media only screen and (min-width: 350px) {
-            .col {
-            display: inline-block;
-            position: relative;
-            width: 30%;
-            margin: 4% 0 5% 3%;
-            padding: 0;
-            background-color: transparent;
-            border-top: none;
-            }
-            .col .spacer {
-            position: relative;
-            padding-top: 100%;
-            }
-            .col:nth-child(3n + 1) {
-            margin-left: 1%;
-            }
-        }
-    
     </style>
 
-    <!-- Style : Jumbotron with Gradient -->
-            
-    <style>
-        .jumbotron {
-        padding: 2rem 1rem;
-        margin-bottom: 2rem;
-        background-color: #e9ecef;
-        border-radius: 0.3rem;
-        
-        background: -moz-linear-gradient(top, rgba(30,87,153,1) 0%, rgba(30,87,153,0.54) 46%, rgba(125,185,232,0.18) 82%, rgba(125,185,232,0) 100%); /* FF3.6-15 */
-        background: -webkit-linear-gradient(top, rgba(30,87,153,1) 0%,rgba(30,87,153,0.54) 46%,rgba(125,185,232,0.18) 82%,rgba(125,185,232,0) 100%); /* Chrome10-25,Safari5.1-6 */
-        background: linear-gradient(to bottom, rgba(30,87,153,1) 20%,rgba(30,87,153,0.54) 70%,rgba(125,185,232,0.18) 90%,rgba(125,185,232,0) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-        filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#007db9e8',GradientType=0 ); /* IE6-9 */
-        }
-        .hd1{
-            color:#fff;
-        }
-    </style>
+
     
-    <!-- Mobile Phone Not Manage Disclaimer -->
+    <!-- Mobile Phone Not Manage (Disclaimer) -->
 
     <div class="alert alert-dismissible alert-danger my-3 h4 d-block d-md-none">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
         <strong>L'affichage sur mobile n'est pas encore géré. Merci de votre compréhension.</strong>
     </div>
 
-    <!-- Jumbotron with call to Action Circle -->
+    <div class="container mt-md-5">
 
-    <div class="jumbotron sharp pt-5 pb-0 mb-0">
+        <div class="col-md-8">
 
-        <div class="container text-center text-lg-left sharp">
+               <div class="row">
+
+                    <div class="col-sm-12 col-md-7 px-0 border border-primary mb-3">
+
+                        <p class="questionHomePage" style="">
+                            Vous avez un Projet à présenter ? 
+                        </p>
         
-        <div class="row">
-
-            <div class="col-lg-8">
-
-                <h1 class="display-4 text-white" style="text-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
-                    Vous avez un Projet ? <br>
-                    <span class="highlight-word">Ce site est créé pour vous</span>
-                </h1>
-
-                <h1 class="h3 text-white pb-5" style="text-shadow: 3px 3px 3px rgba(0,0,0,0.5);">
-                    Vous pouvez le présenter avec tous ses besoins
-                </h1>
-                
-                <h3 class="alert-heading mt-5 pl-1" style="font-size:1.7em;">Des Projets présentés</h3>
-            
-            </div>
+                        <p class="secondLineHomePage">
+                            Ce site est créé pour vous.
+                        </p>
         
-            <article class="col-lg-3 cursor-pointer oneline">
+                        <p class="h4 d-none d-md-block">
 
-                <a href="{{path('create_presentation')}}">
-                    <div class="circle-in h3 mb-0">
-                        
-                        <p class="mb-0 font-weight-bold" style="line-height:1.35;color:#21599a;">Présenter <br> un Projet</p>
-                    
+                            <span class="font-weight-bold">
+                                Vous pouvez présenter votre projet
+                            </span>
+                            , avec tous vos besoins. 
+                        </p>
+        
+
                     </div>
-                </a>
 
-            </article>
+                    <div class="catCol col d-flex align-items-center justify-content-center">
+
+                        <div class="container">
+
+                            <div class="row">
+
+                                <div class="col">
+
+                                    <div class="">
+                                        
+                                        <a class="" href="{{ path('create_presentation') }}"><img src="/images/app/addProject.svg" width="80px" height="80px" style="width:100%;"></a>
+
+                                    </div>
+
+                                    
+                                    
+                                </div>
+
+                                <div class="col">
+
+                                    <p class="h3">
+                                        Présenter un Projet
+                                    </p>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
         </div>
-    
+
+        <div class="container h5 pt-3">
+
+            <div class="seeExampleCat row border border-primary rounded">
+
+                <div class="col d-flex align-items-center justify-content-center">
+
+                    <a class="" href="#"><img src="/images/app/seeExample.svg" width="80px" height="80px" style="width:100%;"></a>
+
+                </div>
+
+                <div class="col d-flex align-items-center justify-content-center h3 mb-0">
+                    
+                    Afficher un exemple
+
+                </div>
+
+            </div>
+
+
+           
         </div>
+     
 
     </div>
+
   
      <!-- Last Inserted Projects Title Display -->
 

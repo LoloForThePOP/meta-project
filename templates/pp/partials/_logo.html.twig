@@ -14,7 +14,7 @@
 
                 <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
 
-                    <button class="btn  btn-light sharp font-weight-bold mb-2 d-inline fs-15 p-0" style="font-size: 0.8em;">Éditer le logo</button>
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15 p-0" style="font-size: 0.8em;">Éditer le logo</button>
                     
                 </a>
 
@@ -30,7 +30,7 @@
 
             <div class="d-md-none">
 
-                 <img class="" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_sm') }}" alt="Logo du Projet">
+                 <img class="rounded" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_sm') }}" alt="Logo du Projet">
 
             </div>
 
@@ -38,7 +38,7 @@
 
             <div class="d-none d-md-block">
 
-                 <img class="" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_md') }}" alt="Logo du Projet">
+                 <img class="rounded" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_md') }}" alt="Logo du Projet">
 
             </div>
 

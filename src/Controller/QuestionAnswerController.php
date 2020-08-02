@@ -102,8 +102,6 @@ class QuestionAnswerController extends AbstractController
         }
 
     }
-
-
     
     /**
      * Allow to Edit a Q&A
@@ -145,7 +143,6 @@ class QuestionAnswerController extends AbstractController
             'presentation' => $presentation,
         ]);
     }
-
     
     /**
      * Allow to modify Q&A positions with an ajax request

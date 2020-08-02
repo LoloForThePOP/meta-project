@@ -14,6 +14,7 @@ use App\Entity\PPBasic;
 use App\Entity\Website;
 use App\Entity\Category;
 use App\Entity\Document;
+use App\Entity\Teammate;
 use App\Entity\GeoDomain;
 use App\Entity\ContactMessage;
 use App\Entity\QuestionAnswer;
@@ -124,7 +125,7 @@ class AppFixtures extends Fixture
 
             $userGenre = $faker->randomElement($userGenres);
 
-            // User Image Creation with random user "api"
+            // User Image Creation (using randomuser.me api)
 
             $imageUrlBegin="https://randomuser.me/api/portraits/";
 
@@ -180,7 +181,7 @@ class AppFixtures extends Fixture
 
         $projects=[];
         
-        for($i=1; $i<=300; $i++) {
+        for($i=1; $i <=40; $i++) {
 
             $pp = new PPBasic ();
 
@@ -270,6 +271,96 @@ class AppFixtures extends Fixture
                 $manager->persist($textDescription);
             }
 
+
+            // Project Teammates Creation
+
+            $hasTeammatesOdds = [true, true, true, false];
+
+            $hasTeammates = $hasTeammatesOdds [array_rand($hasTeammatesOdds)];
+            
+            if ($hasTeammates){
+
+                $teammatesCount = mt_rand(1,13);
+                
+                for ($j=1; $j <= $teammatesCount; $j++){
+                
+                    $teammate = new Teammate();
+
+                    $name = $faker->name();
+
+                    $hasDescription = [null, $faker->paragraph($nbSentences = 3, $variableNbSentences = true)];
+                    $description = $hasDescription[array_rand($hasDescription)];
+                    
+                    $hasMissions = [null, $faker->text($maxNbChars = 80)];
+                    $missions = $hasMissions[array_rand($hasMissions)];
+
+                    /* Teammate Image Creation */
+                    
+                    $hasPictureOdds = [true, false];
+                    $hasPicture =  $hasPictureOdds[array_rand($hasPictureOdds)];
+
+                    $picture= NULL;
+
+                    if ($hasPicture){
+
+                        /* $imagesColors=['ffa500','ff6347','1e90ff','ee82ee','3cb371'];
+                        $imageColor=$imagesColors[array_rand($imagesColors)];
+
+                        $image = 'https://place-hold.it/100x100/'.$imageColor; */
+
+                        $teammatesGenres=['male','female'];
+            
+                        $teammateGenre = $faker->randomElement($teammatesGenres);
+            
+                        // Teammate Image Creation (using randomuser.me api)
+            
+                        $pictureUrlBegin="https://randomuser.me/api/portraits/";
+            
+                        $randomGenre='';
+            
+                        if ($userGenre=='male') {
+                            $randomGenre='men';
+                        }
+                        else {
+                            $randomGenre='women';
+                        }
+                        
+                        $pictureUrlEnd="/".mt_rand(1,99).'.jpg';
+                        $picture=$pictureUrlBegin.$randomUserGenre.$pictureUrlEnd;
+
+                    }
+                    
+                    $hasEmail = [null, $faker->email()];
+                    $email = $hasEmail[array_rand($hasEmail)];
+                    
+                    $hasWebdomain1 = [null, $faker->url()];
+                    $webdomain1 = $hasWebdomain1[array_rand($hasWebdomain1)];
+                    
+                    $hasWebdomain2 = [null, $faker->url()];
+                    $webdomain2 = $hasWebdomain2[array_rand($hasWebdomain2)];
+                    
+                    $hasWebdomain3 = [null, $faker->url()];
+                    $webdomain3 = $hasWebdomain3[array_rand($hasWebdomain3)];
+                    
+                    $hasWebdomain4 = [null, $faker->url()];
+                    $webdomain4 = $hasWebdomain4[array_rand($hasWebdomain4)];
+
+                    $teammate-> setEmail ($email)
+                            -> setWebdomain1 ($webdomain1)
+                            -> setWebdomain2 ($webdomain2)
+                            -> setWebdomain3 ($webdomain3)
+                            -> setWebdomain4 ($webdomain4)
+                            -> setImage ($picture)
+                            -> setDescription ($description)
+                            -> setMissions ($missions)
+                            -> setName($name);
+
+                    $pp->addTeammate($teammate);
+
+                    $manager->persist($teammate);
+                }
+
+            }
             
 
 

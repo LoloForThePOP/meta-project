@@ -161,6 +161,9 @@
                 <!-- Project Geographic Domains -->
                 {% include 'pp/partials/_geoDomains.html.twig' %}
 
+                <!-- Project Team -->
+                {% include 'pp/partials/_team.html.twig' %}
+
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
@@ -194,79 +197,59 @@
 {% endblock %}
 
 
+{# Javascripts for Specific Project Structures Behaviours#}
 
 {% block javascripts %}
-       
-    <script>
 
-        $(document).ready(function(){
+    {% if presentation.needs %}
 
-            // When Click on a Need Title, we display its details in a modal box
+        {% include 'pp/js_show/_needs.html.twig' %}
+        
+    {% endif %}
 
-            $('#needsDisplayTable tbody').on('click', 'tr', function (){
+    {% if presentation.teammates %}
 
-                var needId = $(this).attr('id');
-                var needTitle = $(this).attr('data-need-title');
-                var needDate = $(this).attr('data-need-date');
-                var needIsPaid = $(this).attr('data-need-isPaid');
+        <script type="text/javascript" src="/js/slick.min.js"></script>
 
-                var loader =  '<div class="p-3"><div class="loader"></div></div>';
+        <script>
+            
+            $(document).ready(function(){
 
-                //alert(needTitle);
+                $('.teammatesSlideshow').slick({
 
-                $('#titleNeedModal').html(needTitle);
+                    infinite: false,
+                    slidesToShow: 6,
+                    slidesToScroll: 2,
 
-                $('#dateNeedModal').html(needDate);
-
-                $('#isPaidNeedModal').html(needIsPaid);
-
-                $('#descriptionNeedModal').html(loader);
-                
-                // Get Need Details and Display These Details in a Modal
-
-                
-                $.ajax({  
-
-                    url: "{{path('ajax_get_need_details', {'slug': presentation.slug}) }}",
-
-                    type:       'POST',   
-
-                    dataType:   'json',
-
-                    data: {
-
-                      "needId": needId,
-
-                    },
-    
-                    async: true,  
+                    responsive: [
                     
-                    success: function(data, status) {
-    
-                        needDescription = data.needDescription;
-    
-                        $('#descriptionNeedModal').html(needDescription);
-    
-                                            
-                    },  
-    
-                    error : function(xhr, textStatus, errorThrown) {  
+                        {
 
-                        alert('Ajax request failed.');  
+                            breakpoint: 480,
 
-                    }  
+                            settings:
 
-                 }); 
+                            {
 
+                                arrows: true,
+                                slidesToShow: 3,
+                                slidesToScroll: 2,
 
-         
-                
+                            }
 
+                        }
+                    ],
+
+                });
 
             });
 
-        });
+        </script>
+        
+    {% endif %}
 
-    </script>
+
+
+
 
 {% endblock %}

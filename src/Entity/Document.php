@@ -25,7 +25,6 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * @ORM\Entity(repositoryClass=DocumentRepository::class)
  * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks
- * 
  */
 class Document
 {

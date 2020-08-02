@@ -10,14 +10,15 @@
                         <!-- Project Goal -->
     
                             <h6 class="projectTitle font-weight-bold mb-0" style="font-size:1.25em">
-                                {{presentation.goal | slice(0, 140) | capitalize}}{% if presentation.goal | length > 141 %}...{% endif %}
+                                {{presentation.goal[:1] | upper ~ presentation.goal[1:] | slice(0, 140)}}{% if presentation.goal | length > 141 %}...{% endif %}
                             </h6>
 
                         <!-- Project Title -->
 
                             {% if presentation.title is not empty %}
-                                <h6 class="font-weight-bold mb-0 fs-15">{{presentation.title | slice(0, 63) | capitalize}}</h6>
+                                <h6 class="font-weight-bold mb-0 fs-15">{{ presentation.title[:1] | upper ~ presentation.title[1:] | slice(0, 63)}}</h6>
                             {% endif %}
+
 
                              
                         <!-- Project Keywords -->
