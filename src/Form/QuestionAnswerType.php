@@ -16,25 +16,25 @@ class QuestionAnswerType extends AbstractType
         $builder
         
             ->add('question', TextType::class, 
-            [
-                'label' => 'La question',
-                'attr' => [
-                    
-                    'placeholder'    => 'Écrire ici la question',
-                ],
-                'required'   => true,
-            ]
+                [
+                    'label' => 'La question',
+                    'attr' => [
+                        
+                        'placeholder'    => 'Écrire ici la question',
+                    ],
+                    'required'   => true,
+                ]
             )
 
             ->add('answer', TextareaType::class, 
-            [
-                'label' => 'La réponse',
-                'attr' => [
-                    
-                    'placeholder'    => 'Écrire ici la réponse',
-                ],
-                'required'   => true,
-            ]
+                [
+                    'label' => 'La réponse',
+                    'attr' => [
+                        
+                        'placeholder'    => 'Écrire ici la réponse',
+                    ],
+                    'required'   => true,
+                ]
             )
         ;
     }

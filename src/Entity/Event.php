@@ -2,11 +2,16 @@
 
 namespace App\Entity;
 
-use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Repository\EventRepository;
+use Doctrine\ORM\Mapping\PreUpdate;
+use Doctrine\ORM\Mapping\PrePersist;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
 /**
  * @ORM\Entity(repositoryClass=EventRepository::class)
+ * @ORM\HasLifecycleCallbacks
+ * 
  */
 class Event
 {
@@ -61,6 +66,46 @@ class Event
      * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="events")
      */
     private $project;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $beginYear;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $beginMonth;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $beginDay;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $endYear;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $endMonth;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $endDay;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $virtualBeginDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $virtualEndDate;
 
     public function getId(): ?int
     {
@@ -120,7 +165,7 @@ class Event
         return $this->endDate;
     }
 
-    public function setEndDate(\DateTimeInterface $endDate): self
+    public function setEndDate(?\DateTimeInterface $endDate): self
     {
         $this->endDate = $endDate;
 
@@ -165,6 +210,36 @@ class Event
         return $this;
     }
 
+      
+    /**
+    * Allow to Automaticaly set CreatedAt
+    * 
+    * @ORM\PrePersist
+    */
+    public function createTimestamp(): void
+    {
+          
+        if ($this->getCreatedAt() === null) {
+
+            $this->setCreatedAt(new \DateTime('now'));
+
+        }
+
+    }
+
+    /**
+    * Allow to Automaticaly setUpdatedAt
+    * 
+    * @ORM\PreUpdate
+    */
+    public function updatedTimestamp(): void
+    {
+        $this->setUpdatedAt(new \DateTime('now'));
+    }
+
+
+
+
     public function getProject(): ?PPBasic
     {
         return $this->project;
@@ -177,6 +252,102 @@ class Event
         return $this;
     }
 
+    public function getBeginYear(): ?int
+    {
+        return $this->beginYear;
+    }
 
-    
+    public function setBeginYear(?int $beginYear): self
+    {
+        $this->beginYear = $beginYear;
+
+        return $this;
+    }
+
+    public function getBeginMonth(): ?int
+    {
+        return $this->beginMonth;
+    }
+
+    public function setBeginMonth(?int $beginMonth): self
+    {
+        $this->beginMonth = $beginMonth;
+
+        return $this;
+    }
+
+    public function getBeginDay(): ?int
+    {
+        return $this->beginDay;
+    }
+
+    public function setBeginDay(?int $beginDay): self
+    {
+        $this->beginDay = $beginDay;
+
+        return $this;
+    }
+
+    public function getEndYear(): ?int
+    {
+        return $this->endYear;
+    }
+
+    public function setEndYear(?int $endYear): self
+    {
+        $this->endYear = $endYear;
+
+        return $this;
+    }
+
+    public function getEndMonth(): ?int
+    {
+        return $this->endMonth;
+    }
+
+    public function setEndMonth(?int $endMonth): self
+    {
+        $this->endMonth = $endMonth;
+
+        return $this;
+    }
+
+    public function getEndDay(): ?int
+    {
+        return $this->endDay;
+    }
+
+    public function setEndDay(?int $endDay): self
+    {
+        $this->endDay = $endDay;
+
+        return $this;
+    }
+
+    public function getVirtualBeginDate(): ?\DateTimeInterface
+    {
+        return $this->virtualBeginDate;
+    }
+
+    public function setVirtualBeginDate(?\DateTimeInterface $virtualBeginDate): self
+    {
+        $this->virtualBeginDate = $virtualBeginDate;
+
+        return $this;
+    }
+
+    public function getVirtualEndDate(): ?\DateTimeInterface
+    {
+        return $this->virtualEndDate;
+    }
+
+    public function setVirtualEndDate(?\DateTimeInterface $virtualEndDate): self
+    {
+        $this->virtualEndDate = $virtualEndDate;
+
+        return $this;
+    }
+
+
+
 }

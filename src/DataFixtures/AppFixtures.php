@@ -6,6 +6,7 @@ use Faker\Factory;
 use App\Entity\Need;
 use App\Entity\Role;
 use App\Entity\User;
+use App\Entity\Event;
 use App\Entity\Slide;
 use App\Entity\PGroup;
 use App\Entity\Report;
@@ -358,6 +359,77 @@ class AppFixtures extends Fixture
                     $pp->addTeammate($teammate);
 
                     $manager->persist($teammate);
+                }
+
+            }
+
+
+
+            
+            // Project Dates & Events Creation
+
+            $hasEventsOdds = [true, true, true, false];
+
+            $hasEvents = $hasEventsOdds [array_rand($hasEventsOdds)];
+            
+            if ($hasEvents){
+
+                $eventsCount = mt_rand(1,8);
+                
+                for ($j=1; $j <= $eventsCount; $j++){
+                
+                    $event = new Event();
+
+                    $title = $faker->text($maxNbChars = 80);
+
+                    $hasDescription = [null, $faker->paragraph($nbSentences = 3, $variableNbSentences = true)];
+                    $description = $hasDescription[array_rand($hasDescription)];
+                    
+                    $hasBeginDate = 
+
+                        [
+                            
+                            null, 
+
+                            $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
+                        ];
+
+                    $beginDate = $hasBeginDate[array_rand($hasBeginDate)];
+                    
+
+                    $hasBeginTime = [
+                        null, 
+                        $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
+                    ];
+
+                    $beginTime = $hasBeginTime[array_rand($hasBeginTime)];
+                    
+                    $hasEndTime = [
+                        null, 
+                        $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
+                    ];
+                    
+                    $endTime = $hasEndTime[array_rand($hasEndTime)];
+                    
+                    $hasBeenUpdatedAt = [
+                        null, 
+                        $faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
+                    ];
+                    
+                    $updatedAt = $hasBeenUpdatedAt[array_rand($hasBeenUpdatedAt)];
+                    
+                    $event
+                            -> setUpdatedAt ($updatedAt)
+                            -> setBeginDate ($beginDate)
+                            -> setBeginTime ($beginTime)
+                            -> setEndDate ($faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null))
+                            -> setEndTime ($endTime)
+                            -> setDescription ($description)
+                            -> setTitle($title);
+
+                    $pp->addEvent($event);
+
+                    $manager->persist($event);
                 }
 
             }

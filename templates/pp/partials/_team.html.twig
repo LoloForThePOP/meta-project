@@ -102,90 +102,87 @@
 
             <div class="teammatesSlideshow">
 
-                {% for teammate in presentation.teammates %}
-
-                <!-- Team Member Card -->
-
-                <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="">
-
-                    <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
-
-                    <!-- Teammate Missions -->
-
-                    <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
-
-                        {{ teammate.missions | length < 35 ? teammate.missions : teammate.missions|slice(0, 35) ~ '...' }}
-
-                        {% if teammate.missions | length == 0 %} {% endif %}
-
-                    </div>
-
-                    <!-- Teammate Image -->
-                    
-                    <div class="text-center mb-2">
-
-                        {% if teammate.image %}
                         
-                           {# <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}"> #} 
+                    {% for teammate in presentation.teammates %}
+
+                        <!-- Team Member Card -->
+
+                        <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="">
+
+                            <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
+
+                            <!-- Teammate Missions -->
+
+                            <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+
+                                {{ teammate.missions | length < 35 ? teammate.missions : teammate.missions|slice(0, 35) ~ '...' }}
+
+                                {% if teammate.missions | length == 0 %} {% endif %}
+
+                            </div>
+
+                            <!-- Teammate Image -->
+                            
+                            <div class="text-center mb-2">
+
+                                {% if teammate.image %}
+                                
+                                {# <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}"> #} 
 
 
-                           <img class="d-block mx-auto img-fluid rounded-circle border border-primary" src="{{ teammate.image }}" height="115px" width="115px">
-                           
-                        {% else %}
+                                <img class="d-block mx-auto img-fluid rounded-circle border border-primary" src="{{ teammate.image }}" height="115px" width="115px">
+                                
+                                {% else %}
+                                                        
+                                <div class="avatar-circle mx-auto">
+                                    <span class="initials">
+                                        {{teammate.name | slice (0,1) }}
+                                    </span>
+                                </div>
+                            
+                            {% endif %}
+
+                            </div> 
                                                 
-                           <div class="avatar-circle mx-auto">
-                               <span class="initials">
-                                   {{teammate.name | slice (0,1) }}
-                               </span>
-                           </div>
-                       
-                       {% endif %}
+                            <!-- Teammate Name -->
 
-                    </div> 
-                                          
-                    <!-- Teammate Name -->
+                            <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
 
-                    <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+                                {{ teammate.name | length < 50 ? teammate.name : teammate.name|slice(0, 50) ~ '...' }}
 
-                        {{ teammate.name | length < 50 ? teammate.name : teammate.name|slice(0, 50) ~ '...' }}
+                            </div>
 
-                    </div>
+                                                
+                            <!-- Teammate Show More Info (if more info available) -->
 
-                                          
-                    <!-- Teammate Show More Info (if more info available) -->
+                            {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
+                                
+                                <div class="font-weight-bold mb-2 text-center" >
 
-                    {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
+                                    <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
+
+                                </div>
+
+                            {% endif %}
+
+
+                            </a>
+
+                            
+                            
                         
-                        <div class="font-weight-bold mb-2 text-center" >
 
-                            <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
+                        </div>   
 
-                        </div>
-
-                    {% endif %}
-
-
-                    </a>
-
-                    
-                    
-                   
-
-                </div>   
-
-                
-                       
-    
-
-            {% endfor %}
+                    {% endfor %}
 
               </div>
 
               {% for teammate in presentation.teammates %}
 
-              <!-- Modal to Display Teammate Details -->
+              <!-- Display Teammate Details (in a modal) -->
 
-              <div class="modal fade" id="teammateDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="teammateDisplayLabel{{ loop.index }}" aria-hidden="true">
+                <div class="modal fade" id="teammateDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="teammateDisplayLabel{{ loop.index }}" aria-hidden="true">
                         
                 <div class="modal-dialog" role="">
     
@@ -434,8 +431,7 @@
     
                 </div>
     
-            </div>  
-
+                </div>  
 
               {% endfor %}
 

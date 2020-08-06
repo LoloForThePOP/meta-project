@@ -1,0 +1,771 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Dates et événements{% endblock %}
+
+{% block body %}
+
+
+<div class="container">
+
+    <!-- Title with Display More Info Button (Container) -->
+
+    <div class="mt-3 mt-md-4 mb-2 pt-md-4">
+
+        <!-- ui Page Title -->
+
+        <h3 class="font-weight-bold d-inline mr-3">Gérer les Dates & Événements</h3>
+
+        
+        <!-- collapsable advice trigger button -->	
+
+        <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+            <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+            
+        </a>
+
+    </div>
+
+    <!-- Collapsible Info Container -->
+
+    <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+        <p class="h5 pt-1">
+
+            Si il y a des dates et des événements liés à votre projet, vous pouvez les présenter ici.
+            
+            <br>
+            <br>
+
+            Exemples :             
+
+        </p>
+               
+        <ul class="h5">
+
+            <li class="mb-2">Date de début du projet</li>
+            <li>Date de livraison du produit</li>
+
+        </ul>
+
+    </div>
+
+    
+    <!-- Add an Event (Button Triggers a Modal) -->
+
+    <div class="mb-4">
+
+        <button type="button" data-toggle="modal" data-target="#eventFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un événement</button> 
+
+    </div>
+
+
+    <!-- Form Display (in a Modal Box) -->
+
+    <div class="modal fade" id="eventFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+        <div class="modal-dialog" role="document">
+
+            <div class="modal-content">
+
+                <div class="modal-header">
+
+                    <h5 class="modal-title" id="exampleModalLabel">Ajouter un événement</h5>
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    {{ form_start(form) }}
+
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+
+
+                    <!-- Form Set Event Dates (in a Collapsible) -->
+
+                    <div class="my-4">
+
+
+                      <!-- Collapsible Trigger Button -->
+
+                        <div>
+
+                          <a class="btn btn-lg btn-light sharp" data-toggle="collapse" href="#collapseEventDates" role="button" aria-expanded="false" aria-controls="collapseEventDates">Ajouter une date / heure</a>
+
+                        </div>
+
+
+                      <!-- Collapsible Dates Settings Container -->
+
+                        <div class="collapse" id="collapseEventDates">
+
+                            <div class="card card-body">
+
+                              <div class="container my-1">
+
+                                <div class="row">
+
+                                  <div class="col">{{ form_widget(form.beginYear) }}</div>
+                                  <div class="col">{{ form_widget(form.beginMonth) }}</div>
+                                  <div class="col"> {{ form_widget(form.beginDay) }}</div>
+
+                                </div>
+                                
+                              </div>
+
+                              <div class="mb-4">
+
+                                {{ form_label(form.beginTime) }}
+                                {{ form_widget(form.beginTime) }}
+
+                              </div>
+      
+                              <!-- Set Event End Date (Button Trigger a Collapsible area)-->
+
+                              <div class="mb-3">
+
+                                <a class="btn btn-lg btn-light sharp" data-toggle="collapse" href="#collapseEventEndDate" role="button" aria-expanded="false" aria-controls="collapseEventEndDate">+ Ajouter une date / heure de fin (facultatif)</a>
+
+                              </div>
+
+                             <!-- Set Event End Date (Collapsible area)-->
+                            
+                            <div class="collapse" id="collapseEventEndDate">
+
+                              <div class="container mb-2">
+
+                                <div class="row">
+
+                                  <div class="col">{{ form_widget(form.endYear) }}</div>
+                                  <div class="col">{{ form_widget(form.endMonth) }}</div>
+                                  <div class="col"> {{ form_widget(form.endDay) }}</div>
+
+                                </div>
+                                
+                              </div>
+
+                              <div class="mb-2">
+
+                                {{ form_label(form.endTime) }}
+                                {{ form_widget(form.endTime) }}
+
+                              </div>
+
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                    </div>
+
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+
+                </div>
+
+                <div class="modal-footer">
+
+                    <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                    <button class="btn btn-success sharp bg-green font-weight-bold">Valider</button>
+                    
+                </div>
+
+                {{ form_end(form) }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+     <!-- Project Events Display (in a Timeline) -->
+
+    <div class="container mt-4 px-0">
+                  
+      <!-- Styles for the Timeline -->
+
+      <style>
+          
+          .timeline {
+
+              list-style-type: none;
+              display: flex;
+              align-items: center;
+                
+            }
+            
+            .li {
+              
+              transition: all 200ms ease-in;
+
+              cursor:pointer;
+
+              border-radius: 5%;
+              
+            }
+            
+            .li:hover {
+
+              background-color: rgb(255, 255, 202);
+              
+            }
+            
+            .timestamp {
+              margin-bottom: 12px;
+              padding: 0px 8px;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              text-align: center;
+              font-weight: 100;
+
+              width:172px;
+
+              border: none;
+
+              min-height: 80px;;
+              
+            }
+
+            /* First Dot (just a decoration) */
+
+            .timeline li:first-child{
+              margin-top:45px;
+              border-radius: 10px;
+              border: 10px solid #31708F;
+            }
+
+            /* Ending Arrow (just a decoration) */
+
+            .timeline li:last-child{
+              margin-top:45px;
+              border: 10px solid transparent;
+              border-right: 0;
+              border-left: 20px solid  #31708F;
+              border-radius: 3px;
+            }
+
+
+            .timestamp .author {
+
+              color:rgb(19, 124, 19);
+
+              font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+              font-size: 1.15em;
+              font-weight: bold;
+              
+
+            }
+
+            .timestamp .date {
+
+              font-size:1em;
+              font-weight: 600;
+
+            }
+
+            
+            .status {
+              padding-top: 15px;
+              display: flex;
+              justify-content: center;
+              border-top: 2px solid #D6DCE0;
+              position: relative;
+              transition: all 200ms ease-in;
+
+              border: none;
+
+              min-height: 50px;;
+            
+            }
+
+
+            .status h4 {
+              font-weight: 600;
+              min-height:40px;
+              
+            }
+
+            .status:before {
+              content: "";
+              width: 25px;
+              height: 25px;
+              background-color: white;
+              border-radius: 25px;
+              border: 3px solid rgb(184, 14, 14);
+              position: absolute;
+              top: -15px;
+              left: 42%;
+              transition: all 200ms ease-in;
+              
+            }
+            
+            .li.complete .status {
+              border-top: 4px solid darkslategray;
+
+            
+            }
+
+            .li.complete .status:before {
+            /* background-color: #66DC71; */
+              border:3px solid navy;
+              transition: all 200ms ease-in;
+              
+            }
+
+            .li.complete .status h4 {
+              color:black;
+            }
+
+          .timeline::after {
+            
+              border: 10px solid transparent !important;
+              border-right: 0;
+              border-left: 20px solid red !important;
+              border-radius: 3px;
+          }
+
+
+          @media screen and (max-width: 580px) {
+
+              .timeline {
+                
+                  overflow-x: auto;
+                  overflow-y: hidden;
+                    
+              }
+
+            .timestamp .author {
+
+              font-size:0.9em;
+              font-weight: 600;
+              
+
+            }
+
+            .timestamp .date {
+
+              font-size:0.9em;
+              font-weight: 600;
+
+            }
+
+
+          }
+
+
+
+          
+          
+          
+
+            /*  
+            
+            @media (min-device-width: 320px) and (max-device-width: 700px) {
+              .timeline {
+                list-style-type: none;
+                display: block;
+              }
+            
+              .li {
+                transition: all 200ms ease-in;
+                display: flex;
+                width: inherit;
+              }
+            
+              .timestamp {
+                width: 100px;
+              }
+            
+              .status:before {
+                left: -8%;
+                top: 30%;
+                transition: all 200ms ease-in;
+              }
+            }
+
+            */
+            
+      </style>
+
+    
+
+
+      {% if presentation.events | length > 0 %}
+      
+        <div class="container px-0">
+
+          <!-- Project Events Display (in a Timeline) -->
+
+          <ul class="timeline" id="timeline">
+
+            <!-- First Timeline Dot at the beginning (just a decoration) -->
+
+            <li></li>
+
+            {% for event in presentation.events %}
+
+              <!-- Does this event has More Info to Show in a Modal ? (when too many informations to display) -->
+
+              {% set moreDisplay = false %}
+
+              {% if event.endDate | length > 0 %}
+
+                {% set moreDisplay = true %}
+                    
+              {% endif %}
+
+          {#   {% if loop.index == 6 %}
+
+                  <li class="li" style="border : 2px solid navy; margin-top:35px; padding:10px 5px;"> 
+                      
+                      <div class="text-center">
+
+                          Afficher Tout
+
+                      </div>
+                      
+                  </li>
+
+                  <div class="newLine">
+              
+              {% endif %}#}
+
+              <!-- a Timeline Chunk -->
+
+              <li id=" {{event.id}} " class="li complete js-sortableGridItem" data-toggle="modal" data-target="#eventDisplayModal{{ loop.index }}">
+
+                  <!-- Link to Edit Event Page -->
+
+                  <a href="{{path('edit_event', {'slug': slug,'idEvent': event.id })}}" class="w-100 h-100 text-body text-decoration-none">
+
+                    <!-- Delete Event Button -->
+
+                    <div class="text-right">
+
+                      <span href="" data-id="{{ event.id }}" class="js-delete-event mt-2 mr-2 bg-danger font-weight-bold p-0 px-1 rounded text-decoration-none text-white">x</span>
+                      
+                    </div>
+
+                    <!-- Informations Above the Timeline Chunk -->
+
+                    <div class="timestamp d-flex justify-content-center">
+
+                      
+
+                        <span class="author">{{ event.title | length < 25 ? event.title : event.title |slice(0, 25) ~ '...' }}</span>
+
+                        <span class="date">{{event.beginDate  | date("d/m/Y") }}<span>
+
+                    </div>
+
+                    <!-- Informations Bellow the Timeline Chunk -->
+                    
+                    <div class="status cursor-pointer">
+
+                        <!-- Potential "Show More Informations" Button (trigger a modal)-->
+
+                        {% if moreDisplay %}
+
+                            <a data-toggle="modal" data-target="#eventDisplayModal{{ loop.index }}" class="btn btn-sm btn-light font-weight-bold" style="margin-top:5px; padding: 0px 4px;"> Afficher +</a>
+                        
+                        {% endif %}
+                        
+                    </div>
+
+                
+                  </a>
+              </li>
+
+
+            
+            {#  {% if loop.last %}
+                  
+                  </div>
+
+              {% endif %} #}
+
+          {% if moreDisplay == true %}
+          
+              <!-- Display Events Details (in a modal) -->
+
+              <div class="modal fade" id="eventDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="eventDisplayLabel{{ loop.index }}" aria-hidden="true">
+                          
+              <div class="modal-dialog" role="">
+
+                  <div class="modal-content">
+
+                  <!-- Modal Header -->
+
+                  <div class="modal-header">
+
+                      <!-- Event Complete Title -->
+
+                      <div class="row pl-4"> 
+
+                          <div class="h5 font-weight-bold pr-md-3" >
+
+                              {{ event.title }}
+
+                          </div>
+                      
+                      </div>
+
+
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                          <span aria-hidden="true">&times;</span>
+
+                      </button>
+
+                  </div>
+
+                  <!-- Modal Body -->
+
+                  <div class="modal-body px-4">
+
+                      <div class="container">
+
+                          <!-- Event Dates -->
+
+                          <div class="row mb-3"> 
+                              
+                              <b> 
+
+                              {% if event.beginDate %}
+
+                                  Le {{event.beginDate | date("d/m/Y") }}
+
+                                  {% if event.beginTime %}
+
+                                      à {{event.beginTime | date("H:i")}}
+
+                                  {% endif %}
+
+                              {% endif %}
+
+
+                              {% if event.endDate %}
+
+                                  <br>
+
+                                  Termine le {{event.endDate | date("d/m/Y") }}  
+
+                                  {% if event.endTime %}
+
+                                      à {{event.endTime | date("H:i")}}
+
+                                  {% endif %}
+
+                              {% endif %}
+
+                              </b>
+
+
+                          </div>
+
+
+                          <!-- Event Long Description -->
+
+                              <div class="row fs-15 mb-3"> 
+                                  
+                                  {% if event.description %}
+
+                                      {{event.description}}
+
+                                  {% else %}
+                                      
+                                      Pas de description détaillée.
+                                  
+                                  {% endif %}
+
+                              </div>
+
+
+                          <!-- "Created At" & "Last Updated At" Display -->
+
+                          <div class="row">
+
+                              <small>
+
+                                  <!-- Last Updated at -->
+
+                                  {% if event.updatedAt %}
+                                  
+                                      Modifié le {{ event.updatedAt | date("Y-m-d") }} à 
+                                      {{ event.updatedAt | date("H:i") }}
+
+                                      <br>
+                                  
+                                  {% endif %}
+
+                                  <!-- Created At -->
+
+                                  Créé le {{ event.createdAt | date("Y-m-d") }} à {{ event.createdAt | date("H:i") }}
+
+                              </small>
+
+                          </div>
+
+                          
+
+
+
+                        
+
+                  
+                      
+                
+
+
+                        
+
+                      <!-- End of Modal Body Container -->
+
+                      </div>
+
+                  <!-- End of Modal Body -->
+
+                  </div>
+
+                  <!-- Modal footer -->
+
+                  <div class="modal-footer">
+
+                      <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
+
+                  </div>
+
+                  </div>
+
+              </div>
+
+              </div>  
+          
+          {% endif %}
+
+
+          {% endfor %}
+
+            <!-- Ending Timeline Arrow (just a decoration) -->
+
+            <li></li>
+
+          </ul> 
+
+      </div>
+      
+      {% endif %}
+
+
+    </div>
+
+</div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+
+    <!-- sortable plugin in order to reorder Events -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+
+
+
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // If form errors, we have to trigger modal box display for the user to be aware of thesses form errors.
+
+            {% if not form.vars.valid %}
+
+                $('#eventsFormModal').modal('show');
+
+            {% endif %}
+
+            
+            $('#timeline').sortable({
+
+              animation: 150,
+
+              ghostClass: 'blue-background-class',
+
+              filter: ".disabled",
+
+              onMove: function (evt) {
+                  return evt.related.className.indexOf('disabled') === -1;
+              },
+
+              // reorder q&a positions (drag and drop)
+
+          });
+
+
+
+               
+            // Remove an Event
+
+            $('#timeline').on('click', '.js-delete-event', function (){
+
+              var idEvent = $(this).attr("data-id");
+
+              if (confirm("Confimez vous enlever cet événement ?"))
+              {
+                  
+              $.ajax({  
+
+                  url: "{{path('ajax_remove_event', {'slug': presentation.slug}) }}",
+                  type:       'POST',   
+                  dataType:   'json',
+                  
+                  data: {
+                      "idEvent": idEvent,
+                  },
+
+                  async: true,  
+                  
+                  success: function(data, status) {
+
+
+                      $("#timeline #"+idEvent).remove();
+                      
+                  },  
+
+                  error : function(xhr, textStatus, errorThrown) {  
+                      // alert('Ajax request failed.');  
+                  }  
+                  }); 
+                  
+              }
+  
+          });
+
+
+
+        }); 
+
+        
+    </script>
+
+{% endblock %}

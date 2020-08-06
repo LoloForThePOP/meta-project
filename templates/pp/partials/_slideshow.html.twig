@@ -135,7 +135,9 @@
 
 								<div class="row">
 
-									<div class="col pl-5 pt-5">
+									<!-- fIRST Thumbnail Column (first 4 slides) -->
+
+									<div class="col pl-4 pt-5" style="">
 										
 										{% for slide in presentation.slides | slice (0,4) %}
 
@@ -198,7 +200,7 @@
 											
 											{% for slide in presentation.slides | slice (4,8) %}
 					
-											<div class="row mb-4">
+											<div class="row mb-5">
 					
 												<div onclick="currentSlide({{loop.index}})" class="thumbnail">
 					
@@ -411,7 +413,7 @@
 
 		padding-left: 30px;
 		
-		//background-color: #222;
+		background-color: inherit;
 		
 		font-family: Verdana, Geneva, Tahoma, sans-serif;
 
@@ -490,9 +492,7 @@
 
 			padding: 4px 9px;
 			
-			background-color: #222;
-			
-			font-size: 14px;
+			font-size: 16px;
 			font-weight:normal;
 			
 		}
