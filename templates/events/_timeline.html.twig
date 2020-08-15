@@ -1,0 +1,342 @@
+<div class="container mt-4 px-0">
+   
+  {% if presentation.events | length > 0 %}
+          
+    <div class="container px-0">
+
+      <!-- Project Events Display -->
+
+      <ul id="timeline" class="timeline" id="timeline">
+
+        <li class="li disabled"></li>
+
+
+      {% for event in presentation.events %}
+
+                <!-- a Timeline Chunk -->
+  
+                <li id="{{event.id}}" class="li complete js-sortableGridItem" data-toggle="modal" data-target="#eventDisplayModal{{ loop.index }}">
+  
+                  
+                      <!-- Delete Event Button -->
+  
+                      <div class="text-right" style="z-index:300 !important">
+  
+                        <span href="" data-id="{{ event.id }}" class="js-delete-event mt-2 mr-2 bg-danger font-weight-bold p-0 px-1 rounded text-decoration-none text-white">x</span>
+                        
+                      </div>
+  
+                    <!-- Link to Edit Event Page -->
+  
+                    <a href="{{path('edit_event', {'slug': slug,'idEvent': event.id })}}" class="w-100 h-100 text-body text-decoration-none">
+  
+  
+                      <!-- Informations Above the Timeline Chunk -->
+  
+                      <div class="timestamp d-flex justify-content-center">
+  
+                        
+  
+                          <span class="author">{{ event.title | length < 25 ? event.title : event.title |slice(0, 22) ~ '...' }}</span>
+  
+                          <span class="date">{{event.beginDateStr }}<span>
+  
+                      </div>
+  
+                      <!-- Informations Bellow the Timeline Chunk -->
+                      
+                      <div class="status cursor-pointer">
+  
+                          
+                      </div>
+  
+                  
+                    </a>
+                </li>
+
+
+                {% endfor %}
+
+                <!-- Ending Timeline Arrow (just a decoration) -->
+    
+                <li class="li disabled "></li>
+    
+                </ul> 
+<!-- 
+                <div class="xs-ending-arrow" style="border-bottom:3px solid black;"></div> -->
+                
+    
+            </div>
+                
+            {% endif %}
+      
+        </div>
+  
+  
+  
+                     
+        <!-- Styles for the Timeline -->
+  
+        <style>
+            
+            .timeline {
+  
+                list-style-type: none;
+                display:inline-block;
+                padding:0;
+                  
+              }
+              
+              .li {
+                
+                transition: all 200ms ease-in;
+  
+                cursor:pointer;
+  
+                border-radius: 5%;
+  
+                float: left;
+                
+              }
+              
+              .li:hover {
+  
+                background-color: rgb(255, 255, 202);
+                
+              }
+              
+              .timestamp {
+                margin-bottom: 12px;
+                padding: 0px 8px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+                font-weight: 100;
+  
+                width:172px;
+  
+                border: none;
+  
+                min-height: 80px;;
+                
+              }
+  
+              /* First Dot (just a decoration) */
+  
+              .timeline li:first-child{
+                float:left;
+                margin:0;
+                margin-top:106px;
+                border-radius: 10px;
+                border: 10px solid #31708F;
+              } 
+  
+              /* Ending Arrow (just a decoration) */
+ 
+              .timeline li:last-child{
+                
+                float:left;
+                margin-top:107px;
+                border: 10px solid transparent;
+                border-right: 0;
+                border-left: 20px solid  #31708F;
+                border-radius: 3px;
+              } 
+  
+  
+              .timestamp .author {
+  
+                color:rgb(19, 124, 19);
+  
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  
+                font-size: 1.15em;
+                font-weight: bold;
+                
+  
+              }
+  
+              .timestamp .date {
+  
+                font-size:1em;
+                font-weight: 600;
+  
+              }
+  
+              
+              .status {
+                padding-top: 15px;
+                display: flex;
+                justify-content: center;
+                border-top: 2px solid #D6DCE0;
+                position: relative;
+                transition: all 200ms ease-in;
+  
+                border: none;
+  
+                min-height: 50px;;
+              
+              }
+  
+  
+              .status h4 {
+                font-weight: 600;
+                min-height:40px;
+                
+              }
+  
+              .status:before {
+                content: "";
+                width: 25px;
+                height: 25px;
+                background-color: white;
+                border-radius: 25px;
+                border: 3px solid rgb(184, 14, 14);
+                position: absolute;
+                top: -15px;
+                left: 42%;
+                transition: all 200ms ease-in;
+                
+              }
+              
+              .li.complete .status {
+                border-top: 4px solid darkslategray;
+  
+              
+              }
+  
+              .li.complete .status:before {
+              /* background-color: #66DC71; */
+                border:3px solid navy;
+                transition: all 200ms ease-in;
+                
+              }
+  
+              .li.complete .status h4 {
+                color:black;
+              }
+
+              
+
+
+            
+
+ 
+  
+            @media screen and (max-width: 580px) {
+  
+                .timeline {
+  
+                  list-style-type: none;
+                  display: block;
+                      
+                }
+
+                /* we hide last arrow because of a bug display due to sortable; */
+
+                .timeline li:last-child{
+                  display:none;
+                }
+
+               /* First Dot (just a decoration) */
+  
+              .timeline li:first-child{
+                float:left;
+                margin:0;
+                margin-top:94px;
+                border-radius: 10px;
+                border: 10px solid #31708F;
+              } 
+  
+                .li {
+    
+                  float: none;
+
+                  margin: 0 20px;
+                  
+                }
+
+                div.timestamp{
+                  margin:auto;
+                  min-width: 80px;
+                }
+  
+                /* .xs-ending-arrow {
+    
+                  display:block;
+                  
+                } */
+  
+              .timestamp .author {
+  
+                font-size: 1.05em;
+                font-weight: 600;
+
+                font-family: Arial, Helvetica, sans-serif;
+                
+  
+              }
+  
+              .timestamp .date {
+  
+                font-size:1.05em;
+                font-weight: 600;
+                font-family: Arial, Helvetica, sans-serif;
+  
+              }
+
+              
+              .timeline::after {
+
+                float:left;
+                content:'';
+                margin-top:-58px;
+                margin-left:295px;
+                /* font-size:1.5em;
+                font-weight:bold;
+                font-family:Arial, Helvetica, sans-serif;*/
+                border: 10px solid transparent;
+                border-right: 0;
+                border-left: 20px solid  #31708F;
+                border-radius: 3px; 
+            } 
+
+                
+  
+            }
+  
+  
+  
+            
+            
+            
+  
+              /*  
+              
+              @media (min-device-width: 320px) and (max-device-width: 700px) {
+                .timeline {
+                  list-style-type: none;
+                  display: block;
+                }
+              
+                .li {
+                  transition: all 200ms ease-in;
+                  display: flex;
+                  width: inherit;
+                }
+              
+                .timestamp {
+                  width: 100px;
+                }
+              
+                .status:before {
+                  left: -8%;
+                  top: 30%;
+                  transition: all 200ms ease-in;
+                }
+              
+  
+              
+        </style>
+  

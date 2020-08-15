@@ -9,10 +9,16 @@
 
     .pp-project-goal{
 
+        font-size: 1.8em;
         font-family: Tahoma, Geneva, Verdana, sans-serif;
 
-
     }
+
+    .untitledProject{
+
+        font-size: 1.7em !important;
+
+    } 
 
     @media screen and (max-width: 580px) {
 
@@ -21,6 +27,12 @@
             font-size: 1.1em;
             font-weight: normal;
         }
+            
+        .untitledProject{
+
+            font-size: 1.3em !important;
+
+        }
 
     }
 
@@ -28,7 +40,17 @@
 
     <!-- Project Goal Display -->
     
-    <h4 class="pp-project-goal d-inline-block mr-3">{{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}</h4>
+    <h4 class="pp-project-goal d-inline-block mr-3 
+        
+        {% if presentation.title is empty %} untitledProject
+        {% endif %}
+    ">
+        
+        {{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}
+    
+    </h4>
+
+   
 
     <!-- Edit Project Goal Button -->
 

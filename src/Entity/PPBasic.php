@@ -200,7 +200,7 @@ class PPBasic implements \Serializable
      *      min = 10,
      *      max = 255,
      *      minMessage = "L'objectif doit avoir au moins {{ limit }} caractères",
-     *      maxMessage = "L'objectif doit avoir au plus{{ limit }} caractères"
+     *      maxMessage = "L'objectif doit avoir au plus {{ limit }} caractères"
      *      )
      */
     private $goal;
@@ -350,6 +350,9 @@ class PPBasic implements \Serializable
 
     /**
      * @ORM\OneToMany(targetEntity=Event::class, mappedBy="project")
+     * 
+     * @ORM\OrderBy({"position" = "ASC"})
+     * 
      */
     private $events;
     

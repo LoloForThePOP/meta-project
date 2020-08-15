@@ -28,11 +28,81 @@
 
         <!-- Form Display -->
 
-        <div class="col-md-5 mt-4 mb-5 pl-0">
+        <div class="col-md-7 mt-4 mb-4 mb-md-5 pl-0">
 
-            {{ form_start(form) }}
 
-            {{ form_widget(form) }}
+                {{ form_start(form) }}
+
+                <div class="mb-5">
+                    {{ form_label(form.title) }}
+                    {{ form_widget(form.title) }}
+                </div>
+
+                <!-- Form Set Event Begin Dates -->
+
+                    <div class="mb-5">
+
+                        <div class="row h5 font-weight-bold ml-md-1 mb-3 pl-3 pl-md-0">
+                            Date de début (facultatif)
+                        </div>
+
+                        <div class="row mb-3">
+
+                                <div class="col">{{ form_widget(form.beginYear) }}</div>
+                                <div class="col">{{ form_widget(form.beginMonth) }}</div>
+                                <div class="col"> {{ form_widget(form.beginDay) }}</div>
+
+                        </div>
+
+                        <div class="mb-3">
+
+                            {{ form_label(form.beginTime) }}
+                            {{ form_widget(form.beginTime) }}
+
+                         </div>
+
+                    </div>
+
+                    <!-- Form Set Event End Dates -->
+
+                    <div class="mb-5">
+
+                        <div class="row h5 font-weight-bold ml-md-1 mb-3 pl-3 pl-md-0">
+                            Date de fin (facultatif)
+                        </div>
+
+                        <div class="row mb-3">
+
+                            <div class="col">{{ form_widget(form.endYear) }}</div>
+                            <div class="col">{{ form_widget(form.endMonth) }}</div>
+                            <div class="col"> {{ form_widget(form.endDay) }}</div>
+
+                        </div>
+
+                        <div class="">
+
+                            {{ form_label(form.endTime) }}
+                            {{ form_widget(form.endTime) }}
+    
+                        </div>
+
+                    </div>
+
+
+
+
+
+                
+                            
+
+
+
+               <div class="">
+                    {{ form_label(form.description) }}
+                    {{ form_widget(form.description) }}
+               </div>   
+
+               
 
         </div>
 
@@ -43,7 +113,7 @@
 
             <button class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2">Valider</button>
 
-            <a href="{{ path('qa_manage', {'slug':slug}) }}">
+            <a href="{{ path('manage_events', {'slug':slug}) }}">
 
                 <button type="button" class="btn btn-info btn-lg sharp font-weight-bold" data-dismiss="modal">Retour</button>
 

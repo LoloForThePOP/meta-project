@@ -21,6 +21,9 @@ class EventController extends AbstractController
 {
     
     /**
+     * 
+     * Allow to add a new Event & display existing events
+     * 
      * @Route("/manage", name="manage_events")
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
@@ -36,11 +39,49 @@ class EventController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $beginYear = $form->get('beginYear')->getData();
+            // set a virtual begin date to new event
 
-            if($beginYear){
-               die( dump($beginYear ));
+           // $event->toVirtualDate($form->get('beginYear')->getData(), $form->get('beginMonth')->getData(), $form->get('beginDay')->getData());
+
+           // set a virtual begin date to new event
+
+            $event->setVirtualBeginDate(Event::toVirtualDate($form->get('beginYear')->getData(), $form->get('beginMonth')->getData(), $form->get('beginDay')->getData()));
+
+            // set a virtual end date to new event
+
+            $event->setVirtualEndDate(Event::toVirtualDate($form->get('endYear')->getData(), $form->get('endMonth')->getData(), $form->get('endDay')->getData()));
+
+            //reorder project events according to the new event date
+
+            $newEventDate = $event->getVirtualBeginDate();
+
+            if ($newEventDate !== NULL) {
+
+                foreach ($presentation->getEvents() as $index => $preExistEvent){
+
+                    $updatedPosition = false;
+
+                    $preExistEventDate = $preExistEvent -> getVirtualBeginDate();
+                    
+                    if ($newEventDate > $preExistEventDate) {
+                        
+                        $event->setPosition($index + 1);
+
+                    }
+                    
+                    if ($newEventDate < $preExistEventDate) {
+                        
+                        $preExistEvent->setPosition($index + 1); 
+                        
+                        $manager->persist($preExistEvent);
+
+                    }
+                }
+            
+            
             }
+
+            //die(dump($event->toStringDate_Fr(1990,13,NULL)));
 
             $event->setProject($presentation);
 
@@ -146,6 +187,45 @@ class EventController extends AbstractController
         }
 
     }
+
+      
+    /**
+     * Allow to modify project Dates & Events positions with an ajax request
+     *
+     * @Route("/ajax-reorder-events/", name="ajax_reorder_events")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+    */ 
+    public function ajaxReorderEvents(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonEventsPositions = $request->request->get('jsonEventsPositions');
+
+            $eventsPositions = json_decode($jsonEventsPositions,true);
+
+            foreach ($presentation->getEvents() as $event){
+
+                $eventNewPosition = array_search($event->getId(), $eventsPositions, false);
+                
+                $event->setPosition($eventNewPosition);
+
+                $manager->persist($event);
+            }
+            
+            $manager->persist($presentation);
+
+            $manager->flush();
+
+            return  new JsonResponse(true);
+
+        }
+
+        return  new JsonResponse();
+
+    }
+
 
 
 

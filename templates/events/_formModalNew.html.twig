@@ -1,0 +1,122 @@
+<div class="modal fade" id="eventFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="document">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <h5 class="modal-title" id="exampleModalLabel">Ajouter un événement</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                {{ form_start(form) }}
+
+                {{ form_label(form.title) }}
+                {{ form_widget(form.title) }}
+
+
+                <!-- Form Set Event Dates (in a Collapsible) -->
+
+                <div class="my-4">
+
+
+                  <!-- Collapsible Trigger Button -->
+
+                    <div class="mt-4">
+
+                      <a class="btn btn-lg btn-light sharp" data-toggle="collapse" href="#collapseEventDates" role="button" aria-expanded="false" aria-controls="collapseEventDates">Ajouter une date / heure</a>
+
+                    </div>
+
+
+                  <!-- Collapsible Dates Settings Container -->
+
+                    <div class="collapse" id="collapseEventDates">
+
+                        <div class="card card-body">
+
+                          <div class="container my-1">
+
+                            <div class="row">
+
+                              <div class="col">{{ form_widget(form.beginYear) }}</div>
+                              <div class="col">{{ form_widget(form.beginMonth) }}</div>
+                              <div class="col"> {{ form_widget(form.beginDay) }}</div>
+
+                            </div>
+                            
+                          </div>
+
+                          <div class="mb-4">
+
+                            {{ form_label(form.beginTime) }}
+                            {{ form_widget(form.beginTime) }}
+
+                          </div>
+  
+                          <!-- Set Event End Date (Button Trigger a Collapsible area)-->
+
+                          <div class="mb-3">
+
+                            <a class="btn btn-lg btn-light sharp" data-toggle="collapse" href="#collapseEventEndDate" role="button" aria-expanded="false" aria-controls="collapseEventEndDate">+ Ajouter une date / heure de fin (facultatif)</a>
+
+                          </div>
+
+                         <!-- Set Event End Date (Collapsible area)-->
+                        
+                        <div class="collapse" id="collapseEventEndDate">
+
+                          <div class="container mb-2">
+
+                            <div class="row">
+
+                              <div class="col">{{ form_widget(form.endYear) }}</div>
+                              <div class="col">{{ form_widget(form.endMonth) }}</div>
+                              <div class="col"> {{ form_widget(form.endDay) }}</div>
+
+                            </div>
+                            
+                          </div>
+
+                          <div class="mb-2">
+
+                            {{ form_label(form.endTime) }}
+                            {{ form_widget(form.endTime) }}
+
+                          </div>
+
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                </div>
+
+                {{ form_label(form.description) }}
+                {{ form_widget(form.description) }}
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                <button class="btn btn-success sharp bg-green font-weight-bold">Valider</button>
+                
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+
+    </div>
+
+</div>

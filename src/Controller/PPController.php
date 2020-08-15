@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PPBasic;
 use App\Form\PPBasicType;
+use App\Form\NewPresentationType;
 use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,7 +42,7 @@ class PPController extends AbstractController
 
         $presentation = new PPBasic();
 
-        $form = $this->createForm(PPBasicType::class,$presentation);
+        $form = $this->createForm(NewPresentationType::class,$presentation);
 
         $form->handleRequest($request);
 

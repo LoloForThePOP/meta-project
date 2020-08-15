@@ -38,15 +38,16 @@
               .timeline {
                 
                   list-style-type: none;
-                  display: flex;
-                  align-items: center;
-                  justify-content: center;
+
+                  display: inline-block;
 
                   overflow-x: auto;
                   overflow-y: hidden;
               
 
-                  padding-left:15px;
+                  padding-left : 15px;
+
+                  //height:150px;
                     
                 }
                 
@@ -57,6 +58,9 @@
                   cursor:pointer;
 
                   border-radius: 5%;
+
+                  float:left;
+
                   
                 }
                 
@@ -86,20 +90,20 @@
                 /* First Dot (just a decoration) */
 
                 .timeline li:first-child{
-                  margin-top:45px;
+                  margin-top:84px;
                   border-radius: 10px;
                   border: 10px solid #31708F;
-                }
+                } 
 
-                /* Ending Arrow (just a decoration) */
+                /* Ending Arrow (just a decoration)*/
 
                 .timeline li:last-child{
-                  margin-top:45px;
+                  margin-top:84px;
                   border: 10px solid transparent;
                   border-right: 0;
                   border-left: 20px solid  #31708F;
                   border-radius: 3px;
-                }
+                } 
 
 
                 .timestamp .author {
@@ -156,6 +160,7 @@
                   transition: all 200ms ease-in;
                   
                 }
+
                 
                 .li.complete .status {
                   border-top: 4px solid darkslategray;
@@ -174,74 +179,61 @@
                   color:black;
                 }
 
-              .timeline::after {
-                
-                  border: 10px solid transparent !important;
-                  border-right: 0;
-                  border-left: 20px solid red !important;
-                  border-radius: 3px;
-              }
-
 
               @media screen and (max-width: 580px) {
 
                   .timeline {
+
+                      display:flex;
+                      align-items:center;
                     
                       overflow-x: auto;
                       overflow-y: hidden;
                         
                   }
 
+                  .li {
+                  
+                    transition: all 200ms ease-in;
+  
+                    cursor:pointer;
+  
+                    border-radius: 5%;
+                    
+                  }
+
                 .timestamp .author {
 
-                  font-size:0.9em;
+                  font-size:1.05em;
                   font-weight: 600;
+                  font-family: Arial, Helvetica, sans-serif;
                   
 
                 }
 
                 .timestamp .date {
 
-                  font-size:0.9em;
+                  font-size:1.05em;
                   font-weight: 600;
+                  font-family: Arial, Helvetica, sans-serif;
 
                 }
+
+                
+                /* First Dot (just a decoration) */
+
+                .timeline li:first-child{
+                  margin-top:48px;
+                } 
+
+                /* Ending Arrow (just a decoration)*/
+
+                .timeline li:last-child{
+                  margin-top:48px;
+                } 
 
 
               }
-
-
-
-              
-              
-              
-
-                /*  
-                
-                @media (min-device-width: 320px) and (max-device-width: 700px) {
-                  .timeline {
-                    list-style-type: none;
-                    display: block;
-                  }
-                
-                  .li {
-                    transition: all 200ms ease-in;
-                    display: flex;
-                    width: inherit;
-                  }
-                
-                  .timestamp {
-                    width: 100px;
-                  }
-                
-                  .status:before {
-                    left: -8%;
-                    top: 30%;
-                    transition: all 200ms ease-in;
-                  }
-                }
-
-                */
                 
           </style>
 
@@ -251,7 +243,7 @@
 
             <!-- First Timeline Dot at the beginning (just a decoration) -->
 
-            <li></li>
+            <li class="li"></li> 
 
             {% for event in presentation.events %}
 
@@ -259,13 +251,15 @@
 
               {% set moreDisplay = false %}
 
-              {% if event.endDate | length > 0 %}
+              {% if event.endDateStr is not null or event.title | length >= 23 or event.description is not null %}
 
                 {% set moreDisplay = true %}
                     
               {% endif %}
 
-          {#   {% if loop.index == 6 %}
+           
+
+            {# {% if loop.index == 6 %}
 
                   <li class="li" style="border : 2px solid navy; margin-top:35px; padding:10px 5px;"> 
                       
@@ -276,10 +270,8 @@
                       </div>
                       
                   </li>
-
-                  <div class="newLine">
               
-              {% endif %}#}
+              {% endif %} #}
 
               <!-- a Timeline Chunk -->
 
@@ -289,9 +281,9 @@
 
                   <div class="timestamp d-flex justify-content-center">
 
-                      <span class="author">{{ event.title | length < 25 ? event.title : event.title |slice(0, 25) ~ '...' }}</span>
+                      <span class="author">{{ event.title | length < 23 ? event.title : event.title | slice(0, 20) ~ '...' }}</span>
 
-                      <span class="date">{{event.beginDate  | date("d/m/Y") }}<span>
+                      <span class="date">{{event.beginDateStr }}<span>
 
                   </div>
 
@@ -301,7 +293,7 @@
 
                       <!-- Potential "Show More Informations" Button (trigger a modal)-->
 
-                      {% if moreDisplay %}
+                      {% if moreDisplay == true %}
 
                           <a data-toggle="modal" data-target="#eventDisplayModal{{ loop.index }}" class="btn btn-sm btn-light font-weight-bold" style="margin-top:5px; padding: 0px 4px;"> Afficher +</a>
                       
@@ -312,12 +304,6 @@
             </li>
 
             
-            {#  {% if loop.last %}
-                  
-                  </div>
-
-              {% endif %} #}
-
           {% if moreDisplay == true %}
           
               <!-- Display Events Details (in a modal) -->
@@ -365,9 +351,9 @@
                               
                               <b> 
 
-                              {% if event.beginDate %}
+                              {% if event.beginDateStr is not empty %}
 
-                                  Le {{event.beginDate | date("d/m/Y") }}
+                                  Début : <span class="date">{{event.beginDateStr }}<span>
 
                                   {% if event.beginTime %}
 
@@ -378,11 +364,11 @@
                               {% endif %}
 
 
-                              {% if event.endDate %}
+                              {% if event.endDateStr is not null %}
 
                                   <br>
 
-                                  Termine le {{event.endDate | date("d/m/Y") }}  
+                                  Fin : <span class="date">{{event.endDateStr }}<span>
 
                                   {% if event.endTime %}
 
@@ -402,13 +388,9 @@
 
                               <div class="row fs-15 mb-3"> 
                                   
-                                  {% if event.description %}
+                                  {% if event.description is not empty %}
 
                                       {{event.description}}
-
-                                  {% else %}
-                                      
-                                      Pas de description détaillée.
                                   
                                   {% endif %}
 
@@ -482,7 +464,7 @@
 
             <!-- Ending Timeline Arrow (just a decoration) -->
 
-            <li></li>
+            <li class="li"></li> 
 
           </ul>
 

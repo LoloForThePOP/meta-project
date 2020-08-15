@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use DateTime;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\EventRepository;
 use Doctrine\ORM\Mapping\PreUpdate;
@@ -106,6 +107,228 @@ class Event
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $virtualEndDate;
+
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $position;
+
+    
+
+    // transforms a chunked date or incomplete date to a complete datetime. Exemple : an event is set at year 2022. We transform this to datetime 01 - 01 - 2022. This allows us, for example, to easily order incomplete dates (or to throw notifications to users even with incomplete dates).
+
+    // remark: $monthSpan is an integer wich represents a month or a trimester or a semester : a value between 1-12 is for a month; 13 relates to first trimester; 36 to second trimester; 69 to third trimester; and so on); or a semester (16 stands for fisrt semester; 612 stands for second semester).
+
+    // if no year is provided, we do not construct a date
+    // if no month or month span is provided, we set date month to 1 by default
+    // if no day is provided, we set date day to 1 by default
+
+    public function toVirtualDate (?int $year, ?int $monthSpan, ?int $day) {
+
+        // without a year we do not construct a date
+        if ($year == NULL) 
+        {
+            return NULL;
+
+        }
+
+        else
+        {
+
+            $month = 1;
+
+            if ($monthSpan >= 1 && $monthSpan <= 12 ) 
+            {
+                $month= $monthSpan;
+            }
+
+            else
+            {
+                switch ($monthSpan) 
+                {
+                
+                    case 13:
+                        $month = 1;
+                        break;
+
+                    case 36:
+                        $month = 3;
+                        break;
+
+                    case 69:
+                        $month = 6;
+                        break;
+
+                    case 912:
+                        $month = 9;
+                        break;
+
+                    case 16:
+                        $month = 1;
+                        break;
+
+                    case 612:
+                        $month = 6;
+                        break;
+                    
+                    default:
+                        # code...
+                        break;
+
+                    }
+        
+            }
+
+            if($day==NULL)
+            {
+                 $day=1;
+            }
+            
+            //die(dump($day));
+
+            $timestamp = mktime(1, 1, 1, $month, $day, $year);
+
+            $date = new DateTime();
+
+            $date->setTimestamp($timestamp);
+
+            return $date;
+
+        }
+
+    }
+
+
+    public function toStringDate_Fr (?int $year, ?int $monthSpan, ?int $day) {
+
+        if ($year == NULL && $monthSpan == NULL && $day == NULL) {
+            return null;
+        }
+
+        elseif ($year !== NULL && $monthSpan == NULL && $day == NULL) {
+
+            return "Année ".$year;
+
+        }
+
+        else {
+
+            //output string monthSpan (exemple : janvier; 1er trimestre; etc)
+
+            $stringMonthSpan="";
+
+            switch ($monthSpan) {
+
+                case 1: 
+                    
+                    $stringMonthSpan = "janvier";
+                    break;
+
+                case 2: 
+                    
+                    $stringMonthSpan = "février";
+                    break;
+
+                case 3: 
+                    
+                    $stringMonthSpan = "mars";
+                    break;
+
+                case 4: 
+                    
+                    $stringMonthSpan = "avril";
+                    break;
+
+                case 5: 
+                    
+                    $stringMonthSpan = "mai";
+                    break;
+
+                case 6: 
+                    
+                    $stringMonthSpan = "juin";
+                    break;
+
+                case 7: 
+                    
+                    $stringMonthSpan = "juillet";
+                    break;
+
+                case 8: 
+                    
+                    $stringMonthSpan = "août";
+                    break;
+
+                case 9: 
+                    
+                    $stringMonthSpan = "septembre";
+                    break;
+
+                case 10: 
+                    
+                    $stringMonthSpan = "octobre";
+                    break;
+
+                case 11: 
+                    
+                    $stringMonthSpan = "novembre";
+                    break;
+
+                case 12: 
+                    
+                    $stringMonthSpan = "décembre";
+                    break;
+            
+                case 13:
+                    $stringMonthSpan = "1er trimestre";
+                    break;
+
+                case 36:
+                    $stringMonthSpan = "2ème trimestre";
+                    break;
+
+                case 69:
+                    $stringMonthSpan = "3ème trimestre";
+                    break;
+
+                case 912:
+                    $stringMonthSpan = "4ème trimestre";
+                    break;
+
+                case 16:
+                    $stringMonthSpan = "1er semestre";
+                    break;
+
+                case 612:
+                    $stringMonthSpan = "2ème semestre";
+                    break;
+                
+                default:
+                    # code...
+                    break;
+
+            }
+
+            return $day.' '.$stringMonthSpan.' '.$year;
+
+        }
+
+    }
+
+    //return begin date string (example : year 2027; 1 semester 2028; etc)
+
+    public function beginDateStr() {
+
+        return $this->toStringDate_Fr ($this->getBeginYear(), $this->getBeginMonth(), $this->getBeginDay());
+    }
+
+    //return ending date string (example : year 2027; 1 semester 2028; etc)
+
+    public function endDateStr() {
+
+        return $this->toStringDate_Fr ($this->getEndYear(), $this->getEndMonth(), $this->getEndDay());
+    }
+
 
     public function getId(): ?int
     {
@@ -344,6 +567,18 @@ class Event
     public function setVirtualEndDate(?\DateTimeInterface $virtualEndDate): self
     {
         $this->virtualEndDate = $virtualEndDate;
+
+        return $this;
+    }
+
+    public function getPosition(): ?int
+    {
+        return $this->position;
+    }
+
+    public function setPosition(?int $position): self
+    {
+        $this->position = $position;
 
         return $this;
     }

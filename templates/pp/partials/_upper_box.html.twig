@@ -32,6 +32,14 @@
     
         }
 
+        .noTitle-sm{
+            padding-top:0px !important;
+        }
+
+        .noLogo-sm{
+            padding-left:0px !important;
+        }
+
     }
 
 </style>
@@ -62,7 +70,25 @@
 
             {% endif %}
 
-            <div class="col-8 pl-3 pt-3 pr-0 d-flex align-items-center">
+            <div class="pl-3 pr-0 d-flex align-items-center
+
+                {% if presentation.title is empty %}
+
+                     noTitle-sm
+                     
+                {% endif %}
+
+                {% if presentation.logoName is empty %}
+                
+                    col-auto noLogo-sm 
+                
+                {% else %}
+
+                     col-8  
+
+                {% endif %}
+            
+            ">
 
                 <div class="container">
                     
@@ -120,7 +146,7 @@
 
                      <!-- Project Title Display -->
 
-                    <div class="row ">
+                    <div class="row">
                         
                         {% include 'pp/partials/_title.html.twig' %}
                     
@@ -152,4 +178,4 @@
 
     </div>
 
-</div>
+    </div>

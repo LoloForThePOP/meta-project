@@ -425,6 +425,7 @@ class AppFixtures extends Fixture
                             -> setEndDate ($faker->dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null))
                             -> setEndTime ($endTime)
                             -> setDescription ($description)
+                            -> setPosition ($j)
                             -> setTitle($title);
 
                     $pp->addEvent($event);
