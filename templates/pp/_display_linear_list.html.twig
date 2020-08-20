@@ -5,7 +5,6 @@
             <a class="text-primary text-decoration-none" href="{{path('project_show',{'slug': presentation.slug})}}">
     
                     <div class="">
-   
     
                         <!-- Project Goal -->
     
@@ -23,11 +22,11 @@
                              
                         <!-- Project Keywords -->
                         {% if presentation.keywords | length > 0 %}
-                        <div class="keywords font-weight-bold my-1 h6 text-left" style="line-height:0.7;" >
+                        <div class="keywords font-weight-bold my-1 h6 text-left" style="line-height:1.05em;" >
 
 
                             <span class="text-break">
-                                #{{presentation.keywords | replace({" " : "", "," : " #"}) | slice(0, 64) | capitalize}}
+                               #{{presentation.keywords | replace({" " : "", "," : " #"}) | slice(0, 64) | capitalize}}
                             </span>
 
 

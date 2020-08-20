@@ -347,14 +347,6 @@ class PPBasic implements \Serializable
      * 
      */
     private $teammates;
-
-    /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="project")
-     * 
-     * @ORM\OrderBy({"position" = "ASC"})
-     * 
-     */
-    private $events;
     
     public const MAX_ALLOWED_TEAMMATES = 100;
     
@@ -363,6 +355,31 @@ class PPBasic implements \Serializable
     {
         return  self::MAX_ALLOWED_TEAMMATES;
     }
+
+
+
+
+    /**
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="project")
+     * 
+     * @ORM\OrderBy({"position" = "ASC"})
+     * 
+     */
+    private $events;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TechnicalData::class, mappedBy="presentation")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $technicalData;
+
+    /**
+     * @ORM\OneToMany(targetEntity=ExternalContributorsStructure::class, mappedBy="project")
+     * 
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $externalContributorsStructures;
+
 
 
 
@@ -389,6 +406,8 @@ class PPBasic implements \Serializable
         $this->documents = new ArrayCollection();
         $this->teammates = new ArrayCollection();
         $this->events = new ArrayCollection();
+        $this->technicalData = new ArrayCollection();
+        $this->externalContributorsStructures = new ArrayCollection();
     }
     
 
@@ -1054,6 +1073,68 @@ class PPBasic implements \Serializable
             // set the owning side to null (unless already changed)
             if ($event->getProject() === $this) {
                 $event->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TechnicalData[]
+     */
+    public function getTechnicalData(): Collection
+    {
+        return $this->technicalData;
+    }
+
+    public function addTechnicalData(TechnicalData $technicalData): self
+    {
+        if (!$this->technicalData->contains($technicalData)) {
+            $this->technicalData[] = $technicalData;
+            $technicalData->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTechnicalData(TechnicalData $technicalData): self
+    {
+        if ($this->technicalData->contains($technicalData)) {
+            $this->technicalData->removeElement($technicalData);
+            // set the owning side to null (unless already changed)
+            if ($technicalData->getPresentation() === $this) {
+                $technicalData->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|ExternalContributorsStructure[]
+     */
+    public function getExternalContributorsStructures(): Collection
+    {
+        return $this->externalContributorsStructures;
+    }
+
+    public function addExternalContributorsStructure(ExternalContributorsStructure $externalContributorsStructure): self
+    {
+        if (!$this->externalContributorsStructures->contains($externalContributorsStructure)) {
+            $this->externalContributorsStructures[] = $externalContributorsStructure;
+            $externalContributorsStructure->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeExternalContributorsStructure(ExternalContributorsStructure $externalContributorsStructure): self
+    {
+        if ($this->externalContributorsStructures->contains($externalContributorsStructure)) {
+            $this->externalContributorsStructures->removeElement($externalContributorsStructure);
+            // set the owning side to null (unless already changed)
+            if ($externalContributorsStructure->getProject() === $this) {
+                $externalContributorsStructure->setProject(null);
             }
         }
 

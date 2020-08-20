@@ -201,7 +201,7 @@
 
         $(document).ready(function(){
 
-            // 
+            // if form errors are detected, we have to trigger form modal display
 
             {% if not form.vars.valid %}
 
@@ -209,7 +209,7 @@
 
             {% endif %}
 
-            // Reorder teammates displa with drag and drop
+            // Reorder teammates display with drag and drop
 
             $('#teammatesList').sortable({
 

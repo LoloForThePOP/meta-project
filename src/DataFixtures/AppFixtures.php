@@ -17,6 +17,7 @@ use App\Entity\Category;
 use App\Entity\Document;
 use App\Entity\Teammate;
 use App\Entity\GeoDomain;
+use App\Entity\TechnicalData;
 use App\Entity\ContactMessage;
 use App\Entity\QuestionAnswer;
 use App\Entity\TextDescription;
@@ -364,8 +365,48 @@ class AppFixtures extends Fixture
             }
 
 
+            // Project Technical Data Creation (= tech data)
 
+            $hasTechDataOdds = [true, true, true, false];
+
+            $hasTechData = $hasTechDataOdds [array_rand($hasTechDataOdds)];
             
+            if ($hasTechData){
+
+                $techDataCount = mt_rand(1,13);
+                
+                for ($j=1; $j <= $techDataCount; $j++){
+                
+                    $techData = new TechnicalData();
+
+                    $position = $j;
+
+                    $name = $faker->sentence($nbWords = 3, $variableNbWords = true);
+
+                    // we choose at random a numeric value, or a lexical value, or a moked-up spec value
+
+                    $possibleValues = 
+                        [
+                            $faker->sentence($nbWords = 9, $variableNbWords = true),$faker->numberBetween($min = 4000, $max = 900000),
+                            $faker->swiftBicNumber(),
+                            $faker->mimeType(),
+                        ];
+
+                    $value = $possibleValues [array_rand($possibleValues)];
+
+                    $techData-> setName ($name)
+                            -> setValue ($value)
+                            -> setValue ($position);
+
+                    $pp->addTechnicalData($techData);
+
+                    $manager->persist($techData);
+                }
+
+            }
+
+
+
             // Project Dates & Events Creation
 
             $hasEventsOdds = [true, true, true, false];

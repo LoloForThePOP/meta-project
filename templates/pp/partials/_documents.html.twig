@@ -35,9 +35,9 @@
 
         <!-- Four First Documents are Displayed by defaults -->
 
-        <div class="container mb-2 pr-0">
+        <div class="documentsContainer container mb-2 pr-0">
 
-            <div class="row col-md-12 pl-0 pl-md-2 pr-0">
+            <div class="row m-0 col-md-12 pl-0 pl-md-2 pr-0">
 
                 {% for document in presentation.documents | slice (0,4) %}
 
@@ -67,27 +67,13 @@
 
         </div>
 
-        <!-- If more than four documents, they can be displayed via a Collapsible -->
-
-        <!-- Show More or Show Less Documents (Button Style)-->
-
-        <style>
-                        
-            #moreDocuments.collapsed:after {
-                content: '▼ \00a0  Afficher Plus';
-            }
-            
-            #moreDocuments:not(.collapsed):after {
-                content: '▲ \00a0  Afficher Moins';
-            }
-            
-        </style>
+        <!-- If more than four documents, they are displayed via a Collapsible -->
 
         {% if presentation.documents | length > 4 %}
             
             <div class="container mb-2 pr-0">
 
-                <div id="moduleCollapseDocuments" class="collapse mb-3 row col-md-12 pl-0 pl-md-2 pr-0" >
+                <div id="moduleCollapseDocuments" class="collapse m-0 mb-3 row col-md-12 pl-0 pl-md-2 pr-0" >
 
                     {% for document in presentation.documents [4:] %}
 
@@ -115,7 +101,7 @@
 
                 </div>
 
-                <div class="row pl-md-2" >
+                <div class="row m-0 pl-md-2" >
 
                     <!-- Display More Documents Button -->
                         
@@ -123,10 +109,6 @@
 
                 </div>
 
-                         
-             
-
-    
             </div>
 
         {% endif %}
@@ -134,4 +116,23 @@
 
     </div>
 
+
 {% endif %}
+
+  <!-- Some CSS Styles-->
+
+  <style>
+
+    /* Show More or Show Less Documents (Button Style) */
+                        
+    #moreDocuments.collapsed:after {
+        content: '▼ \00a0  Afficher Plus';
+    }
+    
+    #moreDocuments:not(.collapsed):after {
+        content: '▲ \00a0  Afficher Moins';
+    }
+
+    /* small Screen Rendering */
+    
+</style>

@@ -83,7 +83,8 @@
       
         .pp-struct-container {
     
-            padding-left: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
             padding-top: 4px;
 
             margin-bottom: 15px;
@@ -97,6 +98,8 @@
         .pp-struct-title-container{
 
             margin-bottom: 18px;
+
+            //margin-left:10px;
     
         }
 
@@ -145,6 +148,9 @@
                 
                 <!-- Project Text Description -->
                 {% include 'pp/partials/_textDescription.html.twig' %}
+                
+                <!-- Project Supplementary Informations (aka Technical Data)-->
+                {% include 'pp/partials/_technicalData.html.twig' %}
                 
                 <!-- Project Documents -->
                 {% include 'pp/partials/_documents.html.twig' %}

@@ -3,10 +3,10 @@
 namespace App\Controller;
 
 use App\Entity\PPBasic;
-use App\Entity\Teammate;
-use App\Form\TeammateType;
-use App\Repository\TeammateRepository;
+use App\Entity\TechnicalData;
+use App\Form\TechnicalDataType;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Repository\TechnicalDataRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -14,29 +14,29 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
- * @Route("/projects/{slug}/teammates")
+ * @Route("/projects/{slug}/technicalData")
  * 
  * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
  */
-class TeammatesController extends AbstractController
+class TechnicalDataController extends AbstractController
 {
     /**
-     * @Route("/", name="manage_teammates")
+     * @Route("/", name="manage_technicalData")
      * 
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
-        $teammate = new Teammate();
+        $techData = new TechnicalData();
         
-        $form = $this->createForm(TeammateType::class, $teammate);
+        $form = $this->createForm(TechnicalDataType::class, $techData);
 
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $teammate->setProject($presentation);
+            $techData->setPresentation($presentation);
 
-            $manager->persist($teammate);
+            $manager->persist($techData);
 
             $manager->flush();
 
@@ -45,14 +45,14 @@ class TeammatesController extends AbstractController
                 "Les modifications ont été effectuées !"
             );
 
-            return $this->redirectToRoute('manage_teammates', [
+            return $this->redirectToRoute('manage_technicalData', [
                 'slug' => $presentation->getSlug(),
                 'presentation' => $presentation,
             ]);
 
         }
 
-        return $this->render('teammates/manage.html.twig', [
+        return $this->render('technical_data/manage.html.twig', [
 
             'form' => $form->createView(),
             'slug' => $presentation->getSlug(),
@@ -64,25 +64,25 @@ class TeammatesController extends AbstractController
 
         
     /**
-     * Allow to Edit a Teammate
+     * Allow to Edit a Technical Data
      * 
-     * @Route("/edit/{id_teammate}", name="edit_teammate")
+     * @Route("/edit/{id_technicalData}", name="edit_technicalData")
      * 
      */
-    public function edit (PPBasic $presentation, $id_teammate, TeammateRepository $teammateRepository, Request $request, EntityManagerInterface $manager)
+    public function edit (PPBasic $presentation, $id_technicalData, TechnicalDataRepository $techDataRepository, Request $request, EntityManagerInterface $manager)
     {
 
-        $teammate = $teammateRepository->findOneById($id_teammate);
+        $techData = $techDataRepository->findOneById($id_technicalData);
 
-        $form = $this->createForm(TeammateType::class, $teammate);
+        $form = $this->createForm(TechnicalDataType::class, $techData);
     
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $teammate->setProject($teammate);
+            $techData->setPresentation($techData);
 
-            $manager->persist($teammate);
+            $manager->persist($techData);
 
             $manager->flush();
 
@@ -91,16 +91,15 @@ class TeammatesController extends AbstractController
                 "Les modifications ont bien été effectuées !"
             );
 
-            return $this->redirectToRoute('manage_teammates', [
+            return $this->redirectToRoute('manage_technicalData', [
                 'slug' => $presentation->getSlug(),
                 'presentation' => $presentation,
             ]);
 
         }
     
-        return $this->render('teammates/edit.html.twig', [
+        return $this->render('technical_data/edit.html.twig', [
             'form' => $form->createView(),
-            'teammate' => $teammate,
             'slug' => $presentation->getSlug(),
             'presentation' => $presentation,
         ]);
@@ -108,28 +107,28 @@ class TeammatesController extends AbstractController
 
  
     /**
-     * Allow to modify Teammates positions with an ajax request
+     * Allow to modify Technical Data positions with an ajax request
      *
-     * @Route("/ajax-reorder-teammates/", name="ajax_reorder_teammates")
+     * @Route("/ajax-reorder-techdata/", name="ajax_reorder_technicalDatas")
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
     */ 
-    public function ajaxReorderTeammates(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+    public function ajaxReorderTechDatas(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
 
         if ($request->isXmlHttpRequest()) {
 
-            $jsonTeammatesPositions = $request->request->get('jsonTeammatesPositions');
+            $jsonTechDatasPositions = $request->request->get('jsonTechDatasPositions');
 
-            $teammatesPositions = json_decode($jsonTeammatesPositions,true);
+            $techDatasPositions = json_decode($jsonTechDatasPositions,true);
 
-            foreach ($presentation->getTeammates() as $teammate){
+            foreach ($presentation->getTechnicalData() as $techData){
 
-                $newTeammatePosition = array_search($teammate->getId(), $teammatesPositions, false);
+                $newTechDataPosition = array_search($techData->getId(), $techDatasPositions, false);
                 
-                $teammate->setPosition($newTeammatePosition);
+                $techData->setPosition( $newTechDataPosition);
 
-                $manager->persist($teammate);
+                $manager->persist($techData);
             }
             
             $manager->persist($presentation);
@@ -146,26 +145,26 @@ class TeammatesController extends AbstractController
 
     
     /**
-     * Allow to remove a Teammate (with an ajax request)
+     * Allow to remove a Technical Data (with an ajax request)
      * 
-     * @Route("/ajax-remove-teammate/", name="ajax_remove_teammate")
+     * @Route("/ajax-remove-techdata/", name="ajax_remove_technicalData")
      * 
      *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      */
-    public function ajaxRemoveTeammate(PPBasic $presentation, Request $request, TeammateRepository $teammateRepository, EntityManagerInterface $manager){
+    public function ajaxRemoveTechData(PPBasic $presentation, Request $request, TechnicalDataRepository $techDataRepository, EntityManagerInterface $manager){
 
         if ($request->isXmlHttpRequest()) {
 
-            $idTeammate = $request->request->get('idTeammate');
+            $idTechData = $request->request->get('idTechData');
 
-            $teammate = $teammateRepository->findOneById($idTeammate);
+            $techData = $techDataRepository->findOneById($idTechData);
 
-            if ($presentation->getTeammates()->contains($teammate)) {
+            if ($presentation->getTechnicalData()->contains($techData)) {
 
-                $presentation->removeTeammate($teammate);
+                $presentation->removeTechnicalData($techData);
                 
-                $manager->remove($teammate);
+                $manager->remove($techData);
 
                 $manager->persist($presentation);
 

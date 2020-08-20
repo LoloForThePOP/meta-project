@@ -1,0 +1,389 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Données Supplémentaires du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% block body %}
+
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <!-- Title with Display More Info Button (Container) -->
+
+        <div class="mt-3 mt-md-4 mb-2 pt-md-4">
+
+        <!-- ui Page Title -->
+
+        <h3 class="font-weight-bold d-inline mr-3">Autres informations concernant le projet.</h3>
+
+        <!-- collapsable advice trigger button -->	
+
+        <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+            <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+            
+        </a>
+
+        </div>
+
+        <!-- Collapsible Info Container -->
+
+        <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            <p class="h5 pt-1">
+
+                Ici vous pouvez présenter des données supplémentaires concernant le projet
+                
+                <br>
+                <br>
+
+                Exemples :             
+
+            </p>
+                
+            <ul class="h5">
+
+                <li class="mb-2"> <b>Budget du Projet : </b> 2300 €</li>
+                <li> <b>Statut du Projet : </b> en cours de réalisation</li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- Add Some Project Supplementary Informations (Button Triggers a Modal) -->
+
+        <div class="mb-4">
+
+            <button type="button" data-toggle="modal" data-target="#techDataFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une donnée</button> 
+
+        </div>
+
+
+        <!-- Add a Technical Data Form Display (in a Modal Box) -->
+
+        <div class="modal fade" id="techDataFormModal" tabindex="-1" role="dialog" aria-labelledby="techDataModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="documentModalLabel">Ajouter une Donnée</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                        {{ form_start(form) }}
+
+                        <div class="mt-3 mb-3 px-3">
+
+                            {{ form_row(form.name) }}
+
+                        </div>
+
+                        <div class="mb-3 px-3">
+
+                            {{ form_row(form.value) }}
+
+                        </div>
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-lg btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                        <button class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
+                        
+                    </div>
+
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+
+        </div>
+  
+
+        <!-- Project Technical Data Display (in two columns) -->
+
+        {% if presentation.technicalData | length > 0 %}
+
+            <div class="container pt-3">
+
+                <div id="techDataGrid" class="row col-md-12 col-xl-8 px-0" style="border:1px solid green;">
+
+                    {% for data in presentation.technicalData %}
+
+                        <div id="{{data.id}}" class="dataContainer js-sortableGridItem
+
+                            {% if loop.index is odd %}
+
+                                
+                            
+                            {% endif %}
+                        
+                        ">
+
+                            <!-- Data Name -->
+
+                            <div class="dataName">
+
+                                {{data.name}}
+                                
+                            </div>
+
+                            <!-- Data Value -->
+
+                            <div class="dataValue">
+
+                                {{data.value}}
+
+                            </div>
+
+                            <!-- Remove Data (red cross button) -->
+
+                            <button type="button" class="js-delete-techData d-inline position-absolute btn btn-sm btn-danger" data-id="{{data.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
+
+                        </div>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+
+        {% endif %}
+
+               
+        <!-- Some TechData Display Styles -->
+
+        <style>
+
+            .dataContainer{
+
+                width:300px;
+                margin-right:16px;
+                position:relative;
+                margin-bottom: 30px;
+                word-wrap: break-word;
+
+                border:1px solid black;
+
+                border-left: 7px solid blueviolet;
+                
+                padding-left:10px;
+
+                padding-bottom:10px;
+
+                
+                
+
+                cursor:pointer;
+            }
+
+            .dataName{
+                font-size:19px;
+                font-weight:bold;
+            }
+
+            .dataValue{
+                font-size:20px;
+                font-weight:normal;
+                line-height: 1.05em;
+            }
+
+            @media screen and (max-width: 580px) {
+
+                .dataContainer{
+
+                    width: 100%;
+                    margin-right: 0px;
+
+                }
+
+                .dataName{
+                    font-size:1em;
+                }
+
+                .dataValue{
+                    font-size:1em;
+                }
+
+            }
+
+        </style>
+
+
+
+    </div>
+
+
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <!-- sortable plugin in order to reorder Documents -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // if form errors are detected, we have to trigger form modal display
+
+            {% if not form.vars.valid %}
+
+                $('#techDataFormModal').modal('show');
+
+            {% endif %}
+
+            // Reorder Technical Data Capability
+
+            $('#techDataGrid').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                            
+                // reorder documents positions (drag and drop)
+
+                onEnd: function (evt) {
+
+                    // an array storing teammates id position
+
+                    var techDatasPositions = [];
+
+                    
+                    $('#techDataGrid div.js-sortableGridItem').each(function(index){
+                        
+                        techDatasPositions.push($(this).attr('id'));
+                
+                    });
+
+                    jsonTechDatasPositions = JSON.stringify(techDatasPositions);
+                    
+                    $.ajax({  
+
+                        url: "{{path('ajax_reorder_technicalDatas', {'slug': presentation.slug})}}",
+
+                        type:       'POST',   
+
+                        dataType:   'json',
+
+                        data: {
+
+                            "jsonTechDatasPositions": jsonTechDatasPositions,
+
+                        },
+
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                
+                        },  
+
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                    }); 
+
+                },
+
+           
+            });
+
+
+
+
+            // Remove a Technical Data
+
+            $('#techDataGrid').on('click', '.js-delete-techData', function (){
+
+                var idTechData = $(this).attr("data-id");
+
+                if (confirm("Confimez vous enlever cette donnée ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: "{{path('ajax_remove_technicalData', {'slug': presentation.slug}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "idTechData": idTechData,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                        $("#techDataGrid #"+idTechData).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+
+                        alert('Ajax request failed.');
+
+                    }  
+
+                    }); 
+                    
+                }
+    
+            });
+
+            
+
+
+
+
+
+
+
+
+
+
+
+        }); 
+
+        
+    </script>
+
+{% endblock %}

@@ -30,32 +30,6 @@
 
         {% set textDescription = presentation.textDescription.content %}
 
-
-        <style>
-                
-            #moduleCollapseTextDescription button.collapsed:after {
-                content: '+ Afficher Plus';
-            }
-            
-            #moduleCollapseTextDescription button:not(.collapsed):after {
-                content: '- Réduire';
-            }
-            
-            #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
-                display: block;
-                /* height = lineheight * no of lines to display */
-                height: 7.5em;
-                overflow: hidden;
-            }
-            
-            #moduleCollapseTextDescription #collapseTextDescription.collapsing {
-                height: 7.5em;
-            }
-            
-        </style>
-
-     
-
         <!-- Text Description Display (2 cases : short text; long text) -->
 
         <!-- Case 1: short Text: we display the entire text -->
@@ -76,7 +50,7 @@
 
                 <!-- Text Description (Display) -->
 
-                <div class="collapse" id="collapseTextDescription" aria-expanded="false">
+                <div id="collapseTextDescription" class="collapse" aria-expanded="false">
 
                     {{ textDescription | sanitize_html }}
 
@@ -97,7 +71,30 @@
             
         {% endif %}
 
-
     </div>
+    
+
+    <style>
+                
+        #moduleCollapseTextDescription button.collapsed:after {
+            content: '+ Afficher Plus';
+        }
+        
+        #moduleCollapseTextDescription button:not(.collapsed):after {
+            content: '- Réduire';
+        }
+        
+        #moduleCollapseTextDescription #collapseTextDescription.collapse:not(.show) {
+            display: block;
+            /* height = lineheight * no of lines to display */
+            height: 7.5em;
+            overflow: hidden;
+        }
+        
+        #moduleCollapseTextDescription #collapseTextDescription.collapsing {
+            height: 7.5em;
+        }
+        
+    </style>
 
 {% endif %}
