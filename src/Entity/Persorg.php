@@ -115,15 +115,15 @@ class Persorg
     public $imageFile;
 
     /**
-     * @ORM\ManyToMany(targetEntity=ExternalContributorsStructure::class, mappedBy="persorgs")
+     * @ORM\ManyToOne(targetEntity=ExternalContributorsStructure::class, inversedBy="persorgs")
      */
-    private $externalContributorsStructures;
+    private $externalContributorsStructure;
 
- 
+     
 
     public function __construct()
     {
-        $this->externalContributorsStructures = new ArrayCollection();
+        
     }
 
 
@@ -347,30 +347,14 @@ class Persorg
         return $this;
     }
 
-    /**
-     * @return Collection|ExternalContributorsStructure[]
-     */
-    public function getExternalContributorsStructures(): Collection
+    public function getExternalContributorsStructure(): ?ExternalContributorsStructure
     {
-        return $this->externalContributorsStructures;
+        return $this->externalContributorsStructure;
     }
 
-    public function addExternalContributorsStructure(ExternalContributorsStructure $externalContributorsStructure): self
+    public function setExternalContributorsStructure(?ExternalContributorsStructure $externalContributorsStructure): self
     {
-        if (!$this->externalContributorsStructures->contains($externalContributorsStructure)) {
-            $this->externalContributorsStructures[] = $externalContributorsStructure;
-            $externalContributorsStructure->addPersorg($this);
-        }
-
-        return $this;
-    }
-
-    public function removeExternalContributorsStructure(ExternalContributorsStructure $externalContributorsStructure): self
-    {
-        if ($this->externalContributorsStructures->contains($externalContributorsStructure)) {
-            $this->externalContributorsStructures->removeElement($externalContributorsStructure);
-            $externalContributorsStructure->removePersorg($this);
-        }
+        $this->externalContributorsStructure = $externalContributorsStructure;
 
         return $this;
     }

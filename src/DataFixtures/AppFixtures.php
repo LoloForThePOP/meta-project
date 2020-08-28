@@ -11,6 +11,7 @@ use App\Entity\Slide;
 use App\Entity\PGroup;
 use App\Entity\Report;
 use App\Entity\Contact;
+use App\Entity\Persorg;
 use App\Entity\PPBasic;
 use App\Entity\Website;
 use App\Entity\Category;
@@ -22,6 +23,7 @@ use App\Entity\ContactMessage;
 use App\Entity\QuestionAnswer;
 use App\Entity\TextDescription;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use App\Entity\ExternalContributorsStructure;
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
@@ -31,6 +33,110 @@ class AppFixtures extends Fixture
 
     public function __construct(UserPasswordEncoderInterface $encoder){
         $this->encoder=$encoder;
+    }
+
+    // return true with a certain probability (to generate randomness)
+
+    public function chance($average = 0.5) {
+
+        return lcg_value() < $average;
+
+    }
+
+    // hydrates a person or organisation object (= persorg) (completes its profile with a name; photo/logo; email; etc)
+    
+    // possible persorg types are person or organisation
+
+    public function hydratePersorg($type = 'both', $persorgObject) {
+
+        $faker= Factory::create('fr-FR');
+
+        $hasEmail = [null, $faker->email()];
+        $email = $hasEmail[array_rand($hasEmail)];
+        
+        $hasWebdomain1 = [null, $faker->url()];
+        $webdomain1 = $hasWebdomain1[array_rand($hasWebdomain1)];
+        
+        $hasWebdomain2 = [null, $faker->url()];
+        $webdomain2 = $hasWebdomain2[array_rand($hasWebdomain2)];
+        
+        $hasWebdomain3 = [null, $faker->url()];
+        $webdomain3 = $hasWebdomain3[array_rand($hasWebdomain3)];
+        
+        $hasWebdomain4 = [null, $faker->url()];
+        $webdomain4 = $hasWebdomain4[array_rand($hasWebdomain4)];
+        
+        $hasDescription = [null, $faker->paragraph($nbSentences = 3, $variableNbSentences = true)];
+        $description = $hasDescription[array_rand($hasDescription)];
+        
+        $hasMissions = [null, $faker->text($maxNbChars = 80)];
+        $missions = $hasMissions[array_rand($hasMissions)];
+
+        /* Image Creation */
+                    
+        $hasImageOdds = [true, false];
+        $hasImage =  $hasImageOdds[array_rand($hasImageOdds)];
+
+        $image= NULL;
+
+
+        switch ($type) {
+
+            case 'person':
+
+                $name = $faker->name();
+
+                if ($hasImage){
+
+                    $personsGenres=['male','female'];
+        
+                    $personGenre = $faker->randomElement($personsGenres);
+        
+                    // Person Image Creation (using randomuser.me api)
+        
+                    $pictureUrlBegin="https://randomuser.me/api/portraits/";
+        
+                    $randomGenre=NULL;
+        
+                    if ($personGenre=='male') {
+                        $randomGenre='men';
+                    }
+
+                    else {
+                        $randomGenre='women';
+                    }
+                    
+                    $pictureUrlEnd="/".mt_rand(1,99).'.jpg';
+
+                    $image=$pictureUrlBegin.$randomGenre.$pictureUrlEnd;
+
+                }
+
+                break;
+
+            case 'organisation':
+                
+                $name = $faker->company();
+
+                break;
+            
+            default:
+                # code...
+                break;
+        }
+
+        $persorgObject-> setEmail ($email)
+                -> setWebdomain1 ($webdomain1)
+                -> setWebdomain2 ($webdomain2)
+                -> setWebdomain3 ($webdomain3)
+                -> setWebdomain4 ($webdomain4)
+                -> setImage ($image)
+                -> setDescription ($description)
+                -> setMissions ($missions)
+                -> setName($name);
+
+        return $persorgObject;
+
     }
 
     
@@ -285,81 +391,159 @@ class AppFixtures extends Fixture
                 $teammatesCount = mt_rand(1,13);
                 
                 for ($j=1; $j <= $teammatesCount; $j++){
+
+                    $teammate = new teammate();
                 
-                    $teammate = new Teammate();
+                    $hydratedTeammate = AppFixtures::hydratePersorg('person', $teammate);
 
-                    $name = $faker->name();
-
-                    $hasDescription = [null, $faker->paragraph($nbSentences = 3, $variableNbSentences = true)];
-                    $description = $hasDescription[array_rand($hasDescription)];
-                    
-                    $hasMissions = [null, $faker->text($maxNbChars = 80)];
-                    $missions = $hasMissions[array_rand($hasMissions)];
-
-                    /* Teammate Image Creation */
-                    
-                    $hasPictureOdds = [true, false];
-                    $hasPicture =  $hasPictureOdds[array_rand($hasPictureOdds)];
-
-                    $picture= NULL;
-
-                    if ($hasPicture){
-
-                        /* $imagesColors=['ffa500','ff6347','1e90ff','ee82ee','3cb371'];
-                        $imageColor=$imagesColors[array_rand($imagesColors)];
-
-                        $image = 'https://place-hold.it/100x100/'.$imageColor; */
-
-                        $teammatesGenres=['male','female'];
-            
-                        $teammateGenre = $faker->randomElement($teammatesGenres);
-            
-                        // Teammate Image Creation (using randomuser.me api)
-            
-                        $pictureUrlBegin="https://randomuser.me/api/portraits/";
-            
-                        $randomGenre='';
-            
-                        if ($userGenre=='male') {
-                            $randomGenre='men';
-                        }
-                        else {
-                            $randomGenre='women';
-                        }
-                        
-                        $pictureUrlEnd="/".mt_rand(1,99).'.jpg';
-                        $picture=$pictureUrlBegin.$randomUserGenre.$pictureUrlEnd;
-
-                    }
-                    
-                    $hasEmail = [null, $faker->email()];
-                    $email = $hasEmail[array_rand($hasEmail)];
-                    
-                    $hasWebdomain1 = [null, $faker->url()];
-                    $webdomain1 = $hasWebdomain1[array_rand($hasWebdomain1)];
-                    
-                    $hasWebdomain2 = [null, $faker->url()];
-                    $webdomain2 = $hasWebdomain2[array_rand($hasWebdomain2)];
-                    
-                    $hasWebdomain3 = [null, $faker->url()];
-                    $webdomain3 = $hasWebdomain3[array_rand($hasWebdomain3)];
-                    
-                    $hasWebdomain4 = [null, $faker->url()];
-                    $webdomain4 = $hasWebdomain4[array_rand($hasWebdomain4)];
-
-                    $teammate-> setEmail ($email)
-                            -> setWebdomain1 ($webdomain1)
-                            -> setWebdomain2 ($webdomain2)
-                            -> setWebdomain3 ($webdomain3)
-                            -> setWebdomain4 ($webdomain4)
-                            -> setImage ($picture)
-                            -> setDescription ($description)
-                            -> setMissions ($missions)
-                            -> setName($name);
-
-                    $pp->addTeammate($teammate);
+                    $pp->addTeammate($hydratedTeammate);
 
                     $manager->persist($teammate);
+                }
+
+            }
+
+
+            // Creation of Project "External Contributors Structures" (example : Project Donors; Sponsors; Credits; Patrons; etc.) (abbr : "External Contributors Structures" : ecs)
+
+
+            $hasECSOdds = [true, true, true, false];
+
+            $hasECS = $hasECSOdds [array_rand($hasECSOdds)];
+            
+            if ($hasECS){
+
+                $eCSCount = mt_rand(1,4);
+                
+                for ($j=1; $j <=  $eCSCount; $j++){
+                
+                    $eCS = new ExternalContributorsStructure();
+
+                    $titleChunksChoices = 
+                    
+                        [
+                            "Donors",
+                            "Supporters",
+                            "Sponsors",
+                            "Patrons",
+                            "Funders",
+                            "Punctual Contributions",
+                            "Partners",
+                            "Acknowledgments",
+                            "Special Thanks",
+                            $faker->sentence($nbWords = 3, $variableNbWords = true),
+                            $faker->sentence($nbWords = 3, $variableNbWords = true),
+
+                        ];
+
+                        $choosenIndex = array_rand($titleChunksChoices);
+
+                        $title = $titleChunksChoices[$choosenIndex];
+
+                        unset($titleChunksChoices[$choosenIndex]);
+
+                    // sometimes we complete the title with a second title part :
+
+                    if (AppFixtures::chance(0.3)) {
+
+                        $choosenIndex = array_rand($titleChunksChoices);
+
+                        $secondTitlePart = $titleChunksChoices[$choosenIndex];
+
+                        $title = $title.' - '.$secondTitlePart;
+
+                    }
+
+                    // sometimes the structure contains some rich text
+
+                    $structureRichText = NULL;
+
+                    if (AppFixtures::chance(0.3)) {
+
+                        $structureRichText = "";
+
+                        $structureRichText .= '<p>'.join('</p><p>', $faker->paragraphs(2)). '</p>';
+
+                        $listElements=[];
+
+                        for ($b=0; $b < mt_rand(1,7); $b++) { 
+
+                            $listElements[]= $faker->text($maxNbChars = 227);
+                        }
+
+                        $structureRichText .= '<ul>'.'<li>'.join('</li><li>', $listElements). '</li>'.'</ul>';
+
+                    }
+
+                    
+                    // set structure position (because we can have some different structures)
+
+                    $eCSPosition= $j;
+
+                        /* Creation of sponsors; donators... into the structure */
+
+                        // number of sponsors; donateurs in the structure
+
+                        $sponsorsCount = mt_rand(1,12);
+
+                        // array of sponsors logos images
+
+                        $sponsorsLogos = [];
+
+                        for ($a= 1; $a <= 12; $a++){
+
+                            $sponsorsLogos[] = "img".$a;
+
+                        }
+
+                        // creation of each sponsor profile (sponsor name + logo + description + email + website1 ...)
+
+                        for ($k=1; $k <= $sponsorsCount; $k++){
+
+                            $sponsor = new Persorg();
+
+                            $hydratedSponsor = AppFixtures::hydratePersorg('organisation', $sponsor);
+
+                            // sponsor logo
+
+                            $logoChoiceIndex = array_rand($sponsorsLogos);
+
+                            $logo = $sponsorsLogos[$logoChoiceIndex];
+
+                            unset($sponsorsLogos[$logoChoiceIndex]);
+
+                            // sponsor description
+
+                            /* $hasDescription = [null, null, $faker->paragraph($nbSentences = 3, $variableNbSentences = true)];
+
+                            $description = $hasDescription[array_rand($hasDescription)]; */
+
+                            // sponsor position into the structure
+
+                            $sponsorPosition = $k;
+
+                            $hydratedSponsor
+                            
+                                ->setPosition($sponsorPosition)
+                                //->setDescription($description)
+                                ->setImage($logo);
+                                //->setName($name)
+
+                            $eCS->addPersorg($sponsor);
+
+                            $manager->persist($sponsor);
+
+                        }
+
+
+                    $eCS
+                            -> setPosition ($eCSPosition)
+                            -> setRichTextContent ($structureRichText)
+                            -> setTitle($title);
+
+                    $pp->addExternalContributorsStructure($eCS);
+
+                    $manager->persist($eCS);
                 }
 
             }
@@ -396,7 +580,7 @@ class AppFixtures extends Fixture
 
                     $techData-> setName ($name)
                             -> setValue ($value)
-                            -> setValue ($position);
+                            -> setPosition ($position);
 
                     $pp->addTechnicalData($techData);
 
@@ -844,8 +1028,6 @@ class AppFixtures extends Fixture
 
         }
 
-
-        // dump(count($projects));
 
         // Project Groups Creation
 

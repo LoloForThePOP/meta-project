@@ -1,0 +1,467 @@
+
+
+<!-- External Contributors Presentation -->
+
+{% if presentation.externalContributorsStructures | length > 0 %}
+
+    {% if app.user and app.user == presentation.creator %}
+        
+    <!-- Title Container with Edit Button -->
+
+        <div class="pp-struct-title-container">
+
+            <!-- Structure Title -->
+
+            <h3 class="pp-struct-title d-inline mr-2 mb-2">Contributions externes</h3>
+
+            <!-- Edit Text Description Button -->
+
+                <a class="" href="{{ path('manage_ecs', {'slug': presentation.slug}) }}">
+
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
+                    
+                </a>
+
+            
+
+        </div>
+
+    {% endif %}
+
+    <!-- ECS Presentation Structure Container -->
+
+    <div class="pp-struct-container pb-3">
+            
+        {% for ecs in presentation.externalContributorsStructures  %}
+
+            <div class="ecs">
+
+                <!-- ECS Title Display (ex: Our Sponsors) -->
+
+                <h4 class="ecsTitle pp-struct-title">
+
+                    {{ecs.title}}
+
+                </h4>
+
+                
+                
+                {% if ecs.persorgs | length > 0 %}
+
+                    <!-- ECS Content Display (ex: Coca-Cola; Nike; etc) -->
+                    
+                    <div class="container">
+                        
+                        <div class="ecsDisplayRow ">
+                            
+                            <!-- ECS Content Display (ex: Coca-Cola; Nike; etc) (in cards) -->
+                                                        
+                                {% for persorg in ecs.persorgs %}
+
+                                    <!-- Person or Organisation Card -->
+
+                                    <div class="externalContributorCard mb-2 px-1">
+
+                                        <div class="d-flex align-content-center" style="height:175px;">
+
+                                              <a href="#" class="my-auto mx-auto text-body" data-toggle="modal" data-target="#externalContributorDisplayModal{{loop.parent.loop.index}}{{loop.index}}">
+
+                                        <!-- Persorg Image -->
+                                        
+                                        <div class="mb-2 d-flex justify-content-center">
+
+                                            {% if persorg.image %}
+
+                                                <img class="img-fluid" src="/images/test/extContribsLogos/{{persorg.image}}.jpg" height="100px" width="100px">
+                                            
+                                            {% else %}
+                                                                    
+                                            <div class="avatar-circle mx-auto">
+
+                                                <span class="initials">
+
+                                                    {{persorg.name | slice (0,1) }}
+
+                                                </span>
+
+                                            </div>
+                                        
+                                        {% endif %}
+
+                                        </div> 
+                                                            
+                                        <!-- Persorg Name -->
+
+                                        <div class="persorgName">
+
+                                            {{ persorg.name | length < 35 ? persorg.name : persorg.name|slice(0, 35) ~ '...' }}
+
+                                        </div>
+
+                                                            
+                                        <!-- Persorg Show More Info (if we have more info available) -->
+
+                                        {% if persorg.description is not empty or persorg.email is not empty or persorg.webdomain1 is not empty or persorg.webdomain2 is not empty or persorg.webdomain3 is not empty or persorg.webdomain4 is not empty  %}
+                                            
+                                            <div class="font-weight-bold mb-2 text-center" >
+
+                                                <span href="#" class="badge badge-primary" data-toggle="modal" data-target="#persorgDisplayModal{{ loop.index }}">Voir +</span>
+
+                                            </div>
+
+                                        {% endif %}
+
+
+                                        </a>
+
+                                    </div>
+
+                                      
+
+                                    </div>  
+                                    
+                                {% endfor %}
+
+                            </div>
+
+                    </div>
+            
+                    <!-- Persorg Details (Modal Boxes Creation) -->
+                    
+                    {% for persorg in ecs.persorgs %}
+
+                        <!-- Display More Info (External Contributor Details) (in a modal box) -->
+
+                        <div class="modal fade" id="externalContributorDisplayModal{{loop.parent.loop.index}}{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="externalContributorDisplayLabel{{loop.parent.loop.index}}{{ loop.index }}" aria-hidden="true">
+                                    
+                            <div class="modal-dialog" role="">
+
+                                <div class="modal-content">
+
+                                <!-- Modal Header -->
+
+                                <div class="modal-header">
+
+                                    <!-- Persorg Name -->
+
+                                    <div class="row pl-4 font-weight-bold"> 
+
+                                        <div class="h5" >
+
+                                            {{ persorg.name }}
+
+                                        </div>
+                                    
+                                    </div>
+
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    
+                                        <span aria-hidden="true">&times;</span>
+                    
+                                    </button>
+
+                                </div>
+
+                                <!-- Modal Body -->
+
+                                <div class="modal-body">
+
+                                    <div class="container pt-md-3">
+
+                                        <!-- Upper Box (contains persorg image; name) -->
+
+                                        <div class="row mb-4">
+
+                                            <div class="col-4">
+                                                
+                                                <!-- Persorg Image -->
+
+                                                    {% if persorg.image %}
+
+                                                        <img class="img-fluid" src="/images/test/extContribsLogos/{{persorg.image}}.jpg" height="100px" width="100px">
+                                                    
+
+                                                    {% else %}
+                                                                                                    
+                                                        <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
+
+                                                            <span class="initials" style="font-size: 60px; top:30px;">
+
+                                                                {{persorg.name | slice (0,1) }}
+
+                                                            </span>
+
+                                                    </div>
+                                                
+                                                {% endif %}
+
+                                            </div>
+
+                                            <div class="col-8">
+
+                                                <div class="container">
+                                                    
+                                                    <!-- Persorg Name -->
+
+                                                    <div class="row"> 
+
+                                                        <div class="h5" >
+
+                                                            {{ persorg.name }}
+
+                                                        </div>
+                                                    
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                        <!-- Persorg Comments / Description (Potential) -->
+
+                                        {% if persorg.description %}
+
+                                            <div class="row px-3 mb-4" style="font-size:1.09em;">
+
+                                                {{ persorg.description | nl2br }}
+
+                                            </div>
+
+                                        
+                                        {% endif %}
+
+                                    <!-- Persorg Member Email (Potential) -->
+
+                                    {% if persorg.email %}
+
+                                    <div class=" mb-2 mb-md-3">
+
+                                                    <!-- Email (Label) -->
+
+                                                    <span class="font-weight-bold h5 text-primary">
+
+                                                    Email : 
+
+                                                </span>
+
+                                                <!-- Email (Display) -->
+                        
+
+                                                <span class="font-weight-bold">
+
+                                                    <a href="mailto:{{ persorg.email }}">
+
+                                                        {{ persorg.email }}
+
+                                                    </a>
+                        
+                                                </span>
+
+
+                                    </div>
+                                        
+                                
+                                    
+                                    {% endif %}
+
+                                    <!-- Persorg Potential Websites or Social Networks -->
+
+                                    {% if persorg.webdomain1 is not empty or persorg.webdomain2 is not empty or persorg.webdomain3 is not empty or persorg.webdomain4 is not empty  %}
+
+                                        <!-- Label for Persorg Potential Websites or Social Networks -->
+
+                                        <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
+
+                                            Sites Webs / Réseaux Sociaux
+
+                                        </div>
+
+                                    {% endif %}
+
+
+                                    {% if persorg.webdomain1 is not empty %}
+
+                                        <!-- Persorg Webdomain 1 (Potential) -->
+
+                                        <div class="font-weight-bold mb-2">
+
+                                            ● <a href="{{ persorg.webdomain1}}"> 
+                                                
+                                                {{ persorg.webdomain1 | length < 30 ? persorg.webdomain1 : persorg.webdomain1 | slice(0, 30) ~ '...' }}
+
+                                            </a>
+
+                                        </div>
+                                    
+                                    {% endif %}
+
+                                    <!-- Persorg Webdomain 2 (Potential) -->
+
+                                    {% if persorg.webdomain2 is not empty %}
+                                    
+                                        <div class="font-weight-bold mb-2">
+
+                                            ● <a href="{{ persorg.webdomain2}}"> 
+                                                
+                                                {{ persorg.webdomain2 | length < 30 ? persorg.webdomain2 : persor.webdomain2 | slice(0, 30) ~ '...' }}
+
+                                            </a>
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <!-- Persorg Webdomain 3 (Potential) -->
+
+                                    {% if persorg.webdomain3 is not empty %}
+                                    
+                                        <div class="font-weight-bold mb-2">
+
+                                            ● <a href="{{ persorg.webdomain3}}"> 
+                                                
+                                                {{ persorg.webdomain3 | length < 30 ? persorg.webdomain3 : persorg.webdomain3 | slice(0, 30) ~ '...' }}
+
+                                            </a>
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <!-- Persorg Webdomain 4 (Potential) -->
+
+                                    {% if persorg.webdomain4 is not empty %}
+                                    
+                                        <div class="font-weight-bold mb-2">
+
+                                            ● <a href="{{ persorg.webdomain4}}"> 
+                                                
+                                                {{ persorg.webdomain4 | length < 30 ? persorg.webdomain4 : persorg.webdomain4 | slice(0, 30) ~ '...' }}
+
+                                            </a>
+
+                                        </div>
+
+                                    {% endif %}
+
+                                    <!-- End of Modal Body Container -->
+
+                                    </div>
+
+                                <!-- End of Modal Body -->
+
+                                </div>
+
+                                <!-- Modal footer -->
+
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
+
+                                </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>  
+
+                    {% endfor %}
+
+                {% endif %} 
+
+            </div>
+            
+        {% endfor %}
+
+
+    </div>
+
+{% endif %}
+
+
+<!-- Styles External Contributors Display -->
+
+<style>
+    
+    .ecs{
+        
+        margin-bottom: 20px;
+    }
+    
+    .ecsDisplayRow{
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+
+
+    .externalContributorCard {
+
+        display: inline-block !important;
+
+        width: 175px;
+
+        min-height:175px; 
+
+        border: 1px solid black;
+
+        margin-right : 10px;
+
+        cursor: pointer;
+
+        white-space:normal ;
+        overflow-x:auto;
+    }
+    
+    .ecsTitle{
+
+        font-size:1.9em;
+
+        margin-bottom: 20px;
+    }
+
+    .persorgName{
+       
+        text-align: center;
+
+        font-weight: bold;
+
+        margin-bottom: 7px;
+
+        overflow-y: hidden;
+
+    }
+
+    
+    @media screen and (max-width: 580px) {
+
+        /* One Letter Avatars */
+
+            .avatar-circle {
+                width: 82px;
+                height: 82px;
+            }
+
+            
+            .initials {
+                position: relative;
+                top: 20px; /* 25% of parent */
+                font-size: 40px; /* 50% of parent */
+                line-height: 40px; /* 50% of parent */
+            }
+
+
+            .ecsDisplayRow{
+
+                overflow-x: auto;
+                overflow-y: hidden;
+
+            }
+
+
+    }
+
+
+</style>

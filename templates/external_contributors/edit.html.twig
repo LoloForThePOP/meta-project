@@ -4,7 +4,7 @@
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Modifier une donnée spécifique{% endblock %}
+{% block title %}Modifier un Titre{% endblock %}
 
 {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
@@ -21,7 +21,7 @@
 
             <!-- ui Page Title -->
 
-            <h3 class="font-weight-bold d-inline mr-3">Modifier une donnée spécifique</h3>
+            <h3 class="font-weight-bold d-inline mr-3">Modifier un Titre</h3>
      
         </div>
 
@@ -36,16 +36,9 @@
 
             <div class="mt-3 mb-3 px-3">
 
-                {{ form_row(form.name) }}
+                {{ form_row(form.title) }}
 
             </div>
-
-            <div class="mb-3 px-3">
-
-                {{ form_row(form.value) }}
-
-            </div>
-
 
         </div>
 

@@ -301,10 +301,6 @@ class PPBasic implements \Serializable
      */
     private $adminValidation;
 
-    /**
-     * @ORM\OneToMany(targetEntity=Owner::class, mappedBy="presentation")
-     */
-    private $owners;
 
     /**
      * @ORM\OneToMany(targetEntity=QuestionAnswer::class, mappedBy="presentation")
@@ -401,7 +397,6 @@ class PPBasic implements \Serializable
         $this->inPGroups = new ArrayCollection();
         $this->applyToPGroups = new ArrayCollection();
         $this->invitedByPGroups = new ArrayCollection();
-        $this->owners = new ArrayCollection();
         $this->questionAnswers = new ArrayCollection();
         $this->documents = new ArrayCollection();
         $this->teammates = new ArrayCollection();
@@ -905,36 +900,6 @@ class PPBasic implements \Serializable
         return $this;
     }
 
-    /**
-     * @return Collection|Owner[]
-     */
-    public function getOwners(): Collection
-    {
-        return $this->owners;
-    }
-
-    public function addOwner(Owner $owner): self
-    {
-        if (!$this->owners->contains($owner)) {
-            $this->owners[] = $owner;
-            $owner->setPresentation($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOwner(Owner $owner): self
-    {
-        if ($this->owners->contains($owner)) {
-            $this->owners->removeElement($owner);
-            // set the owning side to null (unless already changed)
-            if ($owner->getPresentation() === $this) {
-                $owner->setPresentation(null);
-            }
-        }
-
-        return $this;
-    }
 
     /**
      * @return Collection|QuestionAnswer[]

@@ -42,13 +42,13 @@ class ExternalContributorsStructure
     private $position;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Persorg::class, inversedBy="externalContributorsStructures")
+     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure")
      */
     private $persorgs;
 
+
     public function __construct()
     {
-        $this->Persorgs = new ArrayCollection();
         $this->persorgs = new ArrayCollection();
     }
 
@@ -118,6 +118,7 @@ class ExternalContributorsStructure
     {
         if (!$this->persorgs->contains($persorg)) {
             $this->persorgs[] = $persorg;
+            $persorg->setExternalContributorsStructure($this);
         }
 
         return $this;
@@ -127,8 +128,14 @@ class ExternalContributorsStructure
     {
         if ($this->persorgs->contains($persorg)) {
             $this->persorgs->removeElement($persorg);
+            // set the owning side to null (unless already changed)
+            if ($persorg->getExternalContributorsStructure() === $this) {
+                $persorg->setExternalContributorsStructure(null);
+            }
         }
 
         return $this;
     }
+
+  
 }

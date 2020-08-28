@@ -173,6 +173,9 @@
                 <!-- Project Team -->
                 {% include 'pp/partials/_team.html.twig' %}
 
+                <!-- Project External Contributors -->
+                {% include 'pp/partials/_externalContributors.html.twig' %}
+
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
@@ -224,6 +227,7 @@
             
             $(document).ready(function(){
 
+
                 $('.teammatesSlideshow').slick({
 
                     infinite: false,
@@ -250,6 +254,14 @@
                     ],
 
                 });
+
+
+
+
+
+
+
+
 
             });
 

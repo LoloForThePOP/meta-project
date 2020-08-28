@@ -12,73 +12,12 @@
     
 {% endblock %}
 
-<style>
-
-    .teamMemberCard{
-
-        width:164px; 
-        min-height:140px; 
-
-        margin-right:10px; 
-    
-    }
-
-    
-    .avatar-circle {
-        width: 115px;
-        height: 115px;
-    }
-
-    
-    .initials {
-        position: relative;
-        top: 27px; /* 25% of parent */
-        font-size: 58px; /* 50% of parent */
-        line-height: 58px; /* 50% of parent */
-    }
-
-    .teammateName{
-        color:#0c6a31;
-    }
-
-
-    @media screen and (max-width: 580px) {
-
-        /* One Letter Avatars */
-
-            .avatar-circle {
-                width: 82px;
-                height: 82px;
-            }
-
-            
-            .initials {
-                position: relative;
-                top: 20px; /* 25% of parent */
-                font-size: 40px; /* 50% of parent */
-                line-height: 40px; /* 50% of parent */
-            }
-
-            .teammatesDisplayRow{
-
-                overflow-x: auto;
-                overflow-y: hidden;
-
-            }
-
-
-    }
-
-
-
-</style>
-
 
 <!-- Project Team Display -->
 
 {% if presentation.teammates | length > 0 %}
 
-    <!-- Structure Container -->
+    <!-- Project Presentation Team Display Container -->
 
     <div class="pp-struct-container pb-3">
 
@@ -106,8 +45,8 @@
 
         </div>
 
-       
 
+        <!-- Display Teammates Cards -->
 
         <div class="container">
 
@@ -115,85 +54,86 @@
 
                 <div class="teammatesDisplayRow row{% if presentation.teammates | length > 4 %} teammatesSlideshow {% endif %}">
 
+                    {% for teammate in presentation.teammates %}
+
+                        <!-- Team Member Card -->
+
+                        <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="float:left;">
+
+                            <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
+
+                            <!-- Teammate Missions -->
+
+                            <div class="teammateName font-weight-bold mb-2 text-center" style="height:45px; ">
+
+                                {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions|slice(0, 19) ~ '...' }}
+
+                                {% if teammate.missions | length == 0 %} {% endif %}
+
+                            </div>
+
+                            <!-- Teammate Image -->
                             
-                        {% for teammate in presentation.teammates %}
+                            <div class="mb-2 d-flex justify-content-center">
 
-                            <!-- Team Member Card -->
+                                {% if teammate.image %}
 
-                            <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="float:left;">
+                                    <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}" height="100px" width="100px">
+                                
+                                {% else %}
+                                                        
+                                <div class="avatar-circle mx-auto">
+                                    <span class="initials">
+                                        {{teammate.name | slice (0,1) }}
+                                    </span>
+                                </div>
+                            
+                            {% endif %}
 
-                                <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
+                            </div> 
+                                                
+                            <!-- Teammate Name -->
 
-                                <!-- Teammate Missions -->
+                            <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
 
-                                <div class="teammateName font-weight-bold mb-2 text-center" style="height:45px; ">
+                                {{ teammate.name | length < 35 ? teammate.name : teammate.name|slice(0, 35) ~ '...' }}
 
-                                    {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions|slice(0, 19) ~ '...' }}
+                            </div>
 
-                                    {% if teammate.missions | length == 0 %} {% endif %}
+                                                
+                            <!-- Teammate Show More Info (if more info available) -->
+
+                            {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
+                                
+                                <div class="font-weight-bold mb-2 text-center" >
+
+                                    <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
 
                                 </div>
 
-                                <!-- Teammate Image -->
-                                
-                                <div class="mb-2">
-
-                                    {% if teammate.image %}
-
-                                        <img class="img-fluid rounded-circle border border-primary mx-auto" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}" height="100px" width="100px">
-                                    
-                                    {% else %}
-                                                            
-                                    <div class="avatar-circle mx-auto">
-                                        <span class="initials">
-                                            {{teammate.name | slice (0,1) }}
-                                        </span>
-                                    </div>
-                                
-                                {% endif %}
-
-                                </div> 
-                                                    
-                                <!-- Teammate Name -->
-
-                                <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
-
-                                    {{ teammate.name | length < 35 ? teammate.name : teammate.name|slice(0, 35) ~ '...' }}
-
-                                </div>
-
-                                                    
-                                <!-- Teammate Show More Info (if more info available) -->
-
-                                {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
-                                    
-                                    <div class="font-weight-bold mb-2 text-center" >
-
-                                        <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
-
-                                    </div>
-
-                                {% endif %}
+                            {% endif %}
 
 
-                                </a>
+                            </a>
 
-                                
-                                
                             
+                            
+                        
 
-                            </div>   
+                        </div>   
 
-                        {% endfor %}
+                    {% endfor %}
 
                 </div>
+
             </div>
 
-            
 
-              {% for teammate in presentation.teammates %}
+            <!-- Teammate Details (Modal Boxes Creation) -->
+   
+            {% for teammate in presentation.teammates %}
 
-              <!-- Display Teammate Details (in a modal) -->
+                <!-- Display More Info (Teammate Details) (in a modal box) -->
 
                 <div class="modal fade" id="teammateDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="teammateDisplayLabel{{ loop.index }}" aria-hidden="true">
                         
@@ -250,7 +190,7 @@
                                                                                         
                                         <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
 
-                                                <span class="initials" style="font-size: 60px; top:45px;">
+                                                <span class="initials" style="font-size: 60px; top:30px;">
 
                                                     {{teammate.name | slice (0,1) }}
 
@@ -447,15 +387,76 @@
     
                 </div>  
 
-              {% endfor %}
+            {% endfor %}
 
         </div>
-
- 
-
-
 
     </div>
 
 
 {% endif %}
+
+
+<!-- Styles for Project Team Display -->
+
+<style>
+
+    .teamMemberCard{
+
+        width:164px; 
+
+        min-height:140px; 
+
+        margin-right:10px; 
+    
+    }
+
+    
+    .avatar-circle {
+        width: 100px;
+        height: 100px;
+    }
+
+    
+    .initials {
+        position: relative;
+        top: 22px; /* 25% of parent */
+        font-size: 58px; /* 50% of parent */
+        line-height: 58px; /* 50% of parent */
+    }
+
+    .teammateName{
+        color:#0c6a31;
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        /* One Letter Avatars */
+
+            .avatar-circle {
+                width: 82px;
+                height: 82px;
+            }
+
+            
+            .initials {
+                position: relative;
+                top: 20px; /* 25% of parent */
+                font-size: 40px; /* 50% of parent */
+                line-height: 40px; /* 50% of parent */
+            }
+
+            .teammatesDisplayRow{
+
+                overflow-x: auto;
+                overflow-y: hidden;
+
+            }
+
+
+    }
+
+
+
+</style>

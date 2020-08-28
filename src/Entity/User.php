@@ -136,13 +136,6 @@ class User implements UserInterface
     private $isAllowedComment;
 
     /**
-     * User can be a Project Owner of several Projects
-     * 
-     * @ORM\OneToMany(targetEntity=Owner::class, mappedBy="user")
-     */
-    private $ownProjects;
-
-    /**
      * @ORM\Column(type="datetime", nullable=true)
      */
     private $createdAt;
@@ -176,7 +169,6 @@ class User implements UserInterface
         $this->pGroups = new ArrayCollection();
         $this->pGroupsMaster = new ArrayCollection();
         $this->reports = new ArrayCollection();
-        $this->ownProjects = new ArrayCollection();
         
     }
   
@@ -490,36 +482,6 @@ class User implements UserInterface
         return $this;
     }
 
-    /**
-     * @return Collection|Owner[]
-     */
-    public function getOwnProjects(): Collection
-    {
-        return $this->ownProjects;
-    }
-
-    public function addOwnProject(Owner $ownProject): self
-    {
-        if (!$this->ownProjects->contains($ownProject)) {
-            $this->ownProjects[] = $ownProject;
-            $ownProject->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOwnProject(Owner $ownProject): self
-    {
-        if ($this->ownProjects->contains($ownProject)) {
-            $this->ownProjects->removeElement($ownProject);
-            // set the owning side to null (unless already changed)
-            if ($ownProject->getUser() === $this) {
-                $ownProject->setUser(null);
-            }
-        }
-
-        return $this;
-    }
 
     public function getCreatedAt(): ?\DateTimeInterface
     {

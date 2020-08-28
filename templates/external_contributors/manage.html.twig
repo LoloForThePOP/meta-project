@@ -1,0 +1,419 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Contributions Externes (Sponsors; Partenaires; etc) du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% block body %}
+
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <!-- Title with Display More Info Button (Container) -->
+
+        <div class="mt-3 mt-md-4 mb-2 pt-md-4">
+
+        <!-- ui Page Title -->
+
+        <h3 class="font-weight-bold d-inline mr-3">Contributions extérieures (sponsors; partenaires; etc)</h3>
+
+        <!-- collapsable advice trigger button -->	
+
+        <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+            <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+            
+        </a>
+
+        </div>
+
+        <!-- Collapsible Info Container -->
+
+        <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            <p class="h5 pt-1">
+
+                Ici vous pouvez présenter les contributeurs externes du projet.
+                
+                <br>
+                <br>
+
+                Exemples :             
+
+            </p>
+                
+            <ul class="h5">
+
+                <li>sponsors;</li>
+                <li>mécènes; donateurs;</li>
+                <li>crédits;</li>
+                <li>remerciements;</li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- Add An External Contributors Structure (ECS) (Button Triggers a Modal) -->
+
+        <div class="mb-3">
+
+            <button type="button" data-toggle="modal" data-target="#addECSFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un titre</button> 
+
+        </div>
+
+        {% include "external_contributors/_add_ecs_form.html.twig" %}
+
+
+        <!-- Project ECS Display -->
+
+        {% if presentation.externalContributorsStructures | length > 0 %}
+
+            <div id="ECSList" class="container pt-3">
+
+                {% for ecs in presentation.externalContributorsStructures %}
+
+                    <div id="{{ecs.id}}" class="js-sortableGridItem ECS row position-relative   ">
+
+                        <div class="col-md-10">
+
+                            <!-- ECS Title Display -->
+
+                            <h4 class = "ECSTitle mb-3">
+
+                                {{ ecs.title[:1] | upper ~ ecs.title[1:] }}
+
+                            </h4>
+
+                            <!-- ECS : childs display (persons or organisations) -->
+
+                            {% if ecs.persorgs | length > 0 %}
+
+                                <div class="container" style="display:inline-block;">
+
+                                    <div id="persorgList" class="row">
+
+                                        {% for persorg in ecs.persorgs %}
+
+                                            <div class="persorgCard col-md-2 border border-danger">
+
+                                                {{persorg.name }}
+
+                                            </div>
+
+                                        {% endfor %}
+
+                                    </div>
+
+                                </div> 
+
+                            {% endif %}
+
+
+                            <div class="d-inline-block">test</div>
+                            
+
+                            <!-- Add a "Person or Organisation" (= persorg) into the ECS (Open a Modal) (form include is below) -->
+
+                            <div id="" data-id="{{ecs.id}}" data-toggle="modal" data-target="#addPersorgFormModal" class="newPersorg disabled rounded-lg d-flex align-items-center justify-content-center mx-2 mb-3 p-3 rounded-lg cursor-pointer" style=" text-align:center; width:130px; height:123px; border: dashed 5px #5a74ff;">
+                                
+                                <span style="font-size:4em; font-weight:700; color:rgb(46, 138, 46);">+</span>
+                                
+                            </div> 
+
+                        </div>
+                            
+       
+                        <!-- Remove ECS Button (red cross button) -->
+
+                        <button type="button" class="js-delete-ecs position-absolute btn btn-sm btn-danger" data-id="{{ecs.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
+
+                    </div>
+                    
+                {% endfor %}
+
+                {% include "external_contributors/_add_persorg_form.html.twig" %}
+
+            </div>
+
+
+        {% endif %}
+
+               
+        <!-- Some ECS Display Styles -->
+
+        <style>
+
+            .ECS {
+
+                border:1px solid blue;
+                border-radius: 4px;
+
+                padding-top:10px;
+                margin-bottom: 10px;
+
+                cursor:pointer;
+            }
+
+            .ECS:hover {
+
+                background-color:papayawhip;
+
+            }
+
+            .ECSTitle {
+
+                
+                font-weight:bold;
+            }
+
+            .titleChunkSuggestion[aria-pressed="true"]{
+
+                background-color:yellow !important;
+         
+             }
+
+             .persorgCard{
+                 
+                height:150px;
+                margin-right: 15px;
+             }
+
+         
+        </style>
+
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+    <!-- sortable plugin in order to reorder Documents -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // manage ECS Live title Rendering
+
+            var ecsTitle='';
+
+            $(".titleChunkSuggestion").click(function(){
+			
+				//$(this).toggleClass("SelectedButton");
+
+                //$("#ConfirmSelection").show();
+
+                         //alert('yo00');	
+
+                         
+                         
+				if(!$(this).hasClass("active")) 
+				{
+
+
+                    ecsTitle = ecsTitle + $(this).text() + ' - ';
+                    
+                   
+				}
+
+				else 
+				{
+					
+					ecsTitle = ecsTitle.replace($(this).text() + ' - ', "");
+
+                }
+                
+                
+
+                $("#liveTitleRendering").text(ecsTitle);
+
+                return ecsTitle;
+                
+               
+				
+			});
+
+            // if form errors are detected, we have to trigger the display of the form modal box
+
+            {% if not ecsForm.vars.valid %}
+
+                $('#addECSFormModal').modal('show');
+
+            {% endif %}
+
+            {% if not persorgForm.vars.valid %}
+
+                $('#addECSFormModal').modal('show');
+
+            {% endif %}
+
+            // add a new persorg (= person or organisation)
+            // in what structure ? we get the structure id
+
+            $( ".newPersorg" ).click(function() {
+	
+                //alert($(this).data("id"));
+                
+                var ecsId = $(this).data("id");
+
+                $("#persorg_parentExternalContributorsStructure ").val(ecsId);
+              
+            });
+
+            $('#persorgList').sortable(
+                
+                {
+
+                    animation: 150,
+
+                    ghostClass: 'blue-background-class',
+
+                    filter: ".disabled",
+                
+                }
+            );
+
+
+
+
+
+
+            // Reorder ECS capability
+
+            $('#ECSList').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                            
+                // reorder ECS positions (drag and drop)
+
+                onEnd: function (evt) {
+
+                    // an array storing ECS id position
+
+                    var ecsPositions = [];
+
+                    
+                    $('#ECSList div.js-sortableGridItem').each(function(index){
+                        
+                        ecsPositions.push($(this).attr('id'));
+                
+                    });
+
+                    jsonECSPositions = JSON.stringify(ecsPositions);
+                    
+                    $.ajax({  
+
+                        url: "{{path('ajax_reorder_ecs', {'slug': presentation.slug})}}",
+
+                        type:       'POST',   
+
+                        dataType:   'json',
+
+                        data: {
+
+                            "jsonECSPositions": jsonECSPositions,
+
+                        },
+
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                
+                        },  
+
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                    }); 
+
+                },
+
+           
+            });
+
+
+
+
+            // Remove an ECS
+
+            $('#ECSList').on('click', '.js-delete-ecs', function (){
+
+                var idECS = $(this).attr("data-id");
+
+                alert(idECS);
+
+                if (confirm("Confimez vous enlever cette partie ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: "{{path('ajax_remove_ecs', {'slug': presentation.slug}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "idECS": idECS,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                        $("#ECSList #"+idECS).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+
+                        alert('Ajax request failed.');
+
+                    }  
+
+                    }); 
+                    
+                }
+    
+            });
+
+            
+
+
+
+
+
+
+
+
+
+
+
+        }); 
+
+        
+    </script>
+
+{% endblock %}

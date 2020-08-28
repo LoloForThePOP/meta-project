@@ -10,6 +10,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 class PersorgType extends AbstractType
@@ -20,17 +21,35 @@ class PersorgType extends AbstractType
 
             ->add('name', TextType::class, 
                 [
-                    'label' => 'Nom de l\'équipier',
+                    'label' => 'Nom',
 
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici',
+                        'placeholder'    => 'Ex : Laurent Dupond; Coca-Cola',
                     ],
 
                     'required'   => true,
                 ]
             )
-            
+    
+
+            ->add('imageFile', VichImageType::class, 
+
+                array(
+
+                    'label' => 'Choisir une image / logo ou photo',
+
+                    'required' => false,
+                    'allow_delete' => true,
+                    'download_label' => false,
+                    'download_uri' => false,
+                    'image_uri' => false,
+                    'asset_helper' => true,
+
+                )
+
+            )
+
             ->add('missions', TextType::class, 
                 [
                     'label' => 'Missions, Rôle dans l\'équipe',
@@ -42,23 +61,6 @@ class PersorgType extends AbstractType
 
                     'required'   => false,
                 ]
-            )
-
-            ->add('imageFile', VichImageType::class, 
-
-                array(
-
-                    'label' => 'Choisir une image / photo',
-
-                    'required' => false,
-                    'allow_delete' => true,
-                    'download_label' => false,
-                    'download_uri' => false,
-                    'image_uri' => false,
-                    'asset_helper' => true,
-
-                )
-
             )
 
             ->add('email', EmailType::class, 
@@ -76,7 +78,7 @@ class PersorgType extends AbstractType
 
             ->add('webdomain1', UrlType::class, 
                 [
-                    'label' => 'Réseaux Social ou Site Web 1',
+                    'label' => 'Réseau Social ou Site Web 1',
 
                     'attr' => [
                         
@@ -89,7 +91,7 @@ class PersorgType extends AbstractType
 
             ->add('webdomain2', UrlType::class, 
                 [
-                    'label' => 'Réseaux Social ou Site Web 2',
+                    'label' => 'Réseau Social ou Site Web 2',
 
                     'attr' => [
                         
@@ -102,7 +104,7 @@ class PersorgType extends AbstractType
 
             ->add('webdomain3', UrlType::class, 
                 [
-                    'label' => 'Réseaux Social ou Site Web 3',
+                    'label' => 'Réseau Social ou Site Web 3',
 
                     'attr' => [
                         
@@ -115,7 +117,7 @@ class PersorgType extends AbstractType
 
             ->add('webdomain4', UrlType::class, 
                 [
-                    'label' => 'Réseaux Social ou Site Web 4',
+                    'label' => 'Réseau Social ou Site Web 4',
 
                     'attr' => [
                         
@@ -128,7 +130,7 @@ class PersorgType extends AbstractType
             
             ->add('description', TextareaType::class, 
                 [
-                    'label' => 'Texte de présentation, description de l\'équipier',
+                    'label' => 'Ajouter des informations, des remarques ?',
 
                     'attr' => [
                         
@@ -136,6 +138,15 @@ class PersorgType extends AbstractType
                     ],
 
                     'required'   => false,
+                ]
+            )
+            
+            ->add('parentExternalContributorsStructure', HiddenType::class, 
+                [
+
+                    'required'   => false,
+
+                    "mapped" => false,
                 ]
             )
 
