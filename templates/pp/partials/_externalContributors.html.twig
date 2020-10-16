@@ -16,7 +16,9 @@
 
             <!-- Edit Text Description Button -->
 
-                <a class="" href="{{ path('manage_ecs', {'slug': presentation.slug}) }}">
+            <!-- path('manage_ecs', {'slug': presentation.slug}) -->
+
+                <a class="" href="">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
                     
@@ -38,11 +40,11 @@
 
                 <!-- ECS Title Display (ex: Our Sponsors) -->
 
-                <h4 class="ecsTitle pp-struct-title">
+                <h3 class="ecsTitle pp-struct-title">
 
                     {{ecs.title}}
 
-                </h4>
+                </h3>
 
                 
                 
@@ -62,15 +64,15 @@
 
                                     <div class="externalContributorCard mb-2 px-1">
 
-                                        <div class="d-flex align-content-center" style="height:175px;">
+                                        <div class="d-flex align-content-center" style="height:195px;">
 
-                                              <a href="#" class="my-auto mx-auto text-body" data-toggle="modal" data-target="#externalContributorDisplayModal{{loop.parent.loop.index}}{{loop.index}}">
+                                            <a href="#" class="my-auto mx-auto text-body" data-toggle="modal" data-target="#externalContributorDisplayModal{{loop.parent.loop.index}}{{loop.index}}">
 
                                         <!-- Persorg Image -->
                                         
                                         <div class="mb-2 d-flex justify-content-center">
 
-                                            {% if persorg.image %}
+                                            {% if persorg.imageFile is not null %}
 
                                                 <img class="img-fluid" src="/images/test/extContribsLogos/{{persorg.image}}.jpg" height="100px" width="100px">
                                             
@@ -126,11 +128,11 @@
 
                     </div>
             
-                    <!-- Persorg Details (Modal Boxes Creation) -->
+                    <!-- Persorg Details (Displayed in Modal Boxes) -->
+
+                    <!--Modal Boxes Creation -->
                     
                     {% for persorg in ecs.persorgs %}
-
-                        <!-- Display More Info (External Contributor Details) (in a modal box) -->
 
                         <div class="modal fade" id="externalContributorDisplayModal{{loop.parent.loop.index}}{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="externalContributorDisplayLabel{{loop.parent.loop.index}}{{ loop.index }}" aria-hidden="true">
                                     
@@ -142,18 +144,17 @@
 
                                 <div class="modal-header">
 
-                                    <!-- Persorg Name -->
+                                     <!-- Persorg Name -->
 
-                                    <div class="row pl-4 font-weight-bold"> 
+                                     <div class="row pl-4"> 
 
-                                        <div class="h5" >
+                                        <div class="h5 font-weight-bold" >
 
                                             {{ persorg.name }}
 
                                         </div>
                                     
                                     </div>
-
 
                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     
@@ -177,13 +178,18 @@
                                                 
                                                 <!-- Persorg Image -->
 
-                                                    {% if persorg.image %}
+                                                    <!-- Case we got an Image -->
+
+                                                    {% if persorg.image is not null %}
 
                                                         <img class="img-fluid" src="/images/test/extContribsLogos/{{persorg.image}}.jpg" height="100px" width="100px">
-                                                    
+
+                                                    <!-- Case we don't have an Image -->
+
+                                                    <!-- We create a default persorg Image -->
 
                                                     {% else %}
-                                                                                                    
+                                                                                         
                                                         <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
 
                                                             <span class="initials" style="font-size: 60px; top:30px;">
@@ -206,11 +212,11 @@
 
                                                     <div class="row"> 
 
-                                                        <div class="h5" >
+                                                       <!--  <div class="h5" >
 
                                                             {{ persorg.name }}
 
-                                                        </div>
+                                                        </div> -->
                                                     
                                                     </div>
 
@@ -306,7 +312,7 @@
 
                                             ● <a href="{{ persorg.webdomain2}}"> 
                                                 
-                                                {{ persorg.webdomain2 | length < 30 ? persorg.webdomain2 : persor.webdomain2 | slice(0, 30) ~ '...' }}
+                                                {{ persorg.webdomain2 | length < 30 ? persorg.webdomain2 : persorg.webdomain2 | slice(0, 30) ~ '...' }}
 
                                             </a>
 
@@ -392,8 +398,8 @@
     }
     
     .ecsDisplayRow{
-        overflow-x: auto;
-        white-space: nowrap;
+        
+        
     }
 
 
@@ -405,7 +411,7 @@
 
         min-height:175px; 
 
-        border: 1px solid black;
+        //border: 1px solid black;
 
         margin-right : 10px;
 
@@ -417,9 +423,7 @@
     
     .ecsTitle{
 
-        font-size:1.9em;
-
-        margin-bottom: 20px;
+       margin-bottom: 20px;
     }
 
     .persorgName{
@@ -456,6 +460,7 @@
             .ecsDisplayRow{
 
                 overflow-x: auto;
+                white-space: nowrap;
                 overflow-y: hidden;
 
             }

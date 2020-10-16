@@ -80,7 +80,7 @@ class TeammatesController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $teammate->setProject($teammate);
+            //$teammate->setProject($teammate);
 
             $manager->persist($teammate);
 

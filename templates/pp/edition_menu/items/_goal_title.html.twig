@@ -1,0 +1,62 @@
+
+
+<!-- Project Goal; Title; and Logo -->
+
+<a class=" text-body" href="{{ path('project_edit', {'slug':presentation.slug}) }}">
+
+  <div class="hoverZone card border-left-info shadow py-2 mb-3">
+
+    <div class="card-body pb-0">
+
+      <div class="row no-gutters align-items-center">
+
+        <div class="col">
+
+          <div class="cat-menu-title text-center mb-2">
+            Objectif & Titre du Projet
+          </div>
+
+        </div>
+      
+      </div>
+
+      <hr class="mt-1 mb-2 mx-1 border-4">
+      
+      <div class="row no-gutters">
+        
+        <div class="col pt-2">
+
+          <div class="cat-menu-title text-center mb-2">
+
+            Logo du Projet
+
+          </div>
+
+          <div class="row no-gutters d-flex justify-content-center">
+
+            {% if presentation.logoName | length == 0 %}
+              
+            <div class="d-flex align-items-center justify-content-center h6 font-weight-bold">
+
+              <img src="/images/icons/edit_presentation/menu/none.svg" width="27px" height="27px" alt="">
+
+            </div>
+
+            {% else %}
+
+              <div class="d-flex align-items-center justify-content-center">
+
+                <img id="" class="mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">  
+
+              </div>
+
+            {% endif %}
+              
+          </div>
+
+        </div>
+      
+      </div>
+    </div>
+  </div>
+</a>

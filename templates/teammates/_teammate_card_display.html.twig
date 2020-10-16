@@ -17,9 +17,9 @@
 
         <!-- Teammate Name -->
 
-        <div class="font-weight-bold mt-3 mb-1">
+        <div class="d-flex justify-content-center font-weight-bold mt-3 mb-3">
 
-            {{ teammate.name }}
+            {{ teammate.name | length < 10 ? teammate.name : teammate.name | slice(0, 10 ) ~ '...' }}
 
         </div>
 
@@ -33,7 +33,7 @@
 
         <!-- Teammate Image -->
         
-        <div>
+        <div class="d-flex justify-content-center">
 
             {% if teammate.image %}
             

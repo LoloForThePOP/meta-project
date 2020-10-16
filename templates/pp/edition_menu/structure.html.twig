@@ -1,0 +1,178 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Édition d'une Présentation{% endblock %}
+
+
+{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+
+
+{% block body %}
+
+
+<style>
+    
+  .cat-menu-title {
+
+    color:#0051fc !important;
+    font-size: 1.15em;
+    font-weight:bold;
+    text-transform: uppercase;
+    text-align:center;
+
+  }
+
+  .hoverZone:hover {
+
+    background-color: cornsilk !important;
+
+  } 
+
+  .hoverZone .ecsTitle:hover {
+
+    background-color:lightgreen !important;
+
+  } 
+
+  .badgeCount{
+
+    font-size:1.20em;
+    font-weight:bold;
+
+  }
+
+</style>
+
+    <div class="container pl-0">
+
+        <div class="container-fluid mt-4">
+
+            <!-- Central Container Heading -->
+            <div class="d-sm-flex align-items-center justify-content-between mb-2">
+              
+              <!-- <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1> -->
+            
+            </div>
+  
+            <!-- Central Container Content-->
+
+            <div class="row">
+
+              <!-- First Column -->
+              
+              <div class="col-xl-4 col-md-6 pl-0 mb-4 cursor-pointer">
+                
+                <!-- Project Goal; Title; and Logo -->
+                
+                {% include "pp/edition_menu/items/_goal_title.html.twig" %}
+                
+                <!-- Project Categories and Keywords -->
+
+                {% include "pp/edition_menu/items/_categories_keywords.html.twig" %}
+                               
+                <!-- Project Team -->
+
+                {% include "pp/edition_menu/items/_team.html.twig" %}
+                               
+                <!-- Project Technical Data -->
+
+                {% include "pp/edition_menu/items/_data_list.html.twig" %}
+                               
+                <!-- Project External Contributors (donors; partners; etc) -->
+
+                {% include "pp/edition_menu/items/_external_contributors.html.twig" %}
+
+              </div>
+              
+              <!-- End of First column -->
+              
+              
+              <!-- Second Column -->
+              
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                      
+                <!-- Project Text Description -->
+                
+                
+                {% include "pp/edition_menu/items/_text_description.html.twig" %}
+
+
+                <!-- Project Images & Videos -->
+
+                {% include "pp/edition_menu/items/_images_videos.html.twig" %}
+
+
+                <!-- Project Documents -->
+
+                {% include "pp/edition_menu/items/_documents.html.twig" %}
+
+                
+                <!-- Project Needs -->
+
+                {% include "pp/edition_menu/items/_needs.html.twig" %}
+
+                
+                <!-- Project Dates & Events -->
+
+                {% include "pp/edition_menu/items/_events.html.twig" %}
+
+                
+                <!-- Project Owners -->
+
+                {% include "pp/edition_menu/items/_owners.html.twig" %}
+
+
+              </div>
+
+              <!-- End of Second Column -->
+
+
+  
+  
+              <!-- Third Column -->
+              
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                    
+                <!-- Project Geodomains -->
+
+                {% include "pp/edition_menu/items/_geodomains.html.twig" %}
+
+
+                <!-- Project Websites -->
+
+                {% include "pp/edition_menu/items/_websites.html.twig" %}
+
+                
+                <!-- Project Contact Us Cards -->
+
+                {% include "pp/edition_menu/items/_contact_us.html.twig" %}
+
+
+                <!-- Project Q&A -->
+
+                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
+
+
+                <!-- Display Project Presentation -->
+
+                {% include "pp/edition_menu/items/_show_presentation.html.twig" %}
+
+         
+              </div>
+
+              <!-- End of Third Column -->
+
+            </div>
+
+  
+          </div>
+
+    </div>
+
+
+{% endblock %}
+
+{% block javascripts %}
+
+  {% include "external_contributors/_add_ecs_modal_form.html.twig" %}
+
+{% endblock %}

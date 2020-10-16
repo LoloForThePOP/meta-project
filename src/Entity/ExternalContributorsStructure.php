@@ -2,9 +2,13 @@
 
 namespace App\Entity;
 
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints as Assert;
+
 use App\Repository\ExternalContributorsStructureRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -24,8 +28,6 @@ class ExternalContributorsStructure
      */
     private $title;
 
-  
-
     /**
      * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="externalContributorsStructures")
      */
@@ -42,7 +44,10 @@ class ExternalContributorsStructure
     private $position;
 
     /**
-     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure")
+     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure", cascade={"persist", "remove"})
+     * 
+     * @ORM\OrderBy({"position" = "ASC"})
+     * 
      */
     private $persorgs;
 

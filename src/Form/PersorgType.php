@@ -21,7 +21,7 @@ class PersorgType extends AbstractType
 
             ->add('name', TextType::class, 
                 [
-                    'label' => 'Nom',
+                    'label' => 'Nom *',
 
                     'attr' => [
                         
@@ -37,7 +37,7 @@ class PersorgType extends AbstractType
 
                 array(
 
-                    'label' => 'Choisir une image / logo ou photo',
+                    'label' => 'Choisir une image, un logo, ou une photo',
 
                     'required' => false,
                     'allow_delete' => true,

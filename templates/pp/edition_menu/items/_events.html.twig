@@ -1,0 +1,55 @@
+
+<a class='text-body' href="{{ path('manage_events', {'slug':presentation.slug}) }}">
+
+    <div class="hoverZone card border-left-info shadow py-2 mb-3">
+
+        <div class="card-body">
+
+            <div class=" row no-gutters align-items-center">
+
+            <!-- Icon Left Column-->
+                            
+            <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+                
+                <span style="color: DarkGreen">
+                <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                <img src="/images/icons/edit_presentation/menu/events.svg" width="37px" height="37px" alt="">
+                </span>
+                
+            </div>
+
+            <!-- Title Middle Column -->
+            
+            <div class="col d-flex align-items-center justify-content-center">
+
+                <div class="cat-menu-title text-xs" >
+
+                <span class="text-uppercase">Dates & événements</span>
+                                    
+                </div>
+        
+            </div>
+
+            <!-- Counter (Third Column) -->
+
+            <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+                {% if presentation.events | length > 0 %}
+
+                <span class="badgeCount badge badge-light">
+
+                {{ presentation.events | length }}
+
+                </span>                           
+            
+            {% endif %}
+
+            </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</a>

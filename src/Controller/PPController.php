@@ -7,7 +7,9 @@ use App\Form\PPBasicType;
 use App\Form\NewPresentationType;
 use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Entity\ExternalContributorsStructure;
 use Symfony\Component\HttpFoundation\Request;
+use App\Form\ExternalContributorsStructureType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
@@ -115,7 +117,7 @@ class PPController extends AbstractController
     
     
      /**
-     * Permet de Supprimer une Présentation de Projet
+     * Allow to delete a project presentation
      * 
      * @Route("projects/{slug}/delete",name="project_delete")
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
@@ -152,7 +154,7 @@ class PPController extends AbstractController
     }
 
     /**
-     * Allow to Display a Project Presentation Edition Menu
+     * Allow to Display Project Presentation Edition Menu
      *
      * @Route("/projects/{slug}/edition-menu",name="edit_presentation_menu")
      * 
@@ -160,9 +162,43 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function showEditionMenu($slug, PPBasic $presentation){
+    public function showEditionMenu($slug, PPBasic $presentation, Request $request, EntityManagerInterface $manager){
 
-        return $this->render('/pp/edition_menu.html.twig',[
+        /* External contributors structures can be created directly from the edition menu */
+
+        $ecs = new ExternalContributorsStructure();
+        
+        $ecsForm = $this->createForm(ExternalContributorsStructureType::class, $ecs);
+
+        $ecsForm->handleRequest($request);
+
+
+        if ($ecsForm->isSubmitted() && $ecsForm->isValid()){
+
+            $ecs->setProject($presentation);
+
+            $manager->persist($ecs);
+
+            $manager->flush();
+
+            $idECS = $ecs->getId();
+
+            $this->addFlash(
+                'success',
+                "Les modifications ont été effectuées !"
+            );
+
+            return $this->redirectToRoute('manage_ecs', [
+                'slug' => $presentation->getSlug(),
+                'presentation' => $presentation,
+                'id_ecs' => $idECS,
+            ]);
+
+        }
+
+        return $this->render('/pp/edition_menu/structure.html.twig',[
+            
+            'ecsForm' => $ecsForm->createView(),
             'presentation' => $presentation,
         ]);
 

@@ -7,6 +7,7 @@ use App\Entity\Need;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Event;
+use App\Entity\Owner;
 use App\Entity\Slide;
 use App\Entity\PGroup;
 use App\Entity\Report;
@@ -379,6 +380,41 @@ class AppFixtures extends Fixture
                 $manager->persist($textDescription);
             }
 
+            // Project Owners Creation
+
+            $hasOwnersOdds = [true, true, true, false];
+
+            $hasOwners = $hasOwnersOdds[array_rand($hasOwnersOdds)];
+            
+            if ($hasOwners){
+
+                $ownersCount = mt_rand(1,4);
+
+                for ($j=1; $j <= $ownersCount; $j++){
+
+                    $owner = new Owner(); // an order is a persorg (person or organisation) with a position
+
+                    $ownerPersorg = new Persorg();
+
+                    $persorgTypes = ['person', 'organisation'];
+
+                    $persorgType = $persorgTypes[array_rand($persorgTypes)];
+                
+                    $hydratedPersorg = AppFixtures::hydratePersorg($persorgType, $ownerPersorg);
+
+                    $owner->setPersorg($hydratedPersorg);
+
+                    $owner->setPosition($j);
+
+                    $pp->addOwner($owner);
+
+                    $manager->persist($owner);
+
+                }
+
+            }
+
+
 
             // Project Teammates Creation
 
@@ -392,7 +428,7 @@ class AppFixtures extends Fixture
                 
                 for ($j=1; $j <= $teammatesCount; $j++){
 
-                    $teammate = new teammate();
+                    $teammate = new Teammate();
                 
                     $hydratedTeammate = AppFixtures::hydratePersorg('person', $teammate);
 

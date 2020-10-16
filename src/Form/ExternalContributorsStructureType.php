@@ -24,7 +24,23 @@ class ExternalContributorsStructureType extends AbstractType
 
                     'required'   => true,
                 ]
+            )
+
+            ->add('richTextContent', TextareaType::class, 
+                [
+                    'label' => '',
+
+                    'attr' => [
+                        'placeholder'    => 'Ici vous pouvez écrire du texte. Exemple : Merci à tous nos contributeurs : Laurent Dupond; Youssef Kouloum; Jeanne D\'ortega...',
+                        'class' => "tinymce",
+                    ],
+
+                    'required'   => false,
+                    'sanitize_html' => true,
+                ]
             );
+
+            
 
     }
 

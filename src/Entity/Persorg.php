@@ -115,9 +115,15 @@ class Persorg
     public $imageFile;
 
     /**
-     * @ORM\ManyToOne(targetEntity=ExternalContributorsStructure::class, inversedBy="persorgs")
+     * @ORM\ManyToOne(targetEntity=ExternalContributorsStructure::class, inversedBy="persorgs", cascade={"persist", "remove"})
+     * 
      */
     private $externalContributorsStructure;
+
+    /**
+     * @ORM\OneToOne(targetEntity=Owner::class, mappedBy="persorg", cascade={"persist", "remove"})
+     */
+    private $owner;
 
      
 
@@ -355,6 +361,36 @@ class Persorg
     public function setExternalContributorsStructure(?ExternalContributorsStructure $externalContributorsStructure): self
     {
         $this->externalContributorsStructure = $externalContributorsStructure;
+
+        return $this;
+    }
+
+    public function getOwnProject(): ?PPBasic
+    {
+        return $this->ownProject;
+    }
+
+    public function setOwnProject(?PPBasic $ownProject): self
+    {
+        $this->ownProject = $ownProject;
+
+        return $this;
+    }
+
+    public function getOwner(): ?Owner
+    {
+        return $this->owner;
+    }
+
+    public function setOwner(?Owner $owner): self
+    {
+        $this->owner = $owner;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPersorg = null === $owner ? null : $this;
+        if ($owner->getPersorg() !== $newPersorg) {
+            $owner->setPersorg($newPersorg);
+        }
 
         return $this;
     }

@@ -1,0 +1,57 @@
+<a class=" text-decoration-none text-body" href="{{ path('edit_text_description', {'slug':presentation.slug}) }}">
+                  
+    <div class="hoverZone card border-left-info shadow py-2">
+      
+      
+      <div class="card-body">
+     
+
+          <div class=" row no-gutters">
+
+            <!-- Icon -->
+            
+            <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+              <span style="color: DarkGreen">
+              <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+                <img src="/images/icons/edit_presentation/menu/text_description.svg" width="37px" height="37px" alt="">
+              </span>
+              
+            </div>
+            
+            <!-- Title -->
+
+            <div class="col">
+
+              <div class="cat-menu-title d-flex align-items-center justify-content-center">
+
+                Description Texte <br> du Projet
+
+              </div>
+
+            </div>
+
+            <!-- Counter -->
+
+            <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+                {% if presentation.textDescription | length == 0 or presentation.textDescription.content is empty %}
+
+                  <span class="badgeCount badge badge-light text-danger">0</span>
+
+                {% else %}
+                
+
+                  <span class="badgeCount badge badge-light">✓</span>
+
+                {% endif %}
+             
+             
+            </div>
+
+          </div>
+
+      </div>
+
+    </div>
+
+  </a>

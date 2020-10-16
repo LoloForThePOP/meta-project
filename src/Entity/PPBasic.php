@@ -376,6 +376,13 @@ class PPBasic implements \Serializable
      */
     private $externalContributorsStructures;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Owner::class, mappedBy="project")
+     * @ORM\OrderBy({"position" = "ASC"})
+     */
+    private $owners;
+
+ 
 
 
 
@@ -403,6 +410,7 @@ class PPBasic implements \Serializable
         $this->events = new ArrayCollection();
         $this->technicalData = new ArrayCollection();
         $this->externalContributorsStructures = new ArrayCollection();
+        $this->owners = new ArrayCollection();
     }
     
 
@@ -1105,6 +1113,40 @@ class PPBasic implements \Serializable
 
         return $this;
     }
+
+    /**
+     * @return Collection|Owner[]
+     */
+    public function getOwners(): Collection
+    {
+        return $this->owners;
+    }
+
+    public function addOwner(Owner $owner): self
+    {
+        if (!$this->owners->contains($owner)) {
+            $this->owners[] = $owner;
+            $owner->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOwner(Owner $owner): self
+    {
+        if ($this->owners->contains($owner)) {
+            $this->owners->removeElement($owner);
+            // set the owning side to null (unless already changed)
+            if ($owner->getProject() === $this) {
+                $owner->setProject(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+  
 
 
 

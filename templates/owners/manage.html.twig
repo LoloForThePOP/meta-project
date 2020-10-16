@@ -1,0 +1,124 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Porteurs du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% block body %}
+
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <!-- Title with Display More Info Button (Container) -->
+
+        <div class="mt-3 mt-md-4 mb-4 pt-md-4">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Porteurs du Projet</h3>
+
+            <!-- collapsable advice trigger button 	-->
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+                
+            </a>
+
+        </div>
+
+
+        <!-- Collapsible Info Container -->
+
+       <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            
+            <p class="h5 pt-1">
+
+                Ici vous pouvez présenter les porteurs du projet.
+                
+                <br>
+                <br>
+
+                Exemples :
+
+            </p>
+                
+            <ul class="h5 mt-2">
+
+                <li class="mb-2"> Union Européenne</li>
+                <li> Ville de Strasbourg</li>
+
+            </ul>
+
+
+        </div>
+
+
+         <!-- "Add an Item" Button-->
+
+         <div class="mt-md-4 mb-4"> <!-- Button Add a Thumbnail -->
+
+            <button type="button"data-toggle="modal" data-target="#addPersorgFormModal" class="btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green"> <span class="mr-2">+</span>Ajouter un porteur</button>
+
+        </div>
+
+        <!-- Add a Persorg Form (included in a modal box) -->
+
+        {% include "persorgs/_add_persorg_form.html.twig" %}
+
+
+        <!-- Display Project Owners -->
+
+        {% if presentation.owners | length > 0 %}
+
+            <div class="container" style="display:inline-block;">
+
+                <!-- Persorgs Grid -->
+
+                <div id="persorgsList" class="row">
+
+                    {% for owner in presentation.owners %}
+
+                        {% set persorg = owner.persorg %}
+
+                        {% include "persorgs/_persorg_card.html.twig" %}
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+        {% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+{% endblock %}
+

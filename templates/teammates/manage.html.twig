@@ -144,16 +144,15 @@
                 {% if presentation.teammates | length > 0 %}
 
                     {% for teammate in presentation.teammates %}
-
+ <a href="{{path('edit_teammate', {'slug':slug,'id_teammate' : teammate.id })}}" class="text-body text-decoration-none">
                      <!-- Teammate Card -->
 
-                     <div id="{{teammate.id}}" class="js-sortableGridItem position-relative mr-4 mb-4 cursor-pointer col-2 border border-primary rounded pb-4" style="min-height:140px;">   
+                     <div id="{{teammate.id}}" class="js-sortableGridItem position-relative mr-4 mb-4 cursor-pointer border border-primary pb-4" style="height:200px; width:150px;">   
                          
-                        <a href="{{path('edit_teammate', {'slug':slug,'id_teammate' : teammate.id })}}" class="w-100 h-100 text-body text-decoration-none">
+                       
                          
                             {% include 'teammates/_teammate_card_display.html.twig' %}
-                                
-                        </a>
+                          
 
                                         
                         <!-- Remove Teammate (Button with Red Cross) -->
@@ -161,7 +160,8 @@
                         <button type="button" class="js-delete-teammate d-inline position-absolute btn btn-danger sharp p-1 px-2" data-id="{{teammate.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
 
 
-                     </div>         
+                     </div>            
+                        </a>   
 
                     {% endfor %}
 

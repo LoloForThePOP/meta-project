@@ -1,0 +1,154 @@
+<div class='text-body' href="">
+
+    <div class="hoverZone card border-left-info shadow py-2 mb-3">
+
+      <div class="card-body">
+
+        <!-- Upper Zone -->
+        <!-- Allow to Add a new ECS -->
+        <!-- A Modal Box with a form is triggered -->
+       
+        <div data-toggle="modal" data-target="#addECSFormModal" class="row no-gutters align-items-center mb-4">
+
+          <!-- Icon Left Column-->
+                        
+          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+            
+            <span style="color: DarkGreen">
+            <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
+              <img src="/images/icons/edit_presentation/menu/external_contributors.svg" width="30px" height="30px" alt="">
+            </span>
+            
+          </div>
+
+          <!-- Title Middle Column -->
+          
+          <div class="col d-flex align-items-center justify-content-center">
+
+            <div class="cat-menu-title text-xs" >
+
+              <span class="text-uppercase">
+                Sponsors, partenaires,<br>remerciements...</span>
+
+            </div>
+    
+          </div>
+
+          <!-- Counter (Third Column) -->
+
+          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+
+            <!-- 
+
+              <span class="badgeCount badge badge-light">
+
+                Info
+
+              </span>     -->                                     
+
+          </div>
+
+        </div>
+
+        <!-- ECS List Display with Drag and Drop Capability -->
+        
+        <div id="ECSList" class="row no-gutters d-flex justify-content-center">
+                                  
+          <!-- Displaying External Contributors Titles + links to access management-->
+
+          {% if presentation.externalContributorsStructures | length > 0 %}
+
+            {% for ecs in presentation.externalContributorsStructures %}
+           
+            <a id="{{ecs.id}}" class='text-body w-100' href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id, }) }}">
+
+              <div id="{{ecs.id}}" class="js-sortableItem btn btn-light sharp btn-lg w-100 h5 font-weight-bold mb-3" style="background-color:#eef8ff;">
+
+                {{ ecs.title | length > 20 ? ecs.title | slice(0, 20) ~ '...' : ecs.title }}
+
+              </div>
+
+            </a>
+
+              <br>
+            
+            {% endfor %}
+      
+          {% endif %}
+
+        </div>
+
+        <!-- Add a new ECS --> 
+        
+        {% if presentation.externalContributorsStructures | length > 0 %}
+        
+        <div class="row no-gutters">
+
+          <!-- Add a new ECS Button (Appears when one has been created) -->
+          <!-- A Modal Box with a form is triggered -->
+          <!-- Its code is included in block javascripts -->
+          <!-- WARNING : this form is routed from PPController -->
+            
+          <button class="btn btn-light mt-4 mb-2 w-100" data-toggle="modal" data-target="#addECSFormModal" style="background-color : #dcf5e9;">
+
+            <span class="h5 font-weight-bold">
+              + Ajouter
+            </span>
+
+          </button>
+
+        </div>
+
+        {% endif %}
+
+        <!-- Help Tips --> 
+        
+        {% if presentation.externalContributorsStructures | length > 1 %}
+        
+        <div class="row no-gutters">
+            
+          <button class="btn btn-light mt-2 mb-2 w-100" data-toggle="modal" data-target="#ecsHelpModal" style="background-color:beige;">
+
+            <span class="h5 font-weight-bold">
+              Aide
+            </span>
+
+          </button>
+
+          <!-- ecs Help Modal -->
+
+          <div class="modal fade" id="ecsHelpModal" tabindex="-1" role="dialog" aria-labelledby="ecsHelpModal" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Aide</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+
+                  <ul>
+                    <li class="h5">Pour <b>changer l'ordre</b> des parties, utiliser <b>ici</b> le "Glisser-Déposer" (= "drag and drop").</li>
+                    <li class="h5">Pour <b>supprimer une partie</b>, rentrer dedans puis cliquer sur supprimer.</li>
+                  </ul>
+                  
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        {% endif %}
+
+        </div>
+
+    </div>
+
+</div>

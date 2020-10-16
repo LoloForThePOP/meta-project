@@ -2,7 +2,7 @@
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-{% block title %}Contributions Externes (Sponsors; Partenaires; etc) du Projet{% endblock %}
+{% block title %}{{ ecs.title[:1] | upper ~ ecs.title[1:] }}{% endblock %}
 
 {% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
@@ -15,184 +15,225 @@
 
         <!-- Title with Display More Info Button (Container) -->
 
-        <div class="mt-3 mt-md-4 mb-2 pt-md-4">
+        <div class="mt-3 mt-md-4 mb-4 pt-md-4">
 
-        <!-- ui Page Title -->
+            <!-- ui Page Title -->
 
-        <h3 class="font-weight-bold d-inline mr-3">Contributions extérieures (sponsors; partenaires; etc)</h3>
+            <h3 class="font-weight-bold d-inline mr-3">{{ ecs.title[:1] | upper ~ ecs.title[1:] }}</h3>
 
-        <!-- collapsable advice trigger button -->	
+            <!-- collapsable advice trigger button 	
 
-        <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
-            <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
-            
-        </a>
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+                
+            </a>-->
 
         </div>
+
 
         <!-- Collapsible Info Container -->
 
-        <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+       {# <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
 
             <p class="h5 pt-1">
 
-                Ici vous pouvez présenter les contributeurs externes du projet.
+                Ici vous pouvez présenter toutes les personnes et organisations qui appartiennent à la partie "{{ecs.title}}".
                 
-                <br>
-                <br>
-
-                Exemples :             
-
             </p>
-                
-            <ul class="h5">
-
-                <li>sponsors;</li>
-                <li>mécènes; donateurs;</li>
-                <li>crédits;</li>
-                <li>remerciements;</li>
-
-            </ul>
 
         </div>
 
-
-        <!-- Add An External Contributors Structure (ECS) (Button Triggers a Modal) -->
-
-        <div class="mb-3">
-
-            <button type="button" data-toggle="modal" data-target="#addECSFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un titre</button> 
-
-        </div>
-
-        {% include "external_contributors/_add_ecs_form.html.twig" %}
+        #}
 
 
-        <!-- Project ECS Display -->
+        <!-- "Add an Item" Buttons-->
 
-        {% if presentation.externalContributorsStructures | length > 0 %}
+        <div class="mt-md-5 mb-4"> <!-- Button Add a Thumbnail -->
 
-            <div id="ECSList" class="container pt-3">
-
-                {% for ecs in presentation.externalContributorsStructures %}
-
-                    <div id="{{ecs.id}}" class="js-sortableGridItem ECS row position-relative   ">
-
-                        <div class="col-md-10">
-
-                            <!-- ECS Title Display -->
-
-                            <h4 class = "ECSTitle mb-3">
-
-                                {{ ecs.title[:1] | upper ~ ecs.title[1:] }}
-
-                            </h4>
-
-                            <!-- ECS : childs display (persons or organisations) -->
-
-                            {% if ecs.persorgs | length > 0 %}
-
-                                <div class="container" style="display:inline-block;">
-
-                                    <div id="persorgList" class="row">
-
-                                        {% for persorg in ecs.persorgs %}
-
-                                            <div class="persorgCard col-md-2 border border-danger">
-
-                                                {{persorg.name }}
-
-                                            </div>
-
-                                        {% endfor %}
-
-                                    </div>
-
-                                </div> 
-
-                            {% endif %}
-
-
-                            <div class="d-inline-block">test</div>
-                            
-
-                            <!-- Add a "Person or Organisation" (= persorg) into the ECS (Open a Modal) (form include is below) -->
-
-                            <div id="" data-id="{{ecs.id}}" data-toggle="modal" data-target="#addPersorgFormModal" class="newPersorg disabled rounded-lg d-flex align-items-center justify-content-center mx-2 mb-3 p-3 rounded-lg cursor-pointer" style=" text-align:center; width:130px; height:123px; border: dashed 5px #5a74ff;">
-                                
-                                <span style="font-size:4em; font-weight:700; color:rgb(46, 138, 46);">+</span>
-                                
-                            </div> 
-
-                        </div>
-                            
-       
-                        <!-- Remove ECS Button (red cross button) -->
-
-                        <button type="button" class="js-delete-ecs position-absolute btn btn-sm btn-danger" data-id="{{ecs.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
-
-                    </div>
-                    
-                {% endfor %}
-
-                {% include "external_contributors/_add_persorg_form.html.twig" %}
-
-            </div>
-
-
-        {% endif %}
-
+            <button type="button"data-toggle="modal" data-target="#addPersorgFormModal" class="btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green mr-3"> <span class="mr-2">+</span>Ajouter une miniature</button>
                
-        <!-- Some ECS Display Styles -->
+            {% if ecs.richTextContent is empty %}
+   
+               <!-- Button Display Text Area -->
+   
+                <button type="button" class="js-display-textarea btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green"> <span class="mr-2">+</span>Ajouter du texte</button>
+   
+            {% endif %}
 
-        <style>
+        </div>
 
-            .ECS {
 
-                border:1px solid blue;
-                border-radius: 4px;
+        <!-- Add a Persorg Form (included in a modal box) -->
 
-                padding-top:10px;
-                margin-bottom: 10px;
+        {% include "persorgs/_add_persorg_form.html.twig" %}
+        
+        <!-- Project ECS content Display (ecs childs display) (persons or organisations (= persorg)) -->
+            
+            {% if ecs.persorgs | length > 0 %}
 
-                cursor:pointer;
-            }
+                <div class="container" style="display:inline-block;">
 
-            .ECS:hover {
+                    <!-- Persorg Grid -->
 
-                background-color:papayawhip;
+                    <div id="persorgsList" class="row">
 
-            }
+                        {% for persorg in ecs.persorgs %}
 
-            .ECSTitle {
+                            <!-- Persorg Edition Path -->
 
-                
-                font-weight:bold;
-            }
+                            <a id="{{ecs.id}}" class='text-body' href="{{ path('edit_persorg', {'slug':presentation.slug, 'id_persorg':persorg.id, 'id_ecs':ecs.id}) }}">
 
-            .titleChunkSuggestion[aria-pressed="true"]{
+                                <!-- Persorg Card --> 
 
-                background-color:yellow !important;
-         
-             }
+                                {% include "persorgs/_persorg_card.html.twig" %}
 
-             .persorgCard{
-                 
-                height:150px;
-                margin-right: 15px;
-             }
 
-         
-        </style>
+                            </a>
+
+                        {% endfor %}
+
+                    
+                    
+                    
+                    
+                    </div>
+
+                </div> 
+
+            {% endif %}
+
+ <!-- Project Text Description Rich Text Editor -->
+
+ <div class="js-form-container 
+
+ {% if ecs.richTextContent is empty %} d-none {% endif %}
+ 
+ 
+ " style="margin-top:3.3rem;">
+
+    {{form_start(ecsForm)}}
+
+    <!-- Form Errors Display -->
+
+    <span class="h5 text-danger">
+
+        {{form_errors(ecsForm.richTextContent)}}
+
+    </span>
+
+    <!-- Rich Text Editor Area -->
+
+    <div class="mb-4">
+
+      {{form_widget(ecsForm.richTextContent)}}
+
+    </div>
+
+
+    <!-- Hiding some form fields -->
+
+    <div class="d-none">
+        {{ form_rest(ecsForm) }}
+    </div>
+
+    <!-- Save Rich Text Content Button -->
+
+    <div class= "pt-2">
+        
+        <button type="submit" class="btn btn-success btn-lg bg-green sharp h3 font-weight-bold mb-4 mr-3">Enregistrer</button>
+
+    </div>
+
+    {{form_end(ecsForm)}}
+
+</div>
+
+    <div class="pt-4">
+
+        <!-- Back Button -->
+
+        <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': slug}) }}">
+            <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mr-3">Retour</button>
+        </a>
+
+        <!-- Edit ECS Title -->
+
+        <a class="text-decoration-none text-white" href="{{ path('edit_ecs', {'slug': slug, 'id_ecs': ecs.id}) }}">
+            <button type="button" class="btn btn-lg sharp font-weight-bold mb-4 mr-3" style="background-color:#ff7800; color:white;">Modifier Titre</button>
+        </a>
+
+         <!-- Delete ECS Button -->
+
+         <a class="text-decoration-none text-white" href="{{ path('ecs_delete', {'id': ecs.id, 'slug':slug, 'presentation': presentation,}) }}">
+
+            <button onclick="confirm('Êtes vous sûr de supprimer cette partie avec tout son contenu ?')" type="button" class="js-delete-ecs btn btn-danger btn-lg sharp rounded font-weight-bold mb-4 mr-1">Supprimer</button> 
+    
+        </a>
+
+    </div>
+
+
+    </div>
+
+ 
+
+       
 
     </div>
 
 {% endblock %}
 
-
-
 {% block javascripts %}
+
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <!-- Parameters - TinyMCE Rich Text Editor -->
+
+    <script>
+        
+        tinymce.init({
+
+            mode : "specific_textareas",
+
+            editor_selector : "tinymce",
+
+            content_css : '/css/tinymce.css',
+
+            width : "100%",
+
+            height: "350",
+
+            entity_encoding : "raw",
+
+            menubar: 'edit format',
+
+            menu: {
+
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+            }, 
+
+            language: 'fr_FR',
+
+            plugins: "emoticons, lists",
+
+            toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+            content_style: "body {padding: 0px 15px;}",
+
+            nowrap : false,
+
+            //link_title: false, (only when links plugin will be integrated)
+            //target_list: false,
+        });
+
+    </script>
 
     <!-- sortable plugin in order to reorder Documents -->
 
@@ -206,53 +247,21 @@
 
         $(document).ready(function(){
 
-            // manage ECS Live title Rendering
+            // if user wants to use text, we reveal textarea and we scroll to textarea
 
-            var ecsTitle='';
+            $(".js-display-textarea").click(function() {
 
-            $(".titleChunkSuggestion").click(function(){
-			
-				//$(this).toggleClass("SelectedButton");
+                $(".js-display-textarea").hide();
 
-                //$("#ConfirmSelection").show();
-
-                         //alert('yo00');	
-
-                         
-                         
-				if(!$(this).hasClass("active")) 
-				{
-
-
-                    ecsTitle = ecsTitle + $(this).text() + ' - ';
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $('#external_contributors_structure_richTextContent').offset().top + $('#external_contributors_structure_richTextContent').outerHeight(true)}, 500);
                     
-                   
-				}
+                $('.js-form-container').removeClass("d-none");
 
-				else 
-				{
-					
-					ecsTitle = ecsTitle.replace($(this).text() + ' - ', "");
+            });
 
-                }
-                
-                
-
-                $("#liveTitleRendering").text(ecsTitle);
-
-                return ecsTitle;
-                
-               
-				
-			});
 
             // if form errors are detected, we have to trigger the display of the form modal box
-
-            {% if not ecsForm.vars.valid %}
-
-                $('#addECSFormModal').modal('show');
-
-            {% endif %}
 
             {% if not persorgForm.vars.valid %}
 
@@ -260,40 +269,12 @@
 
             {% endif %}
 
-            // add a new persorg (= person or organisation)
-            // in what structure ? we get the structure id
-
-            $( ".newPersorg" ).click(function() {
-	
-                //alert($(this).data("id"));
-                
-                var ecsId = $(this).data("id");
-
-                $("#persorg_parentExternalContributorsStructure ").val(ecsId);
               
-            });
 
-            $('#persorgList').sortable(
-                
-                {
+            
+            // Reorder ECS Persorgs capability
 
-                    animation: 150,
-
-                    ghostClass: 'blue-background-class',
-
-                    filter: ".disabled",
-                
-                }
-            );
-
-
-
-
-
-
-            // Reorder ECS capability
-
-            $('#ECSList').sortable({
+            $('#persorgsList').sortable({
 
                 animation: 150,
 
@@ -306,26 +287,28 @@
                 },
 
                             
-                // reorder ECS positions (drag and drop)
+                // reorder ECS persorgs positions (drag and drop)
 
                 onEnd: function (evt) {
 
                     // an array storing ECS id position
 
-                    var ecsPositions = [];
+                    var persorgsPositions = [];
 
                     
-                    $('#ECSList div.js-sortableGridItem').each(function(index){
+                    $('#persorgsList div.js-sortableItem').each(function(index){
                         
-                        ecsPositions.push($(this).attr('id'));
+                        persorgsPositions.push($(this).attr('id'));
                 
                     });
 
-                    jsonECSPositions = JSON.stringify(ecsPositions);
+                    console.log(persorgsPositions);
+
+                    jsonPersorgsPositions = JSON.stringify(persorgsPositions);
                     
                     $.ajax({  
 
-                        url: "{{path('ajax_reorder_ecs', {'slug': presentation.slug})}}",
+                        url: "{{path('ajax_reorder_ecs_persorgs', {'slug': presentation.slug, 'id_ecs':ecs.id,})}}",
 
                         type:       'POST',   
 
@@ -333,7 +316,7 @@
 
                         data: {
 
-                            "jsonECSPositions": jsonECSPositions,
+                            "jsonPersorgsPositions": jsonPersorgsPositions,
 
                         },
 
@@ -353,37 +336,33 @@
            
             });
 
+                                                 
+            // Remove a Persorg
 
+            $('#persorgsList').on('click', '.js-delete-persorg', function (){
 
+                var idPersorg = $(this).attr("data-id");
 
-            // Remove an ECS
-
-            $('#ECSList').on('click', '.js-delete-ecs', function (){
-
-                var idECS = $(this).attr("data-id");
-
-                alert(idECS);
-
-                if (confirm("Confimez vous enlever cette partie ?"))
+                if (confirm("Confimez vous la suppression de cette miniature ?"))
                 {
 
                 $(this).html('<div class="loader"></div>');
                     
                 $.ajax({  
 
-                    url: "{{path('ajax_remove_ecs', {'slug': presentation.slug}) }}",
+                    url: "{{path('ajax_remove_persorg', {'slug': presentation.slug, 'id_ecs': ecs.id,}) }}",
                     type:       'POST',   
                     dataType:   'json',
                     
                     data: {
-                        "idECS": idECS,
+                        "idPersorg": idPersorg,
                     },
 
                     async: true,  
                     
                     success: function(data, status) {
 
-                        $("#ECSList #"+idECS).remove();
+                        $("#persorgsList #"+idPersorg).remove();
                         
                     },  
 
@@ -399,21 +378,8 @@
     
             });
 
-            
-
-
-
-
-
-
-
-
-
-
-
         }); 
 
-        
     </script>
 
 {% endblock %}
