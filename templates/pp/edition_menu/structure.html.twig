@@ -72,10 +72,12 @@
                 <!-- Project Team -->
 
                 {% include "pp/edition_menu/items/_team.html.twig" %}
-                               
-                <!-- Project Technical Data -->
 
-                {% include "pp/edition_menu/items/_data_list.html.twig" %}
+                
+                <!-- Project Owners -->
+
+                {% include "pp/edition_menu/items/_owners.html.twig" %}
+                   
                                
                 <!-- Project External Contributors (donors; partners; etc) -->
 
@@ -115,10 +117,10 @@
 
                 {% include "pp/edition_menu/items/_events.html.twig" %}
 
-                
-                <!-- Project Owners -->
+                            
+                <!-- Project Other Data -->
 
-                {% include "pp/edition_menu/items/_owners.html.twig" %}
+                {% include "pp/edition_menu/items/_data_list.html.twig" %}
 
 
               </div>
@@ -147,14 +149,15 @@
                 {% include "pp/edition_menu/items/_contact_us.html.twig" %}
 
 
+                <!-- Display Project Presentation -->
+
+                {% include "pp/edition_menu/items/_show_presentation.html.twig" %}
+                
+
                 <!-- Project Q&A -->
 
                 {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
 
-
-                <!-- Display Project Presentation -->
-
-                {% include "pp/edition_menu/items/_show_presentation.html.twig" %}
 
          
               </div>

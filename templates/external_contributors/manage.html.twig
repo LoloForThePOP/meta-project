@@ -80,16 +80,28 @@
 
                         {% for persorg in ecs.persorgs %}
 
+                        <!-- Persorg Card --> 
+
+                        <div id="{{persorg.id}}" class="js-sortableItem persorgCard position-relative" style="height:150px; width:150px; margin-right: 15px; margin-bottom: 20px;cursor:pointer; border:1px solid black;">
+
                             <!-- Persorg Edition Path -->
 
                             <a id="{{ecs.id}}" class='text-body' href="{{ path('edit_persorg', {'slug':presentation.slug, 'id_persorg':persorg.id, 'id_ecs':ecs.id}) }}">
 
-                                <!-- Persorg Card --> 
+                                <!-- Persorg Card Content --> 
 
                                 {% include "persorgs/_persorg_card.html.twig" %}
 
-
+                            
                             </a>
+
+                            <!-- Remove Persorg (Button with Red Cross) -->
+
+                            <button type="button" class="js-delete-persorg d-inline position-absolute btn btn-danger sharp py-0 px-2" data-id="{{persorg.id}}" style="top:0; right:0; z-index:1000;"><span class="font-weight-bold">x</span></button>
+
+                        </div>
+
+
 
                         {% endfor %}
 
@@ -343,10 +355,13 @@
 
                 var idPersorg = $(this).attr("data-id");
 
+                
+
                 if (confirm("Confimez vous la suppression de cette miniature ?"))
                 {
 
                 $(this).html('<div class="loader"></div>');
+
                     
                 $.ajax({  
 
@@ -375,6 +390,7 @@
                     }); 
                     
                 }
+
     
             });
 

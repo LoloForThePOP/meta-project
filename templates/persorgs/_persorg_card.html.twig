@@ -1,4 +1,4 @@
-<div id="{{persorg.id}}" class="js-sortableItem persorgCard position-relative" style="height:150px; width:150px; margin-right: 15px; margin-bottom: 20px;cursor:pointer; border:1px solid black;">
+
 
     <!-- Persorg Image -->
     
@@ -26,14 +26,8 @@
 
     <!-- Persorg Name -->
 
-    <div class="d-flex justify-content-center" style="margin-bottom:8px;">
+    <div class="d-flex justify-content-center font-weight-bold" style="margin-bottom:8px; font-size:1.15em;">
 
         {{ persorg.name | length < 10 ? persorg.name : persorg.name|slice(0, 10) ~ '...' }}
 
     </div>
-
-    <!-- Remove Persorg (Button with Red Cross) -->
-
-    <button type="button" class="js-delete-persorg d-inline position-absolute btn btn-danger sharp py-0 px-2" data-id="{{persorg.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
-
-</div>

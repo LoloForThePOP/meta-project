@@ -86,7 +86,26 @@
 
                         {% set persorg = owner.persorg %}
 
-                        {% include "persorgs/_persorg_card.html.twig" %}
+                        <!-- Persorg Card --> 
+
+                        <div id="{{owner.id}}" class="js-sortableItem persorgCard position-relative" style="height:150px; width:150px; margin-right: 15px; margin-bottom: 20px;cursor:pointer; border:1px solid black;">
+
+                            <!-- Persorg Edition Path -->
+
+                            <a id="" class='text-body' href="{{ path('edit_owner_persorg', {'slug':presentation.slug, 'id_persorg':persorg.id}) }}">
+
+                                <!-- Persorg Card Content --> 
+
+                                {% include "persorgs/_persorg_card.html.twig" %}
+
+                            
+                            </a>
+
+                            <!-- Remove Persorg (Button with Red Cross) -->
+
+                            <button type="button" class="js-remove-owner d-inline position-absolute btn btn-danger sharp py-0 px-2" data-id="{{owner.id}}" style="top:0; right:0; z-index:1000;"><span class="font-weight-bold">x</span></button>
+
+                        </div>
 
                     {% endfor %}
 
@@ -97,28 +116,147 @@
         {% endif %}
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+
+    <!-- sortable plugin in order to reorder Projetct Owners Display -->
+
+    <script src="/js/sortable/sortable.min.js"></script>
+
+    <!-- jQuerySupport for this sortable plugin -->
+    
+    <script src="/js/sortable/jquery-sortable.js"></script>
+       
+    <script>
+
+        $(document).ready(function(){
+
+            // if form errors are detected, we have to trigger form modal display
+
+            {% if not persorgForm.vars.valid %}
+
+                $('#addPersorgFormModal').modal('show');
+
+            {% endif %}
+
+
+
+            // Reorder Owners Positions (with drag and drop)
+
+            $('#persorgsList').sortable({
+
+                animation: 150,
+
+                ghostClass: 'blue-background-class',
+
+                filter: ".disabled",
+
+                onMove: function (evt) {
+                    return evt.related.className.indexOf('disabled') === -1;
+                },
+
+                // reorder owners positions (drag and drop)
+
+                onEnd: function (evt) {
+
+                    // an array storing owners id position
+
+                    var ownersPositions = [];
+
+                    
+                    $('#persorgsList div.js-sortableItem').each(function(index){
+                        
+                        ownersPositions.push($(this).attr('id'));
+                        alert($(this).attr('id'));
+                
+                    });
+
+                    jsonOwnersPositions = JSON.stringify(ownersPositions);
+                    
+                    $.ajax({  
+
+                        url: "{{path('ajax_reorder_owners', {'slug': presentation.slug})}}",
+
+                        type:       'POST',   
+
+                        dataType:   'json',
+
+                        data: {
+
+                            "jsonOwnersPositions": jsonOwnersPositions,
+
+                        },
+
+                        async: true,  
+                        
+                        success: function(data, status) {
+                                
+                        },  
+
+                        error : function(xhr, textStatus, errorThrown) {  
+                            // alert('Ajax request failed.');  
+                        }  
+                    }); 
+
+                },
+            });
+
+  
+
+                                                
+            // Remove a Project Owner
+
+            $('#persorgsList').on('click', '.js-remove-owner', function (){
+
+                var idOwner = $(this).attr("data-id");
+
+                if (confirm("Confimez vous enlever cette miniature ?"))
+                {
+
+                $(this).html('<div class="loader"></div>');
+                    
+                $.ajax({  
+
+                    url: "{{path('ajax_remove_owner', {'slug': presentation.slug}) }}",
+                    type:       'POST',   
+                    dataType:   'json',
+                    
+                    data: {
+                        "idOwner": idOwner,
+                    },
+
+                    async: true,  
+                    
+                    success: function(data, status) {
+
+                        $("#persorgsList #"+idOwner).remove();
+                        
+                    },  
+
+                    error : function(xhr, textStatus, errorThrown) {  
+
+                        alert('Ajax request failed.');
+
+                    }  
+
+                    }); 
+                    
+                }
+    
+            });
+
+
+
+        }); 
+
+        
+    </script>
+
 
 {% endblock %}
 
