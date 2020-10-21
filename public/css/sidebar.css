@@ -97,7 +97,7 @@
     display: block;
 }
 
-#sidebar ul li a:hover {
+#sidebar ul li:hover {
     background: #fff;
     font-weight: bold;
 }

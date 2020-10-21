@@ -13,7 +13,7 @@
 {% endblock %}
 
 
-<!-- Project Team Display -->
+<!-- Project Owner Display -->
 
 {% if presentation.owners | length > 0 %}
 
@@ -34,7 +34,7 @@
             {% if app.user and app.user == presentation.creator %}
 
 
-                <a class="" href="{{ path('manage_teammates', {'slug': presentation.slug}) }}">
+                <a class="" href="{{ path('manage_owners', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
                     
@@ -68,7 +68,7 @@
 
                                 {% if owner.persorg.image is not null %}
 
-                                    <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ owner.persorg.image) | imagine_filter('teammate_thumbnail') }}" height="100px" width="100px">
+                                    <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
                                 
                                 {% else %}
                                                         
@@ -82,7 +82,7 @@
 
                             </div> 
                                                 
-                            <!-- Teammate Name -->
+                            <!--Owner Name -->
 
                             <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
 
@@ -91,7 +91,7 @@
                             </div>
 
                                                 
-                            <!-- Teammate Show More Info (if more info available) -->
+                            <!-- Owner Show More Info (if more info available) -->
 
                             {% if owner.persorg.description is not empty or owner.persorg.email is not empty or owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
                                 
@@ -119,11 +119,11 @@
             </div>
 
 
-            <!-- Teammate Details (Modal Boxes Creation) -->
+            <!-- Owner Details (Modal Boxes Creation) -->
    
             {% for owner in presentation.owners %}
 
-                <!-- Display More Info (Teammate Details) (in a modal box) -->
+                <!-- Display More Info (Owner Details) (in a modal box) -->
 
                 <div class="modal fade" id="ownerDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="ownerDisplayLabel{{ loop.index }}" aria-hidden="true">
                         
@@ -135,7 +135,7 @@
     
                     <div class="modal-header">
 
-                        <!-- Teammate Name -->
+                        <!-- Owner Name -->
 
                         <div class="row pl-4 font-weight-bold"> 
 
@@ -163,17 +163,17 @@
                         <div class="container pt-md-3">
 
 
-                            <!-- Upper Box (contains teammate image; name & missions) -->
+                            <!-- Upper Box (contains owner image; name & missions) -->
 
                             <div class="row mb-4">
 
                                 <div class="col-4">
                                     
-                                    <!-- Teammate Image -->
+                                    <!-- Owner Image -->
 
                                     {% if owner.persorg.image is not null %}
 
-                                     <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ owner.persorg.image) | imagine_filter('teammate_thumbnail') }}" height="115px" width="115px">
+                                     <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="115px" width="115px">
                                     
 
                                         {% else %}
@@ -198,7 +198,7 @@
 
                                     <div class="container">
                                   
-                                        <!-- Teammate Name -->
+                                        <!-- Owner Name -->
 
                                         <div class="row"> 
 
@@ -216,7 +216,7 @@
 
                             </div>
 
-                            <!-- Team Member Description / Comments (Potential) -->
+                            <!-- Owner Description / Comments (Potential) -->
 
                             {% if owner.persorg.description %}
 
@@ -229,7 +229,7 @@
                             
                             {% endif %}
 
-                        <!-- Team Member Email (Potential) -->
+                        <!-- Owner Email (Potential) -->
 
                         {% if owner.persorg.email %}
 
@@ -263,11 +263,11 @@
                         
                         {% endif %}
 
-                        <!-- Team Member Potential Websites or Social Networks -->
+                        <!-- Owner Potential Websites or Social Networks -->
 
                         {% if owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
 
-                            <!-- Label for Team Member Potential Websites or Social Networks -->
+                            <!-- Label for Owner Potential Websites or Social Networks -->
 
                             <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
 
@@ -280,7 +280,7 @@
 
                         {% if owner.persorg.webdomain1 is not empty %}
 
-                            <!-- Team Member Webdomain 1 (Potential) -->
+                            <!-- Owner Webdomain 1 (Potential) -->
     
                             <div class="font-weight-bold mb-2">
 
@@ -294,7 +294,7 @@
                         
                         {% endif %}
 
-                         <!-- Team Member Webdomain 2 (Potential) -->
+                         <!-- Owner Webdomain 2 (Potential) -->
 
                         {% if owner.persorg.webdomain2 is not empty %}
                         
@@ -310,7 +310,7 @@
 
                         {% endif %}
 
-                         <!-- Team Member Webdomain 3 (Potential) -->
+                         <!-- Owner Webdomain 3 (Potential) -->
 
                         {% if owner.persorg.webdomain3 is not empty %}
                         
@@ -326,7 +326,7 @@
 
                         {% endif %}
 
-                         <!-- Team Member Webdomain 4 (Potential) -->
+                         <!-- Owner Webdomain 4 (Potential) -->
 
                         {% if owner.persorg.webdomain4 is not empty %}
                         
@@ -374,7 +374,7 @@
 {% endif %}
 
 
-<!-- Styles for Project Team Display -->
+<!-- Styles for Project Owner Display -->
 
 <style>
 

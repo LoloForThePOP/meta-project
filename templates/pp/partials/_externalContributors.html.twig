@@ -72,9 +72,9 @@
                                         
                                         <div class="mb-2 d-flex justify-content-center">
 
-                                            {% if persorg.imageFile is not null %}
+                                            {% if persorg.image is not null %}
 
-                                                <img class="img-fluid" src="/images/test/extContribsLogos/{{persorg.image}}.jpg" height="100px" width="100px">
+                                                <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
                                             
                                             {% else %}
                                                                     
@@ -182,7 +182,7 @@
 
                                                     {% if persorg.image is not null %}
 
-                                                        <img class="img-fluid" src="/images/test/extContribsLogos/{{persorg.image}}.jpg" height="100px" width="100px">
+                                                        <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
 
                                                     <!-- Case we don't have an Image -->
 

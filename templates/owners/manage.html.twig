@@ -76,7 +76,7 @@
 
         {% if presentation.owners | length > 0 %}
 
-            <div class="container" style="display:inline-block;">
+            <div class="container mb-3" style="display:inline-block;">
 
                 <!-- Persorgs Grid -->
 
@@ -114,6 +114,18 @@
             </div>
 
         {% endif %}
+
+        
+
+        <!-- Back Button -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+                <button type="button" class="btn btn-info btn-lg bg-blue font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            </a>
+
+        </div>
 
 
     </div>

@@ -4,9 +4,9 @@
     
     <div class="d-flex justify-content-center" style="margin-top:15px; margin-bottom:8px;">
 
-        {% if persorg.imageFile is not null %}
+        {% if persorg.image is not null %}
 
-            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('teammate_thumbnail') }}" height="100px" width="100px">
+            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
         
         {% else %}
                                 
