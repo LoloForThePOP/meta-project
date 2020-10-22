@@ -6,7 +6,7 @@
 
         {% if persorg.image is not null %}
 
-            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
+            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}" style="">
         
         {% else %}
                                 

@@ -68,7 +68,7 @@
 
                                 {% if owner.persorg.image is not null %}
 
-                                    <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
+                                    <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
                                 
                                 {% else %}
                                                         
@@ -173,7 +173,7 @@
 
                                     {% if owner.persorg.image is not null %}
 
-                                     <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="115px" width="115px">
+                                     <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
                                     
 
                                         {% else %}

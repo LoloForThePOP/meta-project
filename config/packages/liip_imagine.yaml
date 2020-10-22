@@ -20,6 +20,7 @@ liip_imagine:
                 # to crop the image when the size ratio of the input differs
                 thumbnail  : { size : [80, 50], mode : outbound }
 
+                
         # Teammates Thumbnails
         teammate_thumbnail :
 

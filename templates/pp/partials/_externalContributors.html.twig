@@ -46,11 +46,10 @@
 
                 </h3>
 
-                
+
+                 <!-- ECS Images Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                 
                 {% if ecs.persorgs | length > 0 %}
-
-                    <!-- ECS Content Display (ex: Coca-Cola; Nike; etc) -->
                     
                     <div class="container">
                         
@@ -74,7 +73,7 @@
 
                                             {% if persorg.image is not null %}
 
-                                                <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
+                                                <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
                                             
                                             {% else %}
                                                                     
@@ -378,6 +377,18 @@
 
                 {% endif %} 
 
+                 <!-- ECS Rich Text Content Display -->
+                
+                 {% if ecs.richTextContent is not null %}
+
+                        <div class="container" style="font-size:1.17em;">
+
+                            {{ecs.richTextContent | raw}}
+
+                        </div>
+
+                 {% endif %}
+
             </div>
             
         {% endfor %}
@@ -394,7 +405,7 @@
     
     .ecs{
         
-        margin-bottom: 20px;
+        margin-bottom: 38px;
     }
     
     .ecsDisplayRow{
