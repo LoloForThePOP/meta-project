@@ -14,6 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
 
 class PPController extends AbstractController
 {
@@ -136,22 +137,40 @@ class PPController extends AbstractController
         return $this->redirectToRoute('projects_index');
     }
 
+
+    
     /**
-     * Allow to Display a Project Presentation Page
+     * Allow to Display a Project Presentation Page by its slug
      *
-     * @Route("/projects/{slug}",name="project_show")
-     * 
+     * @Route("/projects/{slug}", name="project_show")
      * @Security("presentation.getIsPublished() == true or user === presentation.getCreator() ")
      * 
      * @return Response
      */
-    public function show($slug, PPBasic $presentation){
+    public function show(PPBasic $presentation){
 
         return $this->render('/pp/show.html.twig',[
             'presentation' => $presentation,
         ]);
 
     }
+    
+    /**
+     * Allow to Display a Project Presentation Page by its id
+     *
+     * @Route("/project/{id}", name="project_show_by_id", requirements={"id_presentation"="\d+"})
+     * @Security("presentation.getIsPublished() == true or user === presentation.getCreator() ")
+     * 
+     * @return Response
+     */
+    public function showById(PPBasic $presentation){
+
+        return $this->render('/pp/show.html.twig',[
+            'presentation' => $presentation,
+        ]);
+
+    }
+
 
     /**
      * Allow to Display Project Presentation Edition Menu
@@ -199,22 +218,6 @@ class PPController extends AbstractController
         return $this->render('/pp/edition_menu/structure.html.twig',[
             
             'ecsForm' => $ecsForm->createView(),
-            'presentation' => $presentation,
-        ]);
-
-    }
-
-    
-    /**
-     * Allow to Display Project Presentation Links Page
-     *
-     * @Route("/projects/{slug}/links",name="presentation_links")
-     * 
-     * @return Response
-     */
-    public function links($slug, PPBasic $presentation){
-
-        return $this->render('/pp/misc/links.html.twig',[
             'presentation' => $presentation,
         ]);
 

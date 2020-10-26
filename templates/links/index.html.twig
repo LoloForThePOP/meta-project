@@ -1,0 +1,334 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block title %}Export & Liens{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
+
+{% block body %}
+
+    <div class="container ml-md-4 col-md-8">
+       
+        <div class="mt-md-5 mt-3">
+
+            <!-- Code to cmbed Presentation into other websites (within an iframe) -->
+            <!-- Copy code button -->
+
+            <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
+      
+                <h4 class="font-weight-bold mb-3">
+                    Pour afficher la présentation dans un autre site web
+                </h4>
+
+                <p class="fs-25 mb-4">
+                    Copier le code suivant, et intégrez le dans le site web désiré.
+                </p>
+
+                <!-- Textarea containing iframe code -->
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col"> <textarea id="iFrameTagTextarea" class="mb-3 col-md-12 h-100" name="" resize="none"><iframe id="iFrame" src="https://127.0.0.1:8000/projects/5106/embed" scrolling="no" frameborder="0" ></iframe>
+<style>iframe {
+        width: 1px;
+        min-width: 100%;
+    }
+</style>
+                                 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.min.js" integrity="sha512-HY1lApSG7xxx8mYzs/lxRs+c5AaDThRaa3pvQB6puiswvf2lWqMJVf+8qSGiL4ZXfHQoPIqbd1TlpqfycPo3cQ==" crossorigin="anonymous"></script>
+
+<script>
+
+    iFrameResize({ log: true }, '#iFrame');
+    
+</script></textarea></div>
+
+                        <!-- Copy link button -->
+
+                        <div class="col-auto d-flex align-items-center">
+                            <div class="tooltipo">
+                                <button class="btn btn-success bg-green font-weight-bold" onclick="copyToClipboard('iFrameTagTextarea')" onmouseout="outFunc()">
+        
+                                    <span class="tooltiptext d-block" id="myTooltip">
+        
+                                        Copier ?
+                                    
+                                    </span>
+        
+                                    Copier
+        
+                                </button>
+        
+                            </div>  
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Style for copy link button with tooltip -->
+                 
+                <style>
+
+                    .tooltipo {
+                        position: relative;
+                        display: inline-block;
+                    }
+                    
+                    .tooltipo .tooltiptext {
+                        visibility: hidden;
+                        width: 140px;
+                        background-color: #555;
+                        color: #fff;
+                        text-align: center;
+                        border-radius: 6px;
+                        padding: 5px;
+                        position: absolute;
+                        z-index: 1;
+                        bottom: 150%;
+                        left: 50%;
+                        margin-left: -75px;
+                        opacity: 0;
+                        transition: opacity 0.3s;
+                    }
+                    
+                    .tooltipo .tooltiptext::after {
+                        content: "";
+                        position: absolute;
+                        top: 100%;
+                        left: 50%;
+                        margin-left: -5px;
+                        border-width: 5px;
+                        border-style: solid;
+                        border-color: #555 transparent transparent transparent;
+                    }
+                    
+                    .tooltipo:hover .tooltiptext {
+                        visibility: visible;
+                        opacity: 1;
+                    }
+
+                </style>
+
+            </div>
+
+
+            <!-- link to project presentation page -->
+
+            <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
+      
+                <h4 class="font-weight-bold mb-4">
+                    Adresse de la page de présentation
+                </h4>
+
+                <p id="projectPresentationURL" class="d-inline-block ml-md-4 fs-15">
+                    {{projectPresentationURL}}
+                </p>
+
+                <!-- Copy link button -->
+
+                <!-- 
+
+                
+                <div class="tooltipo">
+
+                    <button class="btn btn-success bg-green font-weight-bold" onclick="copyToClipboard('projectPresentationURL')" onmouseout="outFunc()">
+
+                        <span class="tooltiptext d-block" id="myTooltip">
+
+                            Copier ?
+                        
+                        </span>
+
+                        Copier
+
+                    </button>
+
+                </div>
+
+                    
+                 -->
+
+
+            </div>
+
+            <!-- ready-to-use links buttons, pointing to user project presentation page -->
+
+                <!-- Name of ready-to-use buttons we provide -->
+
+                {% set linksButtonsList = [ 
+
+                    { 'name': 'OurProject'},  
+                    
+                    { 'name': 'Participate'}, 
+
+                    { 'name': 'OurLogo'},
+
+                ] %}
+
+                <!-- One modal box for each button -->
+                 
+                {% for linkButton in linksButtonsList %}
+
+                    <!-- Modal -->
+                    <div class="modal fade" id="modal{{linkButton.name}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+
+                                <!-- Modal Header -->
+                                <div class="modal-header">
+
+                                    <h5 class="modal-title font-weight-bold" id="modalLabel">Vous pouvez copier ce code et l'intégrer dans votre site web</h5>
+
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+
+                                </div>
+
+                                <!-- Modal Body -->
+                                <div class="modal-body">
+
+                                    <textarea id="{{linkButton.name}}" class="w-100" resize="none" rows="7"></textarea>
+
+                                </div>
+
+                                <!-- Modal Footer -->
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-info font-weight-bold" data-dismiss="modal">Retour</button>
+
+                                    <!-- Copy code button -->
+                                    <!-- Doesn't work yet -->
+                                    <!-- Have to handle bootstrap modal box focus behaviour -->
+
+
+                                    <!-- <button type="button" onclick="" class="js-copy-code btn btn-success bg-green font-weight-bold">Copier</button> -->
+     
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                {% endfor %}
+
+
+            <!-- Ready To use buttons container -->
+
+
+            <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
+      
+                <h4 class="font-weight-bold mb-4">
+                   Boutons de liens vers votre présentation (prêts à l'emploi)
+                </h4>
+
+                <p class="fs-25 mb-4">
+                    Cliquer sur un bouton pour afficher son code.
+                </p>
+
+                <!-- Ready to use buttons container -->
+
+                <div class="d-block ml-md-4">
+
+                    <!-- ready-to-use buttons list -->
+                    <!-- click on ready to use Buttons trigger a modal -->
+
+                    <div class="my-4 d-flex align-items-center">
+
+                        <div class="buttonContainer" data-toggle="modal" data-target="#modalOurProject"><a href="{{projectPresentationURL}}" style=" -webkit-border-radius: 13px; -moz-border-radius: 13px; border-radius:4px; color: #FFFFFF; font-family:Arial, Helvetica, sans-serif; padding: 2px 10px; background-color: #05852D;text-decoration: none; display: inline-block; cursor: pointer; text-align: center; font-size:19px; font-weight:bold;">Notre Projet</a>
+                        </div>
+
+                        <div class="buttonContainer"data-toggle="modal" data-target="#modalParticipate"><a href="{{projectPresentationURL}}" style=" -webkit-border-radius: 13px; -moz-border-radius: 13px; border-radius:4px; color: #FFFFFF; font-family:Arial, Helvetica, sans-serif; padding: 2px 10px; background-color: #05852D;text-decoration: none; display: inline-block; cursor: pointer; text-align: center; font-size:19px; font-weight:bold;">Participer</a>
+                        </div>
+
+                        <div class="buttonContainer"data-toggle="modal" data-target="#modalOurLogo"><a href="{{projectPresentationURL}}"><div class="" style="display:inline-block;width: 40px; height: 40px;background-color: #05852D; text-align: center; border-radius: 50%;"><span class="" style="position: relative;top: 14px;left:1px;font-size: 30px;line-height: 10px;color: #fff;font-weight: bold;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">P</span></div></a>
+                        </div>
+
+          
+                      </div>
+
+                      <style>
+
+                        .buttonContainer {
+                            margin-right:20px;
+                        }
+
+                         .buttonTo3P:hover {
+
+                            color:white;
+
+                         }
+
+                      </style>
+                    
+                </div>
+
+            </div>
+
+            
+    
+
+        </div>
+      
+       
+
+    </div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+   <script>
+
+        function copyToClipboard(element) {
+            /* Get the text field */
+            var copyText = document.getElementById(element);
+        
+            /* Select the text field */
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+        
+            /* Copy the text inside the text field */
+            document.execCommand("copy");
+        
+            var tooltip = document.getElementById("myTooltip");
+            tooltip.innerHTML = "Copié !";
+
+        } 
+
+    </script>
+
+
+        
+    <script>
+
+        $(document).ready(function(){
+
+            $(".buttonContainer a").on("click", function(event){
+                
+                event.preventDefault();
+
+                $( ".modal textarea" ).val($(this)[0].outerHTML);
+            
+            });
+
+
+            $(".js-copy-code").on("click", function(event){ 
+
+                //alert("yo");
+
+                //alert($("#participate").val());
+
+            });
+
+        }); 
+
+    </script>
+
+{% endblock %}

@@ -4,14 +4,20 @@
 {% endif %}
 
 
-    <!-- Sidebar Items Names paired with their Access Route Names, their icons(future :  and some misc informations for badges)  -->
+    <!-- Sidebar Items Names paired with their Access Route Names, their icons -->
 
     {% set sidebarItems = [ 
 
-        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  { 'name': 'Voir le Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  
+        
+        { 'name': 'Voir le Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
 
         { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
+
+        { 'name': 'Export & Liens', 'route': 'links_index', 'iconName': 'links.svg'},
+
         { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
+
     ] %}
 
 

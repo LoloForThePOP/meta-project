@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width">
+
+        <meta name="author" content="{{ presentation.creator.name }}">
+        <meta name="keywords" content="{{ presentation.keywords }}">
+        <meta name="date" content="{{ presentation.createdAt | date}}">
+
+        <title>{{ presentation.goal | capitalize}}</title>
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/app.css">
+
+    </head>
+
+    <body>
+
+       <!--Sidebar Container; Content Container-->
+
+       <div class="p-0 m-0 wrapper">
+           
+            <div id="content" class="m-0 p-0">
+                            
+                <!-- Project Presentation Display Template -->
+
+                <div class="pp-whole-container col-md-12 col-xl-10">
+
+
+                <div class="row pt-2 px-md-2">
+
+                    <div class="col-md-12 mb-3 pb-3" style="border-radius:4px !important;">
+
+                        <!-- Upper Box (Contains Project Logo; Title; Goal; Keywords) -->
+                        {% include 'pp/partials/_upper_box.html.twig' %}
+
+                        <!-- Project Images & Videos (Displayed in a Slideshow) -->
+                        {% include 'pp/partials/_slideshow.html.twig' %}
+                        
+                        <!-- Project Text Description -->
+                        {% include 'pp/partials/_textDescription.html.twig' %}
+                        
+                        <!-- Project Supplementary Informations (aka Technical Data)-->
+                        {% include 'pp/partials/_technicalData.html.twig' %}
+                        
+                        <!-- Project Documents -->
+                        {% include 'pp/partials/_documents.html.twig' %}
+                        
+                        <!-- Project Dates & Events -->
+                        {% include 'pp/partials/_datesEvents.html.twig' %}
+                        
+                        <!-- Project Questions & Answers -->
+                        {% include 'pp/partials/_questionAnswer.html.twig' %}
+
+                        <!-- Project Needs -->
+                        {% include 'pp/partials/_needs.html.twig' %}
+
+                        <!-- Project Websites -->
+                        {% include 'pp/partials/_websites.html.twig' %}
+                        
+                        <!-- Project Geographic Domains -->
+                        {% include 'pp/partials/_geoDomains.html.twig' %}
+
+                        <!-- Project Owners -->
+                        {% include 'pp/partials/_owners.html.twig' %}
+
+                        <!-- Project Team -->
+                        {% include 'pp/partials/_team.html.twig' %}
+
+                        <!-- Project External Contributors -->
+                        {% include 'pp/partials/_externalContributors.html.twig' %}
+
+                        <!-- Project Contact Us Cards & Private Message Button -->
+                        {% include 'pp/partials/_contactUs.html.twig' %}
+
+
+                            <div class="mt-5 mb-3">
+
+                                <!-- Display Some Metadatas -->
+                                {% include 'pp/partials/_metadataDisplay.html.twig' %}
+
+                                <!-- some buttons (example : report abuse; save as pdf; ...) -->
+                                <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
+
+                                    <button type="button" class="btn btn-light">Signaler un abus</button>
+
+                                </a>
+                                
+                            </div>
+
+                    </div>
+   
+                <!-- Footer Copyright -->
+
+                <a class="text-decoration-none text-body" href="www.projetdesprojets.com">
+                    <p>Copyright ProtoRoad</p>
+                </a>          
+                   
+                </div>
+
+
+                </div>
+
+                
+            </div>
+
+        
+        </div>
+
+
+        <!-- By Defaults Javascripts -->
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+
+        
+    </body>
+
+</html>
+
+
+{% block body %}
+
+
+<style>
+
+    html, body {
+        //height: 100%;
+        //width: 100%;
+        //overflow: hidden;
+      }
+
+    /* Whole Presentation Container */
+
+    .pp-whole-container {
+
+        background-color :  #eff4ff;
+ 
+     }
+
+     /* Each Structure Container */
+
+    .pp-struct-container {
+
+        background-color : aliceblue;
+
+        padding-left: 20px;
+
+        padding-top: 18px;
+
+        margin-bottom: 35px;
+
+        border-radius: 0px;
+
+        -webkit-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
+        -moz-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
+        box-shadow: -1px 1px 6px 0px #e6e4ff !important;
+    
+    }
+
+    
+
+
+    /* Each Structure Title Container (contains title + edit button) */
+  
+    .pp-struct-title-container{
+
+        margin-bottom: 38px;
+
+    }
+
+    /* Each Structure Title */
+  
+    .pp-struct-title{
+
+        color : navy;
+        font-family : Verdana, Geneva, Tahoma, sans-serif; 
+
+    }
+
+
+    
+    @media screen and (max-width: 580px) {
+
+      
+        .pp-struct-container {
+    
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-top: 4px;
+
+            margin-bottom: 15px;
+
+            font-size: 15px !important;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+        
+        }
+
+        .pp-struct-title-container{
+
+            margin-bottom: 18px;
+
+    
+        }
+
+        .pp-struct-title{
+
+            color : navy;
+            font-family : Verdana, Geneva, Tahoma, sans-serif;
+
+            font-size: 25px;
+    
+        }
+
+    }
+
+</style>
+
+
+
+{% endblock %}
+
+
+{# Javascripts for Specific Project Structures Behaviours#}
+
+{% block javascripts %}
+
+    {% if presentation.needs %}
+
+        {% include 'pp/js_show/_needs.html.twig' %}
+        
+    {% endif %}
+
+    {% if presentation.teammates %}
+
+        <script type="text/javascript" src="/js/slick.min.js"></script>
+
+        <script>
+            
+            $(document).ready(function(){
+
+
+                $('.teammatesSlideshow').slick({
+
+                    infinite: false,
+                    slidesToShow: 6,
+                    slidesToScroll: 2,
+
+                    responsive: [
+                    
+                        {
+
+                            breakpoint: 480,
+
+                            settings:
+
+                            {
+
+                                arrows: true,
+                                slidesToShow: 3,
+                                slidesToScroll: 2,
+
+                            }
+
+                        }
+                    ],
+
+                });
+
+
+                $('.ownersSlideshow').slick({
+
+                    infinite: false,
+                    slidesToShow: 6,
+                    slidesToScroll: 2,
+
+                    responsive: [
+                    
+                        {
+
+                            breakpoint: 480,
+
+                            settings:
+
+                            {
+
+                                arrows: true,
+                                slidesToShow: 3,
+                                slidesToScroll: 2,
+
+                            }
+
+                        }
+                    ],
+
+                });
+
+
+
+
+
+
+
+
+
+            });
+
+        </script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.contentWindow.js" integrity="sha512-RMBWitJB1ymY4l6xeYsFwoEgVCAnOWX/zL1gNwXjlUj78nZ8SVbJsZxbH/w0p2jDNraHkOW8rzQgcJ0LNSXWBA==" crossorigin="anonymous"></script>
+        
+    {% endif %}
+
+
+
+
+
+{% endblock %}

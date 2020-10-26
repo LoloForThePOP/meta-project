@@ -86,6 +86,14 @@ a {
     font-size: 1.15em !important;
 }
 
+.fs-20 {
+    font-size: 1.20em !important;
+}
+
+.fs-25 {
+    font-size: 1.25em !important;
+}
+
 .lh-2 {
     line-height:1.6;
 }

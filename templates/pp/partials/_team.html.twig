@@ -64,7 +64,7 @@
 
                             <!-- Teammate Missions -->
 
-                            <div class="teammateName font-weight-bold mb-2 text-center" style="height:45px; ">
+                            <div class="teammateMission font-weight-bold mb-2 text-center" style="height:45px; ">
 
                                 {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions|slice(0, 19) ~ '...' }}
 
@@ -425,8 +425,8 @@
         line-height: 58px; /* 50% of parent */
     }
 
-    .teammateName{
-        color:#0c6a31;
+    .teammateMission{
+        color:black;
     }
 
 

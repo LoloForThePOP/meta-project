@@ -3,7 +3,7 @@
 
         <!-- Flash Messages Display -->
 
-        <div class="d-flex align-items-center alert alert-{{label}} mt-3 h5 font-weight-bold mx-md-3 sharp">
+        <div class="flashMessage d-flex align-items-center alert alert-{{label}} mt-3 h5 font-weight-bold mx-md-3 sharp">
 
             {% for message in messages %}
 
@@ -12,5 +12,24 @@
             {% endfor %}
 
         </div>
+
+        <style>
+
+            .flashMessage {
+              
+                -webkit-animation: fadeinout 4s linear forwards;
+                animation: fadeinout 4s linear forwards;
+                opacity: 0;
+            }
+            
+            @-webkit-keyframes fadeinout {
+              50% { opacity: 1; }
+            }
+            
+            @keyframes fadeinout {
+              50% { opacity: 1; }
+            }
+            
+        </style>
 
     {% endfor %}
