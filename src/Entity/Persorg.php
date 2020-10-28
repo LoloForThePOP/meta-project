@@ -2,23 +2,24 @@
 
 namespace App\Entity;
 
-use App\Repository\PersorgRepository;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
+use Serializable;
 use Doctrine\ORM\Mapping as ORM;
-
-use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
 
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Constraints\Image;
-use Symfony\Component\Validator\Constraints\Length;
+use App\Repository\PersorgRepository;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 
+use Symfony\Component\HttpFoundation\File\File;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints\Image;
+
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
+use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Represents a Person or an organisation (Pers Org)
@@ -28,7 +29,7 @@ use Symfony\Component\HttpFoundation\File\File;
  * @ORM\HasLifecycleCallbacks
  * 
  */
-class Persorg
+class Persorg implements \Serializable
 {
     /**
      * @ORM\Id()
@@ -38,7 +39,7 @@ class Persorg
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $name;
     
@@ -125,7 +126,13 @@ class Persorg
      */
     private $owner;
 
-     
+    /**
+     * @ORM\OneToOne(targetEntity=User::class, mappedBy="persorg", cascade={"persist", "remove"})
+     */
+    private $user;
+
+
+    
 
     public function __construct()
     {
@@ -159,8 +166,22 @@ class Persorg
     }
 
 
+      
+    public function __toString()
+    {
+        return (string) $this->id;
+    }
 
-
+    public function serialize()
+    {
+        return serialize($this->id);
+    }
+    
+    public function unserialize($serialized)
+    {
+    $this->id = unserialize($serialized);
+    
+    }
 
 
 
@@ -395,6 +416,23 @@ class Persorg
         return $this;
     }
 
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): self
+    {
+        $this->user = $user;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPersorg = null === $user ? null : $this;
+        if ($user->getPersorg() !== $newPersorg) {
+            $user->setPersorg($newPersorg);
+        }
+
+        return $this;
+    }
 
 
 }

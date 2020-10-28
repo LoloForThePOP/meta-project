@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Persorg;
 use App\Form\AccountType;
+use App\Form\PersorgType;
 use App\Form\ResetPassType;
 use App\Entity\PasswordUpdate;
 use App\Form\RegistrationType;
@@ -71,6 +73,7 @@ class AccountController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
+
             $hash = $encoder->encodePassword($user, $user->getHash());
             $user->setHash($hash);
 
@@ -106,20 +109,40 @@ class AccountController extends AbstractController
     }
 
     /**
-     * Allow user to edit his profile
-     * @Route("account/profile",name="account_profile")
+     * Allow user to access update account menu
+     * 
+     * @Route("account/update-menu",name="account_update_menu")
+     * 
      * @Security("is_granted('ROLE_USER')")
+     * 
      * @return Response
      */
-    public function profile(Request $request, EntityManagerInterface $manager){
+    public function accessMenu(Request $request, EntityManagerInterface $manager){
+
+        return $this->render('/account/update_menu.html.twig',[
+        ]);
+    }
+
+
+    /**
+     * Allow user to modify his account email
+     * 
+     * @Route("account/update-email",name="account_update_email")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * @return Response
+     */
+    public function updateEmail(Request $request, EntityManagerInterface $manager){
 
         $user = $this->getUser();
 
         $form = $this->createForm(AccountType::class, $user);
 
+
         $form->handleRequest($request);
 
-        if($form->isSubmitted() && $form->isValid()){
+        if($form->isSubmitted() && $form->isValid()) {
 
             $manager->persist($user);
             $manager->flush();
@@ -134,10 +157,11 @@ class AccountController extends AbstractController
             ]);
         }
 
-        return $this->render('/account/profile.html.twig',[
+        return $this->render('/account/change_email.html.twig',[
             'form' => $form->createView(),
         ]);
     }
+
 
     
     /**
@@ -192,7 +216,7 @@ class AccountController extends AbstractController
     }
 
       /**     
-     * Allow to show connected user profile
+     * Allow to show user profile
      * @Route("/account",name="account_index")
      * @IsGranted("ROLE_USER")
      *

@@ -2,32 +2,24 @@
 
 namespace App\Entity;
 
+use App\Entity\Persorg;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
-use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 
+use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
-use Symfony\Component\Validator\Constraints\Image;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
-use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
-use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
-use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(
  * fields={"email"},
- * message="Un utilisateur s'est déjà inscrit avec cette adresse email. Si cette adresse email est bien la vôtre, vous êtes déjà inscrit sur le site. Si vous ne vous souvenez plus de votre mot de passe, dirigez vous vers la section mot de passe oublié."
- * )
- * @UniqueEntity(
- * fields={"name"},
- * message="Un utilisateur utilise déjà ce nom. Veuillez Utiliser un autre nom"
+ * message="Un utilisateur s'est déjà inscrit avec cette adresse email."
  * )
  */
 class User implements UserInterface
@@ -40,39 +32,10 @@ class User implements UserInterface
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Email(message="Veuillez renseigner un email valide")
      */
     private $email;
-
-    /**
-     * the name of the image file (example : cat-4234564567.jpg)
-     * 
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $imageName;
-
-    
-    /**
-     * NOTE: This is not a mapped field of entity metadata, just a simple property.
-     *@Assert\Image(
-     *     maxSize = "2000k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 2000 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
-     *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas pris en compte. Les formats acceptés sont : {{ types }}"
-     * )
-     *
-     * 
-     * @Vich\UploadableField(mapping="slide_image", fileNameProperty="slideName")
-     * 
-     * @var File|null
-     */
-    public $imageFile;
 
 
     /**
@@ -80,11 +43,6 @@ class User implements UserInterface
      * @Assert\Length(min=4, minMessage="Votre Mot de Passe doit faire minimum {{ limit }} caractères")
      */
     private $hash;
-
-    /**
-     * @ORM\Column(type="text", nullable=true)
-     */
-    private $description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -129,7 +87,7 @@ class User implements UserInterface
     private $isAllowed;
 
     /**
-     * Fiel for comments over a user banishment
+     * comments over a user banishment
      * 
      * @ORM\Column(type="text", nullable=true)
      */
@@ -146,29 +104,38 @@ class User implements UserInterface
     private $updatedAt;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $website;
-
-    /**
      * when user forget his password
      * 
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $resetPassToken;
 
+    /**
+     * user public profile
+     * 
+     * @ORM\OneToOne(targetEntity=Persorg::class, inversedBy="user", cascade={"persist", "remove"})
+     */
+    private $persorg;
+
 
     public function __construct()
     {
+        
+        // we create a public profile for user
+        $userPersorg = new Persorg();
+        $userPersorg->setName('anonyme');
+        $this->setPersorg($userPersorg);
 
+        // new user is allowed on website by default
         $this->isAllowed = true;
+        
         $this->createdAt = new \DateTime('now');
         $this->presentations = new ArrayCollection();
         $this->userRoles = new ArrayCollection();
         $this->contactMessages = new ArrayCollection();
         $this->pGroups = new ArrayCollection();
         $this->pGroupsMaster = new ArrayCollection();
-        $this->reports = new ArrayCollection();
+        $this->reports = new ArrayCollection();                
         
     }
   
@@ -182,17 +149,6 @@ class User implements UserInterface
         return $this->id;
     }
 
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(?string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getEmail(): ?string
     {
@@ -206,17 +162,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getImageName(): ?string
-    {
-        return $this->imageName;
-    }
-
-    public function setImageName(?string $imageName): self
-    {
-        $this->imageName = $imageName;
-
-        return $this;
-    }
 
     public function getHash(): ?string
     {
@@ -230,17 +175,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
-
-        return $this;
-    }
 
     public function getUserSlug(): ?string
     {
@@ -507,17 +441,6 @@ class User implements UserInterface
         return $this;
     }
 
-    public function getWebsite(): ?string
-    {
-        return $this->website;
-    }
-
-    public function setWebsite(?string $website): self
-    {
-        $this->website = $website;
-
-        return $this;
-    }
 
     public function getResetPassToken(): ?string
     {
@@ -530,6 +453,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getPersorg(): ?Persorg
+    {
+        return $this->persorg;
+    }
+
+    public function setPersorg(?Persorg $persorg): self
+    {
+        $this->persorg = $persorg;
+
+        return $this;
+    }
+
 
   
 }

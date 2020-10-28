@@ -71,15 +71,7 @@
 
                     <a class="nav-link dropdown-toggle bg-info text-white font-weight-bold rounded" style="color:white !important;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         
-                        {% if app.user.imageName %}
-                        
-                            <img src="{{app.user.imageName}}" class="" alt="{{app.user.name}}" style="width:25px; height:25px;">
-
-                        {% else %}
-
-                             Compte
-                           
-                        {% endif %}
+                       Compte
 
 
                     </a>
@@ -93,7 +85,7 @@
 
                         <div class="dropdown-divider"></div>
                         
-                        <a href="{{ path('account_profile') }}" class="dropdown-item">Modifier mon profil</a>
+                        <a href="{{ path('account_index') }}" class="dropdown-item">Mon compte</a>
 
                         <div class="dropdown-divider"></div>
                         <a href="{{ path('account_logout') }}" class="dropdown-item">Déconnexion</a>

@@ -1,42 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Page de {{user.name}} {% endblock %}
+{% block title %}Page de {{user.persorg.name}} {% endblock %}
 
 {% block body %}
 
-    <div class="container pl-md-5 mt-4">
+    <div class="container pl-md-5 mt-4 pt-md-2 mt-md-5">
 
-        <!-- User Name and Avatar Caps -->
+        <!-- User Name and Image Area -->
 
         <div class="row">
 
             <div class="col-auto pr-3 d-flex justify-content-center">
+                        
+                 <!-- user image -->
+
+                 {% if user.persorg.image is not null %}
+
+                    <img class="img-fluid mb-5" src="{{ asset('/images/persorgs/' ~ user.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+
+                <!-- default one letter image -->
+
+                {% else %}
+                                        
+                    <div class="avatar-circle">
+
+                        <span class="initials">
+
+                            {{user.persorg.name | slice (0,1) | capitalize }}
+
+                        </span>
+
+                    </div>
+
+                    <style>
+
+                        /* One Letter Avatars */
+
+                        .avatar-circle {
+                            width: 60px;
+                            height: 60px;
+                            background-color: #27ae60;
+                        }
 
                         
-                {# User Image or Avatar #}
-
-                        {% if user.imageName %}
-
-                            <img class="avatar avatar-medium" src="{{ user.imageName }}" alt="Avatar de {{ user.name }}">
-
-                        {# Default One Letter Avatar #}
-
-                        {% else %}
-                                                
-                            <div class="avatar-circle">
-                                <span class="initials">
-                                    {{user.name | slice (0,1) }}
-                                </span>
-                            </div>
-                        
-                        {% endif %}
-
+                        .initials {
+                       
+                            top: 16px; /* 25% of parent */
+                            font-size: 40px; /* 50% of parent */
+                            line-height: 25px; /* 50% of parent */
+                            color: #fff;
+                            font-family: Georgia, 'Times New Roman', Times, serif;
+                            
+                        }
+                    </style>
+                
+                {% endif %}
 
             </div>
 
-            <div class="col-9 pl-0 d-flex align-items-center">
+            <div class="col-9 pl-0 ml-md-2 d-flex align-items-center">
 
-                <h3>{{user.name}}</h3>
+                <h3><b></b>{{user.persorg.name | capitalize}}</h3>
 
             </div>
 
@@ -46,15 +70,15 @@
 
         <div class="row">
             
-            <div class="mt-3">
+            <div class="mt-1">
 
                 {% if user is same as(app.user) %}
                 
                 <div class="mt-3">
 
-                    <a href="{{ path ('account_profile') }}" class="btn btn-primary mr-2 mb-2">Modifier Mes Informations</a>
-                    
-                    <a href="{{ path ('account_update_password') }}" class="btn btn-primary mb-2">Modifier Mon Mot de Passe</a>
+                    <a href="{{ path ('edit_public_profile', {'id': user.persorg.getId }) }}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mes informations publiques</a>
+
+                    <a href="{{ path ('account_update_menu') }}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mon compte utilisateur</a>
 
                 </div>
             
@@ -83,7 +107,7 @@
 
                 <div class="col-11">
 
-                    <h4>
+                    <h4 class="mb-4">
                         <span class="font-weight-bold">{{user.presentations | length}} Projet(s) Présenté(s)</span>
                     </h4>
 
@@ -97,8 +121,8 @@
         
             {% else %}
         
-                <div class="alert alert-warning">
-                    <p><strong>Aucun Projet Actuellement Présenté</strong></p>
+                <div class="d-flex align-items-center py-3">
+                    <p class="my-0 h4"><strong>Aucun Projet Actuellement Présenté</strong></p>
                 </div>
         
             {% endif %}
@@ -111,7 +135,7 @@
 
             <div class="col-7 p-3 border border-primary rounded">
                 
-                {% if not user.description %}
+                {% if not user.persorg.description %}
 
                     <span class="h5"> 
                         Aucune description de profil n'a été renseignée. 
@@ -119,9 +143,11 @@
 
                     {% if app.user %}
 
-                    <span class="h5"> 
-                        Vous pouvez remplir une description <a href="{{path('account_profile')}}"><button class="btn btn-info font-weight-bold">ici</button></a>
-                    </span>
+                    <div class="h5"> 
+                        Vous pouvez remplir une description <a href="{{ path ('edit_public_profile', {'id': user.persorg.getId }) }}"><button class="btn btn-info py-1"><span class="h5 font-weight-bold">ici</span></button></a>
+                    </div>
+
+                    
 
                     {% endif %}
 

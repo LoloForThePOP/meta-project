@@ -4,7 +4,7 @@
     
     <div class="d-flex justify-content-center" style="margin-top:15px; margin-bottom:8px;">
 
-        {% if persorg.image is not null %}
+        {% if userPersorg.image is not null %}
 
             <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}" style="">
         

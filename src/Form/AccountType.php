@@ -18,10 +18,9 @@ class AccountType extends ApplicationType
     {
         $builder
         ->add('name', TextType::class, $this->getConfiguration("Nom d'utilisateur", "Nom d'utilisateur", ['required'=>false]))
-        ->add('email', EmailType::class, $this->getConfiguration("E-mail", ""))
+        ->add('email', EmailType::class, $this->getConfiguration("E-mail", ""));
         //->add('image',UrlType::class, $this->getConfiguration("Une image pour vous représenter :", "Url de l'Image ici", ['required'=>false]))
-        ->add('description', TextareaType::class, $this->getConfiguration("Une description de vous ou de votre organisation", "Vous pouvez décrire ici", ['required'=>false]))
-        ;
+        //->add('description', TextareaType::class, $this->getConfiguration("Une description de vous ou de votre organisation", "Vous pouvez décrire ici", ['required'=>false]))
     }
 
     public function configureOptions(OptionsResolver $resolver)

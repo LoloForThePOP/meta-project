@@ -149,9 +149,11 @@ class AppFixtures extends Fixture
         // Create a website User
 
         $demoUser = new User();
-        $demoUser->setName('testUser')
-                ->setEmail('test@test.com')
+        $demoUser->setEmail('test@test.com')
                 ->setHash($this->encoder->encodePassword($demoUser,'test'));
+
+        $demoUser->getPersorg()->setName('testUser');     
+        
         $manager->persist($demoUser);
 
         // Create an Admin Role
@@ -169,13 +171,19 @@ class AppFixtures extends Fixture
         // Create a User with Admin Role
 
         $adminUser = new User();
-        $adminUser->setName('Lolo')
+        
+        $adminUser
                 ->setEmail('lolo@symfony.com')
                 ->setHash($this->encoder->encodePassword($adminUser,'password'))
-                ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>')
                 ->addUserRole($adminRole)
                 ->addUserRole($masterAdminRole)
             ; 
+
+        $adminUser  ->getPersorg()
+                    ->setName('Lolo')
+                    ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(5)). '</p>')
+            ; 
+
         $manager->persist($adminUser);
 
 
@@ -232,24 +240,6 @@ class AppFixtures extends Fixture
 
             $user = new User();
 
-            $userGenre = $faker->randomElement($userGenres);
-
-            // User Image Creation (using randomuser.me api)
-
-            $imageUrlBegin="https://randomuser.me/api/portraits/";
-
-            $randomUserGenre='';
-
-            if ($userGenre=='male') {
-                $randomUserGenre='men';
-            }
-            else {
-                $randomUserGenre='women';
-            }
-            
-            $imageUrlEnd="/".$faker->numberBetween(1,99).'.jpg';
-            $image=$imageUrlBegin.$randomUserGenre.$imageUrlEnd;
-
             // User Hash Creation
             $hash=$this->encoder->encodePassword($user,'password');
 
@@ -259,26 +249,15 @@ class AppFixtures extends Fixture
             // A comment if the user is not Allowed
             $isAllowedComment = join($faker->paragraphs(4));
 
-            $hasWebsite = array_rand([true,false]); 
-            $website=NULL;
-
-            if ($hasWebsite == true) {
-
-                $website = $faker->url();
-
-            }
-
             // User Hydrate
 
-            $user->setName($faker->firstName($userGenre))
+            $user->setHash($hash)
                 ->setEmail($faker->email())
-                ->setDescription('<p>'.join('</p><p>',$faker->paragraphs(4)). '</p>')
-                ->setImageName($image)
-                ->setHash($hash)
-                ->setWebsite($website)
                 ->setIsAllowed($isAllowed)
                 ->setIsAllowedComment($isAllowedComment)
             ;
+
+            AppFixtures::hydratePersorg('person', $user->getPersorg());
 
             $manager->persist($user);
             
