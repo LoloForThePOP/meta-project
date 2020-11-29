@@ -41,6 +41,19 @@
 
             </div>
 
+            
+            {% if controller_name == 'teammates' %}
+                    
+                <!-- Persorg Missions -->
+
+                <div class="mt-3 mb-3">
+
+                    {{ form_row(form.missions) }}
+
+                </div>
+
+            {% endif %}   
+
             <!-- Persorg Image -->
 
             <div class="mb-4 px-3 rounded" style="border:1px solid black;">
@@ -106,6 +119,12 @@
                 {% if controller_name == 'owners' %}
                 
                     {{ path('manage_owners', {'slug':presentation.slug}) }}
+
+                {% endif %}  
+
+                {% if controller_name == 'teammates' %}
+                
+                    {{ path('manage_teammates', {'slug':presentation.slug}) }}
 
                 {% endif %}   
             

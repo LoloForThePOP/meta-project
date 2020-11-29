@@ -56,6 +56,8 @@
 
                     {% for teammate in presentation.teammates %}
 
+                    {% set teammate = teammate.persorg %}
+
                         <!-- Team Member Card -->
 
                         <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="float:left;">
@@ -66,9 +68,16 @@
 
                             <div class="teammateMission font-weight-bold mb-2 text-center" style="height:45px; ">
 
-                                {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions|slice(0, 19) ~ '...' }}
+                               
 
-                                {% if teammate.missions | length == 0 %} {% endif %}
+                                {% if teammate.missions | length == 0 %} 
+                                
+                                  {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions | slice(0, 19) ~ '...' }}
+
+                                  {% else %}
+     
+                                
+                                {% endif %}
 
                             </div>
 
@@ -78,7 +87,7 @@
 
                                 {% if teammate.image %}
 
-                                    <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}" height="100px" width="100px">
+                                    <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.image) | imagine_filter('logo_thumbnail_sm') }}" height="100px" width="100px">
                                 
                                 {% else %}
                                                         
@@ -133,6 +142,8 @@
    
             {% for teammate in presentation.teammates %}
 
+                {% set teammate = teammate.persorg %}
+
                 <!-- Display More Info (Teammate Details) (in a modal box) -->
 
                 <div class="modal fade" id="teammateDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="teammateDisplayLabel{{ loop.index }}" aria-hidden="true">
@@ -183,7 +194,7 @@
 
                                     {% if teammate.image %}
 
-                                     <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}" height="115px" width="115px">
+                                     <img class="img-fluid rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}" height="115px" width="115px">
                                     
 
                                         {% else %}

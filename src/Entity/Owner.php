@@ -4,6 +4,9 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\OwnerRepository;
+
+
+use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Doctrine\ORM\Mapping\PreUpdate;
 use Doctrine\ORM\Mapping\PrePersist;
 
@@ -86,7 +89,7 @@ class Owner
         return $this;
     }
 
-       /**
+    /**
     * Allow to Automaticaly set CreatedAt
     * 
     * @ORM\PrePersist

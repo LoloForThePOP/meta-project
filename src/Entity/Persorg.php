@@ -131,6 +131,11 @@ class Persorg implements \Serializable
      */
     private $user;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Teammate::class, mappedBy="persorg", cascade={"persist", "remove"})
+     */
+    private $teammate;
+
 
     
 
@@ -429,6 +434,24 @@ class Persorg implements \Serializable
         $newPersorg = null === $user ? null : $this;
         if ($user->getPersorg() !== $newPersorg) {
             $user->setPersorg($newPersorg);
+        }
+
+        return $this;
+    }
+
+    public function getTeammate(): ?Teammate
+    {
+        return $this->teammate;
+    }
+
+    public function setTeammate(?Teammate $teammate): self
+    {
+        $this->teammate = $teammate;
+
+        // set (or unset) the owning side of the relation if necessary
+        $newPersorg = null === $teammate ? null : $this;
+        if ($teammate->getPersorg() !== $newPersorg) {
+            $teammate->setPersorg($newPersorg);
         }
 
         return $this;

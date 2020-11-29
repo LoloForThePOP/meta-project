@@ -2,9 +2,12 @@
 
 namespace App\Controller;
 
+use App\Entity\Persorg;
 use App\Entity\PPBasic;
 use App\Entity\Teammate;
+use App\Form\PersorgType;
 use App\Form\TeammateType;
+use App\Repository\PersorgRepository;
 use App\Repository\TeammateRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,14 +30,17 @@ class TeammatesController extends AbstractController
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
         $teammate = new Teammate();
+         
+        $persorg = new Persorg();
         
-        $form = $this->createForm(TeammateType::class, $teammate);
+        $persorgForm = $this->createForm(PersorgType::class, $persorg);
 
-        $form->handleRequest($request);
+        $persorgForm->handleRequest($request);
+        
+        if ($persorgForm->isSubmitted() && $persorgForm->isValid()){
 
-        if ($form->isSubmitted() && $form->isValid()){
-
-            $teammate->setProject($presentation);
+            $teammate   ->setProject($presentation)
+                        ->setPersorg($persorg);
 
             $manager->persist($teammate);
 
@@ -54,7 +60,7 @@ class TeammatesController extends AbstractController
 
         return $this->render('teammates/manage.html.twig', [
 
-            'form' => $form->createView(),
+            'persorgForm' => $persorgForm->createView(),
             'slug' => $presentation->getSlug(),
             'presentation' => $presentation,
             
@@ -66,21 +72,21 @@ class TeammatesController extends AbstractController
     /**
      * Allow to Edit a Teammate
      * 
-     * @Route("/edit/{id_teammate}", name="edit_teammate")
+     * @Route("/edit/{id_persorg}", name="edit_teammate_persorg")
      * 
      */
-    public function edit (PPBasic $presentation, $id_teammate, TeammateRepository $teammateRepository, Request $request, EntityManagerInterface $manager)
+    public function edit (PPBasic $presentation, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager)
     {
 
-        $teammate = $teammateRepository->findOneById($id_teammate);
+        $persorg = $persorgRepository->findOneById($id_persorg);
 
-        $form = $this->createForm(TeammateType::class, $teammate);
+        $form = $this->createForm(PersorgType::class, $persorg);
     
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $manager->persist($teammate);
+            $manager->persist($persorg);
 
             $manager->flush();
 
@@ -96,9 +102,10 @@ class TeammatesController extends AbstractController
 
         }
     
-        return $this->render('teammates/edit.html.twig', [
+        return $this->render('persorgs/edit.html.twig', [
             'form' => $form->createView(),
-            'teammate' => $teammate,
+            'persorg' => $persorg,
+            'controller_name' => 'teammates',
             'slug' => $presentation->getSlug(),
             'presentation' => $presentation,
         ]);

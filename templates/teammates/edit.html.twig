@@ -50,11 +50,11 @@
 
                 <!-- If an image already exists, we display it -->
 
-                {% if teammate.image %}
+                {% if persorg.image is not null %}
 
                     <div class="mb-4 mt-5">
 
-                        <img class="" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}">
+                        <img class="" src="{{ asset('/images/projects/teammates/' ~ persorg.image) | imagine_filter('teammate_thumbnail') }}">
 
                     </div>
                                     

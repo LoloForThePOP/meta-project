@@ -19,7 +19,7 @@
 
         <div class="d-flex justify-content-center font-weight-bold mt-3 mb-3">
 
-            {{ teammate.name | length < 10 ? teammate.name : teammate.name | slice(0, 10 ) ~ '...' }}
+            {{ teammate.persorg.name | length < 10 ? teammate.persorg.name : teammate.persorg.name | slice(0, 10 ) ~ '...' }}
 
         </div>
 
@@ -27,7 +27,7 @@
         
         <div>
             
-            {{ teammate.description }}
+            {{ teammate.persorg.description }}
 
         </div>
 
@@ -35,9 +35,21 @@
         
         <div class="d-flex justify-content-center">
 
-            {% if teammate.image %}
+            {% if teammate.persorg.image %}
             
-                <img class="rounded-circle border border-primary" src="{{ asset('/images/projects/teammates/' ~ teammate.image) | imagine_filter('teammate_thumbnail') }}">
+                <img class="rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+
+            {% else %}
+                                
+                <div class="avatar-circle mx-auto" style="margin-top:25px;">
+        
+                    <span class="initials">
+        
+                        {{teammate.persorg.name | slice (0,1) | capitalize}}
+        
+                    </span>
+        
+                </div>
 
             {% endif %}
 
