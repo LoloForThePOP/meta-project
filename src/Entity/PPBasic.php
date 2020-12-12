@@ -237,8 +237,7 @@ class PPBasic implements \Serializable
     private $needs;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="presentations")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="presentations", cascade={"persist"})
      */
     private $creator;
 
@@ -370,9 +369,9 @@ class PPBasic implements \Serializable
     private $technicalData;
 
     /**
-     * @ORM\OneToMany(targetEntity=ExternalContributorsStructure::class, mappedBy="project")
-     * 
+     * @ORM\OneToMany(targetEntity=ExternalContributorsStructure::class, mappedBy="project", orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
+     * 
      */
     private $externalContributorsStructures;
 

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Repository\PPBasicRepository;
 use App\Repository\CategoryRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -90,7 +91,9 @@ class SearchController extends AbstractController
      * @Route("/ajax-search-by-places", name="ajax_search_by_places") 
      *
     */ 
-    public function ajaxSearchByPlaces(Request $request, PPBasicRepository $repo) {
+    public function ajaxSearchByPlaces(Request $request, PPBasicRepository $repo, EntityManagerInterface $manager) {
+
+       
 
         if ($request->isXmlHttpRequest()) {
 
@@ -99,6 +102,10 @@ class SearchController extends AbstractController
 
             // name of Place user has given (ex: France; London; etc)
             $placeName = $request->request->get('placeName');
+
+            // latitude and longitude of Place user has given
+            $latitude = $request->request->get('latitude');
+            $longitude = $request->request->get('longitude');
 
             // we possibly enlarge search result: we possibly broaden user input: Names of places which contain the user input:
             
@@ -117,10 +124,36 @@ class SearchController extends AbstractController
             // country = contains a set of administrativeAreaLevel1
             $country = $request->request->get('country');
 
-            dump($placeName);
-           
+            if ($geoType=='locality' OR $geoType=='sublocality_level_1') {
+                
+                $radius = 100; // kilometers
 
-            $results = $repo->findByPlaces($placeName, $city, $administrativeAreaLevel2, $administrativeAreaLevel1);
+                $parameters = array(
+                    'latitude' => $latitude, 
+                    'longitude' => $longitude,
+                    'radius' => $radius
+                );
+
+                $results = $manager->createQuery(
+                    
+                    'SELECT p as project, g, ( ACOS( COS( RADIANS( :latitude  ) ) 
+                    * COS( RADIANS( g.latitude ) )
+                    * COS( RADIANS( g.longitude ) - RADIANS( :longitude ) )
+                    + SIN( RADIANS( :latitude  ) )
+                    * SIN( RADIANS( g.latitude ) )
+                    ) * 6371 ) AS distance_in_km
+                    FROM App\Entity\PPBasic p
+                    JOIN p.geoDomains g
+                    HAVING distance_in_km <= :radius
+                    ORDER BY distance_in_km ASC')->setParameters($parameters)->setMaxResults('10')->getResult();
+
+            }
+            else {
+
+                $results = $repo->findByPlaces($geoType, $placeName);
+         
+            }
+            
 
             $dataResponse = [
 

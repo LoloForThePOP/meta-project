@@ -408,10 +408,14 @@ class AppFixtures extends Fixture
                 for ($j=1; $j <= $teammatesCount; $j++){
 
                     $teammate = new Teammate();
-                
-                    $hydratedTeammate = AppFixtures::hydratePersorg('person', $teammate);
 
-                    $pp->addTeammate($hydratedTeammate);
+                    $teammatePersorg = new Persorg();
+                
+                    $hydratedTeammate = AppFixtures::hydratePersorg('person', $teammatePersorg);
+
+                    $teammate->setPersorg($hydratedTeammate);
+
+                    $pp->addTeammate($teammate);
 
                     $manager->persist($teammate);
                 }

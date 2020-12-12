@@ -22,7 +22,7 @@ use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
 use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
- * Represents a Person or an organisation (Pers Org)
+ * Represents a Person or an organisation (Pers - Org)
  * 
  * @ORM\Entity(repositoryClass=PersorgRepository::class)
  * @Vich\Uploadable

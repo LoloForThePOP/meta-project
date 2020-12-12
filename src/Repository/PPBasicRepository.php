@@ -39,29 +39,49 @@ class PPBasicRepository extends ServiceEntityRepository
 
     }
 
-    public function findByPlaces ($placeName, $city="", $administrativeAreaLevel2="", $administrativeAreaLevel1="") {
+ 
+
+   public function findByPlaces ($placeType, $placeName) {
 
         $qb = $this->createQueryBuilder('p')
             ->select('p as project')
-            ->join('p.geoDomains', 'g')
-            ->orWhere('g.placeName = :placeName')
-            ->setParameter('placeName', $placeName)
-            ->addOrderBy('g.city', 'DESC');
+            ->join('p.geoDomains', 'g');
 
-        if ($city !== "") {
-            $qb->orWhere('g.city = :city')
-            ->setParameter('city', $city);
-        }
+            if ($placeType=="administrative_area_level_1") {
+               $qb->andWhere("g.administrativeAreaLevel1=:placeName");
+               $qb->setParameter('placeName', $placeName);
+            }
 
-        if ($administrativeAreaLevel2 !== "") {
-            $qb->orWhere('g.AdministrativeAreaLevel2 = :administrativeAreaLevel2')
-           ->setParameter('administrativeAreaLevel2', $administrativeAreaLevel2);
-        }
+            elseif ($placeType=="administrative_area_level_2") {
+               $qb->andWhere("g.administrativeAreaLevel2=:placeName");
+               $qb->setParameter('placeName', $placeName);
+            }
 
-        if ($administrativeAreaLevel1 !== "") {
-            $qb->orWhere('g.AdministrativeAreaLevel1 = :administrativeAreaLevel1')
-           ->setParameter('administrativeAreaLevel1', $administrativeAreaLevel1);
-        }
+            elseif ($placeType=="country") {
+               $qb->andWhere("g.country=:placeName");
+               $qb->setParameter('placeName', $placeName);
+            }
+            
+            return $qb  ->setMaxResults(100)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+   public function findnNear ($latitude, $longitude, $radius) {
+
+        $qb = $this->createQueryBuilder('p')
+            ->select('p, g')
+            ->join('p.geoDomains', 'g');
+
+            
+            return $qb  ->setMaxResults(100)
+            ->getQuery()
+            ->getResult();
+
+    }
+
+
 
         
         /* $qb->addSelect("(CASE WHEN g.placeName = :placeName THEN 0
@@ -69,11 +89,7 @@ class PPBasicRepository extends ServiceEntityRepository
             ->setParameter('placeName', $placeName)
             ->orderBy('ORD', 'DESC'); */
 
-        return $qb  ->setMaxResults(100)
-                    ->getQuery()
-                    ->getResult();
-
-    }
+     
 
 
     // /**

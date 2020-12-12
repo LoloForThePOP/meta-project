@@ -110,7 +110,7 @@
 
             //alert(place_name);
 
-            latitude = autocomplete.getPlace().geometry.location.lat(),
+            latitude = autocomplete.getPlace().geometry.location.lat();
             longitude = autocomplete.getPlace().geometry.location.lng();
         
              
@@ -160,8 +160,8 @@
 
                 data: {
 
-                    //"latitude": latitude,
-                    //"longitude": longitude,
+                    "latitude": latitude,
+                    "longitude": longitude,
                     "placeType":  place_type,
                     "placeName":  place_name,
 

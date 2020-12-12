@@ -50,7 +50,7 @@ class User implements UserInterface
     private $userSlug;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\PPBasic", mappedBy="creator", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\PPBasic", mappedBy="creator")
      */
     private $presentations;
 

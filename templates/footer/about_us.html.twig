@@ -1,0 +1,73 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Qui sommes nous ?{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+
+        <h3 class="my-5">Qui sommes nous ?</h3>
+
+        <div>
+
+            <p class="h5 pl-md-4 col-md-8 text-justify">
+                Nous pensons qu'il manque une plateforme pour présenter facilement et rapidement les projets de chacun d'entre nous. Nous pensons qu'une telle plateforme permettrait la réalisation de projets utiles à tous. Alors voilà, on essaie de la rendre réalité !
+            </p>
+
+        </div>
+<!-- 
+        <h3 class="my-5">Le manifeste du Projet des Projets</h3>
+
+        <div>
+
+            <p class="h5 pl-md-4 col-md-8 text-justify">
+                Pourquoi présenter les projets nous semble si important ? Notre réflexion est expliquée dans le Manifeste du Projet des Projets. Vous pouvez le consulter ici.
+            </p>
+
+        </div> -->
+
+        <h3 class="my-5">Participer</h3>
+
+        <div>
+
+            <p class="h5 pl-md-4 col-md-8 text-justify">
+                Le Projet des Projets à besoin de vous. Toutes vos remarques, critiques, idées, et autres propositions sont les bienvenues. N'hésitez pas à nous écrire avec le formulaire ci-dessous.
+            </p>
+
+        </div>
+
+        <h3 class="my-5">Pour tout contact</h3>
+
+        <div class="mb-md-5 pl-md-4 col-md-8">
+
+            {{form_start(form)}}
+
+                {{form_widget(form)}}
+
+            <!-- Actions Buttons -->
+
+            <div class="mt-md-5">
+
+                <button type="submit" value="" class="btn btn-success sharp bg-green mr-2 mb-2">
+                    <span class="h5 font-weight-bold">Envoyer le message</span> 
+                </button>
+
+                <a href="{{path('homepage')}}">
+                    <button type="button" value="" class="btn sharp btn-info mb-2">
+                        <span class="h5 font-weight-bold">Retour</span> 
+                    </button>
+                </a>
+
+            </div>
+            
+            {{form_end(form)}}
+
+        </div>
+
+    </div>
+  
+{% endblock %}

@@ -11,7 +11,6 @@
 
     <div class="container">
 
-
         <div class="row mt-5">
 
             <div class="col-md-8">
@@ -20,24 +19,35 @@
 
         <!-- Project Goal -->
 
-        <div class="mb-3">
+        <div class="mb-4">
 
-            <span class="h4"> {{form_label(form.goal)}} </span>
-    
-            {{form_widget(form.goal)}}
+            <div class="mb-md-3">
+                <span class="h4"> {{form_label(form.goal)}} </span>
+            </div>
+
+            <div class="mb-md-3">
+                {{form_widget(form.goal)}}
+            </div>
 
         </div>
 
         <div class="card shadow mb-4">
+
             <div class="card-body p-3">
+
                 <h4 class="mb-3">Exemples</h4>
+
                 <!-- Unordered list -->
+
                 <ul class="fs-15">
+
                     <li class="mb-2">Restaurer un moulin</li>
-                    <li class="mb-2">Développer un jeu vidéo d'action</li>
+                    <li class="mb-2">Créer un jeu vidéo d'action</li>
                     <!-- <li class="mb-2">Installer une pompe dans un village</li> -->
                     <li class="mb-2">Créer un journal d'investigation</li>
+
                 </ul>
+                
             </div>
         </div>
 
@@ -53,28 +63,20 @@
         
         <div class="mb-3">
 
-            <button type="submit" class="btn btn-success btn-lg sharp font-weight-bold mr-2 mb-2">Ajouter le Projet</button>
+            <button type="submit" class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2 mb-2">Ajouter le Projet</button>
 
             <a href="{{ path('homepage') }}">
                 <button type="button" class="btn btn-info btn-lg font-weight-bold sharp mb-2">Annuler</button>
             </a>
         
-            
-
         </div>
 
-       
 
-
-        {# don't render logo and thumbnails fields #}
+        {# we don't render logo and thumbnails fields #}
 
         <div class="d-none">
             {{ form_rest(form) }}
         </div>
-
-
-
-
 
         {{ form_end(form) }}
 

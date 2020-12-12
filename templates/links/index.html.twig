@@ -22,7 +22,7 @@
                 </h4>
 
                 <p class="fs-25 mb-4">
-                    Copier le code suivant, et intégrez le dans le site web désiré.
+                    Copier le code suivant, et intégrez le dans votre propre site web.
                 </p>
 
                 <!-- Textarea containing iframe code -->
@@ -31,7 +31,7 @@
 
                     <div class="row">
 
-                        <div class="col"> <textarea id="iFrameTagTextarea" class="mb-3 col-md-12 h-100" name="" resize="none"><iframe id="iFrame" src="https://127.0.0.1:8000/projects/5106/embed" scrolling="no" frameborder="0" ></iframe>
+                        <div class="col"> <textarea id="iFrameTagTextarea" class="mb-3 col-md-12 h-100" name="" resize="none"><iframe id="iFrame" src="{{iFrameURL}}" scrolling="no" frameborder="0" ></iframe>
 <style>iframe {
         width: 1px;
         min-width: 100%;
@@ -121,7 +121,7 @@
             <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
       
                 <h4 class="font-weight-bold mb-4">
-                    Adresse de la page de présentation
+                    Adresse de la page de présentation de ce projet
                 </h4>
 
                 <p id="projectPresentationURL" class="d-inline-block ml-md-4 font-weight-bold fs-15">
@@ -265,6 +265,47 @@
 
                       </style>
                     
+                </div>
+
+            </div>
+
+            
+            <!-- User Projects List : code to embed the list into other websites (within an iframe) -->
+            <!-- Copy code button -->
+
+            <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
+      
+                <h4 class="font-weight-bold mb-3">
+                    Pour afficher dans un autre site web la liste de tous vos projets présentés
+                </h4>
+
+                <p class="fs-25 mb-4">
+                    Copier le code suivant, et intégrez le dans votre site web.
+                </p>
+
+                <!-- Textarea containing iframe code -->
+
+                <div class="container">
+
+                    <div class="row">
+
+                        <div class="col"> <textarea id="iFrameTagTextarea" class="mb-3 col-md-12 h-100" name="" resize="none"><iframe id="iFrame" src="{{userProjectsListURL}}" scrolling="no" frameborder="0" ></iframe>
+
+<style>
+    iframe {
+        width: 1px;
+        min-width: 100%;
+    }
+</style>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.min.js" integrity="sha512-HY1lApSG7xxx8mYzs/lxRs+c5AaDThRaa3pvQB6puiswvf2lWqMJVf+8qSGiL4ZXfHQoPIqbd1TlpqfycPo3cQ==" crossorigin="anonymous"></script>
+
+<script>
+    iFrameResize({ log: true }, '#iFrame');
+</script></textarea></div>
+
+                    </div>
+
                 </div>
 
             </div>

@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Guide d'Utilisation Rapide{% endblock %}
+
+{% block body %}
+
+    <div class="container mt-md-5">
+
+        <h3 class="mb-5 pl-md-4">Présentation du site</h3>
+
+          <!-- How to, Step By Step -->
+
+        <div class="container mt-5 mb-md-5">
+            
+             <!-- First Step -->
+
+            <div class="row mb-5">
+
+                <div class="col d-flex justify-content-center align-items-center">
+                    <img src="https://place-hold.it/500x300" class="img-fluid" alt="" srcset="">
+                </div>
+
+                <div class="col fs-15">
+
+                    <h4>Écrivez l'objectif de votre projet.</h4>
+                  
+                </div>
+
+            </div>
+
+             <!-- Second Step -->
+
+            <div class="row mb-5">
+
+                <div class="col d-flex justify-content-center align-items-center">
+                    <img src="https://place-hold.it/500x300" class="img-fluid" alt="" srcset="">
+                </div>
+
+                <div class="col fs-15">
+
+                    <h4>Présenter les informations que vous voulez, par exemple une description et quelques images.</h4>
+                  
+                </div>
+
+            </div>
+
+             <!-- Third Step -->
+
+            <div class="row mb-5">
+
+                <div class="col d-flex justify-content-center align-items-center">
+                    <img src="https://place-hold.it/500x300" class="img-fluid" alt="" srcset="">
+                </div>
+
+                <div class="col fs-15">
+
+                    <h4>Et voilà ! Vous obtenez une présentation de votre projet. Les visiteurs peuvent ensuite vous contacter.</h4>
+                  
+                </div>
+
+            </div>
+            
+        </div>
+
+         <!-- Call to Action (Present a Project) -->
+
+         <div class="container pt-3 mb-5">
+
+            <div class="row pl-md-4 d-flex justify-content-center"> 
+
+                <!-- collapsable advice trigger button -->	
+    
+                <a href="{{path('create_presentation')}}" class="font-weight-bold my-1" type="button" >
+
+                    <button class="btn btn-info px-5 py-4" type="button"><span class="h3 font-weight-bold round" style="letter-spacing: 2px;">+ Je Présente mon projet</span></button>
+                    
+                </a>
+
+
+            </div>
+                    
+         </div>
+
+    </div>
+
+    <style>
+        
+    </style>
+
+{% endblock %}

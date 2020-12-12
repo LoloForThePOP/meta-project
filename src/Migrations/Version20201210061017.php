@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20200817160644 extends AbstractMigration
+final class Version20201210061017 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,7 +22,9 @@ final class Version20200817160644 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE technical_data CHANGE updated_at updated_at DATETIME DEFAULT NULL');
+        $this->addSql('ALTER TABLE ppbasic DROP FOREIGN KEY FK_2C7D80DA61220EA6');
+        $this->addSql('ALTER TABLE ppbasic CHANGE creator_id creator_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE ppbasic ADD CONSTRAINT FK_2C7D80DA61220EA6 FOREIGN KEY (creator_id) REFERENCES user (id)');
     }
 
     public function down(Schema $schema) : void
@@ -30,6 +32,8 @@ final class Version20200817160644 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE technical_data CHANGE updated_at updated_at DATETIME NOT NULL');
+        $this->addSql('ALTER TABLE ppbasic DROP FOREIGN KEY FK_2C7D80DA61220EA6');
+        $this->addSql('ALTER TABLE ppbasic CHANGE creator_id creator_id INT NOT NULL');
+        $this->addSql('ALTER TABLE ppbasic ADD CONSTRAINT FK_2C7D80DA61220EA6 FOREIGN KEY (creator_id) REFERENCES user (id) ON UPDATE NO ACTION ON DELETE CASCADE');
     }
 }

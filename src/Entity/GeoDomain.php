@@ -9,7 +9,7 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * For the moment, this entity concerns only project cities : a city postalCode, and a cityName). In future, maybe there will be also regions geodomains, or department geodomains, or country geodomains.
+ * This entity relates to Geographic Domains of the project. For example a city; a region; a country; etc.
  * 
  * @ORM\Entity(repositoryClass="App\Repository\GeoDomainRepository")
  */
@@ -56,15 +56,7 @@ class GeoDomain
      */
     private $geoType;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $AdministrativeAreaLevel1;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $AdministrativeAreaLevel2;
+ 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -90,6 +82,16 @@ class GeoDomain
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $placeName;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $administrativeAreaLevel1;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $administrativeAreaLevel2;
 
     public function __construct()
     {
@@ -175,29 +177,8 @@ class GeoDomain
         return $this;
     }
 
-    public function getAdministrativeAreaLevel1(): ?string
-    {
-        return $this->AdministrativeAreaLevel1;
-    }
+   
 
-    public function setAdministrativeAreaLevel1(?string $AdministrativeAreaLevel1): self
-    {
-        $this->AdministrativeAreaLevel1 = $AdministrativeAreaLevel1;
-
-        return $this;
-    }
-
-    public function getAdministrativeAreaLevel2(): ?string
-    {
-        return $this->AdministrativeAreaLevel2;
-    }
-
-    public function setAdministrativeAreaLevel2(?string $AdministrativeAreaLevel2): self
-    {
-        $this->AdministrativeAreaLevel2 = $AdministrativeAreaLevel2;
-
-        return $this;
-    }
 
     public function getRoute(): ?string
     {
@@ -255,6 +236,30 @@ class GeoDomain
     public function setPlaceName(?string $placeName): self
     {
         $this->placeName = $placeName;
+
+        return $this;
+    }
+
+    public function getAdministrativeAreaLevel1(): ?string
+    {
+        return $this->administrativeAreaLevel1;
+    }
+
+    public function setAdministrativeAreaLevel1(?string $administrativeAreaLevel1): self
+    {
+        $this->administrativeAreaLevel1 = $administrativeAreaLevel1;
+
+        return $this;
+    }
+
+    public function getAdministrativeAreaLevel2(): ?string
+    {
+        return $this->administrativeAreaLevel2;
+    }
+
+    public function setAdministrativeAreaLevel2(?string $administrativeAreaLevel2): self
+    {
+        $this->administrativeAreaLevel2 = $administrativeAreaLevel2;
 
         return $this;
     }

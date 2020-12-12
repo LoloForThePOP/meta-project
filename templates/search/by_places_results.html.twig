@@ -10,8 +10,14 @@
     
     <h5 class="h4 font-weight-bold my-3 mt-3 d-inline-block mr-3">Résultats par lieux</h5>
 
-    <ul>
-        
+    {# <pre>
+        {{ dump(results) }}
+    </pre> #}
+
+   <ul>
+
+    {% if results | length > 0 %}
+ 
         {% for result in results %}
 
             <li class="js-search-result mb-2 list-style-none">
@@ -30,7 +36,19 @@
             
         {% endfor %}
 
-    </ul>
+    {% else %}
 
+            <p class="h4 col-md-6">
+                Pas de résultat trouvé. Pour élargir votre recherche, écrivez une région ou un pays.
+            </p>
+        
+    {% endif %}
+
+
+
+
+ 
+
+    </ul>
 
 </div>

@@ -29,7 +29,7 @@ class ExternalContributorsStructure
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="externalContributorsStructures")
+     * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="externalContributorsStructures", cascade={"persist", "remove"})
      */
     private $project;
 
@@ -44,7 +44,7 @@ class ExternalContributorsStructure
     private $position;
 
     /**
-     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure", cascade={"persist", "remove"},orphanRemoval=true)
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      * 

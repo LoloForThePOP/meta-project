@@ -61,7 +61,7 @@ class AccountController extends AbstractController
     /**
      * Subscribe to the Website (Display Register Form)
      * 
-     * @Route("/register",name="account_register")
+     * @Route("/register", name="account_register")
      * @return Response
      */
     public function register(Request $request, EntityManagerInterface $manager, UserPasswordEncoderInterface $encoder, \Swift_Mailer $mailer) {

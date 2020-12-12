@@ -70,7 +70,7 @@
 
                                
 
-                                {% if teammate.missions | length == 0 %} 
+                                {% if teammate.missions %} 
                                 
                                   {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions | slice(0, 19) ~ '...' }}
 
@@ -156,15 +156,10 @@
     
                     <div class="modal-header">
 
-                        <!-- Teammate Name -->
+                        <!-- Empty Title -->
 
                         <div class="row pl-4 font-weight-bold"> 
 
-                            <div class="h5" >
-
-                                {{ teammate.name }}
-
-                            </div>
                         
                         </div>
 
