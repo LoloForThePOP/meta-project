@@ -23,7 +23,7 @@
 
         {% if app.user and app.user == presentation.creator %}
 
-            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0" style="border: 2px solid blue !important;"><></a>
+            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0" style="border: 2px solid navy !important;">Menu</a>
 
         {% endif %}
 
@@ -54,11 +54,15 @@
                 <a class="nav-link" href="{{path('projects_groups_index')}}">Groupes de Projets</a>
             </li>  -->
 
-            <form class="form-inline ml-2">
+            <form class="form-inline ml-2 d-none s-md-block">
                 <a href="{{path('create_presentation')}}">
                     <button class="btn btn-info font-weight-bold" type="button">+ Ajouter un Projet</button>
                 </a>
             </form>
+            
+            <li class="nav-item mr-3">
+                <a class="nav-link" href="{{path('create_presentation')}}">+ Ajouter un Projet</a>
+            </li>
 
         </ul>
 

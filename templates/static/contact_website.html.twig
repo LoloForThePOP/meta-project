@@ -8,23 +8,23 @@
 
 {% block body %}
 
-    <div class="container mt-md-5">
+    <div class="container mt-4 mt-md-5">
 
         <!-- UI Page Title -->
 
-        <h3 class="mb-5 pl-md-4 font-weight-bold">Nous Contacter</h3>
+        <h3 class="pageTitle mb-4 mb-md-4 pl-md-4 font-weight-bold">Nous Contacter</h3>
 
         <!-- UI Page Description -->
 
-        <p class="h5 pl-md-4 col-md-8 text-justify">
+        <p class="h5 px-0 pl-md-4 col-md-8 text-justify">
             Pour toute question, problème, ou remarque, n'hésitez pas à nous contacter avec le formulaire ci-dessous.
         </p>
 
         <!-- Contact Form -->
 
-        <div class="container mt-5 mb-md-5">
+        <div class="container px-0 mt-4 mt-md-5 mb-md-5">
 
-            <div class="mb-md-5 pl-md-4 col-md-8">
+            <div class="px-0 mb-md-5 pl-md-4 col-md-8">
 
                 {{form_start(form)}}
     
@@ -32,7 +32,7 @@
     
                 <!-- Actions Buttons -->
     
-                <div class="mt-md-5">
+                <div class="mt-4 mt-md-5">
     
                     <button type="submit" value="" class="btn btn-success sharp bg-green mr-2 mb-2">
                         <span class="h5 font-weight-bold">Envoyer le message</span> 
@@ -48,7 +48,11 @@
                 
                 {{form_end(form)}}
 
-
+                <style>
+                    .onpt {
+                        display: none;
+                    }
+                </style>
     
             </div>
             
