@@ -4,9 +4,9 @@
 
 {% block body %}
 
-    <div class="container mt-md-5">
+    <div class="container mt-4 mt-md-5">
 
-        <h3 class="mb-5 pl-md-4">Présentation du site</h3>
+        <h3 class="pageTitle font-weight-bold h2 mb-5 pl-md-4">Présentation du site</h3>
 
           <!-- How to, Step By Step -->
 
@@ -14,15 +14,19 @@
             
              <!-- First Step -->
 
-            <div class="row mb-5">
+            <div class="row step">
 
-                <div class="col d-flex justify-content-center align-items-center">
-                    <img src="https://place-hold.it/500x300" class="img-fluid" alt="" srcset="">
+                <div class="col-auto d-flex align-items-end">
+                    <span class="listNumber h1">1.</span>
                 </div>
 
-                <div class="col fs-15">
+                <div class="col-auto d-flex align-items-end mb-3 mb-md-0">
+                    <img src="images/static/quick_user_guide/write_goal.png" class="img-fluid" alt="" srcset="" style="width:380px;">
+                </div>
 
-                    <h4>Écrivez l'objectif de votre projet.</h4>
+                <div class="step-text col fs-15 d-flex align-items-end">
+
+                    <h4 class="step-text">Écrivez l'objectif de votre projet.</h4>
                   
                 </div>
 
@@ -30,15 +34,19 @@
 
              <!-- Second Step -->
 
-            <div class="row mb-5">
+            <div class="row step">
 
-                <div class="col d-flex justify-content-center align-items-center">
-                    <img src="https://place-hold.it/500x300" class="img-fluid" alt="" srcset="">
+                <div class="col-auto d-flex align-items-center">
+                    <span class="listNumber h1">2.</span>
                 </div>
 
-                <div class="col fs-15">
+                <div class="col-auto d-flex justify-content-center align-items-center mb-3 mb-md-0">
+                    <img src="images/static/quick_user_guide/bulletin_board.png" class="img-fluid" alt="" srcset="">
+                </div>
 
-                    <h4>Présenter les informations que vous voulez, par exemple une description et quelques images.</h4>
+                <div class="step-text col fs-15 d-flex align-items-center">
+
+                    <h4 class="step-text ">Présenter les informations que vous voulez, par exemple une description et quelques images.</h4>
                   
                 </div>
 
@@ -46,15 +54,19 @@
 
              <!-- Third Step -->
 
-            <div class="row mb-5">
+            <div class="row step">
 
-                <div class="col d-flex justify-content-center align-items-center">
-                    <img src="https://place-hold.it/500x300" class="img-fluid" alt="" srcset="">
+                <div class="col-auto d-flex align-items-center">
+                    <span class="listNumber h1">3.</span>
                 </div>
 
-                <div class="col fs-15">
+                <div class="col-auto d-flex justify-content-center align-items-center mb-3 mb-md-0">
+                    <img src="images/static/quick_user_guide/et_voila.png" class="img-fluid" alt="" srcset="">
+                </div>
 
-                    <h4>Et voilà ! Vous obtenez une présentation de votre projet. Les visiteurs peuvent ensuite vous contacter.</h4>
+                <div class="col fs-15 d-flex align-items-center">
+
+                    <h4 class="step-text ">Et voilà ! Vous obtenez une présentation de votre projet. Les visiteurs peuvent vous contacter.</h4>
                   
                 </div>
 
@@ -72,7 +84,7 @@
     
                 <a href="{{path('create_presentation')}}" class="font-weight-bold my-1" type="button" >
 
-                    <button class="btn btn-info px-5 py-4" type="button"><span class="h3 font-weight-bold round" style="letter-spacing: 2px;">+ Je Présente mon projet</span></button>
+                    <button class="btn btn-info px-4 py-3" type="button"><span class="h4 font-weight-bold round" style="letter-spacing: 2px;">+ Je Présente mon projet</span></button>
                     
                 </a>
 
@@ -84,6 +96,40 @@
     </div>
 
     <style>
+
+        .step{
+           margin-bottom: 80px;
+        }
+
+        .step img{
+            width:380px;
+        }
+        
+
+        .step-text{
+            width:400px;
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pageTitle{
+                font-size: 1.8em;
+             }
+
+            .listNumber{
+                font-size: 1.7em;
+             }
+
+            .step{
+                margin-bottom: 30px;
+             }
+
+            .step-text{
+                font-size:1.3em;
+             }
+
+
+        }
         
     </style>
 

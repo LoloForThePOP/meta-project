@@ -52,7 +52,7 @@
 
             <div class="">
 
-                <div class="teammatesDisplayRow row{% if presentation.teammates | length > 4 %} teammatesSlideshow {% endif %}">
+                <div class="teammatesDisplayRow {% if presentation.teammates | length > 4 %} teammatesSlideshow {% endif %}">
 
                     {% for teammate in presentation.teammates %}
 
@@ -60,7 +60,7 @@
 
                         <!-- Team Member Card -->
 
-                        <div class="teamMemberCard mb-2 px-1 cursor-pointer" style="float:left;">
+                        <div class="teamMemberCard mb-2 px-1" >
 
                             <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
 
@@ -409,11 +409,20 @@
 
     .teamMemberCard{
 
+        
+        display: inline-block !important;
+
         width:164px; 
 
         min-height:140px; 
 
         margin-right:10px; 
+
+        cursor:pointer;
+        
+        white-space:normal;
+        overflow-x:auto;
+        
     
     }
 
@@ -456,6 +465,7 @@
             .teammatesDisplayRow{
 
                 overflow-x: auto;
+                white-space: nowrap;
                 overflow-y: hidden;
 
             }

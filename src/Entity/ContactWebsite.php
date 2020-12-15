@@ -2,6 +2,11 @@
 
 namespace App\Entity;
 
+
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\Email;
+
 use App\Repository\ContactWebsiteRepository;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -19,6 +24,8 @@ class ContactWebsite
 
     /**
      * @ORM\Column(type="string", length=255)
+     * 
+     * @Assert\Email(message="Veuillez renseigner un email valide")
      */
     private $email;
 
@@ -28,7 +35,13 @@ class ContactWebsite
     private $title;
 
     /**
+     * 
      * @ORM\Column(type="text")
+     * 
+     * @Assert\Length(
+     *      min = 15,
+     *      minMessage = "La longueur du message doit faire au minimum {{ limit }} caractères",
+     * )
      */
     private $content;
 
@@ -41,8 +54,6 @@ class ContactWebsite
      * @ORM\Column(type="datetime")
      */
     private $createdAt;
-
-
 
 
     public function __construct()

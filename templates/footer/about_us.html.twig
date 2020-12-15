@@ -42,31 +42,16 @@
 
         <h3 class="my-5">Pour tout contact</h3>
 
-        <div class="mb-md-5 pl-md-4 col-md-8">
+        <div class="h5 pl-md-4 col-md-8 text-justify">
 
-            {{form_start(form)}}
+            <p>
+                Vous pouvez utiliser notre formulaire de contact en cliquant <a href="{{path('contact_website')}}">ici</a>.
 
-                {{form_widget(form)}}
-
-            <!-- Actions Buttons -->
-
-            <div class="mt-md-5">
-
-                <button type="submit" value="" class="btn btn-success sharp bg-green mr-2 mb-2">
-                    <span class="h5 font-weight-bold">Envoyer le message</span> 
-                </button>
-
-                <a href="{{path('homepage')}}">
-                    <button type="button" value="" class="btn sharp btn-info mb-2">
-                        <span class="h5 font-weight-bold">Retour</span> 
-                    </button>
-                </a>
-
-            </div>
-            
-            {{form_end(form)}}
+            </p>
 
         </div>
+
+   
 
     </div>
   

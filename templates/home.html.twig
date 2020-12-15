@@ -10,74 +10,61 @@
         <strong>L'affichage sur mobile n'est pas encore géré. Merci de votre compréhension.</strong>
     </div> -->
 
-    <div class="container mt-5 mb-5">
+    <div class="container mt-3 mb-2 my-mb-5">
 
-        <div class="col-md-8">
+        <div class="col-md-12 mt-4 mt-md-5">
 
             <!-- Jumbotron -->
+            <div class="row mb-md-4">
 
-               <div class="row mb-md-4">
+                <div class="col-sm-12 col-md-5 px-0">
 
-                    <div class="col-sm-12 col-md-7 px-0 mb-3">
+                    <p class="questionHomePage font-weight-bold" style="color:green;">
+                        Vous souhaitez présenter un Projet ? 
+                    </p>
+    
+                    <p class="secondLineHomePage mb-md-3">
+                        Ce site est créé pour vous.
+                    </p>
+    
+                    <p class="h4 mb-5 d-none d-md-block">
 
-                        <p class="questionHomePage font-weight-bold" style="color:green;">
-                            Vous souhaitez présenter un Projet ? 
-                        </p>
-        
-                        <p class="secondLineHomePage mb-md-3">
-                            Ce site est créé pour vous.
-                        </p>
-        
-                        <p class="h4 d-none d-md-block">
+                        <span class="font-weight-bold">
+                            Vous pouvez présenter votre projet</span><br>avec tous ses besoins. 
+                    </p>
+                    
+                    <!-- larger screens CTA Buttons -->
+    
+                    <div class="d-none d-md-block mb-md-5">
 
-                            <span class="font-weight-bold">
-                                Vous pouvez présenter votre projet</span><br>avec tous ses besoins. 
-                        </p>
-        
+                        <!-- Quick User Guide Button -->
+    
+                        <a href="{{ path('quick_user_guide') }}">
+                            <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mr-3">Comment ça marche ?</button>
+                        </a>
 
+                        <!-- Add a Project Button -->
+
+                        <a href="{{ path('create_presentation') }}">
+                            <button type="button" class="btn btn-lg font-weight-bold " style="border:3px solid orange;"><img class="mr-2" src="/images/app/addProject.svg" width="25px" height="25px" >Ajouter Projet</button>
+                        </a>
+
+    
                     </div>
-
-                    <div class="catCol col ml-md-2 d-flex align-items-center justify-content-center">
-
-                         <a class="" href="{{ path('create_presentation') }}">
-                             
-                            <div class="container p-4 rounded ml-md-5" style="border: 6px solid #ffa500; background-color:white;">
-
-                            <div class="row">
-
-                                <div class="col d-flex align-items-center justify-content-center">
-
-                                        
-                                       <img src="/images/app/addProject.svg" width="100px" height="100px" style="width:100%; height:100%;">
-
-                                    
-                                </div>
-
-                                <div class="col d-flex align-items-center">
-
-                                        <p class="h3 text-decoration-none text-body">
-                                            Présenter un Projet
-                                        </p>
-
-                                </div>
-
-                            </div>
-
-                        </div></a>
-
-                    </div>
+    
 
                 </div>
 
-            <!-- Quick User Guide Button -->
-
-                <div class="row mb-md-5">
-
-                    <a href="{{ path('quick_user_guide') }}">
-                        <button type="button" class="btn btn-info btn-lg sharp font-weight-bold">Comment ça marche ?</button>
-                    </a>
-
+                <div class="d-none d-md-block catCol col ml-4 mt-3">
+                    <img class="img-fluid rounded-lg" src="images/static/homepage/man_show_project.jpg" alt="" style="width:380px;">
                 </div>
+
+                <div class="d-md-none catCol col mt-1 d-flex align-items-center justify-content-center">
+                    <img class="img-fluid rounded-lg" src="images/static/homepage/man_show_project.jpg" alt="" style="width:330px;">
+                </div>
+
+            </div>
+
 
         </div>
 
@@ -104,27 +91,24 @@
 
             .questionHomePage{
 
-                font-size: 1.9em;
+                font-size: 1.5em;
 
                 margin-bottom:5px;
 
                 line-height: 35px;
+
+                padding-left: 5px;
             }
 
             .secondLineHomePage{
-
-                font-size: 1.65em;
+                padding-left: 5px;
+                font-size: 1.5em;
             }
 
             .catCol{
 
                 border-radius: 4px;
-                padding: 15px 5px;
-            }
-
-            .seeExampleCat{
-
-                padding: 15px 5px;
+                padding: 15px 2px;
             }
 
 
@@ -173,16 +157,35 @@
 
     </div>
 
+    <!-- Smaller Screens CTA Buttons -->
+
+    <div class="d-md-none px-4 mb-4">
+
+        <!-- Quick User Guide Button -->
+
+        <a href="{{ path('quick_user_guide') }}">
+            <button type="button" class="w-100 btn btn-info btn-lg sharp font-weight-bold mr-3 mb-4">Comment ça marche ?</button>
+        </a>
+
+        <!-- Add a Project Button -->
+
+        <a href="{{ path('create_presentation') }}">
+            <button type="button" class="w-100 btn btn-lg sharp font-weight-bold " style="border:3px solid orange;"><img class="mr-2" src="/images/app/addProject.svg" width="25px" height="25px" >Ajouter un Projet</button>
+        </a>
+
+
+    </div>
+
   
      <!-- Last Inserted Projects Title Display -->
 
     <div class="container pt-md-1">
 
-        <h3 class="font-weight-bold mb-3" style="color: navy;">
+        <h3 class="lastProjectsTitle font-weight-bold mb-3" style="color: navy;">
             Derniers projets présentés
         </h3>
 
-        <div class="mt-5">
+        <div class="mt-4 mt-md-5">
 
             {% for data in presentations %}
                 
@@ -191,6 +194,16 @@
             {% endfor %}
 
         </div>
+
+        <style>
+            @media screen and (max-width: 580px) {
+
+                .lastProjectsTitle{
+    
+                    font-size: 1.65em;
+                }
+            }
+        </style>
 
         
 <!--         <h2 class="h1 mt-2 mb-3">Des Présenteurs de Projets</h2>

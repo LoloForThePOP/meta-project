@@ -52,13 +52,13 @@
 
             <div class="">
 
-                <div class="ownersDisplayRow row{% if presentation.owners | length > 4 %} ownersSlideshow {% endif %}">
+                <div class="ownersDisplayRow{% if presentation.owners | length > 4 %} ownersSlideshow {% endif %}">
 
                     {% for owner in presentation.owners %}
 
                         <!-- Owner Card -->
 
-                        <div class="ownerCard mb-2 px-1 cursor-pointer" style="float:left;">
+                        <div class="ownerCard mb-2 px-1 cursor-pointer">
 
                             <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">
 
@@ -380,11 +380,18 @@
 
     .ownerCard{
 
+        display: inline-block !important;
+
         width:164px; 
 
         min-height:140px; 
 
-        margin-right:10px; 
+        margin-right:10px;
+
+        cursor:pointer;
+
+        white-space:normal;
+        overflow-x:auto;
     
     }
 
@@ -427,6 +434,7 @@
             .ownersDisplayRow{
 
                 overflow-x: auto;
+                white-space: nowrap;
                 overflow-y: hidden;
 
             }

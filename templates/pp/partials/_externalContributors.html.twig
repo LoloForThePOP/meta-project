@@ -379,7 +379,7 @@
                 
                  {% if ecs.richTextContent is not null %}
 
-                        <div class="container" style="font-size:1.17em;">
+                        <div class="container richTextContent">
 
                             {{ecs.richTextContent | raw}}
 
@@ -406,11 +406,6 @@
         margin-bottom: 38px;
     }
     
-    .ecsDisplayRow{
-        
-        
-    }
-
 
     .externalContributorCard {
 
@@ -420,13 +415,11 @@
 
         min-height:175px; 
 
-        //border: 1px solid black;
-
         margin-right : 10px;
 
         cursor: pointer;
 
-        white-space:normal ;
+        white-space:normal;
         overflow-x:auto;
     }
     
@@ -445,6 +438,10 @@
 
         overflow-y: hidden;
 
+    }
+
+    .richTextContent{
+        font-size:1.17em;
     }
 
     
@@ -472,6 +469,10 @@
                 white-space: nowrap;
                 overflow-y: hidden;
 
+            }
+
+            .richTextContent{
+                font-size:15px !important;
             }
 
 
