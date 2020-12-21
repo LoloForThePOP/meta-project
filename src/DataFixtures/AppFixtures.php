@@ -11,6 +11,7 @@ use App\Entity\Owner;
 use App\Entity\Slide;
 use App\Entity\PGroup;
 use App\Entity\Report;
+use App\Entity\Comment;
 use App\Entity\Contact;
 use App\Entity\Persorg;
 use App\Entity\PPBasic;
@@ -314,8 +315,10 @@ class AppFixtures extends Fixture
             $creator=$users[ mt_rand(0, count($users)-1) ];
 
             // Draft Presentation, or is published?
-
             $isPublished = array_rand([true,true,true,true,true,true,false]);
+
+            // Are Comments Allowed ?
+            $allowComments = array_rand([true,true,true,true,true,false]);
 
             // Are Private Messages Activated
             $isActiveContactMessages = array_rand([true,true,true,true,false]);
@@ -333,6 +336,7 @@ class AppFixtures extends Fixture
                 ->setCreatedAt($createdAt)
                 ->setCreator($creator)
                 ->setIsActiveContactMessages($isActiveContactMessages)
+                ->setAllowComments($allowComments)
                 ->setAdminValidation($isAdminValidated)
             ;
             
@@ -780,6 +784,70 @@ class AppFixtures extends Fixture
                             -> setPresentation($pp);
 
                     $manager->persist($website);
+                }
+
+            }
+
+            // Comments Creation
+
+            if ($pp->getAllowComments()==true) {
+
+                $hasComments = array_rand([true,true,true,true,false]);
+
+                if ($hasComments){
+
+                    $numComments = mt_rand(1,20);
+
+                    for ($j=1; $j<=$numComments; $j++){
+                    
+                        $comment = new Comment();
+
+                        $hasBeenUpdated = array_rand([true,false,false, false]);
+                        if ($hasBeenUpdated){
+                            $comment-> setUpdatedAt($faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years'));
+
+                        }
+
+                        $hasChilds = array_rand([true,false]);
+                        if ($hasChilds){
+
+                            $numChilds = mt_rand(1,7);
+
+                            for ($k=1; $k<=$numChilds; $k++){
+
+                                $child = new Comment();
+                                $childCreatedAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+                                $childContent=join($faker->paragraphs(2));
+                                $childUser = $users[ mt_rand(0, count($users)-1) ];
+
+                                $child
+                                -> setCreatedAt($childCreatedAt)
+                                -> setContent($childContent)
+                                -> setUser($childUser)
+                                -> setPresentation($pp);
+
+                                $manager->persist($child);
+
+                                $comment->addChild($child);
+
+                            }
+                            
+
+                        }
+
+                        $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+                        $content = join($faker->paragraphs(2));
+                        $user = $users[ mt_rand(0, count($users)-1) ];
+
+                        $comment
+                                -> setCreatedAt($createdAt)
+                                -> setUser($user)
+                                -> setContent($content)
+                                -> setPresentation($pp);
+
+                        $manager->persist($comment);
+                    }
+
                 }
 
             }

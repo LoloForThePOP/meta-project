@@ -140,15 +140,7 @@ class PersorgType extends AbstractType
                     'required'   => false,
                 ]
             )
-            
-            ->add('parentExternalContributorsStructure', HiddenType::class, 
-                [
 
-                    'required'   => false,
-
-                    "mapped" => false,
-                ]
-            )
 
         ;
     }

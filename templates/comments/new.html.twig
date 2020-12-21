@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+
+{% block title %}Nouveau commentaire{% endblock %}
+
+{% block body %}
+
+<div class="">
+
+    <h3 class="my-4">Ajouter un commentaire</h3>
+                         
+    {{form_start(form)}}
+
+    <!-- Comment Content Field -->
+
+    <div class="col-md-5 mb-4">
+
+        {{form_widget(form.content)}}
+
+
+    </div>
+
+    <!-- Actions Buttons -->
+
+    <div class="mb-3">
+
+        <button type="submit" class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2 mb-2">Ajouter le commentaire</button>
+
+        <a href="{{ path('homepage') }}">
+            <button type="button" class="btn btn-info btn-lg font-weight-bold sharp mb-2">Annuler</button>
+        </a>
+    
+    </div>
+
+    {{ form_end(form) }}
+
+</div>
+
+{% endblock %}

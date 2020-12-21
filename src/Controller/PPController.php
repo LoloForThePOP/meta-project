@@ -2,9 +2,13 @@
 
 namespace App\Controller;
 
+use App\Entity\Comment;
 use App\Entity\PPBasic;
+use App\Form\CommentType;
 use App\Form\PPBasicType;
+use App\Form\ReplyCommentType;
 use App\Form\NewPresentationType;
+use App\Repository\CommentRepository;
 use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\ExternalContributorsStructure;
@@ -147,10 +151,74 @@ class PPController extends AbstractController
      * 
      * @return Response
      */
-    public function show(PPBasic $presentation){
+    public function show(PPBasic $presentation, Request $request){
+
+        $user = $this->getUser();
+
+        $comment = new Comment();
+
+        $form = $this->createForm(CommentType::class, $comment);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $comment->setPresentation($presentation)
+                    ->setUser($user);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($comment);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre commentaire est ajouté.'
+            );
+
+            return $this->redirectToRoute('project_show', [
+                'slug' => $presentation->getSlug(),
+                ]);
+        }
+
+         //reply to a comment form 
+
+        $replyComment = new Comment();
+
+        $replyForm = $this->createForm(ReplyCommentType::class, $replyComment);
+
+        $replyForm->handleRequest($request);
+
+        if ($replyForm->isSubmitted() && $replyForm->isValid()) {
+
+            $parentCommentId = $persorgForm->get('parentCommentId')->getData();
+
+            $commentsRepository = new CommentRepository();
+
+            $parentComment = $commentsRepository->findOneById($parentCommentId);
+
+            $replyComment->setParent($parentComment);
+
+            $replyComment->setPresentation($presentation)
+                    ->setUser($user);
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($replyComment);
+            $entityManager->flush();
+
+            $this->addFlash(
+                'success',
+                'Votre commentaire est ajouté.'
+            );
+
+            return $this->redirectToRoute('project_show', [
+                'slug' => $presentation->getSlug(),
+                ]);
+        }
 
         return $this->render('/pp/show.html.twig',[
             'presentation' => $presentation,
+            'form' => $form->createView(),
+            'replyForm' => $replyForm->createView(),
         ]);
 
     }

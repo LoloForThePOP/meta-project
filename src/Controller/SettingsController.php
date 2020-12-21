@@ -89,5 +89,37 @@ class SettingsController extends AbstractController
 
     }
 
+    /** 
+     * Allow or disallow comments for a project presentation
+     * 
+     * @Route("/ajax-allow-comments", name="ajax_allow_comments_switch") 
+     * 
+     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
+    */ 
+
+    public function ajaxDisableComments(Request $request, PPBasic $presentation,EntityManagerInterface $manager) {
+
+        if ($request->isXmlHttpRequest()) {
+
+            $jsonAllowComments = $request->request->get('checkboxValue');
+
+            
+            $allowComments = json_decode($jsonAllowComments,true);
+
+            $presentation->setAllowComments($allowComments);
+
+            $manager->persist($presentation);
+
+            $manager->flush();
+          
+            $dataResponse = [
+            ];
+
+            return new JsonResponse($dataResponse);
+        }
+
+    }
+
 
 }

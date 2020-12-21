@@ -23,7 +23,7 @@
 
         {% if app.user and app.user == presentation.creator %}
 
-            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0" style="border: 2px solid navy !important;">Menu</a>
+            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0" style="border: 2px solid navy !important;">Outils</a>
 
         {% endif %}
 
@@ -35,7 +35,7 @@
         
         
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="" style="color: navy;">Menu</span> <!-- navbar-toggler-icon -->
     </button>
 
     <div class="collapse navbar-collapse ml-5 py-1 my-1 text-body" id="navbarColor03">
@@ -54,14 +54,18 @@
                 <a class="nav-link" href="{{path('projects_groups_index')}}">Groupes de Projets</a>
             </li>  -->
 
-            <form class="form-inline ml-2 d-none s-md-block">
+            <!-- Desktop -->
+
+            <form class="form-inline ml-2 d-none d-md-block">
                 <a href="{{path('create_presentation')}}">
                     <button class="btn btn-info font-weight-bold" type="button">+ Ajouter un Projet</button>
                 </a>
             </form>
+
+            <!-- Mobile -->
             
-            <li class="nav-item mr-3">
-                <a class="nav-link" href="{{path('create_presentation')}}">+ Ajouter un Projet</a>
+            <li class="d-md-none nav-item mr-3">
+                <a class="nav-link" href="{{path('create_presentation')}}">Ajouter un Projet</a>
             </li>
 
         </ul>
@@ -71,12 +75,21 @@
             {% if app.user %}
 
                 <li class="nav-item dropdown">
-                    
 
-                    <a class="nav-link dropdown-toggle bg-info text-white font-weight-bold rounded" style="color:white !important;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <!-- Desktop -->
+                    
+                    <a class="d-none d-md-block nav-link dropdown-toggle bg-info text-white font-weight-bold rounded" style="color:white !important;" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         
                        Compte
 
+
+                    </a>
+
+                    <!-- Mobile -->
+
+                    <a class="d-md-none nav-link dropdown-toggle font-weight-bold" style="" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                        
+                       Compte
 
                     </a>
 

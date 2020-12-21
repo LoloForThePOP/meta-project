@@ -182,6 +182,9 @@
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
+                <!-- Users Comments -->
+                {% include 'pp/partials/_Comments.html.twig' %}
+
 
                     <div class="mt-5 mb-3">
 
@@ -216,11 +219,47 @@
 
 {% block javascripts %}
 
+    <!-- Project Comments Section -->
+
+    <script>
+        
+        $(document).ready(function(){  
+
+            // If reply form to a comment form has errors, we display them to user, so we trigger Modal display 
+
+            {% if not replyForm.vars.valid %}
+        
+                 $('#replyCommentModal').modal('show');
+
+            {% endif %}
+
+            // When user wants to reply to a comment, we catch the parent comment id, and store it in the reply to comment form hidden field
+
+            $( ".js-reply-comment-button" ).click(function() {
+	
+                //alert($(this).data("id"));
+                
+                var parentCommentId = $(this).data("id");
+
+                $("#reply_comment_parentCommentId").val(parentCommentId);
+              
+            });
+            
+        });
+
+    </script>
+
+
+    <!-- Project Needs Section : ajax call when user wants need details -->
+
     {% if presentation.needs %}
 
         {% include 'pp/js_show/_needs.html.twig' %}
         
     {% endif %}
+
+
+    <!-- ProjectTeammates & owners Sections : caroussel display -->
 
     {% if presentation.teammates %}
 

@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Modifier un Commentaire{% endblock %}
+
+{% block body %}
+    
+    <!-- Content Container -->
+
+    <div class="container">
+
+        <!-- Title Container -->
+
+        <div class="mt-3 mt-md-5 mb-2">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Modifier un commentaire</h3>
+     
+        </div>
+
+        <!-- Form Display -->
+
+        <div class="col-md-7 mt-4 mb-4 mb-md-5 pl-0">
+
+
+                {{ form_start(form) }}
+
+                {{ form_errors(form.content) }}
+
+                {{ form_widget(form.content) }}
+
+                <!-- Action Buttons -->
+
+                <div class="mt-4">
+
+                    <button class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2">Valider</button>
+
+                    <a href="{{ path('project_show', {'slug':slug}) }}">
+
+                        <button type="button" class="btn btn-info btn-lg sharp font-weight-bold" data-dismiss="modal">Retour</button>
+
+                    </a>
+
+
+                </div>
+
+                {{ form_end(form) }}   
+
+        </div>
+
+    </div>
+
+
+{% endblock %}

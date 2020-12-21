@@ -29,7 +29,7 @@ class Owner
     private $project;
 
     /**
-     * @ORM\OneToOne(targetEntity=Persorg::class, inversedBy="owner", orphanRemoval=true)
+     * @ORM\OneToOne(targetEntity=Persorg::class, inversedBy="owner", orphanRemoval=true,cascade={"persist"})
      */
     private $persorg;
 

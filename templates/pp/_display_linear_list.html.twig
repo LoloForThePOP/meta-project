@@ -52,7 +52,7 @@
 
                                 {% else %}
                                                                                             
-                                    <div class="avatar-circle mx-auto">
+                                    <div class="avatar-circle mx-auto" style="background-color: {{ random(['#9c27b0 ', '#3f51b5 ', '#009688 ', '#4CAF50  ', '#ff9800  ', '#607d8b  ', '#ffc107  ']) }};">
                                         <span class="initials">
                                             {{presentation.goal | slice (0,1) | upper }}
                                         </span>
@@ -67,7 +67,7 @@
                                             height: 60px;
                                             background-color: #27ae60;
                                         }
-
+                                        
                                         
                                         .initials {
                                     

@@ -381,6 +381,16 @@ class PPBasic implements \Serializable
      */
     private $owners;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="presentation")
+     */
+    private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=10, nullable=true)
+     */
+    private $allowComments;
+
  
 
 
@@ -410,6 +420,7 @@ class PPBasic implements \Serializable
         $this->technicalData = new ArrayCollection();
         $this->externalContributorsStructures = new ArrayCollection();
         $this->owners = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
     
 
@@ -1140,6 +1151,48 @@ class PPBasic implements \Serializable
                 $owner->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getPresentation() === $this) {
+                $comment->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getAllowComments(): ?string
+    {
+        return $this->allowComments;
+    }
+
+    public function setAllowComments(?string $allowComments): self
+    {
+        $this->allowComments = $allowComments;
 
         return $this;
     }
