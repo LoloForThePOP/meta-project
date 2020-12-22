@@ -58,7 +58,7 @@
 
               <div class="d-flex align-items-center justify-content-center">
 
-                <img id="" class="mb-2" src="/images/projects/logos/{{presentation.logoName}}" alt="Project Logo" width="80" height="80">  
+                <img id="" class="mb-2" src="{{ asset('/images/projects/logos/' ~ presentation.logoName) | imagine_filter('logo_thumbnail_vsm') }}" alt="Project Logo">  
 
               </div>
 

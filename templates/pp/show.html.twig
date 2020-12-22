@@ -225,7 +225,7 @@
         
         $(document).ready(function(){  
 
-            // If reply form to a comment form has errors, we display them to user, so we trigger Modal display 
+            // If reply to a comment form has errors, we display them to user (so we trigger Modal display) 
 
             {% if not replyForm.vars.valid %}
         
@@ -236,14 +236,24 @@
             // When user wants to reply to a comment, we catch the parent comment id, and store it in the reply to comment form hidden field
 
             $( ".js-reply-comment-button" ).click(function() {
-	
-                //alert($(this).data("id"));
                 
                 var parentCommentId = $(this).data("id");
 
                 $("#reply_comment_parentCommentId").val(parentCommentId);
               
             });
+
+            //when user reply to a comment, we give focus to textarea
+
+            $('#replyCommentModal').on('shown.bs.modal', function () {
+                $('#reply_comment_content').focus();
+                //alert('lol');
+            }) 
+            
+            //we hide form honey pot
+            
+            $('.onpt').hide();
+            
             
         });
 

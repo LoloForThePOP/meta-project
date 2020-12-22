@@ -1,0 +1,14 @@
+<h3 class="mb-4 font-weight-bold">
+
+    {% if presentation.comments | length > 1 %}
+
+        {{presentation.comments | length }} 
+        commentaires
+
+    {% else %}
+
+        1 commentaire  
+
+    {% endif %}
+
+</h3>

@@ -8,7 +8,6 @@ use App\Form\CommentType;
 use App\Form\PPBasicType;
 use App\Form\ReplyCommentType;
 use App\Form\NewPresentationType;
-use App\Repository\CommentRepository;
 use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\ExternalContributorsStructure;
@@ -157,7 +156,17 @@ class PPController extends AbstractController
 
         $comment = new Comment();
 
-        $form = $this->createForm(CommentType::class, $comment);
+        $form = $this->createForm(CommentType::class, $comment, array(
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 10,
+            'antispam_time_max' => 3600,
+        
+            // Honeypot protection
+            'antispam_honeypot'       => true,
+            'antispam_honeypot_class' => 'onpt',
+            'antispam_honeypot_field' => 'email-repeat',
+        ));
 
         $form->handleRequest($request);
 
@@ -184,17 +193,28 @@ class PPController extends AbstractController
 
         $replyComment = new Comment();
 
-        $replyForm = $this->createForm(ReplyCommentType::class, $replyComment);
+        $replyForm = $this->createForm(ReplyCommentType::class, $replyComment, array(
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 10,
+            'antispam_time_max' => 3600,
+        
+            // Honeypot protection
+            'antispam_honeypot'       => true,
+            'antispam_honeypot_class' => 'onpt',
+            'antispam_honeypot_field' => 'email-repeat',
+        ));
 
         $replyForm->handleRequest($request);
 
         if ($replyForm->isSubmitted() && $replyForm->isValid()) {
 
-            $parentCommentId = $persorgForm->get('parentCommentId')->getData();
+            //we retrieve parent comment
 
-            $commentsRepository = new CommentRepository();
+            $parentCommentId = $replyForm->get('parentCommentId')->getData();
 
-            $parentComment = $commentsRepository->findOneById($parentCommentId);
+            $entityManager = $this->getDoctrine()->getManager();
+            $parentComment = $entityManager->getRepository(Comment::class)->findOneById($parentCommentId);
 
             $replyComment->setParent($parentComment);
 

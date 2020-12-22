@@ -8,9 +8,9 @@
 
     {% set sidebarItems = [ 
 
-        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  
-        
         { 'name': 'Voir le Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+        
+        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  
 
         { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
 

@@ -2,13 +2,208 @@
 
 {% block title %}Édition d'une Présentation{% endblock %}
 
-
 {% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
-
 
 {% block body %}
 
+<!-- Edit Presentation Menu -->
 
+  <div class="container pl-md-0">
+
+    <div class="container-fluid mt-4">
+
+        <!-- First Row : the Essentials-->
+
+        <div class="row">
+
+          <!-- First Column -->
+          
+          <div class="col-xl-4 col-md-6 pl-md-0 mb-4 cursor-pointer">
+            
+            <!-- Project Goal; Title; and Logo -->
+            
+            {% include "pp/edition_menu/items/_goal_title_logo.html.twig" %}
+            
+            <!-- Project Categories and Keywords -->
+
+            {% include "pp/edition_menu/items/_categories_keywords.html.twig" %}
+
+          </div>
+          
+          <!-- End of First column -->
+          
+          
+          <!-- Second Column -->
+          
+          <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                  
+            <!-- Project Text Description -->
+            
+            
+            {% include "pp/edition_menu/items/_text_description.html.twig" %}
+
+
+            <!-- Project Images & Videos -->
+
+            {% include "pp/edition_menu/items/_images_videos.html.twig" %}
+
+
+            <!-- Project Documents -->
+
+            {% include "pp/edition_menu/items/_documents.html.twig" %}
+
+            
+            <!-- Project Needs -->
+
+            {% include "pp/edition_menu/items/_needs.html.twig" %}
+
+          </div>
+
+          <!-- End of Second Column -->
+
+
+          <!-- Third Column -->
+          
+          <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                
+            <!-- Project Geodomains -->
+
+            {% include "pp/edition_menu/items/_geodomains.html.twig" %}
+
+
+            <!-- Project Websites -->
+
+            {% include "pp/edition_menu/items/_websites.html.twig" %}
+
+            
+            <!-- Project Contact Us Cards -->
+
+            {% include "pp/edition_menu/items/_contact_us.html.twig" %}
+      
+          </div>
+
+          <!-- End of Third Column -->
+
+        </div>
+
+        <!-- Second Row : More Options -->
+
+        <div class="row">
+
+          <div class="col">
+
+            <!-- UI Second Row Title -->
+
+            <div class="row">
+
+              <h3 class="font-weight-bold mb-4">Plus d'options</h3>
+
+            </div>
+
+            <!-- Second Row Content (Three Column) -->
+
+            <div class="row">
+              
+              
+              <!-- First Column -->
+              
+              <div class="col-xl-4 col-md-6 pl-0 mb-4 cursor-pointer">
+                                
+                <!-- Project Team -->
+
+                {% include "pp/edition_menu/items/_team.html.twig" %}          
+                                
+                <!-- Project External Contributors (donors; partners; etc) -->
+
+                {% include "pp/edition_menu/items/_external_contributors.html.twig" %}
+
+              </div>
+              
+              <!-- End of First column -->
+          
+              
+              <!-- Second Column -->
+              
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+                
+                <!-- Project Dates & Events -->
+
+                {% include "pp/edition_menu/items/_events.html.twig" %}
+
+                            
+                <!-- Project Other Data -->
+
+                {% include "pp/edition_menu/items/_data_list.html.twig" %}
+
+
+              </div>
+
+              <!-- End of Second Column -->
+
+              <!-- Third Column -->
+              
+              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
+
+                <!-- Project Owners -->
+
+                {% include "pp/edition_menu/items/_owners.html.twig" %}
+
+                <!-- Project Q&A -->
+
+                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
+          
+              </div>
+
+              <!-- End of Third Column -->
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Third Row : See Result Button -->
+
+        <div class="row">
+
+          <div class="col">
+
+            <div class="row">
+
+              <div class="col">
+
+                <h3 class="font-weight-bold mb-4">Résultat</h3>
+
+              </div>
+
+            </div>
+
+            <div class="row">
+
+              <div class="col-xl-4 col-md-6 pl-0 mb-4 cursor-pointer">
+
+                <!-- Display Project Presentation Button -->
+
+                {% include "pp/edition_menu/items/_show_presentation.html.twig" %}
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+
+    </div>
+
+  </div>
+
+
+<!-- Styles for Edit Presentation Menu -->
+    
 <style>
     
   .cat-menu-title {
@@ -41,135 +236,6 @@
   }
 
 </style>
-
-    <div class="container pl-0">
-
-        <div class="container-fluid mt-4">
-
-            <!-- Central Container Heading -->
-            <div class="d-sm-flex align-items-center justify-content-between mb-2">
-              
-              <!-- <h1 class="h3 mb-0 text-gray-800">Tableau de Bord</h1> -->
-            
-            </div>
-  
-            <!-- Central Container Content-->
-
-            <div class="row">
-
-              <!-- First Column -->
-              
-              <div class="col-xl-4 col-md-6 pl-0 mb-4 cursor-pointer">
-                
-                <!-- Project Goal; Title; and Logo -->
-                
-                {% include "pp/edition_menu/items/_goal_title_logo.html.twig" %}
-                
-                <!-- Project Categories and Keywords -->
-
-                {% include "pp/edition_menu/items/_categories_keywords.html.twig" %}
-                               
-                <!-- Project Team -->
-
-                {% include "pp/edition_menu/items/_team.html.twig" %}
-
-                
-                <!-- Project Owners -->
-
-                {% include "pp/edition_menu/items/_owners.html.twig" %}
-                   
-                               
-                <!-- Project External Contributors (donors; partners; etc) -->
-
-                {% include "pp/edition_menu/items/_external_contributors.html.twig" %}
-
-              </div>
-              
-              <!-- End of First column -->
-              
-              
-              <!-- Second Column -->
-              
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                      
-                <!-- Project Text Description -->
-                
-                
-                {% include "pp/edition_menu/items/_text_description.html.twig" %}
-
-
-                <!-- Project Images & Videos -->
-
-                {% include "pp/edition_menu/items/_images_videos.html.twig" %}
-
-
-                <!-- Project Documents -->
-
-                {% include "pp/edition_menu/items/_documents.html.twig" %}
-
-                
-                <!-- Project Needs -->
-
-                {% include "pp/edition_menu/items/_needs.html.twig" %}
-
-                
-                <!-- Project Dates & Events -->
-
-                {% include "pp/edition_menu/items/_events.html.twig" %}
-
-                            
-                <!-- Project Other Data -->
-
-                {% include "pp/edition_menu/items/_data_list.html.twig" %}
-
-
-              </div>
-
-              <!-- End of Second Column -->
-
-
-  
-  
-              <!-- Third Column -->
-              
-              <div class="col-xl-4 col-md-6 mb-4 cursor-pointer">
-                    
-                <!-- Project Geodomains -->
-
-                {% include "pp/edition_menu/items/_geodomains.html.twig" %}
-
-
-                <!-- Project Websites -->
-
-                {% include "pp/edition_menu/items/_websites.html.twig" %}
-
-                
-                <!-- Project Contact Us Cards -->
-
-                {% include "pp/edition_menu/items/_contact_us.html.twig" %}
-
-
-                <!-- Display Project Presentation -->
-
-                {% include "pp/edition_menu/items/_show_presentation.html.twig" %}
-                
-
-                <!-- Project Q&A -->
-
-                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
-
-
-         
-              </div>
-
-              <!-- End of Third Column -->
-
-            </div>
-
-  
-          </div>
-
-    </div>
 
 
 {% endblock %}

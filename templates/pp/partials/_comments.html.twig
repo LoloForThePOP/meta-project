@@ -7,284 +7,62 @@
 
         <!-- Comments Count Display -->
 
-        <h3 class="mb-4 font-weight-bold">
-
-            {% if presentation.comments | length > 1 %}
-
-                {{presentation.comments | length }} 
-                commentaires
-
-            {% else %}
-
-                1 commentaire  
-
-            {% endif %}
-
-        </h3>
-
-        <!-- New Comment Form (Only for Registred Users) --> 
-
-        {% if is_granted('ROLE_USER') %}
-
-            {{form_start(form)}} 
-
-            <span class="h5 text-danger">
-                {{ form_errors(form.content) }}
-
-            </span>
-
-        
-            <!-- Comment Content Field -->
-        
-            <div class="float-left col-md-7 mb-4">
-        
-                {{form_widget(form.content)}}
-        
-            </div>
-        
-            <!-- Actions Buttons -->
-        
-            <div class="clearfix mb-3">
-        
-                <button type="submit" class="btn btn-success sharp bg-green font-weight-bold mr-2 mb-2">Ajouter</button>
-            
-            </div>
-
-        {{ form_end(form) }}
-
-
-         
-
-        <!-- Styles for Textarea -->
-
-        <style>       
-            textarea {
-              color:black !important;
-              font-size:1.15em !important;
-              line-height: 1.15em !important;
-              width: 100%;
-              height: 60px !important;
-              padding: 12px 12px !important;
-            }
-
-            textarea::placeholder {
-                font-size:1.15em !important;
-                font-weight:bold;
-                color: #7b8a8b  !important;
-              }
-
-        </style>
-
-        
-        <!-- Reply to Comment Form (diplayed in a modal box, only for logged in users) -->
-
-        {% if is_granted('ROLE_USER') %}
-
-            <div class="modal fade" id="replyCommentModal" tabindex="-1" role="dialog" aria-labelledby="replyCommentLabel" aria-hidden="true">
-
-                <div class="modal-dialog" role="">
-
-                    <div class="modal-content">
-
-                        <div class="modal-header">
-
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                                <span aria-hidden="true">&times;</span>
-
-                            </button>
-
-                        </div>
-
-                        <div class="modal-body">
-
-                            <div>
-
-                                <h4 class="font-weight-bold mb-3">Répondre à un commentaire</h4>
-
-                                <div class="">
-
-                                    {{form_start(replyForm)}}
-
-                                    {{ form_errors(replyForm.content) }}
-
-                                    {{form_widget(replyForm.content)}}
-                                    
-                                
-                                </div>
-                                
-                            </div>
-
-                        </div>
-
-                        <div class="modal-footer">
-
-                            <button type="button" class="btn btn-lg btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
-
-                            <button class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
-                            
-                        </div>
-
-                        {{form_end(replyForm)}}
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        {% endif %}
-
-        <!-- If reply comment form has errors, we display them to user, so we trigger Modal display -->
-
-        <!-- code javascript is stored in the bottom of project show.html.twig -->
-
-
-
-        <!-- User Not Logged In : we propose to sign up -->
-
-        {% else %}
-
-            <div class="my-3">
-
-                (<a href="{{ path('account_login') }}">connexion
-                </a>
-                    
-                pour écrire un commentaire) 
-            </div>
-
-
-        {% endif %}
-
-        <!-- Comments Display Box -->
-
-        <div class="ml-md-3 mb-4">
-                
-            {% for comment in presentation.comments | reverse %}
-
-                <!-- One Comment Box -->
-            
-                <article class="mb-5 comment-{{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
-
-                    <!-- Comment Header -->
-
-                    <header>
-
-                        <p>
-                            <!-- Comment Author -->
-
-                            <a href="{{ path('user_show', {'id' : comment.user.id}) }}" class="text-primary font-weight-bold">
-                                <span class="highlight">{{comment.user.persorg.name}}</span>
-                            </a> 
-
-                            <!-- Comment Date -->
-                            
-                            le
-
-                            <time>
-                                {{ comment.createdAt | date("d/m/Y")}}
-                            </time>
-
-                        </p>
-
-                    </header>
-
-                    <!-- Comment Content -->
-
-                    <p class="commentContent">
-                        {{ comment.content | nl2br }}
-                    </p>
-
-                    <!-- Reply to Comment Button -->
-                    <!-- Case user is logged in or not -->
-
-                    {% if is_granted('ROLE_USER') %}
-
-                        <span data-id="{{comment.id}}" class="js-reply-comment-button replyCommentButton cursor-pointer" data-toggle="modal" data-target="#replyCommentModal">RÉPONDRE</span>
-                        
-                    {% else %}
-                        
-                        <a href="{{ path('account_login') }}">
-                            
-                            <span class="cursor-pointer" style="font-size: 0.8em;">RÉPONDRE</span>
-
-                        </a>
-
-                    {% endif %}
-
-                    <!-- Edit Comment Button -->
-
-                    {% if app.user == comment.user %}
-
-                        <a href="{{ path('edit_comment', {'slug': presentation.slug, 'id_comment': comment.id} ) }}">
-
-                              <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
-
-                        </a>
-
-                    {% endif %}
-
-
-                <!-- Maybe Some Comment Childs -->
-
-                {% if comment.childs is not null %}
-
-                    <!-- Indentation -->
-
-                    <div class="childCommentsArea">
-
-                        {% for subComment in comment.childs | reverse %}
-
-                            <!-- Child Header -->
-
-                            <header>
-
-                                <!-- Child Author -->
-
-                                <p>
-                                    <span class="highlight"> ??? </span>
-
-                                    <!-- Child Date -->
-                                    
-                                    le
-
-                                    <time datetime="{{ subComment.createdAt|date('c') }}">{{ subComment.createdAt|date('l, F j, Y') }}</time>
-
-                                </p>
-
-                                <!-- Child Content -->
-
-                                <p>
-                                    {{ subComment.content }}
-                                </p>
-
-                            </header>
-
-                        {% endfor %}
-                        
-                    <!-- End Of Comment Childs Section-->
-
-                    </div>
-
-                {% endif %}
-
-                <!-- End of Comment Section -->
-
-                </article>
-                
-            {% endfor %}
-
-        </div>
+        {% include 'pp/partials/_comments/_count_comments_display.html.twig' %}
 
     <!-- No Comment Yet Default Message -->
 
     {% else %}
 
-    Aucun commentaire rédigé.
+        <h5 class="mb-4 font-weight-bold">
+
+            Aucun commentaire rédigé.
+
+        </h5>
         
     {% endif %}
 
-<!-- Disabled Comments Default Message -->
+    <!-- New Comment Invitation -->
+
+    <!-- If user is logged in we display a form-->
+
+    {% if is_granted('ROLE_USER') %}
+
+        <!-- New Comment Form (Only for Registred Users) -->
+
+        {% include 'pp/partials/_comments/_new_comment_form.html.twig' %}
+    
+
+        <!-- Reply to Comment Form (diplayed in a modal box, only for logged in users) -->
+        
+        {% include 'pp/partials/_comments/_reply_comment_form.html.twig' %}
+        
+        
+    <!-- User Not Logged In : we propose to sign up -->
+        
+    {% else %}
+        
+        {% include 'pp/partials/_comments/_sign_up_to_comment.html.twig' %}
+
+    {% endif %}
+
+
+    {% if presentation.comments | length > 0 %}
+
+        <!-- Comments Display Box -->
+
+            <div class="ml-md-3 mb-4">
+
+                <!-- Comments Display Loop -->
+    
+                {% include 'pp/partials/_comments/_comments_display_loop.html.twig' %}
+
+    
+            </div>
+
+    {% endif %}
+
+
+<!-- Disabled Comments : we display a Default Message -->
 
 {% else %}
     
@@ -296,22 +74,3 @@
 
 {% endif %}
 
-
-<!-- Some Styles for Comments Display -->
-
-<style>
-
-    .commentContent{
-        font-size:1.1em;
-    }
-
-    .replyCommentButton{
-        font-size: 0.8em;
-        
-    }
-
-    .childsCommentsArea{
-        margin-left:5px;
-    }
-
-</style>

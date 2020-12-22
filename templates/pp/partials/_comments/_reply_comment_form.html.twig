@@ -1,0 +1,61 @@
+<div class="modal fade" id="replyCommentModal" tabindex="-1" role="dialog" aria-labelledby="replyCommentLabel" aria-hidden="true">
+
+    <div class="modal-dialog" role="">
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <div>
+
+                    <h4 class="font-weight-bold mb-3">Répondre à un commentaire</h4>
+
+                    <div class="">
+
+                        {{form_start(replyForm)}}
+
+                        {{ form_errors(replyForm.content) }}
+
+                        {{form_widget(replyForm.content)}}
+                        
+                    
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-lg btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                <button class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
+                
+            </div>
+
+            {{form_end(replyForm)}}
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<style>
+
+    .modal textarea {
+        height: 160px !important;
+      }
+
+</style>

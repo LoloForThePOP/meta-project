@@ -29,7 +29,7 @@ class ExternalContributorsStructure
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="externalContributorsStructures", cascade={"persist", "remove"})
+     * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="externalContributorsStructures", cascade={"persist"})
      */
     private $project;
 
