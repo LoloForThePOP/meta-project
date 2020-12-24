@@ -122,6 +122,11 @@ class User implements UserInterface
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=News::class, mappedBy="creator")
+     */
+    private $news;
+
 
 
     public function __construct()
@@ -142,7 +147,8 @@ class User implements UserInterface
         $this->pGroups = new ArrayCollection();
         $this->pGroupsMaster = new ArrayCollection();
         $this->reports = new ArrayCollection();
-        $this->comments = new ArrayCollection();                
+        $this->comments = new ArrayCollection();
+        $this->news = new ArrayCollection();                
         
     }
   
@@ -497,6 +503,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($comment->getUser() === $this) {
                 $comment->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|News[]
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news[] = $news;
+            $news->setCreator($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            // set the owning side to null (unless already changed)
+            if ($news->getCreator() === $this) {
+                $news->setCreator(null);
             }
         }
 

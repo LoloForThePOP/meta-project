@@ -1,0 +1,213 @@
+<!-- WARNING Javascript ajax management is done in pp/show.html.twig due to jQuery.js loading priorities -->
+
+<!-- Project News Display -->
+
+{% if presentation.news | length > 0 %}
+
+    <!-- Structure Container -->
+
+    <div class="pp-struct-container pp-struct-needs">
+
+        <!-- Title Container -->
+
+        <div class="pp-struct-title-container">
+
+            <h3 class="pp-struct-title d-inline mr-2">
+                
+                {% if presentation.news | length == 1 %}
+                    1 communiqué
+
+                {% else %}
+                    
+                    {{presentation.news | length}} communiqués
+
+                {% endif %}
+                
+            </h3>
+
+                    
+            <!-- Manage Project News Button -->
+
+           {# {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('manage_news', {'slug': presentation.slug}) }}">
+
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les news</button>
+                    
+                </a>
+            {% endif %} #}
+
+        </div>
+
+        
+
+        <!-- Some Style -->
+
+        <style>
+
+            #newsDisplayTable td:hover, #newsDisplayTable .pp-struct-container a:hover {
+                        
+                background-color : gainsboro;
+
+            }
+
+            #newsDisplayTable tbody tr:first-child {
+                        
+                /* margin-top:0px !important;
+                padding-top:0px !important;
+
+                background-color: brown; */
+
+            }
+
+
+            @media screen and (max-width: 580px) {
+
+                #newsDisplayTable td {
+
+                    font-size: 17px;
+                    font-weight: normal;
+
+                    padding-top: 9px;
+                    padding-bottom: 9px;
+
+                }
+
+
+            }
+
+        </style>
+        
+        
+        
+        <!-- Project News Display List (click trigger a news details display (in a modal box))-->
+    
+        <div class="container-fluid table-responsive pl-0 pl-md-3">
+            
+            <table id="newsDisplayTable" class="table mb-1 mb-md-3 table-hover table-borderless">
+                
+                <tbody>
+
+                    {% for news in presentation.news %}
+
+
+                        <!-- News Date Display -->
+
+                        <!-- News Title Display (in a Table) -->
+
+                 
+                        <tr id="{{ news.id }}" data-news-title = "{{ news.title }}" data-news-date-creation = "{{news.createdAt | date('d-m-Y')}}" data-news-date-update = "{% if news.updatedAt is not null %}{{news.updatedAt | date('d-m-Y')}}{% endif %}" class="cursor-pointer h5 font-weight-bold">
+
+                            <td>
+                
+                                <a data-toggle="modal" data-target="#displayNewsModal" class="text-body text-decoration-none">
+
+                                    <!-- Blue arrow bullet point -->
+                                    
+                                    <span class="arrowCar blueArrow">► </span>
+
+                                    <!-- News Creation Date -->
+                                    
+                                    {{ news.createdAt | date('d-m-Y') }}
+
+                                    {% if news.updatedAt is not null %} (modifié){% endif %} 
+
+                                     -- 
+
+                                    <!-- News Title -->
+                                    
+                                    {{ news.title | capitalize }}
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+        
+            </table>
+
+        </div>
+
+                
+        <!-- Display News Details (in a Modal Box) -->
+
+        <div class="modal fade" id="displayNewsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <!-- Need Title Display -->
+
+                    <div class="modal-header">
+                        
+                        <h5 id="news-title-modal" class="modal-title font-weight-bold"></h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                            <span aria-hidden="true">&times;</span>
+
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body fs-15" >
+
+                        <!-- Creation Date Display -->
+
+                        <div class = "mb-2" >
+
+                            <span class="">
+                                Publié le 
+                            </span>
+
+                            <span id="news-date-creation-modal"></span>
+
+                        </div>
+
+                        <!-- Potential Update Date Display -->
+
+                        <div id="news-date-update-area-modal" class = "mb-2" >
+
+                            <span class="">
+                                Modifié le 
+                            </span>
+
+                            <span id="news-date-update-modal"></span>
+
+                        </div>
+
+                        <!-- News Content Display -->
+
+                        <div id="news-content-text-modal" class="mt-3" style="white-space:pre-wrap;">
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Action Buttons -->
+
+                    <div class="modal-footer">
+
+                        <!-- Back Button -->
+
+                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+{% endif %}
+

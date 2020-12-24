@@ -401,6 +401,13 @@ class PPBasic implements \Serializable
      */
     private $overallQualityAssessment;
 
+    /**
+     * @ORM\OneToMany(targetEntity=News::class, mappedBy="project")
+     * 
+     * @ORM\OrderBy({"createdAt" = "ASC"})
+     */
+    private $news;
+
  
 
 
@@ -434,6 +441,7 @@ class PPBasic implements \Serializable
         $this->externalContributorsStructures = new ArrayCollection();
         $this->owners = new ArrayCollection();
         $this->comments = new ArrayCollection();
+        $this->news = new ArrayCollection();
     }
     
 
@@ -1218,6 +1226,36 @@ class PPBasic implements \Serializable
     public function setOverallQualityAssessment(?int $overallQualityAssessment): self
     {
         $this->overallQualityAssessment = $overallQualityAssessment;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|News[]
+     */
+    public function getNews(): Collection
+    {
+        return $this->news;
+    }
+
+    public function addNews(News $news): self
+    {
+        if (!$this->news->contains($news)) {
+            $this->news[] = $news;
+            $news->setProject($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNews(News $news): self
+    {
+        if ($this->news->removeElement($news)) {
+            // set the owning side to null (unless already changed)
+            if ($news->getProject() === $this) {
+                $news->setProject(null);
+            }
+        }
 
         return $this;
     }

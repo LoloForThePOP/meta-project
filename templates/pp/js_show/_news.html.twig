@@ -1,0 +1,82 @@
+    
+<!-- Javascript to Display a Project News Details into a Modal -->
+<!-- Call to this script is done at the bottom of templates\pp\show.html.twig -->
+
+<script>
+
+    $(document).ready(function(){
+
+        // When Click on a News Title, we display its details in a modal box
+
+        $('#newsDisplayTable tbody').on('click', 'tr', function (){
+
+            var newsId = $(this).attr('id');
+            var newsTitle = $(this).attr('data-news-title');
+            var newsCreationDate = $(this).attr('data-news-date-creation');
+            var newsUpdateDate = $(this).attr('data-news-date-update');
+            var loader =  '<div class="p-3"><div class="loader"></div></div>';
+
+            
+
+            $('#news-title-modal').html(newsTitle);
+
+            $('#news-date-creation-modal').html(newsCreationDate);
+
+
+            //displaying updated date only if it exists
+
+            $('#news-date-update-area-modal').hide();
+
+            if (newsUpdateDate !==''){
+                $('#news-date-update-area-modal').show();
+                $('#news-date-update-modal').html(newsUpdateDate);
+            }
+            
+
+            $('#news-content-text-modal').html(loader);
+            
+            // Get News Details and Display These Details in a Modal
+
+            
+            $.ajax({  
+
+                url: "{{path('ajax_get_news_details', {'slug': presentation.slug}) }}",
+
+                type:       'POST',   
+
+                dataType:   'json',
+
+                data: {
+
+                    "newsId": newsId,
+
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    newsTextContent = data.newsTextContent;
+
+                    $('#news-content-text-modal').html(newsTextContent);
+                                        
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+
+                    alert('Ajax request failed.');  
+
+                }  
+
+            }); 
+
+
+        
+            
+
+
+        });
+
+    });
+
+</script>

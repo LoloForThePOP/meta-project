@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use Faker\Factory;
 use App\Entity\Need;
+use App\Entity\News;
 use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Event;
@@ -736,6 +737,34 @@ class AppFixtures extends Fixture
 
             }
 
+
+            // Project News
+
+            $hasNewsOdds = [true, true, true, false];
+
+            $hasNews = $hasNewsOdds [array_rand($hasNewsOdds)];
+
+            if ($hasNews){
+
+            $newsCount = mt_rand(1,12);
+
+                for ($j=1; $j<=$newsCount; $j++){
+                
+                    $news = new News();
+
+                    $createdAt = $createdAt = $faker->dateTimeBetween($startDate = 'now', $endDate = '+4 years');
+                    $title = $faker->sentence();
+                    $textContent = join($faker->paragraphs(2));
+
+                    $news-> setCreatedAt($createdAt)
+                            -> setTitle($title)
+                            -> setTextContent($textContent)
+                            -> setProject($pp);
+
+                    $manager->persist($news);
+                }
+
+            }
 
             // Project Documents
 

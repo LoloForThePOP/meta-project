@@ -115,7 +115,7 @@
 
                         {% endif %}
 
-                        <tr id="{{ need.id }}" data-need-title = "{{ need.title }}" data-need-date = "{{need.createdAt |date('d-m-Y')}}" data-need-isPaid = "{{ isPaid }}" class="cursor-pointer h5 font-weight-bold">
+                        <tr id="{{ need.id }}" data-need-title = "{{ need.title }}" data-need-date = "{{need.createdAt | date('d-m-Y')}}" data-need-isPaid = "{{ isPaid }}" class="cursor-pointer h5 font-weight-bold">
 
                             <td>
                 
@@ -147,7 +147,7 @@
                 
         <!-- Display Need Details (in a Modal Box) -->
 
-        <div class="modal fade" id="displayNeedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="displayNeedDescriptionModalLabel" aria-hidden="true">
+        <div class="modal fade" id="displayNeedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
 
             <div class="modal-dialog" role="document">
 
@@ -157,7 +157,7 @@
 
                     <div class="modal-header">
                         
-                        <h5 id="titleNeedModal" class="modal-title font-weight-bold" id="displayNeedDescriptionModalLabel"></h5>
+                        <h5 id="titleNeedModal" class="modal-title font-weight-bold"></h5>
 
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 

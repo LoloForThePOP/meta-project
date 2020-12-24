@@ -179,6 +179,9 @@
                 <!-- Project External Contributors -->
                 {% include 'pp/partials/_externalContributors.html.twig' %}
 
+                <!-- Project News -->
+                {% include 'pp/partials/_news.html.twig' %}
+
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
@@ -265,6 +268,14 @@
     {% if presentation.needs %}
 
         {% include 'pp/js_show/_needs.html.twig' %}
+        
+    {% endif %}
+
+    <!-- Project News Section : ajax call when user wants news details -->
+
+    {% if presentation.news %}
+
+        {% include 'pp/js_show/_news.html.twig' %}
         
     {% endif %}
 

@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}Nouvelle Actualité{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h3 class="my-4 font-weight-bold">Nouvelle Actualité</h3>
+
+    {{ form_start(form) }}
+
+    {{ form_widget(form) }}
+
+    <!-- Action Buttons -->
+
+    <div class="mt-4">
+
+        <a href="{{path('index_news', {'slug':slug})}}">
+            <button type="button" value="" class="btn btn-lg btn-info sharp font-weight-bold mr-2">
+                <span class="h5 font-weight-bold">Retour</span> 
+            </button>
+        </a>       
+
+        <button class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
+
+    </div>
+
+    {{ form_end(form) }}
+
+</div>
+
+{% endblock %}
