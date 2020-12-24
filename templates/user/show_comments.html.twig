@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Commentaires de {{user.persorg.name}} {% endblock %}
+
+{% block body %}
+
+    <div class="container pl-md-5 mt-4 pt-md-2 mt-md-5 pb-5">
+
+        <!-- UI Page Title -->
+        
+        <h4 class="mb-5 font-weight-bold">Mes commentaires publiés</h4>
+
+        <!-- User Comments List -->
+
+        {% for comment in user.comments | reverse %}
+
+            <article class="mb-5 comment-{{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
+
+                <header>
+
+                    <p>
+        
+                        <!-- Comment Date -->
+                        
+                        le
+        
+                        <time>
+                            {{ comment.createdAt | date("d/m/Y")}}
+                        </time>
+        
+                        {% if comment.updatedAt is not null %}
+                            (modifié)
+                        {% endif %}
+        
+                    </p>
+        
+                </header>
+        
+                <!-- Comment Content -->
+        
+                <p class="commentContent">
+                    {{ comment.content | nl2br }}
+                </p>
+        
+                <!-- Edit Comment Button -->
+        
+                {% if app.user == comment.user %}
+        
+                    <a href="{{ path('edit_comment', {'slug': comment.presentation.slug, 'id_comment': comment.id} ) }}">
+        
+                            <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
+        
+                    </a>
+        
+                {% endif %}
+
+            </article>
+            
+        {% endfor %}
+
+        
+        <!-- Back Button -->
+
+        <div class="">
+        
+            <a href="{{path('account_index')}}">
+
+                <button type="button" class="btn btn-info sharp font-weight-bold">Retour</button>
+
+            </a>
+
+
+        </div>
+
+
+    </div>
+
+{% endblock %}

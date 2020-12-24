@@ -7,37 +7,37 @@
 {# Set some predefined title chunks #}
 
 {% set predefinedTitleChunks = [ 
-
-    { 'name': 'Donateurs'},
-
-    { 'name': 'Financeurs'}, 
-
-    { 'name': 'Mécènes'},
-
+    
     { 'name': 'Sponsors'},
-
-    { 'name': 'Ambassadeurs'},
-
-    { 'name': 'Amis'},
-
-    { 'name': 'Conseillers'},
-
-    { 'name': 'Fournisseurs'},
-
-    { 'name': 'Crédits'},
-
+    
     { 'name': 'Remerciements'},
-
-    { 'name': 'Supporters'},
-
-    { 'name': 'Contributeurs ponctuels'},
-
+    
+    { 'name': 'Donateurs'},
+    
     { 'name': 'Partenaires'},
-
+    
+    { 'name': 'Mécènes'},
+    
+    { 'name': 'Ambassadeurs'},
+    
+    { 'name': 'Amis'},
+    
+    { 'name': 'Conseillers'},
+    
+    { 'name': 'Fournisseurs'},
+    
+    { 'name': 'Crédits'},
+    
+    { 'name': 'Supporters'},
+    
+    { 'name': 'Contributeurs ponctuels'},
+    
+    { 'name': 'Financeurs'}, 
+    
     { 'name': 'Investisseurs'},
-
-] %}
-
+    
+    ] %}
+    
 <!-- Display add new ECS Form (in a Modal Box) -->
 
 <div class="modal fade" id="addECSFormModal" tabindex="-1" role="dialog" aria-labelledby="addECSModalLabel" aria-hidden="true">
@@ -46,7 +46,29 @@
 
         <div class="modal-content">
 
+            <!-- Modal Header -->
+
             <div class="modal-header">
+
+                <!-- Help button (trigger a collapsible) -->
+
+                <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseECSTitleHelp" aria-expanded="false" aria-controls="collapseECSTitleHelp">
+
+                    <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Aide</span>
+                    
+                </a>
+
+                <!-- Collapsible Help Container -->
+        
+                <div class="collapse col-md-7 mt-0" id="collapseECSTitleHelp">
+        
+                    <p class="h5 ml-md-2">
+        
+                        Pour composez le titre que vous voulez, appuyer sur les boutons de suggestions (ou écrivez votre titre personnalisé dans la zone résultat).
+        
+                    </p>
+        
+                </div>
 
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
 
@@ -55,6 +77,8 @@
                 </button>
 
             </div>
+
+            <!-- Modal Body -->
 
             <div class="modal-body">
 
@@ -83,6 +107,8 @@
                 </div>
 
             </div>
+
+            <!-- Modal Footer -->
 
             <div class="modal-footer">
 

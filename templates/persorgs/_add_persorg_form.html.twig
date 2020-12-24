@@ -27,19 +27,19 @@
 
                 {{ form_start(persorgForm) }}
 
-                <div class="mb-3 px-3">
+                <div class="mb-3 px-md-3">
 
                     {{ form_row(persorgForm.name) }}
 
                 </div>
 
-                <div class="mb-3 px-3">
+                <div class="mb-3 px-md-3">
 
                     {{ form_row(persorgForm.imageFile) }}
 
                 </div>
 
-                <div class="mb-3 px-3">
+                <div class="mb-3 px-md-3">
 
                     <h4 class="font-weight-bold h5">Site web ou réseau social (facultatif)</h4>
 
@@ -47,11 +47,19 @@
 
                 </div>
 
-                <div class="mb-3 px-3">
+                <div class="mb-3 px-md-3">
 
                     <h4 class="font-weight-bold h5">Adresse e-mail (facultatif)</h4>
 
                     {{ form_widget(persorgForm.email) }}
+
+                </div>
+
+                <div class="mb-3 px-md-3">
+
+                    <h4 class="font-weight-bold h5">Ajouter un commentaire (facultatif)</h4>
+
+                    {{ form_widget(persorgForm.description) }}
 
                 </div>
 

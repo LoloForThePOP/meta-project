@@ -23,8 +23,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ExternalContributorsController extends AbstractController
 {
+    /* The "External Contributors Creation" Form instanciation is located in PPController, into function "edit presentation menu" */
+
+
     /**
-     * Allow to Manage External Contributors Structure (ECS) (ui to create; delete; insert ec into ecs)
+     * Allow to Manage an External Contributors Structure (ECS) (ui to create; delete; insert ec into ecs)
      * 
      * @Route("/{id_ecs}", name="manage_ecs")
      * 

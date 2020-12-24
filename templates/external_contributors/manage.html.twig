@@ -21,35 +21,36 @@
 
             <h3 class="font-weight-bold d-inline mr-3">{{ ecs.title[:1] | upper ~ ecs.title[1:] }}</h3>
 
-            <!-- collapsable advice trigger button 	
+            <!-- collapsable advice trigger button -->	
 
             <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
                 <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
                 
-            </a>-->
+            </a>
 
         </div>
 
 
         <!-- Collapsible Info Container -->
 
-       {# <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+       <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
 
-            <p class="h5 pt-1">
+            <p class="h5">
 
-                Ici vous pouvez présenter toutes les personnes et organisations qui appartiennent à la partie "{{ecs.title}}".
+               Les vignettes permettent d'ajouter des photos ou des logos de vos partenaires.
                 
             </p>
 
         </div>
 
-        #}
-
 
         <!-- "Add an Item" Buttons-->
 
-        <div class="mt-md-5 mb-4"> <!-- Button Add a Thumbnail -->
+        <div class="mt-md-5 mb-4"> 
+            
+            <!-- Button Add a Thumbnail -->
+            <!-- Trigger a modal included from persorgs/_add_persorg_form.html.twig -->
 
             <button type="button"data-toggle="modal" data-target="#addPersorgFormModal" class="btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green mr-3"> <span class="mr-2">+</span>Ajouter une vignette</button>
                
@@ -57,7 +58,7 @@
    
                <!-- Button Display Text Area -->
    
-                <button type="button" class="js-display-textarea btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green"> <span class="mr-2">+</span>Ajouter du texte</button>
+                <button type="button" class="js-display-textarea btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green"> <span class="mr-2">+</span>Zone de texte</button>
    
             {% endif %}
 
@@ -163,16 +164,18 @@
 
     <div class="pt-4">
 
+        
+        <!-- Edit ECS Title -->
+
+        <a class="text-decoration-none text-white" href="{{ path('edit_ecs', {'slug': slug, 'id_ecs': ecs.id}) }}">
+            <button type="button" class="btn btn-lg sharp font-weight-bold mb-4 mr-3" style="background-color:#ff7800; color:white;">Modifier le Titre</button>
+        </a>
+        
+
         <!-- Back Button -->
 
         <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': slug}) }}">
             <button type="button" class="btn btn-info btn-lg sharp font-weight-bold mb-4 mr-3">Retour</button>
-        </a>
-
-        <!-- Edit ECS Title -->
-
-        <a class="text-decoration-none text-white" href="{{ path('edit_ecs', {'slug': slug, 'id_ecs': ecs.id}) }}">
-            <button type="button" class="btn btn-lg sharp font-weight-bold mb-4 mr-3" style="background-color:#ff7800; color:white;">Modifier Titre</button>
         </a>
 
          <!-- Delete ECS Button -->

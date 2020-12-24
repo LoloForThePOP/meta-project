@@ -20,6 +20,7 @@ easy_admin:
     menu:
           - { entity: 'User', label: 'Gestion des Utilisateurs', icon: 'user' }
           - { entity: 'Validation', label: 'Validation des Présentations', icon: 'check' }
+          - { entity: 'Comment', label: 'Modération des Commentaires', icon: 'comment' }
           - { entity: 'Report', label: 'Messages pour les Administrateurs', icon: 'comment-alt' }
           - { entity: 'Slideshows', label: 'Diaporamas', icon: 'tablet-alt' }
           - { entity: 'RolesManage', label: 'Gestion des Rôles Administrateurs', icon: 'users', permission: 'ROLE_MASTER_ADMIN' }
@@ -34,6 +35,28 @@ easy_admin:
           - textContent
           - caption
           - url
+     
+    Comment:
+      class: App\Entity\Comment
+
+      list:
+        fields:
+          - id
+          - content
+          - createdAt
+          - user.id
+          - user.persorg.name
+          - presentation.id
+
+      edit:
+        fields:
+          - id
+          - content
+      show:
+        fields:
+          - id
+          - content
+          - presentation
      
 
     RolesManage:

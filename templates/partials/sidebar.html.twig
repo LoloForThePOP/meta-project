@@ -31,15 +31,13 @@
 
                 <li class="d-flex align-items-center ">
 
-                    <a href="{{ path(item.route, {'slug':presentation.slug}) }}">  
+                    <a class="w-100 " href="{{ path(item.route, {'slug':presentation.slug}) }}">  
 
                         <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"31px" width="31px">
 
                         <span class="align-middle">
                             {{item.name}}
-                        </span>
-    
-                        
+                        </span> 
 
                         {% if item.badge is defined and item.badge is not null %}
 

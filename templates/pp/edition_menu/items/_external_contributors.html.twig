@@ -1,3 +1,8 @@
+
+
+{# Add a new ECS Form is included from _add_ecs_modal_form.html.twig 
+Its inclusion is done in block javascripts from THE EDIT MENU STRUCTURE #}
+
 <div class='text-body' href="">
 
     <div class="hoverZone card border-left-info shadow py-2 mb-3">
@@ -5,14 +10,15 @@
       <div class="card-body">
 
         <!-- Upper Zone -->
-        <!-- Allow to Add a new ECS -->
-        <!-- A Modal Box with a form is triggered -->
        
-        <div data-toggle="modal" data-target="#addECSFormModal" class="row no-gutters align-items-center">
+       
+        <div class="row no-gutters align-items-center">
 
           <!-- Icon Left Column-->
+          <!-- Allow to Add a new ECS -->
+          <!-- A Modal Box with a form is triggered -->
                         
-          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+          <div data-toggle="modal" data-target="#addECSFormModal" class="col-auto d-flex align-items-center justify-content-center ml-2">
             
             <span style="color: DarkGreen">
             <!--  <i class="fas fa-map-marker-alt fa-2x text-gray-300"></i> -->
@@ -22,8 +28,10 @@
           </div>
 
           <!-- Title Middle Column -->
+          <!-- Allow to Add a new ECS -->
+          <!-- A Modal Box with a form is triggered -->
           
-          <div class="col d-flex align-items-center justify-content-center">
+          <div data-toggle="modal" data-target="#addECSFormModal" class="col d-flex align-items-center justify-content-center">
 
             <div class="cat-menu-title text-xs" >
 
@@ -34,19 +42,48 @@
     
           </div>
 
-          <!-- Counter (Third Column) -->
+          <!-- Help Button (Third Column) -->
 
-          <div class="col-auto d-flex align-items-center justify-content-center ml-2">
+          {# <div class="col-auto d-flex align-items-center justify-content-center ml-2">
 
-            <!-- 
+            <!-- Help button (trigger a Modal) -->
 
-              <span class="badgeCount badge badge-light">
+            <a class="" data-toggle="modal" data-target="#ECSHelpModal">
+              
+              <h5>
 
-                Info
+                <span class="badgeCount badge badge-light rounded-circle">
 
-              </span>     -->                                     
+                  ?
 
-          </div>
+                </span>   
+
+              </h5>
+
+            </a>
+
+            <!-- Help (Modal Box) -->
+
+            <div class="modal fade" id="ECSHelpModal" tabindex="-1" role="dialog" aria-labelledby="ECSHelpModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                    ...
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-lg btn-success bg-green font-weight-bold" data-dismiss="modal">Ok</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+                        
+          </div> #}
 
         </div>
 
@@ -86,8 +123,9 @@
 
           <!-- Add a new ECS Button (Appears when one has been created) -->
           <!-- A Modal Box with a form is triggered -->
-          <!-- Its code is included in block javascripts -->
-          <!-- WARNING : this form is routed from PPController -->
+          {# Its code is included in block javascripts from THE EDIT MENU STRUCTURE
+            It comes from _add_ecs_modal_form.html.twig
+          This form is included from PPController  #}
             
           <button class="btn btn-light mt-4 mb-2 w-100" data-toggle="modal" data-target="#addECSFormModal" style="background-color : #dcf5e9;">
 
@@ -129,7 +167,7 @@
                 <div class="modal-body">
 
                   <ul>
-                    <li class="h5">Pour <b>changer l'ordre</b> des parties, utiliser <b>ici</b> le "Glisser-Déposer" (= "drag and drop").</li>
+                    <li class="h5">Pour <b>changer l'ordre</b> des parties, utiliser le "Glisser-Déposer" (= "drag and drop").</li>
                     <li class="h5">Pour <b>supprimer une partie</b>, rentrer dedans puis cliquer sur supprimer.</li>
                   </ul>
                   

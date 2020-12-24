@@ -33,7 +33,7 @@ security:
 
             remember_me:
                 secret:   '%kernel.secret%'
-                lifetime: 1604800 # 1 week in seconds
+                lifetime: 81604800 # in seconds
                 path:     /
 
 

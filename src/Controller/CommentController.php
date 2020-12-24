@@ -19,55 +19,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class CommentController extends AbstractController
 {
     /**
-     * @Route("/index", name="index_comment")
-     */
-    public function index(): Response
-    {
-        return $this->render('comments/index.html.twig', [
-            'controller_name' => 'CommentController',
-        ]);
-    }
-
-
-
-    /**
-     * @Route("/new", name="new_comment")
+     * The new Comment form is loaded in PPController (function : project show)
+     * 
+     * @Route("/new/", name="new_comment")
      * @Security("is_granted('ROLE_USER')")
      */
-    public function new(PPBasic $presentation, Request $request): Response
+    public function new(PPBasic $presentation): Response
     {
-        $user = $this->getUser();
+        // the form is loaded in PPcontroller
 
-        $comment = new Comment();
-
-        $form = $this->createForm(CommentType::class, $comment);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            $comment->setPresentation($presentation)
-                    ->setUser($user);
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($comment);
-            $entityManager->flush();
-
-            $this->addFlash(
-                'success',
-                'Votre commentaire est ajouté.'
-            );
-
-            return $this->redirectToRoute('project_show', [
-                'slug' => $presentation->getSlug(),
-                ]);
-        }
-
-
-        return $this->render('comments/new.html.twig', [
-            'form' => $form->createView(),
+        return $this->redirectToRoute('project_show', [
             'slug' => $presentation->getSlug(),
-        ]);
+            ]);
+
     }
 
     /**

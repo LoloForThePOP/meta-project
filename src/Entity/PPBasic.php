@@ -391,6 +391,16 @@ class PPBasic implements \Serializable
      */
     private $allowComments;
 
+    /**
+     * 
+     * Some presentation can be of a very bad quality. We don't want these presentation to be displayed on homepage for example. overallQualityAssessment is a number between 0 and 5. 0 means very bad quality, 5 means exccellent quality.
+     * 
+     * To do : create an algorithm that automatically assess the quality of a presentation (an event should be triggered each time a presentation component is created, or deleted, or updated, this event calls a function called presentationQualityAssessment)
+     * 
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $overallQualityAssessment;
+
  
 
 
@@ -402,6 +412,9 @@ class PPBasic implements \Serializable
         $this->adminValidation = true;
         $this->isPublished = true;
         $this->isActiveContactMessages = true;
+        $this->isActiveContactMessages = true;
+        $this->overallQualityAssessment = 3;
+        $this->allowComments = true;
 
         $this->slides = new ArrayCollection();
         $this->needs = new ArrayCollection();
@@ -1193,6 +1206,18 @@ class PPBasic implements \Serializable
     public function setAllowComments(?string $allowComments): self
     {
         $this->allowComments = $allowComments;
+
+        return $this;
+    }
+
+    public function getOverallQualityAssessment(): ?int
+    {
+        return $this->overallQualityAssessment;
+    }
+
+    public function setOverallQualityAssessment(?int $overallQualityAssessment): self
+    {
+        $this->overallQualityAssessment = $overallQualityAssessment;
 
         return $this;
     }

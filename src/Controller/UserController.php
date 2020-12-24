@@ -62,5 +62,23 @@ class UserController extends AbstractController
         ]);
 
     }
+    
+    /**
+     * Allow user to see its comments list
+     * 
+     * @Route("user/{id}/comments/list",name="list_user_comments")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * @return Response
+     */
+    public function commentsIndex(User $user){
+
+        return $this->render('/user/show_comments.html.twig',[
+     
+            'user' => $user,
+        ]);
+
+    }
 
 }

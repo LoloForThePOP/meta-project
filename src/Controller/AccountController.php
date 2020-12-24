@@ -234,6 +234,9 @@ class AccountController extends AbstractController
      * forgotten password : user request an email with reset page link
      * 
      * @Route("/forgotten-password-request", name="forgotten_password_request")
+     * 
+     * @IsGranted("ROLE_USER")
+     * 
      */
     public function forgottenPass(Request $request, UserRepository $user, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
     ): Response
@@ -312,6 +315,7 @@ class AccountController extends AbstractController
      * forgotten password : user create a new password
      * 
      * @Route("/forgotten-password-create-new/{token}", name="forgotten_password_create")
+     * 
      */
     public function resetPassword(Request $request, string $token, UserPasswordEncoderInterface $passwordEncoder)
     {

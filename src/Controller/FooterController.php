@@ -27,7 +27,6 @@ class FooterController extends AbstractController
     {
 
         return $this->render('footer/about_us.html.twig', [
-y
         ]);
     }
 

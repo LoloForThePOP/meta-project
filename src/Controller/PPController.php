@@ -28,7 +28,7 @@ class PPController extends AbstractController
     {
         // $presentations = $repo->findAll();
 
-        $lastInsertedProjects = $manager->createQuery('SELECT p FROM App\Entity\PPBasic p WHERE p.isPublished=true ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
+        $lastInsertedProjects = $manager->createQuery('SELECT p FROM App\Entity\PPBasic p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
         return $this->render('pp/index.html.twig', [
             'presentations' => $lastInsertedProjects,
@@ -289,11 +289,6 @@ class PPController extends AbstractController
             $manager->flush();
 
             $idECS = $ecs->getId();
-
-            $this->addFlash(
-                'success',
-                "Les modifications ont été effectuées !"
-            );
 
             return $this->redirectToRoute('manage_ecs', [
                 'slug' => $presentation->getSlug(),
