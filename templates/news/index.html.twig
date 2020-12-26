@@ -1,20 +1,181 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello NewsController!{% endblock %}
+{% block title %}Actualités du Projet{% endblock %}
+
+{% block sidebar %}{% include 'partials/sidebar.html.twig' %}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <!-- Page Content Container -->
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Asus/propon/src/Controller/NewsController.php'|file_link(0) }}">src/Controller/NewsController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Asus/propon/templates/news/index.html.twig'|file_link(0) }}">templates/news/index.html.twig</a></code></li>
-    </ul>
-</div>
+    <div class="container">
+
+        <!-- Title with Info Button Container -->
+
+        <div class="mt-3 mt-md-4 mb-4">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline-block mr-3">Actualités du Projet</h3>
+
+            
+            <!-- collapsable advice trigger button -->	
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+                
+            </a>
+
+        </div>
+
+        <!-- Collapsible Info Container -->
+
+        <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            <p class="h5">
+
+                Ici vous pouvez donner des nouvelles de votre projet. 
+
+            </p>
+
+        </div>
+
+        <!-- Add a News Button -->
+
+        <div class="mb-4">
+
+            <button type="button" data-toggle="modal" data-target="#newsFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une Actualité</button> 
+
+        </div>
+
+        <!-- Form Display (in a Modal Box) -->
+
+        <div class="modal fade" id="newsFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter une Actualité</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                        <button class="btn btn-success sharp bg-green font-weight-bold">Valider</button>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Project News List -->
+
+        <div class="container mb-3">
+
+            <div class="row">
+
+                <div class="col pl-0">
+                    
+                    <ul id="newsList" class="list-group mb-3">
+
+                        {% if presentation.news | length > 0 %}
+
+                            {% for news in presentation.news %}
+
+                                <a href="{{path('edit_news', {'slug':presentation.slug, 'idNews':news.id})}}" class="text-body text-decoration-none">
+
+                                    <li class="list-group-item font-weight-bold">
+
+                                        <!-- News Creation Date -->
+                                        
+                                        {{ news.createdAt | date('d-m-Y') }}
+
+                                        <!-- Potential News Update Date -->
+
+                                        {% if news.updatedAt is not null %} 
+                                        
+                                             [modifiée le {{ news.updatedAt | date('d-m-Y') }}] 
+                                            
+                                        {% endif %} 
+
+                                        <!-- News Title -->
+                                        
+                                        -- {{ news.title | length < 50 ? news.title | capitalize : news.title | slice(0, 50) ~ '...' | capitalize }}
+
+                                        <!-- Delete News Button -->
+
+                                        <a onClick="return confirm (`Êtes vous sûr de vouloir supprimer cette actualité ?`)" href="{{path('delete_news', {'slug':presentation.slug, 'idNews':news.id})}}" class="text-body text-decoration-none">
+
+                                            <button class="float-right btn btn-danger btn-sm font-weight-bold" type="button" title="Delete">x</button>
+
+                                        </a>
+
+                                        
+
+                                        
+
+                                    </li>
+
+                                </a>
+
+                            {% endfor %}
+
+                        {% endif %}
+
+                    </ul>
+
+                </div>
+
+                
+            </div>
+
+            
+
+        </div>
+
+        <!-- Back Button -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+                <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Some Styles -->
+
+    <style>
+
+        #newsList li:hover{
+            background-color: azure;
+        }
+
+    </style>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
 {% endblock %}

@@ -15,11 +15,11 @@
             <h3 class="pp-struct-title d-inline mr-2">
                 
                 {% if presentation.news | length == 1 %}
-                    1 communiqué
+                    1 Communiqué
 
                 {% else %}
                     
-                    {{presentation.news | length}} communiqués
+                    {{presentation.news | length}} Communiqués
 
                 {% endif %}
                 
@@ -115,7 +115,7 @@
 
                                     <!-- News Title -->
                                     
-                                    {{ news.title | capitalize }}
+                                    {{ news.title | capitalize | length < 50 ? news.title : news.title | slice(0, 50) ~ '...' }}
 
                                 </a>
 

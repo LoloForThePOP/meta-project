@@ -10,15 +10,283 @@
 
 <div class="container">
 
-    <h3 class="my-4 font-weight-bold">Nouvelle Actualité</h3>
+    <h3 class="my-5 font-weight-bold">Nouvelle Actualité</h3>
 
     {{ form_start(form) }}
 
-    {{ form_widget(form) }}
+    <!-- News Title Edition -->
+
+    <div class="mb-5">
+
+        {{form_row(form.title)}}
+
+    </div>
+
+    <!-- News Text Content Edition -->
+
+    <div class="mb-5">
+
+        {{form_row(form.textContent)}}
+
+    </div>
+
+    
+    <!-- Images & their captions Section -->
+    
+    <!-- Add Images Button (trigger a collapsible) -->
+
+    <div class="mb-4 mr-2 d-inline-block">
+
+        <button type="button" data-toggle="collapse" data-target="#imagesSectionCollapsible" aria-expanded="false" aria-controls="imagesSectionCollapsible"  class="btn btn-primary sharp font-weight-bold">+ Ajouter des images</button>
+
+    </div>
+
+    <!-- Add Images Collapsible -->
+    
+    <div id="imagesSectionCollapsible" class="collapse container mb-5">
+
+        <div class="row">
+            
+        <!-- First Image Edition -->
+
+        <div class="col-md-4 p-3 bg-light border border-warning">
+
+            <!-- Form First Image Label -->
+        
+            <div class="mb-2">
+        
+                <span class="textblack"> {{form_label(form.image1File)}}</span>
+        
+            </div>
+        
+            <!-- first image upload field -->
+    
+            <div class="mb-4">
+            
+                {{form_widget(form.image1File)}}
+    
+            </div>
+
+            <!-- first image caption -->
+
+            <div class="">
+
+                {{form_label(form.captionImage1)}}
+                {{form_widget(form.captionImage1)}}
+
+            </div>
+        
+        </div>
+        
+        <!-- Second Image Edition -->
+    
+        <div class="col-md-4 p-3 bg-light border border-warning">
+        
+            <!-- Form Second Image Label -->
+        
+            <div class="mb-2">
+        
+                <span class="textblack"> {{form_label(form.image2File)}}</span>
+        
+            </div>
+        
+            <!-- Second Image Upload Field -->
+    
+            <div class="mb-4">
+            
+                {{form_widget(form.image2File)}}
+    
+            </div>
+
+            <!-- Second Image Caption -->
+            
+            <div class="">
+
+                {{form_label(form.captionImage2)}}
+                {{form_widget(form.captionImage2)}}
+
+            </div>
+        
+        </div>
+    
+        <!-- Third Image Edition -->
+    
+        <div class="col-md-4 p-3 bg-light border border-warning">
+        
+            <!-- Form Third Image Label -->
+        
+            <div class="mb-2">
+        
+                <span class="textblack"> {{form_label(form.image3File)}}</span>
+        
+            </div>
+
+            <!-- Third Image Upload Field -->
+        
+            <div class="mb-4">
+                
+                {{form_widget(form.image3File)}}
+        
+            </div>
+
+            <!-- Caption Image 3 -->
+            
+            <div class="">
+
+                {{form_label(form.captionImage3)}}
+                {{form_widget(form.captionImage3)}}
+
+            </div>
+        
+        </div>
+
+    </div>
+
+    </div>
+
+    <!-- Videos & their captions Section -->
+    
+    <!-- Add Videos Button (trigger a collapsible) -->
+  
+    <div class="mb-4 d-inline-block">
+
+        <button type="button" data-toggle="collapse" data-target="#videoSectionCollapsible" aria-expanded="false" aria-controls="videoSectionCollapsible" class="btn btn-primary sharp font-weight-bold">+ Ajouter des vidéos Youtube</button>
+
+    </div>
+
+    <!-- Videos & their captions collapsible -->
+
+    <div id="videoSectionCollapsible" class="collapse container mb-5">
+
+        <div class="row my-3">
+
+            <!-- Button with Collapsable Advice : How to Insert a Youtube Vidéo ? -->	
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseVideoAdvice" aria-expanded="false" aria-controls="collapseVideoAdvice">
+
+                <span class="btn btn-info font-weight-bold btn-lg fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Comment faire ?</span>
+                
+            </a>
+
+            <!-- Collapsible Info Container -->
+
+            <div class="collapse col-md-7 px-4 py-3 mb-4" id="collapseVideoAdvice" style="background-color: lavender;">
+
+                <h5 class="font-weight-bold">Aller sur la page Youtube de la vidéo désirée, puis recopier son code (sur l'exemple, il est situé dans la zone encadrée en rouge). Exemple : </h5>
+
+                <p class="h5 font-weight-bold">https://www.youtube.com/watch?v=<span class=" px-1 border border-2 border-danger rounded">zL1EvGkKb00</span></p>
+
+            </div>
+
+        </div>
+
+
+        <div class="row">
+                
+            <!-- First Video Edition -->
+
+            <div class="col-md-4 p-3 bg-light border border-warning">
+
+                <!-- Form First Video Label -->
+            
+                <div class="mb-2">
+            
+                    <span class="textblack"> {{form_label(form.video1)}}</span>
+            
+                </div>
+
+                <!-- Form Field Video 1 -->
+            
+                <div class="mb-4">
+            
+                    {{form_widget(form.video1)}}
+            
+                </div>
+                    
+                <!-- Caption Video 1 -->
+                
+                <div class="">
+
+                    {{form_label(form.captionVideo1)}}
+                    {{form_widget(form.captionVideo1)}}
+
+                </div>
+            
+            
+            </div>
+                
+            <!-- Second Video Edition -->
+
+            <div class="col-md-4 p-3 bg-light border border-warning">
+
+                <!-- Form Second Video Label -->
+            
+                <div class="mb-2">
+            
+                    <span class="textblack"> {{form_label(form.video2)}}</span>
+            
+                </div>
+
+                <!-- Form Field Video 2 -->
+            
+                <div class="mb-4">
+            
+                    {{form_widget(form.video2)}}
+            
+                </div>
+
+                <!-- Caption Video 2 -->
+                
+                <div class="">
+
+                    {{form_label(form.captionVideo2)}}
+                    {{form_widget(form.captionVideo2)}}
+
+                </div>
+            
+            
+            </div>
+                
+            <!-- Third Video Edition -->
+
+            <div class="col-md-4 p-3 bg-light border border-warning">
+
+                <!-- Form Third Video Label -->
+            
+                <div class="mb-2">
+            
+                    <span class="textblack"> {{form_label(form.video3)}}</span>
+            
+                </div>
+
+                <!-- Form Field Video 3 -->
+            
+                <div class="mb-4">
+            
+                    {{form_widget(form.video3)}}
+            
+                </div>
+
+                <!-- Caption Video 3 -->
+                
+                <div class="">
+
+                    {{form_label(form.captionVideo3)}}
+                    {{form_widget(form.captionVideo3)}}
+
+                </div>
+            
+        
+            </div>
+            
+        </div>
+
+    </div>
+
 
     <!-- Action Buttons -->
 
-    <div class="mt-4">
+    <div class="mt-4 mb-5">
 
         <a href="{{path('index_news', {'slug':slug})}}">
             <button type="button" value="" class="btn btn-lg btn-info sharp font-weight-bold mr-2">
@@ -35,3 +303,58 @@
 </div>
 
 {% endblock %}
+
+
+{% block javascripts %}
+
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <!-- Parameters - TinyMCE Rich Text Editor -->
+
+    <script>
+        
+        tinymce.init({
+
+            mode : "specific_textareas",
+
+            editor_selector : "tinymce",
+
+            content_css : '/css/tinymce.css',
+
+            width : "100%",
+
+            height: "350",
+
+            entity_encoding : "raw",
+
+            menubar: 'edit format',
+
+            menu: {
+
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+            }, 
+
+            language: 'fr_FR',
+
+            plugins: "emoticons, lists",
+
+            toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify",
+
+            content_style: "body {padding: 0px 15px;}",
+
+            nowrap : false,
+
+            //link_title: false, (only when links plugin will be integrated)
+            //target_list: false,
+        });
+
+    </script>
+
+{% endblock %}
+

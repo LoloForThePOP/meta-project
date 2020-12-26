@@ -404,7 +404,7 @@ class PPBasic implements \Serializable
     /**
      * @ORM\OneToMany(targetEntity=News::class, mappedBy="project")
      * 
-     * @ORM\OrderBy({"createdAt" = "ASC"})
+     * @ORM\OrderBy({"createdAt" = "DESC"})
      */
     private $news;
 

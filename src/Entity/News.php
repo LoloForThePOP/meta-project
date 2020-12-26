@@ -22,6 +22,8 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
  * 
  * @ORM\Entity(repositoryClass=NewsRepository::class)
  * 
+ * @ORM\HasLifecycleCallbacks
+ * 
  * @Vich\Uploadable
  */
 class News
@@ -98,7 +100,7 @@ class News
         //if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->vichUpdatedAt = new \DateTimeImmutable();
         //}
     }
 
@@ -153,7 +155,7 @@ class News
         //if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->vichUpdatedAt = new \DateTimeImmutable();
         //}
     }
 
@@ -211,7 +213,7 @@ class News
         //if (null !== $imageFile) {
             // It is required that at least one field changes if you are using doctrine
             // otherwise the event listeners won't be called and the file is lost
-            $this->updatedAt = new \DateTimeImmutable();
+            $this->vichUpdatedAt = new \DateTimeImmutable();
         //}
     }
 
@@ -275,6 +277,14 @@ class News
     private $updatedAt;
 
     /**
+     * make vich upload bundle work ("hack")
+     * 
+     * @ORM\Column(type="datetime", nullable=true)
+     *
+     */
+    private $vichUpdatedAt;
+
+    /**
      * @ORM\Column(type="text")
      */
     private $textContent;
@@ -303,6 +313,11 @@ class News
      * @ORM\Column(type="string", length=1000, nullable=true)
      */
     private $captionVideo2;
+
+    /**
+     * @ORM\Column(type="string", length=1000, nullable=true)
+     */
+    private $captionVideo3;
 
 
 
@@ -436,6 +451,18 @@ class News
         return $this;
     }
 
+    public function getVichUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->vichUpdatedAt;
+    }
+
+    public function setVichUpdatedAt(?\DateTimeInterface $vichUpdatedAt): self
+    {
+        $this->vichUpdatedAt = $vichUpdatedAt;
+
+        return $this;
+    }
+
     public function getTextContent(): ?string
     {
         return $this->textContent;
@@ -504,6 +531,18 @@ class News
     public function setCaptionVideo2(?string $captionVideo2): self
     {
         $this->captionVideo2 = $captionVideo2;
+
+        return $this;
+    }
+
+    public function getCaptionVideo3(): ?string
+    {
+        return $this->captionVideo3;
+    }
+
+    public function setCaptionVideo3(?string $captionVideo3): self
+    {
+        $this->captionVideo3 = $captionVideo3;
 
         return $this;
     }
