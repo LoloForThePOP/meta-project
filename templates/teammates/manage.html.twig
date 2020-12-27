@@ -151,7 +151,7 @@
 
                      <div id="{{teammate.id}}" class="js-sortableGridItem position-relative mr-4 mb-4 cursor-pointer border border-primary pb-4" style="height:200px; width:150px;">
 
-                        <a href="{{path('edit_teammate_persorg', {'slug':slug,'id_persorg' : teammate.persorg.id })}}" class="text-body text-decoration-none"></a>
+                        <a href="{{path('edit_teammate_persorg', {'slug':slug,'id_persorg' : teammate.persorg.id })}}" class="w-100 h-100 text-body text-decoration-none">
                          
                             {% include 'teammates/_teammate_card_display.html.twig' %}
 

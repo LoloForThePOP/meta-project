@@ -1,9 +1,39 @@
+<!-- we display a create comment form preview -->
 
-<div class="my-3">
+<!-- Comment Content Field -->
 
-    (<a href="{{ path('new_comment', {'slug':presentation.slug}) }}">connexion
+<div class="float-left col-md-7 px-1 px-md-4 mb-4">
+
+    <a href="{{ path('new_comment', {'slug':presentation.slug}) }}">
+
+
+        <div class="mock-textarea">
+
+            Votre commentaire
+
+        </div>
+
     </a>
-        
-    pour écrire un commentaire) 
-    
+
+    <style>
+        .mock-textarea {
+            background-color:white;
+            border: 1px solid black;
+            font-size:1.15em;
+            font-weight:bold;
+            color: #7b8a8b;
+            height:60px;
+            padding: 12px;
+        }
+    </style>
+
 </div>
+
+<!-- Actions Buttons -->
+
+<div class="clearfix mb-3">
+
+    <button type="submit" class="btn btn-success sharp bg-green font-weight-bold mr-2 mb-2">Ajouter</button>
+
+</div>
+

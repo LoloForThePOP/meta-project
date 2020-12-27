@@ -30,212 +30,7 @@
         <!-- Project Dates & Events Display -->
 
         <div class="container mt-4 px-0">
-                  
-          <!-- Styles for the Timeline -->
 
-          <style>
-              
-              .timeline {
-                
-                  list-style-type: none;
-
-                  display: inline-block;
-
-                  overflow-x: auto;
-                  overflow-y: hidden;
-              
-
-                  padding-left : 15px;
-
-                  //height:150px;
-                    
-                }
-                
-                .li {
-                  
-                  transition: all 200ms ease-in;
-
-                  cursor:pointer;
-
-                  border-radius: 5%;
-
-                  float:left;
-
-                  
-                }
-                
-                .li:hover {
-
-                  background-color: rgb(255, 255, 202);
-                  
-                }
-                
-                .timestamp {
-                  margin-bottom: 12px;
-                  padding: 0px 8px;
-                  display: flex;
-                  flex-direction: column;
-                  align-items: center;
-                  text-align: center;
-                  font-weight: 100;
-
-                  width:172px;
-
-                  border: none;
-
-                  min-height: 80px;;
-                  
-                }
-
-                /* First Dot (just a decoration) */
-
-                .timeline li:first-child{
-                  margin-top:84px;
-                  border-radius: 10px;
-                  border: 10px solid #31708F;
-                } 
-
-                /* Ending Arrow (just a decoration)*/
-
-                .timeline li:last-child{
-                  margin-top:84px;
-                  border: 10px solid transparent;
-                  border-right: 0;
-                  border-left: 20px solid  #31708F;
-                  border-radius: 3px;
-                } 
-
-
-                .timestamp .author {
-
-                  color:rgb(19, 124, 19);
-
-                  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-
-                  font-size: 1.15em;
-                  font-weight: bold;
-                  
-
-                }
-
-                .timestamp .date {
-
-                  font-size:1em;
-                  font-weight: 600;
-
-                }
-
-                
-                .status {
-                  padding-top: 15px;
-                  display: flex;
-                  justify-content: center;
-                  border-top: 2px solid #D6DCE0;
-                  position: relative;
-                  transition: all 200ms ease-in;
-
-                  border: none;
-
-                  min-height: 50px;;
-                
-                }
-
-
-                .status h4 {
-                  font-weight: 600;
-                  min-height:40px;
-                  
-                }
-
-                .status:before {
-                  content: "";
-                  width: 25px;
-                  height: 25px;
-                  background-color: white;
-                  border-radius: 25px;
-                  border: 3px solid rgb(184, 14, 14);
-                  position: absolute;
-                  top: -15px;
-                  left: 42%;
-                  transition: all 200ms ease-in;
-                  
-                }
-
-                
-                .li.complete .status {
-                  border-top: 4px solid darkslategray;
-
-                
-                }
-
-                .li.complete .status:before {
-                /* background-color: #66DC71; */
-                  border:3px solid navy;
-                  transition: all 200ms ease-in;
-                  
-                }
-
-                .li.complete .status h4 {
-                  color:black;
-                }
-
-
-              @media screen and (max-width: 580px) {
-
-                  .timeline {
-
-                      display:flex;
-                      align-items:center;
-                    
-                      overflow-x: auto;
-                      overflow-y: hidden;
-                        
-                  }
-
-                  .li {
-                  
-                    transition: all 200ms ease-in;
-  
-                    cursor:pointer;
-  
-                    border-radius: 5%;
-                    
-                  }
-
-                .timestamp .author {
-
-                  font-size:1.05em;
-                  font-weight: 600;
-                  font-family: Arial, Helvetica, sans-serif;
-                  
-
-                }
-
-                .timestamp .date {
-
-                  font-size:1.05em;
-                  font-weight: 600;
-                  font-family: Arial, Helvetica, sans-serif;
-
-                }
-
-                
-                /* First Dot (just a decoration) */
-
-                .timeline li:first-child{
-                  margin-top:48px;
-                } 
-
-                /* Ending Arrow (just a decoration)*/
-
-                .timeline li:last-child{
-                  margin-top:48px;
-                } 
-
-
-              }
-                
-          </style>
 
           <!-- Project Events Display (in a Timeline) -->
 
@@ -471,5 +266,211 @@
         </div>
 
     </div>
+
+                  
+    <!-- Styles for the Timeline -->
+
+    <style>
+          
+        .timeline {
+          
+            list-style-type: none;
+
+            display: inline-block;
+
+            overflow-x: auto;
+            overflow-y: hidden;
+        
+
+            padding-left : 15px;
+
+  
+          }
+          
+          .li {
+            
+            transition: all 200ms ease-in;
+
+            cursor:pointer;
+
+            border-radius: 5%;
+
+            float:left;
+
+            
+          }
+          
+          .li:hover {
+
+            background-color:lavender;
+            
+          }
+          
+          .timestamp {
+            margin-bottom: 12px;
+            padding: 0px 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            font-weight: 100;
+
+            width:172px;
+
+            border: none;
+
+            min-height: 80px;;
+            
+          }
+
+          /* First Dot (just a decoration) */
+
+          .timeline li:first-child{
+            margin-top:84px;
+            border-radius: 10px;
+            border: 10px solid #31708F;
+          } 
+
+          /* Ending Arrow (just a decoration)*/
+
+          .timeline li:last-child{
+            margin-top:84px;
+            border: 10px solid transparent;
+            border-right: 0;
+            border-left: 20px solid  #31708F;
+            border-radius: 3px;
+          } 
+
+
+          .timestamp .author {
+
+            color:black;
+
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            font-size: 1.15em;
+            font-weight: bold;
+            
+
+          }
+
+          .timestamp .date {
+
+            font-size:1em;
+            font-weight: 600;
+
+          }
+
+          
+          .status {
+            padding-top: 15px;
+            display: flex;
+            justify-content: center;
+            border-top: 2px solid #D6DCE0;
+            position: relative;
+            transition: all 200ms ease-in;
+
+            border: none;
+
+            min-height: 50px;;
+          
+          }
+
+
+          .status h4 {
+            font-weight: 600;
+            min-height:40px;
+            
+          }
+
+          .status:before {
+            content: "";
+            width: 25px;
+            height: 25px;
+            background-color: white;
+            border-radius: 25px;
+            border: 3px solid rgb(184, 14, 14);
+            position: absolute;
+            top: -15px;
+            left: 42%;
+            transition: all 200ms ease-in;
+            
+          }
+
+          
+          .li.complete .status {
+            border-top: 4px solid darkslategray;
+
+          
+          }
+
+          .li.complete .status:before {
+          /* background-color: #66DC71; */
+            border:3px solid navy;
+            transition: all 200ms ease-in;
+            
+          }
+
+          .li.complete .status h4 {
+            color:black;
+          }
+
+
+        @media screen and (max-width: 580px) {
+
+            .timeline {
+
+                display:flex;
+                align-items:center;
+              
+                overflow-x: auto;
+                overflow-y: hidden;
+                  
+            }
+
+            .li {
+            
+              transition: all 200ms ease-in;
+
+              cursor:pointer;
+
+              border-radius: 5%;
+              
+            }
+
+          .timestamp .author {
+
+            font-size:1.05em;
+            font-weight: 600;
+            font-family: Arial, Helvetica, sans-serif;
+            
+
+          }
+
+          .timestamp .date {
+
+            font-size:1.05em;
+            font-weight: 600;
+            font-family: Arial, Helvetica, sans-serif;
+
+          }
+
+          
+          /* First Dot (just a decoration) */
+
+          .timeline li:first-child{
+            margin-top:48px;
+          } 
+
+          /* Ending Arrow (just a decoration)*/
+
+          .timeline li:last-child{
+            margin-top:48px;
+          } 
+
+
+        }
+          
+    </style>
 
 {% endif %}

@@ -127,7 +127,7 @@ class QuestionAnswerController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les modifications ont bien été effectuées !"
+                "Les modifications ont été effectuées !"
             );
 
             return $this->redirectToRoute('qa_manage', [

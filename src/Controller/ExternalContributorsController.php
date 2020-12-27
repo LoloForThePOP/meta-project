@@ -229,7 +229,7 @@ class ExternalContributorsController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les modifications ont bien été effectuées !"
+                "Les modifications ont été effectuées !"
             );
 
             return $this->redirectToRoute('manage_ecs', [
@@ -272,7 +272,7 @@ class ExternalContributorsController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les modifications ont bien été effectuées !"
+                "Les modifications ont été effectuées !"
             );
 
             return $this->redirectToRoute('manage_ecs', [

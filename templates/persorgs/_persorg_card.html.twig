@@ -1,26 +1,26 @@
 
 
-    <!-- Persorg Image -->
+    <!-- Persorg Image Container -->
     
-    <div class="d-flex justify-content-center" style="margin-top:15px; margin-bottom:8px;">
+    <div class="d-flex align-items-center justify-content-center" style="height:120px; margin-top:15px; margin-bottom:8px;">
 
         {% if persorg.image is not null %}
 
-            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}" style="">
+            <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
         
         {% else %}
-                                
-        <div class="avatar-circle mx-auto" style="margin-top:25px;">
+                                    
+            <div class="avatar-circle mx-auto" style="margin-top:25px;">
 
-            <span class="initials">
+                <span class="initials">
 
-                {{persorg.name | slice (0,1) | capitalize}}
+                    {{persorg.name | slice (0,1) | capitalize}}
 
-            </span>
+                </span>
 
-        </div>
+            </div>
     
-    {% endif %}
+        {% endif %}
 
     </div> 
 

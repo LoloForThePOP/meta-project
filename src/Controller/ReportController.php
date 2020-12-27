@@ -37,7 +37,7 @@ class ReportController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Votre message a bien été envoyé. Merci d'avoir envoyé ce message."
+                "Votre message a été envoyé. Merci d'avoir envoyé ce message."
             );
 
             return $this->redirectToRoute('homepage');

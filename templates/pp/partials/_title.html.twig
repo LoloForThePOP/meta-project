@@ -1,45 +1,5 @@
 <!-- Project Title Presentation -->
 
-
-<!-- Some Styles -->
-
-<style>
-
-    .pp-project-title{
-
-        color:navy !important;
-        font-family: Tahoma, Geneva, Verdana, sans-serif;
-
-        padding-top: 0px;
-
-        margin-bottom:13px !important;
-
-    }
-
-    .title-collapse-hide-me[aria-expanded="true"]{
-
-       display: none;
-
-    }
-
-    @media screen and (max-width: 580px) {
-
-        .pp-project-title{
-
-            font-size: 1.5em;
-
-            padding-top: 2px;
-            padding-left: 0px;
-
-            margin-bottom: 0px !important;
-        }
-
-    }
-
-</style>
-
-
-
 {% if presentation.title is not empty %}
 
     <!-- Structure Container -->
@@ -48,7 +8,7 @@
 
         <!-- Project Title Display -->
 
-        <h2 class="pp-project-title mr-3 mb-0 d-inline-block" >
+        <h3 class="pp-project-title mr-3 mb-0 d-inline-block" >
             
             {% if presentation.title | length > 79 %}
 
@@ -63,7 +23,7 @@
 
             {% endif %}
         
-        </h2>
+        </h3>
                                 
         <!-- Edit Project Title Button -->
 
@@ -78,5 +38,45 @@
         {% endif %}
 
     </div>
+
+    <!-- Some Styles -->
+
+    <style>
+
+        .pp-project-title{
+
+            color:navy !important;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+
+            padding-top: 0px;
+
+            margin-bottom:13px !important;
+
+            font-weight:bold;
+
+        }
+
+        .title-collapse-hide-me[aria-expanded="true"]{
+
+        display: none;
+
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pp-project-title{
+
+                font-size: 1.5em;
+                font-weight:normal;
+
+                padding-top: 2px;
+                padding-left: 0px;
+
+                margin-bottom: 0px !important;
+            }
+
+        }
+
+    </style>
 
 {% endif %}

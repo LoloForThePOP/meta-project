@@ -33,11 +33,15 @@
 
             <div class="col-auto d-flex align-items-center justify-content-center ml-2">
 
-                <span class="badgeCount badge badge-light">
+                {% if presentation.questionAnswers | length > 0  %}
+                    
+                    <span class="badgeCount badge badge-light">
 
-                {{ presentation.questionAnswers | length }}
+                        {{ presentation.questionAnswers | length }}
 
-                </span>
+                    </span>
+
+                {% endif %}
 
             </div>
 

@@ -45,43 +45,11 @@
 
         <div class="mb-4">
 
-            <button type="button" data-toggle="modal" data-target="#newsFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une Actualité</button> 
+            <a href="{{ path('create_news', {'slug':presentation.slug}) }}">
 
-        </div>
+               <button type="button" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une Actualité</button>  
 
-        <!-- Form Display (in a Modal Box) -->
-
-        <div class="modal fade" id="newsFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
-
-                    <div class="modal-header">
-
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter une Actualité</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body">
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
-
-                        <button class="btn btn-success sharp bg-green font-weight-bold">Valider</button>
-                        
-                    </div>
-
-                </div>
-
-            </div>
+            </a>
 
         </div>
 

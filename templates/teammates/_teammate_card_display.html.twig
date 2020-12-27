@@ -1,60 +1,67 @@
 
                                                           
     <!-- Teammate Display Card Template -->
-
-
-    <!-- Some Styles -->
-
-    <style>
-
-        
-
-    </style>
-
+    
     <!-- Teammate card -->
 
     <div id="{{teammate.id}}" class="">
 
         <!-- Teammate Name -->
 
-        <div class="d-flex justify-content-center font-weight-bold mt-3 mb-3">
+        <div class="d-flex justify-content-center font-weight-bold mt-3 mb-3" style="height:20px;">
 
             {{ teammate.persorg.name | length < 10 ? teammate.persorg.name : teammate.persorg.name | slice(0, 10 ) ~ '...' }}
-
-        </div>
-
-        <!-- Teammate Description -->
-        
-        <div>
             
-            {{ teammate.persorg.description }}
-
         </div>
-
+        
         <!-- Teammate Image -->
         
-        <div class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center align-items-center" style="height:120px;">
 
             {% if teammate.persorg.image %}
-            
-                <img class="rounded-circle border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
 
+            <div class="">
+                
+                 <img class="d-block rounded-lg border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.persorg.image) | imagine_filter('logo_thumbnail_sm') }}" style="max-width: 100px; max-height:100px;">
+                 
+            </div>
+            
             {% else %}
                                 
-                <div class="avatar-circle mx-auto" style="margin-top:25px;">
+            <div class="avatar-circle mx-auto">
         
-                    <span class="initials">
+                <span class="initials">
         
-                        {{teammate.persorg.name | slice (0,1) | capitalize}}
-        
+                    {{teammate.persorg.name | slice (0,1) | capitalize}}
+                    
                     </span>
-        
+                    
                 </div>
+                
+                {% endif %}
 
-            {% endif %}
+                
+            </div> 
 
             
-        </div> 
+        </div>
+        
+
+    <!-- Some Styles -->
+
+    <style>
+      
+        .avatar-circle {
+            width: 100px;
+            height: 100px;
+        }
 
         
-    </div>
+        .initials {
+            position: relative;
+            top: 22px; /* 25% of parent */
+            font-size: 58px; /* 50% of parent */
+            line-height: 58px; /* 50% of parent */
+        }
+
+    </style>
