@@ -42,7 +42,7 @@ class NewsType extends AbstractType
 
                     'sanitize_html' => true,
 
-                    'required'   => true,
+                    'required'   => false,
                 ]
             )
 

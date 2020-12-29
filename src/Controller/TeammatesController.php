@@ -6,7 +6,6 @@ use App\Entity\Persorg;
 use App\Entity\PPBasic;
 use App\Entity\Teammate;
 use App\Form\PersorgType;
-use App\Form\TeammateType;
 use App\Repository\PersorgRepository;
 use App\Repository\TeammateRepository;
 use Doctrine\ORM\EntityManagerInterface;

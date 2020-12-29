@@ -243,6 +243,7 @@ class ExternalContributorsController extends AbstractController
         return $this->render('external_contributors/edit.html.twig', [
             'form' => $form->createView(),
             'slug' => $presentation->getSlug(),
+            'id_ecs' => $id_ecs,
             'presentation' => $presentation,
         ]);
     }

@@ -82,8 +82,8 @@ class NewsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $news->setProject($presentation)
-;
+            $news->setProject($presentation);
+            
             $manager->persist($news);
 
             $manager->flush();

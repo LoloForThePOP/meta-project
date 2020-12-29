@@ -17,11 +17,11 @@
 
         <!-- Title Container -->
 
-        <div class="mt-3 mt-md-5 mb-2">
+        <div class="mt-3 mt-md-5 mb-3">
 
             <!-- ui Page Title -->
 
-            <h3 class="font-weight-bold d-inline mr-3">Modifier le Titre</h3>
+            <h3 class="font-weight-bold d-inline mr-3">Modifier le titre</h3>
      
         </div>
 
@@ -55,7 +55,7 @@
 
             <button class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2">Valider</button>
 
-            <a href="{{ path('manage_teammates', {'slug':slug}) }}">
+            <a href="{{ path('manage_ecs', {'slug': slug, 'id_ecs': id_ecs} ) }}">
 
                 <button type="button" class="btn btn-info btn-lg sharp font-weight-bold" data-dismiss="modal">Retour</button>
 

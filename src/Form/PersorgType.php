@@ -21,11 +21,11 @@ class PersorgType extends AbstractType
 
             ->add('name', TextType::class, 
                 [
-                    'label' => 'Nom *',
+                    'label' => 'Nom de la personne ou organisation',
 
                     'attr' => [
                         
-                        'placeholder'    => 'Ex : Laurent Dupond; Coca-Cola',
+                        'placeholder'    => 'Écrire ici',
                     ],
 
                     'required'   => true,

@@ -172,9 +172,9 @@
 
             <div class="collapse col-md-7 px-4 py-3 mb-4" id="collapseVideoAdvice" style="background-color: lavender;">
 
-                <h5 class="font-weight-bold">Aller sur la page Youtube de la vidéo désirée, puis recopier son code (sur l'exemple, il est situé dans la zone encadrée en rouge). Exemple : </h5>
+                <h5 class="mb-3 font-weight-bold">Sur la page Youtube de la vidéo désirée, recopier son code (zone encadrée en rouge dans l'exemple).</h5>
 
-                <p class="h5 font-weight-bold">https://www.youtube.com/watch?v=<span class=" px-1 border border-2 border-danger rounded">zL1EvGkKb00</span></p>
+                <p class="h5 font-weight-bold">https://www.youtube.com/watch?v=<span class=" px-1 border border-2 border-danger rounded">xxxxxxxxxxx</span></p>
 
             </div>
 
@@ -185,7 +185,7 @@
                 
             <!-- First Video Edition -->
 
-            <div class="col-md-4 p-3 bg-light border border-warning">
+            <div class="videoEditionColumn col-md-4 p-3 bg-light">
 
                 <!-- Form First Video Label -->
             
@@ -217,7 +217,7 @@
                 
             <!-- Second Video Edition -->
 
-            <div class="col-md-4 p-3 bg-light border border-warning">
+            <div class="videoEditionColumn col-md-4 p-3 bg-light">
 
                 <!-- Form Second Video Label -->
             
@@ -249,7 +249,7 @@
                 
             <!-- Third Video Edition -->
 
-            <div class="col-md-4 p-3 bg-light border border-warning">
+            <div class="videoEditionColumn col-md-4 p-3 bg-light">
 
                 <!-- Form Third Video Label -->
             
@@ -294,7 +294,7 @@
             </button>
         </a>       
 
-        <button class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
+        <button type="submit" class="btn btn-lg btn-success sharp bg-green font-weight-bold">Valider</button>
 
     </div>
 
@@ -302,7 +302,20 @@
 
 </div>
 
+
+<!-- Some CSS Styles -->
+
+<style>
+
+    .videoEditionColumn{
+
+        border:1px solid orange;
+    }
+
+</style>
+
 {% endblock %}
+
 
 
 {% block javascripts %}
@@ -322,7 +335,7 @@
 
             editor_selector : "tinymce",
 
-            content_css : '/css/tinymce.css',
+            //  content_css : '/css/tinymce.css',
 
             width : "100%",
 
