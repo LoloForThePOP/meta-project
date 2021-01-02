@@ -81,11 +81,25 @@
                                         
                                              [modifiée le {{ news.updatedAt | date('d-m-Y') }}] 
                                             
-                                        {% endif %} 
+                                        {% endif %}
+
+                                        <!-- UI Separator -->
+                                        
+                                        -- 
 
                                         <!-- News Title -->
+
+                                        {% if news.title is not empty %}
+
+                                        {{ news.title | length < 50 ? news.title | capitalize : news.title | slice(0, 50) ~ '...' | capitalize }}
+
+                                        {% else %}
+                                            
+                                            Sans titre
                                         
-                                        -- {{ news.title | length < 50 ? news.title | capitalize : news.title | slice(0, 50) ~ '...' | capitalize }}
+                                        {% endif %}
+                                        
+                                        
 
                                         <!-- Delete News Button -->
 

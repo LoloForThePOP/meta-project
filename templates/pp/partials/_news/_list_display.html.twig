@@ -7,7 +7,7 @@
 
         <!-- News Date Display (displayed from date-is attribute) -->
 
-        <div id="news-{{ news.id }}" data-toggle="modal" data-target="#news-display-details" class="timeline-item" date-is='{{ news.createdAt | date('d-m-Y') }}{% if news.updatedAt is not null %} (modifié){% endif %} ' data-news-title = "{{ news.title }}" data-news-date-creation = "{{news.createdAt | date('d-m-Y')}}" data-news-date-update = "{% if news.updatedAt is not null %}{{news.updatedAt | date('d-m-Y')}}{% endif %}" >
+        <div id="news-{{ news.id }}" data-news-id="{{news.id}}" data-toggle="modal" data-target="#news-display-details" class="timeline-item" date-is='{{ news.createdAt | date('d-m-Y') }}{% if news.updatedAt is not null %} (modifié){% endif %} ' data-news-title = "{{ news.title }}" data-news-date-creation = "{{news.createdAt | date('d-m-Y')}}" data-news-date-update = "{% if news.updatedAt is not null %}{{news.updatedAt | date('d-m-Y')}}{% endif %}" >
 
             <!-- News Title -->
 
@@ -41,9 +41,27 @@
                 
                 {% endif %}
 
+                {% if news.image3 %}
+
+                    <li data-multimedia-type="image" data-thumbnail-address="{{ asset('/images/news/' ~ news.image3) | imagine_filter('logo_thumbnail_sm') }}" data-file-address="/images/news/{{news.image3}}" data-caption="{{news.captionImage3}}"></li>
+                
+                {% endif %}
+
                 {% if news.video1 %}
 
                     <li data-multimedia-type="youtubeVideo" data-thumbnail-address="https://img.youtube.com/vi/{{news.video1}}/mqdefault.jpg" data-file-address="https://www.youtube.com/embed/{{news.video1}}" data-caption="{{news.captionVideo1}}"></li>
+                
+                {% endif %}
+
+                {% if news.video2 %}
+
+                    <li data-multimedia-type="youtubeVideo" data-thumbnail-address="https://img.youtube.com/vi/{{news.video2}}/mqdefault.jpg" data-file-address="https://www.youtube.com/embed/{{news.video2}}" data-caption="{{news.captionVideo2}}"></li>
+                
+                {% endif %}
+
+                {% if news.video3 %}
+
+                    <li data-multimedia-type="youtubeVideo" data-thumbnail-address="https://img.youtube.com/vi/{{news.video3}}/mqdefault.jpg" data-file-address="https://www.youtube.com/embed/{{news.video3}}" data-caption="{{news.captionVideo3}}"></li>
                 
                 {% endif %}
 
@@ -96,7 +114,7 @@
     padding: 3em 2em 2em;
     position: relative;
     color: rgba(0, 0, 0, 0.8);
-    border-left: 5px solid rgba(0, 0, 0, 0.6);
+    border-left: 5px solid #1e2b37;
     cursor: pointer;
     }
 
@@ -138,13 +156,13 @@
     left: -12px;
     border-radius: 10px;
     content: "";
-    border: 10px solid rgba(0, 0, 0, 0.5);
+    border: 10px solid #1e2b37;
     background: white;
     }
 
     .timeline-item:last-child {
-    -o-border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
-        border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+    -o-border-image: linear-gradient(to bottom, #1e2b37 60%, rgba(0, 0, 0, 0)) 1 100%;
+        border-image: linear-gradient(to bottom,#1e2b37 60%, rgba(0, 0, 0, 0)) 1 100%;
     }
 
     @media screen and (max-width: 580px) {
@@ -152,10 +170,6 @@
         
         .timeline-item {
             padding: 2.8em 2em 0.8em 2em;
-            position: relative;
-            color: rgba(0, 0, 0, 0.8);
-            border-left: 5px solid rgba(0, 0, 0, 0.6);
-            cursor: pointer;
             }
 
         .timeline-item .news-title {

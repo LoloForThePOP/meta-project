@@ -31,10 +31,8 @@
                             <!-- Else we check wether there is a picture or video -->
 
                             {% elseif presentation.slides | length > 0 %}
-                            
-                                {% set break = false %}
-
-                                {% for slide in presentation.slides %}
+                        
+                                {% for slide in presentation.slides  | slice (0,1) %}
 
                                     {% if slide.mediaType == 'image' %}
 
@@ -46,65 +44,65 @@
 
                                     {% endif %}
 
-                                    {% set break = true %}
-
                                 {% endfor %}
 
-                                {% else %}
-                                                                                            
-                                    <div class="avatar-circle mx-auto" style="background-color: {{ random(['#9c27b0 ', '#3f51b5 ', '#009688 ', '#4CAF50  ', '#ff9800  ', '#607d8b  ', '#ffc107  ']) }};">
-                                        <span class="initials">
-                                            {{presentation.goal | slice (0,1) | upper }}
-                                        </span>
-                                    </div>
+                            <!-- Standard Avatar (Letter in a colored disk) -->
 
-                                    <style>
+                            {% else %}
+                                                                                        
+                                <div class="avatar-circle mx-auto" style="background-color: {{ random(['#9c27b0 ', '#3f51b5 ', '#009688 ', '#4CAF50  ', '#ff9800  ', '#607d8b  ', '#ffc107  ']) }};">
+                                    <span class="initials">
+                                        {{presentation.goal | slice (0,1) | upper }}
+                                    </span>
+                                </div>
 
-                                        /* One Letter Avatars */
+                                <style>
+
+                                    /* One Letter Avatars */
+
+                                    .avatar-circle {
+                                        width: 60px;
+                                        height: 60px;
+                                        background-color: #27ae60;
+                                    }
+                                    
+                                    
+                                    .initials {
+                                
+                                        top: 16px; /* 25% of parent */
+                                        font-size: 40px; /* 50% of parent */
+                                        line-height: 25px; /* 50% of parent */
+                                        color: #fff;
+                                        font-family: Georgia, 'Times New Roman', Times, serif;
+                                        
+                                    }
+
+                                    @media screen and (max-width: 580px) {
+
+                                        .thumbnail-container{
+                                            min-height:100px;
+                                        }
+
+                                        .text-container{
+                                            padding-top:16px;
+                                            padding-bottom:16px;
+                                            padding-left:0px;
+                                        }
 
                                         .avatar-circle {
                                             width: 60px;
                                             height: 60px;
                                             background-color: #27ae60;
                                         }
-                                        
-                                        
+
                                         .initials {
-                                    
-                                            top: 16px; /* 25% of parent */
-                                            font-size: 40px; /* 50% of parent */
-                                            line-height: 25px; /* 50% of parent */
-                                            color: #fff;
-                                            font-family: Georgia, 'Times New Roman', Times, serif;
                                             
                                         }
+                        
+                        
+                                    }
 
-                                        @media screen and (max-width: 580px) {
-
-                                            .thumbnail-container{
-                                                min-height:100px;
-                                            }
-
-                                            .text-container{
-                                                padding-top:16px;
-                                                padding-bottom:16px;
-                                                padding-left:0px;
-                                            }
-
-                                            .avatar-circle {
-                                                width: 60px;
-                                                height: 60px;
-                                                background-color: #27ae60;
-                                            }
-
-                                            .initials {
-                                                
-                                            }
-                            
-                            
-                                        }
-
-                                    </style>
+                                </style>
 
 
                             {% endif %}

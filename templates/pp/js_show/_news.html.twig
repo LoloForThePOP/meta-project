@@ -13,7 +13,8 @@
 
             //getting some news elements in order to hydrate the modal
 
-            var newsId = $(this).attr('id');
+            var newsId = $(this).data('news-id');
+
             var newsTitle = $(this).attr('data-news-title');
             var newsCreationDate = $(this).attr('data-news-date-creation');
             var newsUpdateDate = $(this).attr('data-news-date-update');
@@ -77,6 +78,42 @@
             if($('#news-thumbnail-display-row-modal .news-modal-thumbnail').length){
                 $('#ui-thumbnails-section-title').show();
             }
+
+            //news text content ajax request
+
+              // Ajax request News Details and Display These Details in a Modal
+            
+              $.ajax({  
+
+                url: "{{path('ajax_get_news_details', {'slug': presentation.slug}) }}",
+
+                type:       'POST',   
+
+                dataType:   'json',
+
+                data: {
+
+                    "newsId": newsId,
+
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    newsTextContent = data.newsTextContent;
+        
+                    $('#news-content-text-modal').html(newsTextContent);
+                                        
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+
+                    alert('Ajax request failed.');  
+
+                }  
+
+            });
 
 
         });

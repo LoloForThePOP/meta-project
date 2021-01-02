@@ -12,6 +12,7 @@ use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
 use Symfony\Component\HttpFoundation\File\File;
 
 use Symfony\Component\Validator\Constraints\Image;
+use Symfony\Component\Validator\Constraints\Length;
 use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
 use Vich\UploaderBundle\Mapping\Annotation\Uploadable;
@@ -286,6 +287,12 @@ class News
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 5,
+     *      max = 7000,
+     *      minMessage = "Le Contenu du Message doit faire au minimum {{ limit }} caractères",
+     *      maxMessage = "Le Contenu du Message doit faire au maximum {{ limit }} caractères",
+     * )
      */
     private $textContent;
 
