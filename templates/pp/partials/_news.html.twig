@@ -13,219 +13,69 @@
         <div class="pp-struct-title-container">
 
             <h3 class="pp-struct-title d-inline mr-2">
-                
-                {% if presentation.news | length == 1 %}
-                    1 Communiqué
 
-                {% else %}
-                    
-                    {{presentation.news | length}} Communiqués
-
-                {% endif %}
+                Informations
                 
             </h3>
 
                     
             <!-- Manage Project News Button -->
 
-           {# {% if app.user and app.user == presentation.creator %}
-                <a href="{{ path('manage_news', {'slug': presentation.slug}) }}">
+           {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('index_news', {'slug': presentation.slug}) }}">
 
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les news</button>
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les actualités</button>
                     
                 </a>
-            {% endif %} #}
+            {% endif %}
 
         </div>
 
-
-        <!-- Project News Display List (click trigger a news details display (in a modal box))-->
-    
-        <div class="container-fluid table-responsive pl-0 pl-md-3">
-            
-            <table id="newsDisplayTable" class="table mb-1 mb-md-3 table-hover table-borderless">
-                
-                <tbody>
-
-                    {% for news in presentation.news %}
-
-
-                        <!-- News Date Display -->
-
-                        <!-- News Title Display (in a Table) -->
-
-                 
-                        <tr id="{{ news.id }}" data-news-title = "{{ news.title }}" data-news-date-creation = "{{news.createdAt | date('d-m-Y')}}" data-news-date-update = "{% if news.updatedAt is not null %}{{news.updatedAt | date('d-m-Y')}}{% endif %}" class="cursor-pointer h5 font-weight-bold">
-
-                            <td>
-                
-                                <a data-toggle="modal" data-target="#displayNewsModal" class="text-body text-decoration-none">
-
-                                    <!-- Blue arrow bullet point -->
-                                    
-                                    <span class="arrowCar blueArrow">► </span>
-
-                                    <!-- News Creation Date -->
-                                    
-                                    {{ news.createdAt | date('d-m-Y') }}
-
-                                    {% if news.updatedAt is not null %} (modifié){% endif %} 
-
-                                     -- 
-
-                                    <!-- News Title -->
-                                    
-                                    {{ news.title | capitalize | length < 50 ? news.title : news.title | slice(0, 50) ~ '...' }}
-
-                                </a>
-
-                            </td>
-
-                        </tr>
-
-                    {% endfor %}
-
-
-                </tbody>
+        <!-- News List Display (single-div vertical timeline) (thank you Niels Voogt & codepen) -->
         
-            </table>
+        {% include 'pp/partials/_news/_list_display.html.twig' %}
 
-        </div>
+        <!-- News Details Display (in a modal box) -->
+        
+        {% include 'pp/partials/_news/_details_display.html.twig' %}
 
-                
-        <!-- Display News Details (in a Modal Box) -->
+        <!-- News Multimedia Display (in a lightbox) -->
+        
+        {% include 'pp/partials/_news/_multimedia_display.html.twig' %}
+        
+        <!-- Manage modalbox content and lightbox content (javascript) -->
+        <!-- See templates\pp\js_show\_news.html.twig -->
+        
 
-        <div class="modal fade" id="displayNewsModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
-
-                    <!-- News Header : Title & Date Display -->
-
-                    <div class="modal-header">
-
-                        <div class="">
-
-                            <!-- News Title -->
-
-                            <h5 id="news-title-modal" class="modal-title mb-1 font-weight-bold"></h5>
-    
-                            <!-- Creation Date Display -->
-
-                            <div class = "mb-0" style="font-size:17px;" >
-
-                                <span class="">
-                                    Publié le 
-                                </span>
-
-                                <span id="news-date-creation-modal"></span>
-
-                            </div>
-
-                            <!-- Potential Update Date Display -->
-
-                            <div id="news-date-update-area-modal" class = "mb-0"  style="font-size:17px;">
-
-                                <span class="">
-                                    Modifié le 
-                                </span>
-
-                                <span id="news-date-update-modal"></span>
-
-                            </div>
-
-                        </div>
-                        
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                            <span aria-hidden="true">&times;</span>
-
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body fs-15" >
-
-                        <!-- News Text Content Display -->
-
-                        <div id="news-content-text-modal" class="mt-1" style="">
-
-                        </div>
-
-                        <!-- News Images & Videox Thumbnails -->
-
-                        <div id="news-multimedia-thumbnails-modal" class="mt-3" style="">
-
-                            <div class="container">
-                                <div class="row">
-                                    
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Action Buttons -->
-
-                    <div class="modal-footer">
-
-                        <!-- Back Button -->
-
-                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
-
-
+  
+        
+    
+    {% endif %}
+    
+    
     <!-- Some Style -->
 
-    <style>
 
-        #newsDisplayTable td:hover, #newsDisplayTable .pp-struct-container a:hover {
-                    
-            background-color : lavender;
+<style>
 
-        }
+    #newsDisplayTable td:hover, #newsDisplayTable .pp-struct-container a:hover {
+                
+        background-color : lavender;
 
-        /* #newsDisplayTable tbody tr:first-child {
-                    
-            margin-top:0px !important;
-            padding-top:0px !important;
+    }
 
-            background-color: brown; 
-        }*/
+    /* #newsDisplayTable tbody tr:first-child {
+                
+        margin-top:0px !important;
+        padding-top:0px !important;
 
-
-
-        @media screen and (max-width: 580px) {
-
-            #newsDisplayTable td {
-
-                font-size: 17px;
-                font-weight: normal;
-
-                padding-top: 9px;
-                padding-bottom: 9px;
-
-            }
+        background-color: brown; 
+    }*/
 
 
-        }
 
-    </style>
-        
-
-
-{% endif %}
+</style>
+    
 

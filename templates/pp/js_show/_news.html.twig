@@ -1,14 +1,17 @@
     
+    
 <!-- Javascript to Display a Project News Details into a Modal -->
 <!-- Call to this script is done at the bottom of templates\pp\show.html.twig -->
-
 <script>
 
     $(document).ready(function(){
 
+
         // When Click on a News Title, we display its details in a modal box
 
-        $('#newsDisplayTable tbody').on('click', 'tr', function (){
+        $('#news-timeline-container div').click(function () {
+
+            //getting some news elements in order to hydrate the modal
 
             var newsId = $(this).attr('id');
             var newsTitle = $(this).attr('data-news-title');
@@ -16,14 +19,13 @@
             var newsUpdateDate = $(this).attr('data-news-date-update');
             var loader =  '<div class="p-3"><div class="loader"></div></div>';
 
+            // hydrating the modal
             
-
             $('#news-title-modal').html(newsTitle);
 
             $('#news-date-creation-modal').html(newsCreationDate);
 
-
-            //displaying updated date only if it exists
+            //display news updated at only if it exists
 
             $('#news-date-update-area-modal').hide();
 
@@ -32,51 +34,119 @@
                 $('#news-date-update-modal').html(newsUpdateDate);
             }
             
-
             $('#news-content-text-modal').html(loader);
-            
-            // Get News Details and Display These Details in a Modal
-
-            
-            $.ajax({  
-
-                url: "{{path('ajax_get_news_details', {'slug': presentation.slug}) }}",
-
-                type:       'POST',   
-
-                dataType:   'json',
-
-                data: {
-
-                    "newsId": newsId,
-
-                },
-
-                async: true,  
-                
-                success: function(data, status) {
-
-                    newsTextContent = data.newsTextContent;
-
-                    $('#news-content-text-modal').html(newsTextContent);
-                                        
-                },  
-
-                error : function(xhr, textStatus, errorThrown) {  
-
-                    alert('Ajax request failed.');  
-
-                }  
-
-            }); 
 
 
-        
-            
+            $(this).find('li').each(function( index ) {
+
+               //we hydrate modal box and lightbox multimedia content
+
+               let multimediaType = $( this ).data('multimedia-type');
+
+               let thumbnailAddress = $( this ).data('thumbnail-address');
+
+               let fileAddress = $( this ).data('fileAddress');
+
+               let caption = $( this ).data('caption');
+
+               //hydrate modal box thumbnails content
+
+               $('#news-thumbnail-pattern .news-thumbnail-pattern').clone().appendTo('#news-thumbnail-display-row-modal').find('img').addClass('news-modal-thumbnail').attr('src',thumbnailAddress).attr('alt',caption).click(function() {
+
+                currentSlide(index+1);
+                openNewsLightbox();
+    
+                });
+
+                if(multimediaType=="image"){
+                    $('#lightbox-slide-patterns .news-lightbox-image-slide-pattern').clone().addClass('news-lightbox-slide').appendTo('#news-lightbox-content').find('img').attr('src',fileAddress).attr('alt',caption);
+                }
+
+                else if(multimediaType=="youtubeVideo"){
+                    $('#lightbox-slide-patterns .news-lightbox-video-slide-pattern').clone().addClass('news-lightbox-slide').appendTo('#news-lightbox-content').find('iframe').attr('src',fileAddress).attr('alt',caption);
+
+                }
+
+               
+
+
+            });
+
+            //if we have some multimedia content, we display ui section title
+
+            if($('#news-thumbnail-display-row-modal .news-modal-thumbnail').length){
+                $('#ui-thumbnails-section-title').show();
+            }
 
 
         });
 
+        //when modal is closed we remove its multimedia content
+
+        $('#news-display-details').on('hidden.bs.modal', function () {
+
+            $('#ui-thumbnails-section-title').hide();
+
+            $('#news-thumbnail-display-row-modal').empty();
+
+            $('#news-lightbox-content .news-lightbox-slide').remove();
+        });
+
+
     });
 
 </script>
+
+
+<!-- News Multimedia LightBox Display -->
+
+<script>
+
+    // Open the Modal
+    function openNewsLightbox() {
+        document.getElementById("lightboxNewsMultimedia").style.display = "block";
+    }
+    
+    // Close the Modal
+    function closeNewsLightbox() {
+        document.getElementById("lightboxNewsMultimedia").style.display = "none";
+    }
+
+            
+    var slideIndex = 1;
+    showNewsLightboxSlide(slideIndex);
+
+    // Next/previous controls
+    function plusNewsLightboxSlides(n) {
+    showNewsLightboxSlide(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+    showNewsLightboxSlide(slideIndex = n);
+    }
+
+    function showNewsLightboxSlide(n) {
+        
+        var i;
+        
+        var slides = document.getElementsByClassName("news-lightbox-slide");
+        var captionableItems = document.getElementsByClassName("news-modal-thumbnail");
+        var captionText = document.getElementById("news-lightbox-caption");
+
+        if (n > slides.length) {slideIndex = 1}
+
+        if (n < 1) {slideIndex = slides.length}
+
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+
+        slides[slideIndex-1].style.display = "block";
+
+        captionText.innerHTML = captionableItems[slideIndex-1].alt;
+
+    }
+
+</script>
+    

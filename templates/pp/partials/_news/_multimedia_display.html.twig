@@ -1,0 +1,169 @@
+
+<!-- The Modal/Lightbox -->
+    
+<div id="lightboxNewsMultimedia" class="lightbox">
+
+    <span class="close cursor" onclick="closeNewsLightbox()">&times;</span>
+
+    <div id="news-lightbox-content" class="d-flex align-items-center justify-content-center">
+
+        <!-- Next/previous controls -->
+        <a class="news-lightbox-prev" onclick="plusNewsLightboxSlides(-1)">&#10094;</a>
+        <a class="news-lightbox-next" onclick="plusNewsLightboxSlides(1)">&#10095;</a>
+
+    </div>
+
+        <!-- Caption text -->
+        <div class="news-lightbox-caption-container">
+            <p id="news-lightbox-caption"></p>
+        </div>
+</div>
+
+<!-- ligthbox slide patterns -->
+
+<div id="lightbox-slide-patterns">
+
+    <!-- News Image Slide Pattern -->
+
+    <div class="news-lightbox-image-slide-pattern">
+
+        <img class="img-fluid" src="" alt="">
+
+    </div>
+
+    <!-- News Video Slide Pattern -->
+
+    <div class="news-lightbox-video-slide-pattern">
+
+        <iframe width="100%" src="" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+    </div>
+
+</div>
+
+
+
+<!-- Style LightBox -->
+
+<style>
+    .videoWrapper {
+        float: none;
+        clear: both;
+        width: 100%;
+        position: relative;
+        padding-bottom: 56.25%;
+        padding-top: 25px;
+        height: 0;
+    }
+    .videoWrapper iframe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .news-modal-thumbnail{
+        cursor:pointer;
+    }
+        
+    /* The Modal (background) */
+    .lightbox {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        padding-top: 0px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: black;
+    }
+    
+    /* Modal Content */
+    #news-lightbox-content {
+        position: relative;
+        background-color: black;
+        margin: auto;
+        padding: 0;
+        width: 90%;
+        height:540px;
+        max-width: 1200px;
+    }
+    
+    /* The Close Button */
+    .close {
+        color: white;
+        position: absolute;
+        top: 10px;
+        right: 25px;
+        font-size: 35px;
+        font-weight: bold;
+    }
+    
+    .close:hover,
+    .close:focus {
+        color: #999;
+        text-decoration: none;
+        cursor: pointer;
+    }
+    
+    /* Hide the slides by default */
+    .news-lightbox-slide {
+        display: none;
+    }
+
+    .news-lightbox-slide img {
+        max-width: 700px;
+        max-height: 500px;
+    }
+    
+    /* Next & previous buttons */
+    .news-lightbox-prev,
+    .news-lightbox-next {
+        cursor: pointer;
+        position: absolute;
+        top: 50%;
+        width: auto;
+        padding: 16px;
+        margin-top: -50px;
+        color: #fff !important;
+        background-color:rgba(0, 0, 0, 0.3);
+        font-weight: bold;
+        font-size: 20px;
+        transition: 0.6s ease;
+        border-radius: 0 3px 3px 0;
+        user-select: none;
+        -webkit-user-select: none;
+    }
+
+    
+    /* Position the "previous button" to the left */
+    
+        .news-lightbox-prev {
+        left: 0;
+        }
+
+
+    /* Position the "next button" to the right */
+
+        .news-lightbox-next {
+            right: 0;
+            border-radius: 3px 0 0 3px;
+        }
+
+        
+    /* Caption text */
+    .news-lightbox-caption-container {
+        text-align: center;
+        background-color: black;
+        padding: 2px 16px;
+        color: white;
+        height:100px;
+        font-weight:bold;
+        font-size:1.15em;
+        font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    }
+
+</style>

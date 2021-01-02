@@ -18,7 +18,7 @@ class NewsType extends AbstractType
 
             ->add('title', TextType::class, 
                 [
-                    'label' => 'Titre de la News',
+                    'label' => 'Titre (facultatif)',
 
                     'attr' => [
                         
@@ -31,7 +31,7 @@ class NewsType extends AbstractType
 
             ->add('textContent', TextareaType::class, 
                 [
-                    'label' => 'Texte de la News',
+                    'label' => 'Contenu',
 
                     'attr' => [
                         

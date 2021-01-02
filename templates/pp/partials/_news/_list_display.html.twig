@@ -1,0 +1,170 @@
+
+<div id="news-timeline-container">
+
+    <!-- Project News Display List-->
+
+    {% for news in presentation.news %}
+
+        <!-- News Date Display (displayed from date-is attribute) -->
+
+        <div id="news-{{ news.id }}" data-toggle="modal" data-target="#news-display-details" class="timeline-item" date-is='{{ news.createdAt | date('d-m-Y') }}{% if news.updatedAt is not null %} (modifié){% endif %} ' data-news-title = "{{ news.title }}" data-news-date-creation = "{{news.createdAt | date('d-m-Y')}}" data-news-date-update = "{% if news.updatedAt is not null %}{{news.updatedAt | date('d-m-Y')}}{% endif %}" >
+
+            <!-- News Title -->
+
+            <h3 class="news-title">
+                
+                {% if news.title is not empty %}
+                
+                    {{ news.title | capitalize | length < 50 ? news.title : news.title | slice(0, 50) ~ '...' }}
+
+                {% else %}
+                
+                    Information
+                
+                {% endif %}
+            
+            </h3>
+
+            <!-- News images & videos filenames (hidden) -->
+
+            <ul class="news-multimedia-references d-none">
+
+                {% if news.image1 %}
+
+                    <li data-multimedia-type="image" data-thumbnail-address="{{ asset('/images/news/' ~ news.image1) | imagine_filter('logo_thumbnail_sm') }}" data-file-address="/images/news/{{news.image1}}" data-caption="{{news.captionImage1}}"></li>
+                
+                {% endif %}
+
+                {% if news.image2 %}
+
+                    <li data-multimedia-type="image" data-thumbnail-address="{{ asset('/images/news/' ~ news.image2) | imagine_filter('logo_thumbnail_sm') }}" data-file-address="/images/news/{{news.image2}}" data-caption="{{news.captionImage2}}"></li>
+                
+                {% endif %}
+
+                {% if news.video1 %}
+
+                    <li data-multimedia-type="youtubeVideo" data-thumbnail-address="https://img.youtube.com/vi/{{news.video1}}/mqdefault.jpg" data-file-address="https://www.youtube.com/embed/{{news.video1}}" data-caption="{{news.captionVideo1}}"></li>
+                
+                {% endif %}
+
+            </ul>
+            
+        </div>
+
+        <!-- If more than 3 news, we display them in a collapsible -->
+
+        {% if loop.length > 3 and loop.index == 3 %}
+        
+            <button id="collapseMoreNewsButton" type="button" data-toggle="collapse" data-target="#collapseMoreNews" aria-expanded="false" aria-controls="collapseMoreNews" class="btn btn-primary btn-sm">Afficher plus</button>
+
+            <script type="text/javascript">
+                var button = document.getElementById('collapseMoreNewsButton')
+                button.addEventListener('click',hideshow,false);
+            
+                function hideshow() {
+                    this.style.display = 'none'
+                }   
+            </script>
+
+            <div id="collapseMoreNews" class="collapse">
+
+        {% endif %}
+
+        {% if loop.length > 3 and loop.last %}
+
+            </div>
+        
+        {% endif %}
+
+    {% endfor %}
+    
+</div>
+
+<!-- Styles for news display timeline -->
+
+<style>
+
+    @import url("https://fonts.googleapis.com/css?family=Oswald|Roboto:400,700");
+
+    #news-timeline-container {
+    max-width: 1024px;
+    width: 90%;
+    margin: 0 auto;
+    }
+
+    .timeline-item {
+    padding: 3em 2em 2em;
+    position: relative;
+    color: rgba(0, 0, 0, 0.8);
+    border-left: 5px solid rgba(0, 0, 0, 0.6);
+    cursor: pointer;
+    }
+
+    .timeline-item:hover {
+        
+        background-color : lavender;
+
+    }
+
+    .timeline-item .news-title {
+        font-size: 1.9em;
+        margin-top: 0.3em;
+        margin-bottom: 0em;
+    }
+
+    .timeline-item p {
+    font-size: 1rem;
+    font-family: "Roboto", sans-serif;
+    }
+
+    .timeline-item::before {
+    content: attr(date-is);
+    position: absolute;
+    left: 1.15em;
+    font-weight: bold;
+    top: 0.7em;
+    display: block;
+    font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-size: 1.15em;
+    }
+
+    .timeline-item::after {
+    width: 10px;
+    height: 10px;
+    display: block;
+    top: 1em;
+    position: absolute;
+    left: -12px;
+    border-radius: 10px;
+    content: "";
+    border: 10px solid rgba(0, 0, 0, 0.5);
+    background: white;
+    }
+
+    .timeline-item:last-child {
+    -o-border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+        border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+    }
+
+    @media screen and (max-width: 580px) {
+
+        
+        .timeline-item {
+            padding: 2.8em 2em 0.8em 2em;
+            position: relative;
+            color: rgba(0, 0, 0, 0.8);
+            border-left: 5px solid rgba(0, 0, 0, 0.6);
+            cursor: pointer;
+            }
+
+        .timeline-item .news-title {
+            font-size: 1.15em;
+            margin-top: 0.3em;
+            margin-bottom: 0em;
+        }
+
+
+    }
+
+</style>

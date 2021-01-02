@@ -123,9 +123,42 @@ class NewsController extends AbstractController
 
             $newsTextContent = $news->getTextContent();
 
+            //get images & captions
+
+            $newsImage1File = $news->getImage1();
+            $newsImage1Caption = $news->getCaptionImage1();
+            $newsImage2File = $news->getImage2();
+            $newsImage2Caption = $news->getCaptionImage2();
+            $newsImage3File = $news->getImage3();
+            $newsImage3Caption = $news->getCaptionImage3();
+
+            //get videos & captions
+
+            $newsVideo1File = $news->getVideo1();
+            $newsVideo1Caption = $news->getCaptionVideo1();
+            $newsVideo2File = $news->getVideo2();
+            $newsVideo2Caption = $news->getCaptionVideo2();
+            $newsVideo3File = $news->getVideo3();
+            $newsVideo3Caption = $news->getCaptionVideo3();
+
             $dataResponse = [
 
                 'newsTextContent' => $newsTextContent,
+
+                'newsImage1File' => $newsImage1File,
+                'newsImage1Caption' => $newsImage1Caption,
+                'newsImage2File' => $newsImage2File,
+                'newsImage2Caption' => $newsImage2Caption,
+                'newsImage3File' => $newsImage3File,
+                'newsImage3Caption' => $newsImage3Caption,
+                'newsTextContent' => $newsTextContent,
+
+                'newsVideo1File' => $newsVideo1File,
+                'newsVideo1Caption' => $newsVideo1Caption,
+                'newsVideo2File' => $newsVideo2File,
+                'newsVideo2Caption' => $newsVideo2Caption,
+                'newsVideo3File' => $newsVideo3File,
+                'newsVideo3Caption' => $newsVideo3Caption,
                 
             ];
 

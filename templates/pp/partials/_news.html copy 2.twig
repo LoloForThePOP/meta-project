@@ -1,0 +1,284 @@
+<!-- WARNING Javascript ajax management is done in pp/show.html.twig due to jQuery.js loading priorities -->
+
+<!-- Project News Display -->
+
+{% if presentation.news | length > 0 %}
+
+    <!-- Structure Container -->
+
+    <div class="pp-struct-container pp-struct-needs">
+
+        <!-- Title Container -->
+
+        <div class="pp-struct-title-container">
+
+            <h3 class="pp-struct-title d-inline mr-2">
+
+                Informations
+                
+                {# {% if presentation.news | length == 1 %}
+                    1 Communiqué
+
+                {% else %}
+                    
+                    {{presentation.news | length}} Communiqués
+
+                {% endif %} #}
+                
+            </h3>
+
+                    
+            <!-- Manage Project News Button -->
+
+           {% if app.user and app.user == presentation.creator %}
+                <a href="{{ path('index_news', {'slug': presentation.slug}) }}">
+
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les news</button>
+                    
+                </a>
+            {% endif %}
+
+        </div>
+
+        <!-- Project News Display (single-div vertical timeline) (thank you Niels Voogt; codepen) -->
+
+        {# <div class="news-timeline-container">
+	
+            <div class="timeline-item" date-is='20-07-1990'>
+                <h1>Hello, 'Im a single div responsive timeline without mediaQueries!</h1>
+                <p>
+                    I'm speaking with myself, number one, because I have a very good brain and I've said a lot of things. I write the best placeholder text, and I'm the biggest developer on the web by far... While that's mock-ups and this is politics, are they really so different? I think the only card she has is the Lorem card.
+                </p>
+            </div>
+            
+            <div class="timeline-item" date-is='20-07-1990'>
+                <h1>Oeehhh, that's awesome.. Me too!</h1>
+                <p>
+                    I'm speaking with myself, number one, because I have a very good brain and I've said a lot of things. I write the best placeholder text, and I'm the biggest developer on the web by far... While that's mock-ups and this is politics, are they really so different? I think the only card she has is the Lorem card.
+                </p>
+            </div>
+            
+            <div class="timeline-item" date-is='20-07-1990'>
+                <h1>I'm ::last-child so my border fades ^__^</h1>
+                <p>
+                    I'm speaking with myself, number one, because I have a very good brain and I've said a lot of things. I write the best placeholder text, and I'm the biggest developer on the web by far... While that's mock-ups and this is politics, are they really so different? I think the only card she has is the Lorem card.
+                </p>
+            </div>
+            
+        </div> #}
+
+        <!-- Styles for news display timeline -->
+
+        {#  <style>
+
+            @import url("https://fonts.googleapis.com/css?family=Oswald|Roboto:400,700");
+
+            .news-timeline-container {
+            max-width: 1024px;
+            width: 90%;
+            margin: 0 auto;
+            }
+
+            .timeline-item {
+            padding: 3em 2em 2em;
+            position: relative;
+            color: rgba(0, 0, 0, 0.7);
+            border-left: 5px solid rgba(0, 0, 0, 0.3);
+            }
+
+            .timeline-item h1 {
+                font-size: 2rem;
+                margin-bottom: 0.5em;
+            }
+
+            .timeline-item p {
+            font-size: 1rem;
+            font-family: "Roboto", sans-serif;
+            }
+
+            .timeline-item::before {
+            content: attr(date-is);
+            position: absolute;
+            left: 2em;
+            font-weight: bold;
+            top: 1em;
+            display: block;
+            font-family: "Roboto", sans-serif;
+            font-weight: 700;
+            font-size: 0.785rem;
+            }
+
+            .timeline-item::after {
+            width: 10px;
+            height: 10px;
+            display: block;
+            top: 1em;
+            position: absolute;
+            left: -7px;
+            border-radius: 10px;
+            content: "";
+            border: 15px solid rgba(0, 0, 0, 0.3);
+            background: white;
+            }
+
+            .timeline-item:last-child {
+            -o-border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+                border-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.3) 60%, rgba(0, 0, 0, 0)) 1 100%;
+            }
+
+        </style> #}
+
+
+        <!-- Project News Display List (click trigger a news details display (in a modal box))-->
+    
+        <div class="container-fluid table-responsive pl-0 pl-md-3">
+            
+            <table id="newsDisplayTable" class="table mb-1 mb-md-3 table-hover table-borderless">
+                
+                <tbody>
+
+                    {% for news in presentation.news %}
+
+
+                        <!-- News Date Display -->
+
+                        <!-- News Title Display (in a Table) -->
+
+                 
+                        <tr id="{{ news.id }}" data-news-title = "{{ news.title }}" data-news-date-creation = "{{news.createdAt | date('d-m-Y')}}" data-news-date-update = "{% if news.updatedAt is not null %}{{news.updatedAt | date('d-m-Y')}}{% endif %}" class="cursor-pointer h5 font-weight-bold">
+
+                            <td>
+                
+                                <a data-toggle="modal" data-target="#displayNewsModal" class="text-body text-decoration-none">
+
+                                    <!-- Blue arrow bullet point -->
+                                    
+                                    <span class="arrowCar blueArrow">► </span>
+
+                                    <!-- News Creation Date -->
+                                    
+                                    {{ news.createdAt | date('d-m-Y') }}
+
+                                    {% if news.updatedAt is not null %} (modifié){% endif %} 
+
+                                     -- 
+
+                                    <!-- News Title -->
+                                    
+                                    {{ news.title | capitalize | length < 50 ? news.title : news.title | slice(0, 50) ~ '...' }}
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    {% endfor %}
+
+
+                </tbody>
+        
+            </table>
+
+        </div>
+
+
+    </div>
+
+  
+
+    <!-- News Multimedia LightBox Display -->
+
+    <script>
+
+        // Open the Modal
+        function openNewsLightbox() {
+          document.getElementById("lightboxNewsMultimedia").style.display = "block";
+        }
+        
+        // Close the Modal
+        function closeNewsLightbox() {
+          document.getElementById("lightboxNewsMultimedia").style.display = "none";
+        }
+
+                
+        var slideIndex = 1;
+        showNewsLightboxSlide(slideIndex);
+
+        // Next/previous controls
+        function plusSlides(n) {
+        showNewsLightboxSlide(slideIndex += n);
+        }
+
+        // Thumbnail image controls
+        function currentSlide(n) {
+        showNewsLightboxSlide(slideIndex = n);
+        }
+
+        function showNewsLightboxSlide(n) {
+            
+            var i;
+            
+            var slides = document.getElementsByClassName("news-lightbox-slide");
+            var captionableItems = document.getElementsByClassName("news-modal-thumbnail");
+            var captionText = document.getElementById("news-lightbox-caption");
+
+            if (n > slides.length) {slideIndex = 1}
+
+            if (n < 1) {slideIndex = slides.length}
+
+            for (i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+
+            slides[slideIndex-1].style.display = "block";
+
+            captionText.innerHTML = captionableItems[slideIndex-1].alt;
+
+        }
+
+    </script>
+        
+    
+    {% endif %}
+    
+    
+    <!-- Some Style -->
+
+
+<style>
+
+    #newsDisplayTable td:hover, #newsDisplayTable .pp-struct-container a:hover {
+                
+        background-color : lavender;
+
+    }
+
+    /* #newsDisplayTable tbody tr:first-child {
+                
+        margin-top:0px !important;
+        padding-top:0px !important;
+
+        background-color: brown; 
+    }*/
+
+
+
+    @media screen and (max-width: 580px) {
+
+        #newsDisplayTable td {
+
+            font-size: 17px;
+            font-weight: normal;
+
+            padding-top: 9px;
+            padding-bottom: 9px;
+
+        }
+
+
+    }
+
+</style>
+    
+
