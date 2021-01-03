@@ -6,6 +6,7 @@ use App\Entity\Need;
 use App\Form\NeedType;
 use App\Entity\PPBasic;
 use App\Repository\NeedRepository;
+use App\Entity\PresentationMajorLogs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -38,10 +39,10 @@ class NeedController extends AbstractController
     /**
      * @Route("/new/{needType}", name="need_new", methods={"GET","POST"})
      * 
-     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      */
-    public function new(PPBasic $pp, $needType, $slug, Request $request): Response
+    public function new(PPBasic $presentation, $needType, $slug, Request $request, EntityManagerInterface $manager): Response
     {
 
         $need = new Need();
@@ -53,11 +54,14 @@ class NeedController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
 
             $need->setType($needType)
-                 ->setPresentation($pp);
+                 ->setPresentation($presentation);
 
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($need);
-            $entityManager->flush();
+            $manager->persist($need);
+            $manager->flush();
+
+            $idNeed=$need->getId();
+
+            PresentationMajorLogs::updateLogs($presentation, 'need', 'new', $idNeed, $manager);
 
             return $this->redirectToRoute('need_index', [
                 'slug' => $slug,
@@ -67,7 +71,7 @@ class NeedController extends AbstractController
         return $this->render('need/new.html.twig', [
             'need' => $need,
             'form' => $form->createView(),
-            'slug' => $pp->getSlug(),
+            'slug' => $presentation->getSlug(),
         ]);
     }
 

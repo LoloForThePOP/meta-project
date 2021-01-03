@@ -1,0 +1,94 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quelques Logs de la Présentation{% endblock %}
+
+{% block body %}
+
+    <!-- Page Content Container -->
+
+    <div class="container col-11">
+
+        <!-- Title with Info Button Container -->
+
+        <div class="mt-3 mt-md-4 mb-2">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Quelques Logs de la Présentation</h3>
+
+        </div>
+
+
+        <!-- Major Logs List -->
+
+        <div class="container mb-2">
+
+            <div id="" class="row col-md-6 pl-0">
+
+                {% if logsList is not empty %}
+
+                    <h3>Dernière modification le {{logsLastUpdate | date('d-m-Y') }}</h3>
+
+                    <div class="presentationMajorLogsList">
+
+                        <ul>
+
+                            {% for log in logsList %}
+
+                                <li data-entity-type="{{log.entityType}}" data-event-type="{{log.eventType}}"> 
+                                    {{log.date.date | date('d-m-Y')}} -- {{log.eventType}} -- {{log.entityType}} -- {{log.entityId}}
+                                </li>
+                                
+                            {% endfor %}
+
+                        </ul>
+
+
+                    </div>
+
+
+
+
+                {% else %}
+                    
+                    Pas de log majeur
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Back Button -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{#{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}#}">
+                <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            </a>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+
+  
+       
+    <script>
+
+        $(document).ready(function(){
+
+            
+        }); 
+
+        
+    </script>
+   
+
+
+{% endblock %}

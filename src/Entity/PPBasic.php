@@ -408,6 +408,11 @@ class PPBasic implements \Serializable
      */
     private $news;
 
+    /**
+     * @ORM\OneToOne(targetEntity=PresentationMajorLogs::class, mappedBy="presentation", cascade={"persist", "remove"})
+     */
+    private $presentationMajorLogs;
+
  
 
 
@@ -1256,6 +1261,28 @@ class PPBasic implements \Serializable
                 $news->setProject(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPresentationMajorLogs(): ?PresentationMajorLogs
+    {
+        return $this->presentationMajorLogs;
+    }
+
+    public function setPresentationMajorLogs(?PresentationMajorLogs $presentationMajorLogs): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($presentationMajorLogs === null && $this->presentationMajorLogs !== null) {
+            $this->presentationMajorLogs->setPresentation(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($presentationMajorLogs !== null && $presentationMajorLogs->getPresentation() !== $this) {
+            $presentationMajorLogs->setPresentation($this);
+        }
+
+        $this->presentationMajorLogs = $presentationMajorLogs;
 
         return $this;
     }

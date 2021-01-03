@@ -6,6 +6,7 @@ use App\Entity\News;
 use App\Form\NewsType;
 use App\Entity\PPBasic;
 use App\Repository\NewsRepository;
+use App\Entity\PresentationMajorLogs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -51,6 +52,10 @@ class NewsController extends AbstractController
             $manager->persist($news);
 
             $manager->flush();
+
+            $idNews=$news->getId();
+
+            PresentationMajorLogs::updateLogs($presentation, 'news', 'new', $idNews, $manager);
 
             $this->addFlash(
                 'success',

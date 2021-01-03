@@ -6,6 +6,7 @@ use App\Entity\Persorg;
 use App\Entity\PPBasic;
 use App\Entity\Teammate;
 use App\Form\PersorgType;
+use App\Entity\PresentationMajorLogs;
 use App\Repository\PersorgRepository;
 use App\Repository\TeammateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,6 +45,10 @@ class TeammatesController extends AbstractController
             $manager->persist($teammate);
 
             $manager->flush();
+
+            $idTeammate=$teammate->getId();
+
+            PresentationMajorLogs::updateLogs($presentation, 'teammate', 'new', $idTeammate, $manager);
 
             $this->addFlash(
                 'success',
