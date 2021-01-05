@@ -6,7 +6,7 @@ use App\Entity\Need;
 use App\Form\NeedType;
 use App\Entity\PPBasic;
 use App\Repository\NeedRepository;
-use App\Entity\PresentationMajorLogs;
+use App\Entity\PPMajorLogs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -61,7 +61,7 @@ class NeedController extends AbstractController
 
             $idNeed=$need->getId();
 
-            PresentationMajorLogs::updateLogs($presentation, 'need', 'new', $idNeed, $manager);
+            PPMajorLogs::updateLogs($presentation, 'need', 'new', $idNeed, $manager);
 
             return $this->redirectToRoute('need_index', [
                 'slug' => $slug,

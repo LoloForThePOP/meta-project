@@ -408,15 +408,16 @@ class PPBasic implements \Serializable
      */
     private $news;
 
-    /**
-     * @ORM\OneToOne(targetEntity=PresentationMajorLogs::class, mappedBy="presentation", cascade={"persist", "remove"})
-     */
-    private $presentationMajorLogs;
 
     /**
      * @ORM\OneToMany(targetEntity=UserFollows::class, mappedBy="presentation")
      */
     private $usersFollow;
+
+    /**
+     * @ORM\OneToOne(targetEntity=PPMajorLogs::class, mappedBy="presentation", cascade={"persist", "remove"})
+     */
+    private $majorLogs;
 
 
  
@@ -1272,27 +1273,7 @@ class PPBasic implements \Serializable
         return $this;
     }
 
-    public function getPresentationMajorLogs(): ?PresentationMajorLogs
-    {
-        return $this->presentationMajorLogs;
-    }
 
-    public function setPresentationMajorLogs(?PresentationMajorLogs $presentationMajorLogs): self
-    {
-        // unset the owning side of the relation if necessary
-        if ($presentationMajorLogs === null && $this->presentationMajorLogs !== null) {
-            $this->presentationMajorLogs->setPresentation(null);
-        }
-
-        // set the owning side of the relation if necessary
-        if ($presentationMajorLogs !== null && $presentationMajorLogs->getPresentation() !== $this) {
-            $presentationMajorLogs->setPresentation($this);
-        }
-
-        $this->presentationMajorLogs = $presentationMajorLogs;
-
-        return $this;
-    }
 
     /**
      * @return Collection|UserFollows[]
@@ -1320,6 +1301,23 @@ class PPBasic implements \Serializable
                 $usersFollow->setPresentation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getMajorLogs(): ?PPMajorLogs
+    {
+        return $this->majorLogs;
+    }
+
+    public function setMajorLogs(PPMajorLogs $majorLogs): self
+    {
+        // set the owning side of the relation if necessary
+        if ($majorLogs->getPresentation() !== $this) {
+            $majorLogs->setPresentation($this);
+        }
+
+        $this->majorLogs = $majorLogs;
 
         return $this;
     }

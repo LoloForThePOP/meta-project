@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Questions et Réponses du Projet{% endblock %}
+{% block title %}Projets suivis{% endblock %}
 
 {% block body %}
 
@@ -17,6 +17,9 @@
             <h3 class="font-weight-bold d-inline mr-3">Projets suivis</h3>
 
         </div>
+
+        Dernière connexion le {{lastConnectionDate | date ('d-m-Y H:m:s') }} <br><br>
+        Dernière connexion le {{currentTime | date ('d-m-Y H:m:s') }}
 
 
         <!-- Notifications List -->
@@ -44,29 +47,35 @@
 
                             <div class="ml-md-4">
 
-                                {% set projectLogs = userFollow.getPresentation.getPresentationMajorLogs %}
+                                {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
 
                                 {% if projectLogs is not null %}
 
-                                    {% for log in projectLogs.getMajorLogs | reverse %}
+                                    {% for log in projectLogs.getLogs | reverse %}
 
                                         {#<h4 class="font-weight-bold">Dernière connexion le {{ userFollow.lastConnection | date('d-m-Y') }} à {{ userFollow.lastConnection | date('h:m') }} </h4>#}
 
                                         <!-- We only display events that are new for user (i.e. since last notification page connection) -->
 
 
-                                        {#{% if date(userFollow.lastConnection) < date(log.date.date) %}
+                                        {% if date(lastConnectionDate) < date(log.date.date) %}
 
-                                            tu n'as pas encore vu cette notification
+                                            tu n'as pas encore vu cette notification <br><br>
 
                                         {% else %}
 
-                                            tu as déjà vu cette notification
-                                        
-                                        
-                                        {% endif %}#}
+                                            tu as déjà vu cette notification <br><br>
+                                            
 
-                                        <div class="mb-2">
+                                            Dernière connexion utilisateur le {{lastConnectionDate | date ('d-m-Y H:m:s') }} <br>
+
+
+                                            Entité mise à jour le {{log.date.date | date ('d-m-Y H:m:s') }}
+                                        
+                                        
+                                        {% endif %}
+
+                                        <div class="alert alert-primary sharp cursor-pointer mb-2">
 
                                             {% if log.entityType == "need" %}
 
@@ -92,7 +101,7 @@
 
                                     {% endfor %}
 
-                                {{dump(userFollow.getPresentation.getPresentationMajorLogs.getMajorLogs)}}
+                                {{dump(userFollow.getPresentation.getMajorLogs.getLogs)}}
 
                                 {% else %}
                                     

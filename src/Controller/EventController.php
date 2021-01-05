@@ -6,7 +6,7 @@ use App\Entity\Event;
 use App\Entity\PPBasic;
 use App\Form\EventType;
 use App\Repository\EventRepository;
-use App\Entity\PresentationMajorLogs;
+use App\Entity\PPMajorLogs;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,7 +92,7 @@ class EventController extends AbstractController
 
             $idEvent=$event->getId();
 
-            PresentationMajorLogs::updateLogs($presentation, 'event', 'new', $idEvent, $manager);
+            PPMajorLogs::updateLogs($presentation, 'event', 'new', $idEvent, $manager);
 
             $this->addFlash(
                 'success',

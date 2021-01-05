@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\PPBasic;
 use App\Entity\UserFollows;
+use App\Service\UserFollowService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserFollowsRepository;
 use Symfony\Component\HttpFoundation\Response;
@@ -46,7 +47,7 @@ class UserFollowsController extends AbstractController
             
             $this->addFlash(
                 'success',
-                "Vous suivez ce projet !"
+                "Maintenant vous suivez ce projet !"
             );
         }
 
@@ -74,7 +75,7 @@ class UserFollowsController extends AbstractController
      * @Security("is_granted('ROLE_USER')")
      * 
      */
-    public function showFollowNotifications(EntityManagerInterface $manager): Response
+    public function showFollowNotifications(UserFollowService $userFollowService): Response
     {
 
         $user = $this->getUser();
@@ -82,23 +83,19 @@ class UserFollowsController extends AbstractController
         $userFollows = $user->getUserFollows();
 
         //we get user last time notifications connection
+        $lastConnectionDate= $user->getLastNotificationsConnection();
 
-        $lastConnection= $user->getLastNotificationsConnection();
+        //we count user notifications
+        $countNotifications = $userFollowService->countNotifications($user);
 
-        //count user notifications :
-
-        //foreach ($userFollows as $followRow) {
-        //    $followRow->getPresentation()->getMajorLogs()->getLastUpdate();
-        //}
-
-
-
-
+        //we update last time user accessed notification page
+        $userFollowService->updateLastConsultationDate($user);
 
         return $this->render('user_follows/show_notifications.html.twig', [
 
             'userFollows' => $userFollows,
-            'lastConnection' => $lastConnection,
+            'lastConnectionDate' => $lastConnectionDate,
+            'currentTime' => $user->getLastNotificationsConnection(),
 
         ]);
 

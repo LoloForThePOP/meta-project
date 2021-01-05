@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\Entity\PPBasic;
 use App\Entity\Document;
 use App\Form\DocumentType;
-use App\Entity\PresentationMajorLogs;
+use App\Entity\PPMajorLogs;
 use App\Repository\DocumentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -45,7 +45,7 @@ class DocumentController extends AbstractController
 
             $idDocument=$document->getId();
 
-            PresentationMajorLogs::updateLogs($presentation, 'document', 'new', $idDocument, $manager);
+            PPMajorLogs::updateLogs($presentation, 'document', 'new', $idDocument, $manager);
 
             $this->addFlash(
                 'success',

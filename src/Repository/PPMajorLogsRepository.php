@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\PresentationMajorLogs;
+use App\Entity\PPMajorLogs;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @method PresentationMajorLogs|null find($id, $lockMode = null, $lockVersion = null)
- * @method PresentationMajorLogs|null findOneBy(array $criteria, array $orderBy = null)
- * @method PresentationMajorLogs[]    findAll()
- * @method PresentationMajorLogs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PPMajorLogs|null find($id, $lockMode = null, $lockVersion = null)
+ * @method PPMajorLogs|null findOneBy(array $criteria, array $orderBy = null)
+ * @method PPMajorLogs[]    findAll()
+ * @method PPMajorLogs[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class PresentationMajorLogsRepository extends ServiceEntityRepository
+class PPMajorLogsRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, PresentationMajorLogs::class);
+        parent::__construct($registry, PPMajorLogs::class);
     }
 
     // /**
-    //  * @return PresentationMajorLogs[] Returns an array of PresentationMajorLogs objects
+    //  * @return PPMajorLogs[] Returns an array of PPMajorLogs objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class PresentationMajorLogsRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?PresentationMajorLogs
+    public function findOneBySomeField($value): ?PPMajorLogs
     {
         return $this->createQueryBuilder('p')
             ->andWhere('p.exampleField = :val')
