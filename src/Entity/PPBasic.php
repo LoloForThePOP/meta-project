@@ -413,6 +413,12 @@ class PPBasic implements \Serializable
      */
     private $presentationMajorLogs;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserFollows::class, mappedBy="presentation")
+     */
+    private $usersFollow;
+
+
  
 
 
@@ -447,6 +453,7 @@ class PPBasic implements \Serializable
         $this->owners = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->news = new ArrayCollection();
+        $this->usersFollow = new ArrayCollection();
     }
     
 
@@ -1286,6 +1293,37 @@ class PPBasic implements \Serializable
 
         return $this;
     }
+
+    /**
+     * @return Collection|UserFollows[]
+     */
+    public function getUsersFollow(): Collection
+    {
+        return $this->usersFollow;
+    }
+
+    public function addUsersFollow(UserFollows $usersFollow): self
+    {
+        if (!$this->usersFollow->contains($usersFollow)) {
+            $this->usersFollow[] = $usersFollow;
+            $usersFollow->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUsersFollow(UserFollows $usersFollow): self
+    {
+        if ($this->usersFollow->removeElement($usersFollow)) {
+            // set the owning side to null (unless already changed)
+            if ($usersFollow->getPresentation() === $this) {
+                $usersFollow->setPresentation(null);
+            }
+        }
+
+        return $this;
+    }
+
 
 
   

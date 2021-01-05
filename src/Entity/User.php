@@ -127,6 +127,16 @@ class User implements UserInterface
      */
     private $news;
 
+    /**
+     * @ORM\OneToMany(targetEntity=UserFollows::class, mappedBy="user")
+     */
+    private $userFollows;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastNotificationsConnection;
+
 
 
     public function __construct()
@@ -148,7 +158,8 @@ class User implements UserInterface
         $this->pGroupsMaster = new ArrayCollection();
         $this->reports = new ArrayCollection();
         $this->comments = new ArrayCollection();
-        $this->news = new ArrayCollection();                
+        $this->news = new ArrayCollection();
+        $this->userFollows = new ArrayCollection();                
         
     }
   
@@ -535,6 +546,48 @@ class User implements UserInterface
                 $news->setCreator(null);
             }
         }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|UserFollows[]
+     */
+    public function getUserFollows(): Collection
+    {
+        return $this->userFollows;
+    }
+
+    public function addUserFollow(UserFollows $userFollow): self
+    {
+        if (!$this->userFollows->contains($userFollow)) {
+            $this->userFollows[] = $userFollow;
+            $userFollow->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserFollow(UserFollows $userFollow): self
+    {
+        if ($this->userFollows->removeElement($userFollow)) {
+            // set the owning side to null (unless already changed)
+            if ($userFollow->getUser() === $this) {
+                $userFollow->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getLastNotificationsConnection(): ?\DateTimeInterface
+    {
+        return $this->lastNotificationsConnection;
+    }
+
+    public function setLastNotificationsConnection(?\DateTimeInterface $lastNotificationsConnection): self
+    {
+        $this->lastNotificationsConnection = $lastNotificationsConnection;
 
         return $this;
     }

@@ -25,7 +25,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class NewsController extends AbstractController
 {
     /**
-     * @Route("/", name="index_news")
+     * @Route("/", name="manage_news")
      */
     public function index(PPBasic $presentation): Response
     {
@@ -62,7 +62,7 @@ class NewsController extends AbstractController
                 "L'actualité a été ajoutée"
             );
 
-            return $this->redirectToRoute('index_news', [
+            return $this->redirectToRoute('manage_news', [
                 'slug' => $presentation->getSlug(),
             ]);
 
@@ -98,7 +98,7 @@ class NewsController extends AbstractController
                 "L'actualité a été modifiée"
             );
 
-            return $this->redirectToRoute('index_news', [
+            return $this->redirectToRoute('manage_news', [
                 'slug' => $presentation->getSlug(),
             ]);
 
@@ -155,7 +155,7 @@ class NewsController extends AbstractController
         $entityManager->remove($news);
         $entityManager->flush();
 
-        return $this->redirectToRoute('index_news',[
+        return $this->redirectToRoute('manage_news',[
             'slug' => $slug,
         ]);
     }

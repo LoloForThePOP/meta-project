@@ -1,0 +1,159 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Questions et Réponses du Projet{% endblock %}
+
+{% block body %}
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <!-- Title with Info Button Container -->
+
+        <div class="mt-5 mt-md-4 mb-4">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Projets suivis</h3>
+
+        </div>
+
+
+        <!-- Notifications List -->
+
+        <div class="container mb-5">
+
+            <div id="notificationsList" class="row col-md-10">
+
+                {% if userFollows | length > 0 %}
+                    
+                    <div class="">
+
+                        {% for userFollow in userFollows %}
+
+                            <!-- Followed Project Title -->
+                        
+                            <h4 class="mb-4 font-weight-bold">
+
+                                {{userFollow.getPresentation.getSlug | capitalize}}
+
+                            </h4>
+                        
+
+                            <!-- Followed Project Last Major Modifications -->
+
+                            <div class="ml-md-4">
+
+                                {% set projectLogs = userFollow.getPresentation.getPresentationMajorLogs %}
+
+                                {% if projectLogs is not null %}
+
+                                    {% for log in projectLogs.getMajorLogs | reverse %}
+
+                                        {#<h4 class="font-weight-bold">Dernière connexion le {{ userFollow.lastConnection | date('d-m-Y') }} à {{ userFollow.lastConnection | date('h:m') }} </h4>#}
+
+                                        <!-- We only display events that are new for user (i.e. since last notification page connection) -->
+
+
+                                        {#{% if date(userFollow.lastConnection) < date(log.date.date) %}
+
+                                            tu n'as pas encore vu cette notification
+
+                                        {% else %}
+
+                                            tu as déjà vu cette notification
+                                        
+                                        
+                                        {% endif %}#}
+
+                                        <div class="mb-2">
+
+                                            {% if log.entityType == "need" %}
+
+                                               Nouveau besoin
+
+                                            {% elseif log.entityType == "news" %}
+
+                                                Nouvelle actualité
+
+                                            {% elseif log.entityType == "event" %}
+
+                                                Nouvel événement
+
+                                            {% elseif log.entityType == "teammate" %}
+
+                                                Nouveau membre dans l'équipe
+
+                                            {% endif %}
+
+                                            le {{ log.date.date | date('d-m-Y') }}
+
+                                        </div>
+
+                                    {% endfor %}
+
+                                {{dump(userFollow.getPresentation.getPresentationMajorLogs.getMajorLogs)}}
+
+                                {% else %}
+                                    
+                                    pas de modification majeure détectée
+                                
+                                {% endif %}
+
+                                
+
+                            {#  
+                                <pre>
+                                    {{ dump(followedProjectsLogs[loop.index0]) }}
+                                </pre>
+
+                               {% set presentationLogs = userFollow.getPresentation.getPresentationMajorLogs %}
+
+                                {% if presentationLogs is defined %}
+                                    {{presentationLogs.getUpdatedAt | date("Y-m-d")}}
+                                {% endif %} #} 
+
+                                
+
+                            </div>
+
+                        {% endfor %}
+
+                        </div>
+
+                {% else %}
+                    
+                    Aucun projet suivis actuellement
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Back Button -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{#{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}#}">
+                <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            </a>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+       
+    <script>
+
+        $(document).ready(function(){
+        }); 
+
+    </script>
+   
+{% endblock %}
