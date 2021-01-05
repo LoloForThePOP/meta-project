@@ -9,7 +9,7 @@
 
         // When Click on a News Title, we display its details in a modal box
 
-        $('#news-timeline-container div').click(function () {
+        $('#news-timeline-container div .timeline-item').click(function () {
 
             //getting some news elements in order to hydrate the modal
 
@@ -50,11 +50,13 @@
 
                let caption = $( this ).data('caption');
 
+               alert
+
                //hydrate modal box thumbnails content
 
                $('#news-thumbnail-pattern .news-thumbnail-pattern').clone().appendTo('#news-thumbnail-display-row-modal').find('img').addClass('news-modal-thumbnail').attr('src',thumbnailAddress).attr('alt',caption).click(function() {
 
-                currentSlide(index+1);
+                currentLightboxSlide(index+1);
                 openNewsLightbox();
     
                 });
@@ -73,7 +75,7 @@
 
             });
 
-            //if we have some multimedia content, we display ui section title
+            //if we have some multimedia content, we display title : "images & videos"
 
             if($('#news-thumbnail-display-row-modal .news-modal-thumbnail').length){
                 $('#ui-thumbnails-section-title').show();
@@ -159,7 +161,7 @@
     }
 
     // Thumbnail image controls
-    function currentSlide(n) {
+    function currentLightboxSlide(n) {
     showNewsLightboxSlide(slideIndex = n);
     }
 

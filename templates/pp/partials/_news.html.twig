@@ -22,7 +22,7 @@
             <!-- Manage Project News Button -->
 
            {% if app.user and app.user == presentation.creator %}
-                <a href="{{ path('index_news', {'slug': presentation.slug}) }}">
+                <a href="{{ path('manage_news', {'slug': presentation.slug}) }}">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les actualités</button>
                     
