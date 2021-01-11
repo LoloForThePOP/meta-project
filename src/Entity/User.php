@@ -4,12 +4,12 @@ namespace App\Entity;
 
 use App\Entity\Persorg;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints\Email;
-use Symfony\Component\Validator\Constraints\Length;
 
+use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -590,6 +590,58 @@ class User implements UserInterface
         $this->lastNotificationsConnection = $lastNotificationsConnection;
 
         return $this;
+    }
+
+    
+    /**
+     * 
+     * Allow to count user notifications
+     * 
+     */
+    public function countNotifications() : int {
+
+        $countNotifications = 0;
+
+        $userFollows = $this->getUserFollows();
+
+        //we get user last time notifications page access
+        $lastConnectionDate= $this->getLastNotificationsConnection();
+
+        foreach ($userFollows as $followRow) {
+
+            if ($followRow->getPresentation()->getMajorLogs() !== null) {
+
+                $ppLastMajorUpdateDate = $followRow->getPresentation()->getMajorLogs()->getUpdatedAt();
+
+                if ($lastConnectionDate < $ppLastMajorUpdateDate) {
+    
+                    $countNotifications++;            
+                
+                }
+            }
+
+        }
+
+        $countNotifications;
+
+        return $countNotifications;
+
+    }
+
+    
+    /**
+     * Allow to update last time user connect to notification page
+     *
+     * @return void
+     */
+    public function updateLastNotificationConsultationDate($entityManager){
+
+        //lastConnectionDateUpdate
+        $this->setLastNotificationsConnection(new \DateTime('now'));
+
+        $entityManager->persist($this);
+        $entityManager->flush();
+
     }
 
   

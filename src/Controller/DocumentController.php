@@ -25,6 +25,8 @@ class DocumentController extends AbstractController
     /**
      * user interface that allow to display, remove, reorder, add new Document
      * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
      * @Route("/", name="manage_documents")
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
@@ -71,6 +73,9 @@ class DocumentController extends AbstractController
      * Allow to Edit a Document
      * 
      * @Route("/edit/{idDocument}", name="edit_document")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
      */
     public function edit (PPBasic $presentation, $idDocument, DocumentRepository $documentRepo, Request $request, EntityManagerInterface $manager)
     {

@@ -1,0 +1,113 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les Projets suivis{% endblock %}
+
+{% block body %}
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <!-- UI Page Title -->
+
+        <div class="mt-5 mt-md-5 mb-5">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3">Gérer les Projets suivis</h3>
+
+        </div>
+
+        <!-- Followed Projects List -->
+
+        <div class="container mb-5">
+
+            <div id="notificationsList" class="row">
+
+                {% if userFollows | length > 0 %}
+                    
+                    <div class="container">
+
+                        {% for userFollow in userFollows %}
+
+                            <div class="row">
+
+                                <div class="col">
+
+                                    <!-- Followed project -->
+                                    
+                                    <h4 class="mb-4 font-weight-bold">
+
+                                        <!-- we display project title, otherwise we display project goal -->
+
+                                        {% if userFollow.getPresentation.getTitle > 0 %}
+
+                                            {% set projectTitle = userFollow.getPresentation.getTitle %}
+
+                                        {% else %}
+                                            
+                                            {% set projectTitle = userFollow.getPresentation.getGoal %}                       
+                                        
+                                        {% endif %}
+
+                                        {{ projectTitle | length > 50 ? projectTitle | slice(0, 50)  | capitalize ~ '...' : projectTitle  | capitalize}}
+
+                                    </h4>
+
+                                </div>
+
+                                <div class="col">
+
+                                    <!-- unfollow presentation button -->
+
+                                    <a onClick="return confirm (`Confirmer vous ne plus suivre ce projet ?`)" href="{{path('unfollow_presentation', {'idUserFollow':userFollow.id})}}" class="text-body text-decoration-none">
+
+                                        <button class="btn btn-warning btn-sm sharp font-weight-bold" type="button">Ne plus suivre</button>
+
+                                    </a>
+
+                                </div>
+
+                            </div>
+
+
+                        {% endfor %}
+
+                        </div>
+
+                {% else %}
+                    
+                    Aucun projet suivis actuellement
+
+                {% endif %}
+
+            </div>
+
+        </div>
+
+        <!-- Back Button -->
+
+        <div>
+
+            <a class="text-decoration-none text-white" href="{{ path('homepage') }}">
+                <button type="button" class="btn btn-info font-weight-bold mt-2 mb-4 sharp">Retour</button>
+            </a>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+
+{% block javascripts %}
+       
+    <script>
+
+        $(document).ready(function(){
+        }); 
+
+    </script>
+   
+{% endblock %}

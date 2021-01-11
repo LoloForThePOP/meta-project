@@ -419,6 +419,11 @@ class PPBasic implements \Serializable
      */
     private $majorLogs;
 
+    /**
+     * @ORM\OneToOne(targetEntity=Status::class, mappedBy="project", cascade={"persist", "remove"})
+     */
+    private $status;
+
 
  
 
@@ -1318,6 +1323,28 @@ class PPBasic implements \Serializable
         }
 
         $this->majorLogs = $majorLogs;
+
+        return $this;
+    }
+
+    public function getStatus(): ?Status
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?Status $status): self
+    {
+        // unset the owning side of the relation if necessary
+        if ($status === null && $this->status !== null) {
+            $this->status->setProject(null);
+        }
+
+        // set the owning side of the relation if necessary
+        if ($status !== null && $status->getProject() !== $this) {
+            $status->setProject($this);
+        }
+
+        $this->status = $status;
 
         return $this;
     }

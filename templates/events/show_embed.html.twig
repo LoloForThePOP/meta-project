@@ -1,0 +1,93 @@
+<div class="container">
+
+    <!-- Event Title -->
+
+    <div class="row"> 
+
+        <div class="h5 font-weight-bold pr-md-3" >
+
+            {{ event.title }}
+
+        </div>
+    
+    </div>
+
+
+    <!-- Dates -->
+
+    <div class="row mb-3">
+
+        <b> 
+
+            {% if event.beginDateStr is not empty %}
+
+                Début : <span class="date">{{event.beginDateStr }}<span>
+
+                {% if event.beginTime %}
+
+                    à {{event.beginTime | date("H:i")}}
+
+                {% endif %}
+
+            {% endif %}
+
+
+            {% if event.endDateStr is not null %}
+
+                <br>
+
+                Fin : <span class="date">{{event.endDateStr }}<span>
+
+                {% if event.endTime %}
+
+                    à {{event.endTime | date("H:i")}}
+
+                {% endif %}
+
+            {% endif %}
+
+            </b>
+
+    </div>
+
+
+    <!-- Long Description -->
+
+    <div class="row fs-15 mb-3"> 
+                                
+        {% if event.description is not empty %}
+
+            {{event.description | nl2br }}
+        
+        {% endif %}
+
+    </div>
+
+
+    <!-- "Created At" & "Last Updated At" Display -->
+
+    <div class="row">
+
+        <small>
+
+            <!-- Last Updated at -->
+
+            {% if event.updatedAt %}
+            
+                Modifié le {{ event.updatedAt | date("Y-m-d") }} à 
+                {{ event.updatedAt | date("H:i") }}
+
+                <br>
+            
+            {% endif %}
+
+            <!-- Created At -->
+
+            Publié le {{ event.createdAt | date("Y-m-d") }} à {{ event.createdAt | date("H:i") }}
+
+        </small>
+
+    </div>
+    
+
+</div>

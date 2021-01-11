@@ -12,6 +12,7 @@ use App\Entity\Owner;
 use App\Entity\Slide;
 use App\Entity\PGroup;
 use App\Entity\Report;
+use App\Entity\Status;
 use App\Entity\Comment;
 use App\Entity\Contact;
 use App\Entity\Persorg;
@@ -363,6 +364,42 @@ class AppFixtures extends Fixture
 
                 $manager->persist($textDescription);
             }
+
+            // Project Status Creation
+
+            $hasStatus = [true, true, true, false];
+
+            if ($hasStatus) {
+
+
+                $status = new Status();
+
+                $globalStatusPossibilities = ['stopped', 'production', 'pause', 'idea', 'finished'];
+
+                $globalStatus = $globalStatusPossibilities[array_rand($globalStatusPossibilities)];
+
+                $detailedStatus = $faker->words($nb = 3, $asText = false);
+                $commaSeparatedDetails = implode(",",  $detailedStatus);
+                
+                $personalizedStatus = $faker->words($nb = 3, $asText = false);
+                $commaSeparatedPersonalized = implode(",",  $personalizedStatus);
+
+                $comments = $faker->sentence($nbWords = 6, $variableNbWords = true);
+
+                $status ->setGlobal($globalStatus)
+                        ->setDetails($commaSeparatedDetails)
+                        ->setPersonalized($commaSeparatedPersonalized)
+                        ->setComments($comments);
+
+                $pp->setStatus($status);
+                        
+                $manager->persist($status);
+
+            }
+
+
+
+
 
             // Project Owners Creation
 

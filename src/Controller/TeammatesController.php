@@ -13,18 +13,21 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/projects/{slug}/teammates")
  * 
- * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+ * 
  */
 class TeammatesController extends AbstractController
 {
     /**
      * @Route("/", name="manage_teammates")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
@@ -77,6 +80,8 @@ class TeammatesController extends AbstractController
      * Allow to Edit a Teammate
      * 
      * @Route("/edit/{id_persorg}", name="edit_teammate_persorg")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      */
     public function edit (PPBasic $presentation, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager)
@@ -186,6 +191,43 @@ class TeammatesController extends AbstractController
 
             return new JsonResponse($dataResponse);
 
+        }
+
+    }
+
+    
+    /**
+     * @Route("/teammate/ajax-show-embed", name="show_embed_teammate")
+     * 
+     */
+    public function showEmbed(Request $request, TeammateRepository $teammateRepository)
+    {
+        
+        if ($request->isXmlHttpRequest()) {
+
+            //get selected news
+
+            $idTeammate = $request->request->get('idEntity');
+
+            $teammate = $teammateRepository->findOneById($idTeammate);
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'teammates/show_embed_teammate.html.twig', 
+
+                    [
+                        'persorg' => $teammate->getPersorg(),
+                    ]
+                ),
+            ];
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        
         }
 
     }

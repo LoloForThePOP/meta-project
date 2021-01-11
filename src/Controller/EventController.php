@@ -232,6 +232,43 @@ class EventController extends AbstractController
     }
 
 
+    /**
+     * @Route("/event/ajax-show-embed", name="show_embed_event")
+     * 
+     */
+    public function showEmbed(Request $request, EventRepository $eventRepository)
+    {
+        
+        if ($request->isXmlHttpRequest()) {
+
+            //get selected news
+
+            $idEvent = $request->request->get('idEntity');
+
+            $event = $eventRepository->findOneById($idEvent);
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'events/show_embed.html.twig', 
+
+                    [
+                        'event' => $event,
+                    ]
+                ),
+            ];
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        
+        }
+
+    }
+
+
 
 
 

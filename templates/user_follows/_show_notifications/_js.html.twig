@@ -1,0 +1,51 @@
+    
+<script>
+
+    $(document).ready(function(){
+
+        
+        $('.pp-notification-title').on('click', function (){
+
+            var idEntity = $(this).attr("data-entity-id");
+
+            var routeName = $(this).attr("data-route-name");
+
+            $('#notifContentDisplayModal').modal('show');
+
+            $('#notifContentDisplayModalBody').html('<div class="text-center loader"></div>');
+                
+            $.ajax({  
+
+                url: routeName,
+                type:       'POST',   
+                dataType:   'json',
+                
+                data: {
+                "idEntity": idEntity,
+                },
+
+                async: true,  
+                
+                success: function(data, status) {
+
+                    //alert(data.html);
+
+                    $('#notifContentDisplayModalBody').html(data.html).append('<button type="button" class="btn btn-lg btn-info font-weight-bold mt-4" data-dismiss="modal">Retour</button>');
+
+                },  
+
+                error : function(xhr, textStatus, errorThrown) {  
+                    // alert('Ajax request failed.');  
+                }  
+            }); 
+                
+            
+
+
+        });
+
+    }); 
+
+</script>
+
+

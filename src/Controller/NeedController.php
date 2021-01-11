@@ -212,5 +212,43 @@ class NeedController extends AbstractController
         return  new JsonResponse();
     }
 
+
+    
+
+    /**
+     * @Route("/need/ajax-show-embed", name="show_embed_need")
+     * 
+     */
+    public function showEmbed(Request $request, NeedRepository $needRepository)
+    {
+        
+        if ($request->isXmlHttpRequest()) {
+
+            //get selected need
+
+            $idNeed = $request->request->get('idEntity');
+
+            $need = $needRepository->findOneById($idNeed);
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'need/show_embed.html.twig', 
+
+                    [
+                        'need' => $need,
+                    ]
+                ),
+            ];
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        
+        }
+
+    }
     
 }

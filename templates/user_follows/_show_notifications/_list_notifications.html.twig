@@ -1,0 +1,133 @@
+<div id="notificationsList" class="row col-md-10">
+
+    {% if userFollows | length > 0 %}
+        
+        <div class="">
+
+            {% for userFollow in userFollows | reverse %}
+
+                <!-- Followed Project Title -->
+            
+                <h4 class="mb-3 font-weight-bold">
+
+                      <!-- we display project title, otherwise we display project goal -->
+
+                      {% if userFollow.getPresentation.getTitle > 0 %}
+
+                        {% set projectTitle = userFollow.getPresentation.getTitle %}
+
+                    {% else %}
+                        
+                        {% set projectTitle = userFollow.getPresentation.getGoal %}                       
+                  
+                  {% endif %}
+
+                  {{ projectTitle | length > 50 ? projectTitle | slice(0, 50)  | capitalize ~ '...' : projectTitle  | capitalize}}
+
+                </h4>
+
+                <!-- Followed Projects, Display Last Major Modifications -->
+
+                <div class="ml-md-4 mb-5">
+
+                    {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
+
+                    {% if projectLogs is not null %}
+
+                        {% for log in projectLogs.getLogs | reverse | slice (0,15) %}
+
+                            <!-- We contrast display events that are new for user (i.e. since last notification page connection) -->
+
+                            <!-- If more than 3 items, we display these in a collapsible -->
+
+
+                            {% if loop.index == 5 %}
+
+                                <button id="collapseMoreNotificationsButton{{userFollow.id}}" type="button" data-toggle="collapse" data-target="#collapseMoreNotifications{{userFollow.id}}" aria-expanded="false" aria-controls="collapseMoreNotifications{{userFollow.id}}" class="btn btn-light btn-sm font-weight-bold sharp mt-2">Afficher plus</button>
+                    
+                                <script type="text/javascript">
+                                    var button = document.getElementById('collapseMoreNotificationsButton{{userFollow.id}}')
+                                    button.addEventListener('click',hideshow,false);
+                                
+                                    function hideshow() {
+                                        this.style.display = 'none'
+                                    }   
+                                </script>
+                    
+                                <div id="collapseMoreNotifications{{userFollow.id}}" class="collapse">
+                            
+                            {% endif %}
+
+
+                            
+                           
+
+
+                            <div data-entity-type="{{log.entityType}}" data-entity-id='{{log.entityId}}' data-route-name=" {{path('show_embed_'~ log.entityType , { "slug" : userFollow.getPresentation.getSlug} ) }}" class="
+
+                                pp-notification-title btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
+                                
+                                {% if date(lastConnectionDate) < date(log.date.date) %}
+
+                                    btn-primary
+
+                                {% else %}
+
+                                    btn-light
+                                
+                                {% endif %}
+                                
+                            ">
+
+                                {% if log.entityType == "need" %}
+
+                                   Nouveau besoin présenté
+
+                                {% elseif log.entityType == "news" %}
+
+                                    Nouvelle actualité ajoutée
+
+                                {% elseif log.entityType == "event" %}
+
+                                    Nouvel événement présenté
+
+                                {% elseif log.entityType == "teammate" %}
+
+                                    Nouveau membre dans l'équipe présenté
+
+                                {% endif %}
+
+                                le {{ log.date.date | date('d-m-Y') }}
+
+                            </div>
+
+
+                                                            
+                            {% if loop.last and loop.index >= 5 %}
+                    
+                                </div>
+                            
+                            {% endif %}
+
+                        {% endfor %}
+
+
+                    {% else %}
+                        
+                        pas de modification majeure détectée
+                    
+                    {% endif %}
+
+                </div>
+
+            {% endfor %}
+
+            </div>
+
+    {% else %}
+        
+        Aucun projet suivis actuellement
+
+    {% endif %}
+
+</div>

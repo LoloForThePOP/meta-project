@@ -1,0 +1,78 @@
+
+<div class="container">
+
+    <!-- Need Title -->
+
+    <div class="row mb-2">
+
+        <h4 class="font-weight-bold">{{ need.title }}</h4>
+
+    </div>
+
+    <!-- Date Need Created At -->
+
+    <div class="row mb-4">
+
+        Le {{ need.createdAt ? need.createdAt | date('d-m-Y H:i:s') : ''}}
+
+    </div>
+
+    <!-- Is it a Paid Need ? -->
+
+    <div class="row mb-4">
+
+        <!-- French Translation -->
+                                  
+        {% if need.paidService == 'yes' %}
+
+            {% set isPaid = "Oui" %}
+
+        {% elseif need.paidService == 'no' %}
+
+            {% set isPaid = "Non" %}
+
+        {% elseif need.paidService == 'maybe' %}
+
+            {% set isPaid = "Peut-être" %}
+
+        {% else %}
+
+            {% set isPaid = "Non Précisé" %}
+    
+        {% endif %}
+
+        
+        <span class="h6 p-1 py-0 font-weight-bold rounded bg-primary text-white">
+            
+            Payé ? {{isPaid}}
+
+        </span>
+
+    </div>
+
+    <!-- Need Description -->
+
+    <div class="row mb-5">
+
+        {% if need.description %}
+                        
+            {{ need.description | nl2br }}
+
+        {% else %}
+            
+            Pour des précisions supplémentaires, veuillez nous contacter.
+        
+        {% endif %}
+
+    </div>
+
+    <!-- Contact Need Presenter -->
+
+    <div class="row mb-3">
+
+        <a class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-1" href="{{ path('contact_message_new', {'slug': need.getPresentation.getSlug}) }}">Envoyer un Message</a>
+
+    </div>
+   
+    
+</div>

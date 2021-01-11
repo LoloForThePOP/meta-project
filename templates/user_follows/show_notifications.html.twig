@@ -8,9 +8,9 @@
 
     <div class="container">
 
-        <!-- Title with Info Button Container -->
+        <!-- UI Page Title -->
 
-        <div class="mt-5 mt-md-4 mb-4">
+        <div class="my-5">
 
             <!-- ui Page Title -->
 
@@ -18,151 +18,46 @@
 
         </div>
 
-        Dernière connexion le {{lastConnectionDate | date ('d-m-Y H:m:s') }} <br><br>
-        Dernière connexion le {{currentTime | date ('d-m-Y H:m:s') }}
+        <div class="container mb-4">
+            
+            <!-- Notifications List -->
+            
+            {% include '/user_follows/_show_notifications/_list_notifications.html.twig' %}
+            
 
+            <!-- Modal Box Display Notification Content -->
 
-        <!-- Notifications List -->
-
-        <div class="container mb-5">
-
-            <div id="notificationsList" class="row col-md-10">
-
-                {% if userFollows | length > 0 %}
-                    
-                    <div class="">
-
-                        {% for userFollow in userFollows %}
-
-                            <!-- Followed Project Title -->
-                        
-                            <h4 class="mb-4 font-weight-bold">
-
-                                {{userFollow.getPresentation.getSlug | capitalize}}
-
-                            </h4>
-                        
-
-                            <!-- Followed Project Last Major Modifications -->
-
-                            <div class="ml-md-4">
-
-                                {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
-
-                                {% if projectLogs is not null %}
-
-                                    {% for log in projectLogs.getLogs | reverse %}
-
-                                        {#<h4 class="font-weight-bold">Dernière connexion le {{ userFollow.lastConnection | date('d-m-Y') }} à {{ userFollow.lastConnection | date('h:m') }} </h4>#}
-
-                                        <!-- We only display events that are new for user (i.e. since last notification page connection) -->
-
-
-                                        {% if date(lastConnectionDate) < date(log.date.date) %}
-
-                                            tu n'as pas encore vu cette notification <br><br>
-
-                                        {% else %}
-
-                                            tu as déjà vu cette notification <br><br>
-                                            
-
-                                            Dernière connexion utilisateur le {{lastConnectionDate | date ('d-m-Y H:m:s') }} <br>
-
-
-                                            Entité mise à jour le {{log.date.date | date ('d-m-Y H:m:s') }}
-                                        
-                                        
-                                        {% endif %}
-
-                                        <div class="alert alert-primary sharp cursor-pointer mb-2">
-
-                                            {% if log.entityType == "need" %}
-
-                                               Nouveau besoin
-
-                                            {% elseif log.entityType == "news" %}
-
-                                                Nouvelle actualité
-
-                                            {% elseif log.entityType == "event" %}
-
-                                                Nouvel événement
-
-                                            {% elseif log.entityType == "teammate" %}
-
-                                                Nouveau membre dans l'équipe
-
-                                            {% endif %}
-
-                                            le {{ log.date.date | date('d-m-Y') }}
-
-                                        </div>
-
-                                    {% endfor %}
-
-                                {{dump(userFollow.getPresentation.getMajorLogs.getLogs)}}
-
-                                {% else %}
-                                    
-                                    pas de modification majeure détectée
-                                
-                                {% endif %}
-
-                                
-
-                            {#  
-                                <pre>
-                                    {{ dump(followedProjectsLogs[loop.index0]) }}
-                                </pre>
-
-                               {% set presentationLogs = userFollow.getPresentation.getPresentationMajorLogs %}
-
-                                {% if presentationLogs is defined %}
-                                    {{presentationLogs.getUpdatedAt | date("Y-m-d")}}
-                                {% endif %} #} 
-
-                                
-
-                            </div>
-
-                        {% endfor %}
-
-                        </div>
-
-                {% else %}
-                    
-                    Aucun projet suivis actuellement
-
-                {% endif %}
-
-            </div>
-
+            {% include '/user_follows/_show_notifications/_content_display_modal.html.twig' %}
+        
         </div>
+
+    <!-- Actions Button -->
+
+    <div>
+
+        <!-- Manage Projects Follows -->
+
+        <a class="text-decoration-none text-white" href="{{ path('manage_follow') }}">
+            <button type="button" class="btn btn-primary font-weight-bold mr-3 mt-2 mb-4 sharp">Gérer les projets suivis</button>
+        </a>
 
         <!-- Back Button -->
 
-        <div>
-
-            <a class="text-decoration-none text-white" href="{#{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}#}">
-                <button type="button" class="btn btn-info btn-lg font-weight-bold mt-2 mb-4 sharp">Retour</button>
-            </a>
-
-        </div>
+        <a class="text-decoration-none text-white" href="{{ path('homepage') }}">
+            <button type="button" class="btn btn-info font-weight-bold mt-2 mb-4 sharp">Retour</button>
+        </a>
 
     </div>
 
+</div>
+
 {% endblock %}
-
-
 
 {% block javascripts %}
-       
-    <script>
 
-        $(document).ready(function(){
-        }); 
+    {% include '/user_follows/_show_notifications/_js.html.twig' %}
 
-    </script>
-   
 {% endblock %}
+
+
+

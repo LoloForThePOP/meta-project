@@ -17,10 +17,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-/** 
- * 
+/**
  * @Route("/projects/{slug}/news")
- * 
  */
 class NewsController extends AbstractController
 {
@@ -158,6 +156,43 @@ class NewsController extends AbstractController
         return $this->redirectToRoute('manage_news',[
             'slug' => $slug,
         ]);
+    }
+
+
+    /**
+     * @Route("/news/ajax-show-embed", name="show_embed_news")
+     * 
+     */
+    public function showEmbed(Request $request, NewsRepository $newsRepository)
+    {
+        
+        if ($request->isXmlHttpRequest()) {
+
+            //get selected news
+
+            $idNews = $request->request->get('idEntity');
+
+            $news = $newsRepository->findOneById($idNews);
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'news/show_embed.html.twig', 
+
+                    [
+                        'news' => $news,
+                    ]
+                ),
+            ];
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        
+        }
+
     }
 
 

@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
 use App\Entity\PPBasic;
 use App\Entity\UserFollows;
 use App\Service\UserFollowService;
@@ -14,6 +15,54 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class UserFollowsController extends AbstractController
 {
+    /**
+     * 
+     * Allow user to follow a project presentation
+     * 
+     * @Route("/user/follows/manage", name="manage_follow")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     */
+    public function manage(): Response
+    {
+
+        return $this->render('user_follows/manage.html.twig', [
+
+            'userFollows' => $this->getUser()->getUserFollows(),
+
+        ]);
+    }
+
+    /**
+     * 
+     * Allow user to unfollow a project presentation
+     * 
+     * @Route("/user/follows/unfolow/{idUserFollow}", name="unfollow_presentation")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     */
+    public function unfollow($idUserFollow, UserFollowsRepository $repository, EntityManagerInterface $entityManager): Response
+    {
+
+        $followObject = $repository->findOneById($idUserFollow);
+        $entityManager->remove($followObject);
+        $entityManager->flush();
+
+        $this->addFlash(
+            'success',
+            'Les Modifications ont étées enregistrées avec succès!'
+        );
+
+        return $this->redirectToRoute('manage_follow', [
+
+            'userFollows' => $this->getUser()->getUserFollows(),
+
+        ]);
+    }
+
+
     /**
      * 
      * Allow user to follow a project presentation
@@ -32,8 +81,6 @@ class UserFollowsController extends AbstractController
             'user' => $user->getId(),
             'presentation' => $presentation->getId(),
         ]);
-
-        //dd($isFollowed.length());
 
         if (!$isAlreadyFollowed) {
             
@@ -75,21 +122,22 @@ class UserFollowsController extends AbstractController
      * @Security("is_granted('ROLE_USER')")
      * 
      */
-    public function showFollowNotifications(UserFollowService $userFollowService): Response
+    public function showFollowNotifications(EntityManagerInterface $manager): Response
     {
 
         $user = $this->getUser();
 
+        
         $userFollows = $user->getUserFollows();
 
-        //we get user last time notifications connection
+        //we get user last time notification page access date
         $lastConnectionDate= $user->getLastNotificationsConnection();
 
         //we count user notifications
-        $countNotifications = $userFollowService->countNotifications($user);
+        $countNotifications = $user->countNotifications();
 
         //we update last time user accessed notification page
-        $userFollowService->updateLastConsultationDate($user);
+        $user->updateLastNotificationConsultationDate($manager);
 
         return $this->render('user_follows/show_notifications.html.twig', [
 

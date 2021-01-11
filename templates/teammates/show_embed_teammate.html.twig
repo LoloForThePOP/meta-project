@@ -1,0 +1,172 @@
+
+
+<div class="container">
+    
+    <!-- Persorg Title-->
+
+    <div class="row mb-3">
+
+        <h4 class="font-weight-bold">{{ persorg.name }}</h4>
+
+    </div>
+
+    <!-- Persorg Image-->
+
+    <div class="row mb-4">
+
+        <!-- Case we got an Image -->
+
+        {% if persorg.image is not null %}
+
+            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" style="max-height:250px;">
+
+        <!-- Case we don't have an Image - We create a default persorg Image -->
+
+
+        {% else %}
+                                                
+            <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
+
+                <span class="initials" style="font-size: 60px; top:45px;">
+
+                    {{persorg.name | slice (0,1) }}
+
+                </span>
+
+            </div>
+    
+        {% endif %}
+
+    </div>
+
+
+    <!-- Description -->
+
+    {% if persorg.description %}
+    
+        <div class="row mb-4" style="font-size:17px;">
+
+            {{ persorg.description | nl2br }}
+
+
+        </div>
+
+    {% endif %}
+
+   
+    <!-- Email Adress -->
+
+    {% if persorg.email %}
+
+        <div class="row mb-3">
+
+            <!-- Email (Label) -->
+
+            <span class="font-weight-bold h5 text-primary mr-2">
+
+                Email : 
+
+            </span>
+
+            <!-- Email (Display) -->
+
+
+            <span class="font-weight-bold fs-15">
+
+                <a href="mailto:{{ persorg.email }}">
+
+                    {{ persorg.email }}
+
+                </a>
+
+            </span>
+
+
+        </div>
+        
+    {% endif %}
+
+
+    <!-- Websites-->
+
+    
+    {% if persorg.webdomain1 is not empty or persorg.webdomain2 is not empty or persorg.webdomain3 is not empty or persorg.webdomain4 is not empty  %}
+
+    <!-- Label for Persorg Potential Websites or Social Networks -->
+
+    <div class="row font-weight-bold h5 text-primary mb-3">
+
+        Sites Webs / Réseaux Sociaux
+
+    </div>
+
+    {% endif %}
+
+
+    {% if persorg.webdomain1 is not empty %}
+
+        <!-- Persorg Webdomain 1 (Potential) -->
+
+        <div class="font-weight-bold mb-2">
+
+            ● <a href="{{ persorg.webdomain1}}"> 
+                
+                {{ persorg.webdomain1 | length < 30 ? persorg.webdomain1 : persorg.webdomain1 | slice(0, 30) ~ '...' }}
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    <!-- Persorg Webdomain 2 (Potential) -->
+
+    {% if persorg.webdomain2 is not empty %}
+
+        <div class="font-weight-bold mb-2">
+
+            ● <a href="{{ persorg.webdomain2}}"> 
+                
+                {{ persorg.webdomain2 | length < 30 ? persorg.webdomain2 : persorg.webdomain2 | slice(0, 30) ~ '...' }}
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    <!-- Persorg Webdomain 3 (Potential) -->
+
+    {% if persorg.webdomain3 is not empty %}
+
+        <div class="font-weight-bold mb-2">
+
+            ● <a href="{{ persorg.webdomain3}}"> 
+                
+                {{ persorg.webdomain3 | length < 30 ? persorg.webdomain3 : persorg.webdomain3 | slice(0, 30) ~ '...' }}
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+    <!-- Persorg Webdomain 4 (Potential) -->
+
+    {% if persorg.webdomain4 is not empty %}
+
+        <div class="font-weight-bold mb-2">
+
+            ● <a href="{{ persorg.webdomain4}}"> 
+                
+                {{ persorg.webdomain4 | length < 30 ? persorg.webdomain4 : persorg.webdomain4 | slice(0, 30) ~ '...' }}
+
+            </a>
+
+        </div>
+
+    {% endif %}
+
+
+</div>
+

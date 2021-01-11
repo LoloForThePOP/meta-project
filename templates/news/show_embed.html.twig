@@ -1,0 +1,185 @@
+
+<div class="container">
+
+    <!-- News Title -->
+
+    <div class="row mb-0">
+
+        <h4 class="font-weight-bold">{{ news.title }}</h4>
+
+    </div>
+
+
+    <!-- Dates News -->
+
+    <div class="container mb-4" style="font-size:17px;">
+
+        <div class="row">
+            Publié le {{news.createdAt | date('d-m-Y')}}
+        </div>
+
+        <!-- If Date Updated At -->
+
+        {% if news.updatedAt is not null %}
+
+            <div class="row">
+
+                Modifié le {{news.updatedAt | date('d-m-Y')}}
+
+            </div>
+
+        {% endif %}
+
+    </div>
+
+
+    <!-- If Rich Text Content -->
+
+    {% if news.textContent is not null %}
+        
+        <div class="row mb-4" style="font-size:17px;">
+
+            {{news.textContent | raw }}
+
+        </div>
+
+    {% endif %}
+
+
+    <!-- Multimedia Display -->
+
+    <div class="row">
+
+        <div class="container">
+
+            {% if news.image1 %}
+
+                <div class="row mb-4">
+
+                    <img class="img-fluid" src="{{ asset('/images/news/' ~ news.image1) }}" alt="news image 1">
+
+                    {% if news.captionImage1 %}
+
+                    <p class="fs-15 mt-2">
+
+                        {{news.captionImage1}}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+            {% if news.image2 %}
+
+                <div class="row mb-4">
+
+                    <img class="img-fluid" src="{{ asset('/images/news/' ~ news.image2) }}" alt="news image 2">
+
+                    {% if news.captionImage2 %}
+
+                    <p class="fs-15 mt-2">
+
+                        {{news.captionImage2}}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+            {% if news.image3 %}
+
+                <div class="row mb-4">
+
+                    <img class="img-fluid" src="{{ asset('/images/news/' ~ news.image3) }}" alt="news image 3">
+
+                    {% if news.captionImage3 %}
+
+                    <p class="fs-15 mt-2">
+
+                        {{news.captionImage3}}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+            {% if news.video1 %}
+
+                <div class="row mb-4">
+
+                    <iframe width="100%" height="400px;" src="https://www.youtube.com/embed/{{news.video1}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    {% if news.captionVideo1 %}
+
+                    <p class="fs-15 mt-2">
+
+                        {{news.captionVideo1}}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+            {% if news.video2 %}
+
+                <div class="row mb-4">
+
+                    <iframe width="100%" height="400px;" src="https://www.youtube.com/embed/{{news.video2}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    {% if news.captionVideo2 %}
+
+                    <p class="fs-15 mt-2">
+
+                        {{news.captionVideo2}}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+            {% if news.video3 %}
+
+                <div class="row mb-4">
+
+                    <iframe width="100%" height="400px;" src="https://www.youtube.com/embed/{{news.video3}}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+                    {% if news.captionVideo3 %}
+
+                    <p class="fs-15 mt-2">
+
+                        {{news.captionVideo3}}
+
+                    </p>
+
+                    {% endif %}
+
+                </div>
+
+            {% endif %}
+
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+</div>
