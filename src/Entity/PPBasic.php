@@ -30,6 +30,7 @@ use Vich\UploaderBundle\Mapping\Annotation\UploadableField;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PPBasicRepository")
+ * @ORM\Table(name="ppbasic", indexes={@ORM\Index(columns={"title", "goal","keywords"}, flags={"fulltext"})})
  * @Vich\Uploadable
  * @ORM\HasLifecycleCallbacks
  */

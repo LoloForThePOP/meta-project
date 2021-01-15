@@ -39,6 +39,33 @@ class PPBasicRepository extends ServiceEntityRepository
 
     }
 
+    public function findByText ($words) {
+
+        $query = $this  ->createQueryBuilder('p')
+                        ->select('p as presentation')
+                        //(allow to check scores) 
+                        //->addSelect("MATCH(p.title, p.keywords, p.goal) AGAINST (:words boolean)")
+                        ->where('p.adminValidation = 1');;
+
+
+        if($words != null){
+
+            // we add a wildcard to each word's end
+ 
+            $array = explode(" ", $words);
+            $result = implode("* ", $array)."*";
+
+            //dd($result);
+
+            $query->andWhere('MATCH(p.title, p.keywords, p.goal) AGAINST (:words boolean) > 0')
+            ->setParameter('words', $result);
+
+        }
+
+        return $query->getQuery()->getResult();
+
+    }
+
  
 
    public function findByPlaces ($placeType, $placeName) {
@@ -68,7 +95,7 @@ class PPBasicRepository extends ServiceEntityRepository
 
     }
 
-   public function findnNear ($latitude, $longitude, $radius) {
+   public function findNear ($latitude, $longitude, $radius) {
 
         $qb = $this->createQueryBuilder('p')
             ->select('p, g')

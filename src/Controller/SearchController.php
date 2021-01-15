@@ -2,10 +2,12 @@
 
 namespace App\Controller;
 
+use App\Form\SearchTextType;
 use App\Repository\PPBasicRepository;
 use App\Repository\CategoryRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -93,8 +95,6 @@ class SearchController extends AbstractController
     */ 
     public function ajaxSearchByPlaces(Request $request, PPBasicRepository $repo, EntityManagerInterface $manager) {
 
-       
-
         if ($request->isXmlHttpRequest()) {
 
             // type of Place user has given (ex: locality; country; etc (see below))
@@ -172,6 +172,86 @@ class SearchController extends AbstractController
         }
 
     }
+
+    
+    /**
+     * Search by Text
+     * 
+     * @Route("/search-by-text", name="search_by_text")
+    */
+
+    public function searchByText(PPBasicRepository $repo, Request $request)
+    {
+
+        $searchForm = $this->createForm(SearchTextType::class);
+
+        $searchForm->handleRequest($request);
+
+        if ($searchForm->isSubmitted() && $searchForm->isValid()) {
+
+            $results = $repo->findByText($searchForm->get('words')->getData());
+
+            dd($results);
+
+            return $this->redirectToRoute('search_by_text');
+        }
+
+        return $this->render('search/by_text.html.twig', [
+            'searchForm' => $searchForm->createView(),
+            
+        ]);
+    }
+
+       
+    /** 
+     * @Route("/ajax-search-by-text", name="ajax_search_by_text", methods={"GET"})) 
+     *
+     * @param Request $request Instance de Request
+     *
+     * @return JsonResponse
+     */
+    public function ajaxSearchByText(PPBasicRepository $repo, Request $request) {
+
+        $userString = $request->get('searchByTextInput');
+
+        //dump($userString);
+        //$userString = 'follow';
+
+        if ($request->isXmlHttpRequest()) {
+
+            $results = $repo->findByText($userString);
+
+            $categories[] = ['result' => 'Objectifs de projets', 'url' => 'lol'];
+
+            foreach ($results as $result) {
+                $categories[] = [
+                    'result' => $result['presentation']->getGoal(),
+                    'url' => 'tip',
+                ];
+            }
+
+            //dd($results);
+
+
+           
+
+               
+            return new JsonResponse($categories);
+
+        }
+
+        else{
+            return new Response(
+                var_dump($userString).'There are no jobs in the database', 
+                 Response::HTTP_OK
+            );
+        }
+
+        
+
+    }
+
+
 
 
 
