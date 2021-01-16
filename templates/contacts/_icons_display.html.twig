@@ -59,8 +59,6 @@
                     onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
                     </a>
                     
-        
-                    
 
                 {% endif %}
 
@@ -172,21 +170,21 @@
 
     {% if contact.remarks is not null %}
 
-    <div class="mb-2"> 
+        <div class="mb-2"> 
+                
+            <div class="font-weight-bold mb-2">
             
-        <div class="font-weight-bold mb-2">
-        
-        + Info :
-            
+            + Info :
+                
+            </div>
+
+            <div class="pl-4 font-weight-bold">
+
+                {{contact.remarks}}
+
+            </div>
+
         </div>
-
-        <div class="pl-4 font-weight-bold">
-
-            {{contact.remarks}}
-
-        </div>
-
-    </div>
     
 
     {% endif %}

@@ -24,6 +24,9 @@ class NewsController extends AbstractController
 {
     /**
      * @Route("/", name="manage_news")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
      */
     public function index(PPBasic $presentation): Response
     {
@@ -34,6 +37,8 @@ class NewsController extends AbstractController
 
     /**
      * @Route("/create", name="create_news")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function create(PPBasic $presentation, Request $request, EntityManagerInterface $manager): Response
     {
@@ -74,6 +79,7 @@ class NewsController extends AbstractController
 
     /**
      * @Route("/edit/{idNews}", name="edit_news")
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function edit($idNews, NewsRepository $newsRepository, PPBasic $presentation, Request $request, EntityManagerInterface $manager): Response
     {
@@ -112,7 +118,8 @@ class NewsController extends AbstractController
     /** 
      * Allow to Get News Details with an ajax request
      * 
-     * @Route("/ajaxGetNewsDetails", name="ajax_get_news_details") 
+     * @Route("/ajaxGetNewsDetails", name="ajax_get_news_details")
+     * 
      *
     */ 
  

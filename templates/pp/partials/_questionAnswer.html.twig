@@ -100,7 +100,7 @@
 
                         <span class="question">
 
-                            {{ qa.question }}
+                            {{ qa.question | capitalize }}
 
                         </span>
 
@@ -116,25 +116,13 @@
 
                 <!-- Answer Display -->
 
-                <div class="collapse mb-2 mb-md-4" id="collapse{{ qa.id }}">
+                <div class="collapse mb-2 mb-md-3" id="collapse{{ qa.id }}">
 
                     <div class="p-2 " style="background-color: aliceblue;">
 
                         <div class="answer mb-2">
                             
                             {{ qa.answer | nl2br }}
-                        
-                        </div>
-
-                        <!-- Answer's Date Display -->
-
-                        <div class="">
-
-                            <span class="h6 font-weight-bold">
-
-                                {{ qa.createdAt | date("d/m/Y") }}
-
-                            </span>                                    
                         
                         </div>
 

@@ -47,6 +47,7 @@
 
         .hoverZone:hover {
             background-color: blue !important;
+            
         }
 
     </style>
@@ -60,30 +61,31 @@
 
             <!-- Contact Card Item -->
 
-            <div id="{{contact.id}}" class="js-sortableGridItem position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
+            <a href="{{  path('contact_edit', {'contact_id': contact.id, 'slug': slug})  }}" class="text-body text-decoration-none">
 
-                <!-- Contact Card Content -->
+                <div id="{{contact.id}}" class="js-sortableGridItem position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
 
-                <a href="{{  path('contact_edit', {'contact_id': contact.id, 'slug': slug})  }}" class="w-100 h-100 text-body text-decoration-none">
+                    <!-- Contact Card Content -->
 
                     {% include 'contacts/_icons_display.html.twig' %}
-    
-                </a>  
-                
-                <!-- Remove a Contact Card (Button with Red Cross) -->
-    
-                <div class="d-inline position-absolute p-0" data-id="{{contact.id}}" style="top:0; right:0;">
 
-                    <span class="font-weight-bold">
-
-                        {{ include('contacts/_delete_form.html.twig') }}
-                        
-                    </span>
                     
+                    <!-- Remove a Contact Card (Button with Red Cross) -->
+        
+                    <div class="d-inline position-absolute p-0" data-id="{{contact.id}}" style="top:0; right:0;">
+
+                        <span class="font-weight-bold">
+
+                            {{ include('contacts/_delete_form.html.twig') }}
+                            
+                        </span>
+
+                    </div>
+
                 </div>
 
-            </div>
-        
+            </a>
+
         {% endfor %}
 
     </div>
