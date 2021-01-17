@@ -80,8 +80,6 @@ class TechnicalDataController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()){
 
-            $techData->setPresentation($techData);
-
             $manager->persist($techData);
 
             $manager->flush();

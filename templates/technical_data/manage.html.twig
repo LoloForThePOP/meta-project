@@ -125,39 +125,35 @@
 
             <div class="container pt-3">
 
-                <div id="techDataGrid" class="row col-md-12 col-xl-8 px-0" style="border:1px solid green;">
+                <div id="techDataGrid" class="row col-md-12 col-xl-8 px-0">
 
                     {% for data in presentation.technicalData %}
 
-                        <div id="{{data.id}}" class="dataContainer js-sortableGridItem
+                        <div id="{{data.id}}" class="dataContainer js-sortableGridItem">
 
-                            {% if loop.index is odd %}
+                            <a href="{{path('edit_technicalData',{'slug': presentation.slug, 'id_technicalData': data.id  })}}" class="text-decoration-none text-body">
 
-                                
-                            
-                            {% endif %}
-                        
-                        ">
+                                <!-- Data Name -->
 
-                            <!-- Data Name -->
+                                <div class="dataName">
 
-                            <div class="dataName">
+                                    {{data.name}}
+                                    
+                                </div>
 
-                                {{data.name}}
-                                
-                            </div>
+                                <!-- Data Value -->
 
-                            <!-- Data Value -->
+                                <div class="dataValue">
 
-                            <div class="dataValue">
+                                    {{data.value}}
 
-                                {{data.value}}
+                                </div>
 
-                            </div>
+                            </a>
 
                             <!-- Remove Data (red cross button) -->
 
-                            <button type="button" class="js-delete-techData d-inline position-absolute btn btn-sm btn-danger" data-id="{{data.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
+                            <button type="button" class="js-delete-techData d-inline position-absolute btn btn-sm btn-danger sharp" data-id="{{data.id}}" style="top:0; right:0;"><span class="font-weight-bold">x</span></button>
 
                         </div>
 

@@ -253,9 +253,9 @@ class PPController extends AbstractController
      */
     public function showById(PPBasic $presentation){
 
-        return $this->render('/pp/show.html.twig',[
-            'presentation' => $presentation,
-        ]);
+        return $this->redirectToRoute('project_show', [
+            'slug' => $presentation->getSlug(),
+            ]);
 
     }
 
