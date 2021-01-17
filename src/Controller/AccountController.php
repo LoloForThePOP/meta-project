@@ -238,8 +238,6 @@ class AccountController extends AbstractController
      * 
      * @Route("/forgotten-password-request", name="forgotten_password_request")
      * 
-     * @IsGranted("ROLE_USER")
-     * 
      */
     public function forgottenPass(Request $request, UserRepository $user, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
     ): Response
