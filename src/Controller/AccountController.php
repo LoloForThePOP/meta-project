@@ -88,7 +88,7 @@ class AccountController extends AbstractController
                 'Votre compte vient d\'être créé ! Vous pouvez maintenant vous connecter.'
             );
 
-            $message = (new \Swift_Message('Merci pour votre Inscription sur le Site'))
+            $message = (new \Swift_Message('Merci pour votre inscription sur le site'))
             ->setFrom(['contact@projetdesprojets.com'=>'Projet des Projets'])
             ->setTo($user->getEmail())
             ->setBody(

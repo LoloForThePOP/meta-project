@@ -29,110 +29,154 @@
             {% endif %}
 
         </div>
+
    
     
         <!-- Project Documents List (in a grid with icons Display) -->
 
-        <!-- Four First Documents are Displayed by defaults -->
+        <!-- Large Screens Display -->
+        <!-- we display four documents by default + display more button if needed -->
 
-        <div class="documentsContainer container mb-2 pr-0">
+        <div class="d-none d-md-block">
 
-            <div class="row m-0 col-md-12 pl-0 pl-md-2 pr-0">
-
-                {% for document in presentation.documents | slice (0,4) %}
-
-                    <!-- Documents Icons with Title -->
-
-                    <div class= "mb-3 cursor-pointer
-
-                        {# manage tiny screens display #}
-
-                        {{ loop.index0 is odd ? ' pr-0 pr-md-4' : ' pr-3 pr-md-4' }}
-                        
-                    ">
-                        
-                        <!-- Download Document / Display Document (Link) -->
-
-                        <a href="/files/projects/documents/{{document.fileName}}" class="w-100 h-100 text-body text-decoration-none">
-                            
-                            {% include 'document/_icons_display.html.twig' %}
-                            
-                        </a>
-                        
-                    </div>
-
-                {% endfor %}
-
-            </div>
-
-        </div>
-
-        <!-- If more than four documents, they are displayed via a Collapsible -->
-
-        {% if presentation.documents | length > 4 %}
-            
-            <div class="container mb-2 pr-0">
-
-                <div id="moduleCollapseDocuments" class="collapse m-0 mb-3 row col-md-12 pl-0 pl-md-2 pr-0" >
-
-                    {% for document in presentation.documents [4:] %}
-
-                        <!-- Document Icon with Title -->
-
-                        <div class="mb-3 cursor-pointer
-                        
+            <!-- Four First Documents are Displayed by defaults -->
+    
+            <div class="documentsContainer container mb-2 pr-0">
+    
+                <div class="row m-0 col-md-12 pl-0 pl-md-2 pr-0">
+    
+                    {% for document in presentation.documents | slice (0,4) %}
+    
+                        <!-- Documents Icons with Title -->
+    
+                        <div class= "mb-3 cursor-pointer
+    
                             {# manage tiny screens display #}
-
+    
                             {{ loop.index0 is odd ? ' pr-0 pr-md-4' : ' pr-3 pr-md-4' }}
                             
                         ">
-
+                            
                             <!-- Download Document / Display Document (Link) -->
-
+    
                             <a href="/files/projects/documents/{{document.fileName}}" class="w-100 h-100 text-body text-decoration-none">
                                 
                                 {% include 'document/_icons_display.html.twig' %}
-
+                                
                             </a>
                             
                         </div>
-
+    
                     {% endfor %}
-
+    
                 </div>
-
-                <div class="row m-0 pl-md-2" >
-
-                    <!-- Display More Documents Button -->
-                        
-                    <button id="moreDocuments" class="collapsed btn btn-primary sharp font-weight-bold" data-toggle="collapse" data-target="#moduleCollapseDocuments"></button> 
-
+    
+            </div>
+    
+            <!-- If more than four documents, they are displayed via a Collapsible -->
+    
+            {% if presentation.documents | length > 4 %}
+                
+                <div class="container mb-2 pr-0">
+    
+                    <div id="moduleCollapseDocuments" class="collapse m-0 mb-3 row col-md-12 pl-0 pl-md-2 pr-0" >
+    
+                        {% for document in presentation.documents [4:] %}
+    
+                            <!-- Document Icon with Title -->
+    
+                            <div class="mb-3 cursor-pointer
+                            
+                                {# manage tiny screens display #}
+    
+                                {{ loop.index0 is odd ? ' pr-0 pr-md-4' : ' pr-3 pr-md-4' }}
+                                
+                            ">
+    
+                                <!-- Download Document / Display Document (Link) -->
+    
+                                <a href="/files/projects/documents/{{document.fileName}}" class="w-100 h-100 text-body text-decoration-none">
+                                    
+                                    {% include 'document/_icons_display.html.twig' %}
+    
+                                </a>
+                                
+                            </div>
+    
+                        {% endfor %}
+    
+                    </div>
+    
+                    <div class="row m-0 pl-md-2" >
+    
+                        <!-- Display More Documents Button -->
+                            
+                        <button id="moreDocuments" class="collapsed btn btn-primary sharp font-weight-bold" data-toggle="collapse" data-target="#moduleCollapseDocuments"></button> 
+    
+                    </div>
+    
                 </div>
+    
+            {% endif %}
 
+        </div>
+     
+        <!-- Some Styles-->
+
+        <style>
+
+            /* Show More or Show Less Documents (Button Style) */
+                                
+            #moreDocuments.collapsed:after {
+                content: '▼ \00a0  Afficher Plus';
+            }
+            
+            #moreDocuments:not(.collapsed):after {
+                content: '▲ \00a0  Afficher Moins';
+            }
+
+            /* small Screen Rendering */
+            
+        </style>
+
+        <!-- Small Screens Display -->
+        <!-- we display all documents with horizontal scrolling -->
+
+        <div class="d-md-none">
+
+            <div class="documentsContainer container mb-2 pr-0">
+    
+                <div class="row m-0 col-md-12 pl-0 pl-md-2 pr-0" style="
+                    display: flex;
+                    flex-wrap: nowrap;
+                    overflow-x: auto;
+                  ">
+    
+                    {% for document in presentation.documents %}
+    
+                        <!-- Documents Icons with Title -->
+    
+                        <div class= "mb-3 cursor-pointer mr-3" style="flex: 0 0 auto;">
+                            
+                            <!-- Download Document / Display Document (Link) -->
+    
+                            <a href="/files/projects/documents/{{document.fileName}}" class="w-100 h-100 text-body text-decoration-none">
+                                
+                                {% include 'document/_icons_display.html.twig' %}
+                                
+                            </a>
+                            
+                        </div>
+    
+                    {% endfor %}
+    
+                </div>
+    
             </div>
 
-        {% endif %}
-
+        </div>
 
     </div>
 
 
 {% endif %}
-
-  <!-- Some CSS Styles-->
-
-  <style>
-
-    /* Show More or Show Less Documents (Button Style) */
-                        
-    #moreDocuments.collapsed:after {
-        content: '▼ \00a0  Afficher Plus';
-    }
-    
-    #moreDocuments:not(.collapsed):after {
-        content: '▲ \00a0  Afficher Moins';
-    }
-
-    /* small Screen Rendering */
-    
-</style>

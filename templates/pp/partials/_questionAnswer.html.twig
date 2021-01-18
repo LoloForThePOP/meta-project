@@ -1,61 +1,4 @@
 
-<style>
-   
-
-    .questionRow:hover {
-        background-color: lavender !important;
-    }
-
-    .question {
-
-        font-size: 1.25em;
-
-        line-height: 1.15em;
-
-        font-weight: bold;
-
-    } 
-
-    .answer {
-
-        font-size: 1.15em;
-
-        line-height: 1.5em;
-
-    }
-
-    .questionRow .collapseSymbolDisplay:after {
-
-        font-size: 1.2rem !important;
-        content: "▲";
-    }
-
-    .collapsed .collapseSymbolDisplay:after {
-        content: "▼";
-    }
-
-    @media screen and (max-width: 580px) {
-
-        .question{
-
-            font-size:17px;
-
-        }
-
-        .answer{
-
-            font-size: 16px;
-            line-height: 1.5em;
-
-        }
-        
-
-
-    }
-
-</style>
-
-
 <!-- Question & Answers Display -->
 
 {% if presentation.questionAnswers | length > 0 %}
@@ -136,5 +79,62 @@
         </div>
 
     </div>
+
+
+    <style>
+   
+
+        .questionRow:hover {
+            background-color: lavender !important;
+        }
+    
+        .question {
+    
+            font-size: 1.25em;
+    
+            line-height: 1.15em;
+    
+            font-weight: bold;
+    
+        } 
+    
+        .answer {
+    
+            font-size: 1.15em;
+    
+            line-height: 1.5em;
+    
+        }
+    
+        .questionRow .collapseSymbolDisplay:after {
+    
+            font-size: 1.2rem !important;
+            content: "▲";
+        }
+    
+        .collapsed .collapseSymbolDisplay:after {
+            content: "▼";
+        }
+    
+        @media screen and (max-width: 580px) {
+    
+            .question{
+    
+                font-size:17px;
+    
+            }
+    
+            .answer{
+    
+                font-size: 16px;
+                line-height: 1.5em;
+    
+            }
+            
+    
+    
+        }
+    
+    </style>
 
 {% endif %}
