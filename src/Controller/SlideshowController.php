@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Slide;
 use App\Entity\PPBasic;
 use App\Form\SlideshowType;
-use HtmlSanitizer\Sanitizer;
 use App\Form\AddVideoSlideType;
 use App\Form\SlideshowImagesType;
 use App\Form\SlideshowAddTextType;
@@ -27,11 +26,45 @@ class SlideshowController extends AbstractController
     /**
      * @Route("/projects/{slug}/slideshow/", name="slideshow_index")
      */
-    public function index(PPBasic $pp)
-    {
+    public function index(PPBasic $pp, Request $request, EntityManagerInterface $manager)
+    {        
+
+        //Add an Image Form
+        
+        $addImageForm = $this->createForm(SlideshowImagesType::class);
+
+        $addImageForm->handleRequest($request);
+
+        if ($addImageForm->isSubmitted() && $addImageForm->isValid()){
+
+            $slide =  $addImageForm->getData();
+
+            // count previous slide in order to set a new slide position
+
+            $countPreviousSlides = count($pp->getSlides());
+
+            $slide->setMediaType("image");
+            $slide->setPosition($countPreviousSlides);
+            $slide->setPP($pp);
+            
+            $manager->persist($slide);
+            $manager->persist($pp);
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "L'image a été ajoutée"
+            );
+
+            return $this->redirectToRoute('slideshow_index', [
+                'slug' => $pp->getSlug(),
+            ]);
+
+        }
         return $this->render('slideshow/index.html.twig', [
             'slug' => $pp->getSlug(),
             'presentation' => $pp,
+            'addImageForm' => $addImageForm->createView(),
         ]);
     }
     
@@ -109,54 +142,7 @@ class SlideshowController extends AbstractController
 
     }
     
-    /**
-     * Allow to create an image slide
-     *  
-     * @Route("/projects/{slug}/slideshow/add-image/", name="slideshow_images_add")
-     * 
-     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
-     * @return Response
-     */
-    public function addImageSlide (PPBasic $pp, Request $request, EntityManagerInterface $manager){
 
-        $form = $this->createForm(SlideshowImagesType::class);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()){
-
-            $slide = $form->getData();
-
-            // count previous slide in order to set a new slide position
-
-            $countPreviousSlides = count($pp->getSlides());
-
-            $slide->setMediaType("image");
-            $slide->setPosition($countPreviousSlides);
-            $slide->setPP($pp);
-            
-            $manager->persist($slide);
-            $manager->persist($pp);
-            $manager->flush();
-
-            $this->addFlash(
-                'success',
-                "L'image a bien été ajoutée"
-            );
-
-            return $this->redirectToRoute('slideshow_index', [
-                'slug' => $pp->getSlug(),
-            ]);
-
-        }
-
-        return $this->render('slideshow/addImage.html.twig', [
-            'slug' => $pp->getSlug(),
-            'form' => $form->createView(),
-        ]);
-
-    }
     
     /**
      * Allow to update an image Slide
@@ -182,7 +168,7 @@ class SlideshowController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "L'image a bien été mise à jour"
+                "L'image a été mise à jour"
             );
 
             return $this->redirectToRoute('slideshow_index', [

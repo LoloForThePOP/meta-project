@@ -1,5 +1,8 @@
 {% extends 'base.html.twig' %}
 
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+
 {% block title %}Images et Vidéos{% endblock %}
 
 {% block sidebar %} {% include 'partials/sidebar.html.twig' %}{% endblock %}
@@ -26,7 +29,7 @@
 
                 <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
 
-                    <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Info </span>
+                    <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Conseil </span>
                     
                 </a>
 
@@ -34,17 +37,57 @@
                     
                 <div class="info-box collapse col-md-6 mt-0 mb-4" id="collapseExample">
 
-                    <p class="lh-2 h5">Présenter des images, schémas, ou vidéos est une méthode rapide et efficace pour <strong>transmettre vos Idées</strong> .</p>
+                    <p class="lh-2 h5">Présenter des images, schémas, ou vidéos est une méthode rapide et efficace pour <strong>transmettre vos Idées</strong>.</p>
 
                 </div>
 
 
             {% endif %}
 
+            {% if presentation.slides | length > 1 %}
+
+                <!-- collapsable info -->	
+
+                <!-- Trigger Button -->	
+
+                <a class="font-weight-bold my-1 d-inline" type="button" data-toggle="collapse" data-target="#collapseInfo" aria-expanded="false" aria-controls="collapseInfo">
+
+                    <span class="btn btn-light fs-15 h5 sharp p-1 px-2" style="letter-spacing: 2px;"> Info </span>
+                    
+                </a>
+
+                <!-- Info -->	
+    
+                <div class="info-box collapse col-md-6 mt-0 mb-4" id="collapseInfo">
+
+                    <p class="lh-2 h5">Pour modifier l'ordre des diapositives, utiliser le glisser-déposer (= drag and drop).</p>
+
+                </div>
+
+            {% endif %}
+
+        </div>
+
+                
+        <!-- Add an Image Button (Triggers a Modal Box with a Form) -->
+
+        <div class="" style="margin-bottom:33px;">
+
+            <button type="button" data-toggle="modal" data-target="#addImageFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une image</button> 
+
+            <a href="{{path('slideshow_video_add', {'slug':slug, 'presentation':presentation})}}">
+                <button type="button" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une vidéo (Youtube)</button>
+            </a>
+
         </div>
 
 
-        <!-- Slide Thumbnails Grid -->
+        <!-- Add an Image Form Display (in a Modal Box) -->
+
+        {% include '/slideshow/partials/_add_image_modal.html.twig' %}
+                
+
+        <!-- Slideshow Displayed on a grid Grid -->
 
         <div class="container mb-3">
 
@@ -56,7 +99,7 @@
 
                     <!-- Thumbnail Container -->
 
-                    <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded-lg overflow-hidden cursor-pointer" style="width:130px; height:123px; border-color: #5a74ff !important;">
+                    <div id="{{slide.id}}" class="js-sortableGridItem d-flex align-items-center justify-content-center position-relative m-2 p-3 border border-primary border-5 rounded overflow-hidden cursor-pointer" style="width:130px; height:123px; border-color: #3f5cff !important;">
 
                         {% if slide.mediaType == 'image' %}
 
@@ -82,25 +125,14 @@
 
                         <!-- Remove Slide button (a red cross on each slide) -->
         
-                        <button type="button" class="js-delete-slide d-inline position-absolute btn btn-danger" data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
+                        <button type="button" class="js-delete-slide d-inline position-absolute btn btn-sm btn-danger sharp" data-id="{{slide.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
 
                     </div>
 
                 {% endfor %}
 
                 {% endif %}
-                                    
-                <!-- Add New Slide Button (Open a Modal)  -->
-                    
-                <div id="newSlide" data-toggle="modal" data-target="#chooseSlideTypeModal" class="disabled rounded-lg ignore-elements d-flex align-items-center justify-content-center position-relative m-2 p-3 rounded-lg cursor-pointer" style="text-align:center; width:130px; height:123px; border: dashed 5px #5a74ff;">
-                
-                    <span style="font-size:4em; font-weight:700; color:rgb(46, 138, 46);">+</span>
-                
-                </div>    
-
-                <!-- ui Modal Box to Choose Which Slide Type to Insert -->
-
-                {% include '/slideshow/partials/_chooseSlideTypeAdd.html.twig' %}
+              
 
             </div>
 
@@ -129,6 +161,14 @@
     <script>
 
         $(document).ready(function(){
+
+            // Manage add an image form errors : we have to trigger modal box display for the user to be aware of thesses form errors.
+
+            {% if not addImageForm.vars.valid %}
+
+                $('#addImageFormModal').modal('show');
+
+            {% endif %}
 
             // When Click on New Item Button, we display a Slide Type Select Modal Box
 
