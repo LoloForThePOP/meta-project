@@ -13,7 +13,7 @@
 
         <!-- Title Container with Collapsible Info-Box -->
 
-        <div class="mt-md-5 mb-4">
+        <div class="mt-4 mt-md-5 mb-3 mb-md-4">
 
             <!-- ui page title -->
 
@@ -60,7 +60,9 @@
     
                 <div class="info-box collapse col-md-6 mt-0 mb-4" id="collapseInfo">
 
-                    <p class="lh-2 h5">Pour modifier l'ordre des diapositives, utiliser le glisser-déposer (= drag and drop).</p>
+                    <p class="lh-2 h5">Pour modifier l'ordre des diapos, utiliser le glisser-déposer (= drag and drop).</p>
+
+                    <p class="h5">Limite du nombre de diapos : <b>{{ constant('MAX_ALLOWED_SLIDES', presentation)}} diapos</b></p>
 
                 </div>
 
@@ -69,17 +71,33 @@
         </div>
 
                 
-        <!-- Add an Image Button (Triggers a Modal Box with a Form) -->
+        <!-- Add an Image or Video Button -->
 
-        <div class="" style="margin-bottom:33px;">
+        {% if presentation.slides | length < constant('MAX_ALLOWED_SLIDES', presentation) %}
+        
+            <div class="" style="margin-bottom:33px;">
 
-            <button type="button" data-toggle="modal" data-target="#addImageFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une image</button> 
+                <!-- Add an Image Button (Triggers a Modal Box with a Form, included below) -->
 
-            <a href="{{path('slideshow_video_add', {'slug':slug, 'presentation':presentation})}}">
-                <button type="button" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une vidéo (Youtube)</button>
-            </a>
+                <button type="button" data-toggle="modal" data-target="#addImageFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-3">+ Ajouter une image</button> 
 
-        </div>
+                <!-- Small Screens Vertical Spacer -->
+
+                <div class="d-md-none">
+                    <br>
+                </div>
+
+                <!-- add a video button -->
+
+                <a href="{{path('slideshow_video_add', {'slug':slug, 'presentation':presentation})}}">
+                    <button type="button" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter une vidéo (Youtube)</button>
+                </a>
+
+            </div>
+
+
+        {% endif %}
+
 
 
         <!-- Add an Image Form Display (in a Modal Box) -->

@@ -137,6 +137,11 @@ class User implements UserInterface
      */
     private $lastNotificationsConnection;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Right::class, mappedBy="user")
+     */
+    private $rights;
+
 
 
     public function __construct()
@@ -159,7 +164,8 @@ class User implements UserInterface
         $this->reports = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->news = new ArrayCollection();
-        $this->userFollows = new ArrayCollection();                
+        $this->userFollows = new ArrayCollection();
+        $this->rights = new ArrayCollection();                
         
     }
   
@@ -642,6 +648,36 @@ class User implements UserInterface
         $entityManager->persist($this);
         $entityManager->flush();
 
+    }
+
+    /**
+     * @return Collection|Right[]
+     */
+    public function getRights(): Collection
+    {
+        return $this->rights;
+    }
+
+    public function addRight(Right $right): self
+    {
+        if (!$this->rights->contains($right)) {
+            $this->rights[] = $right;
+            $right->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRight(Right $right): self
+    {
+        if ($this->rights->removeElement($right)) {
+            // set the owning side to null (unless already changed)
+            if ($right->getUser() === $this) {
+                $right->setUser(null);
+            }
+        }
+
+        return $this;
     }
 
   

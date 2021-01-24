@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\PPBasic;
 use App\Entity\UserFollows;
-use App\Service\UserFollowService;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Repository\UserFollowsRepository;
 use Symfony\Component\HttpFoundation\Response;

@@ -9,6 +9,7 @@ use App\Entity\Role;
 use App\Entity\User;
 use App\Entity\Event;
 use App\Entity\Owner;
+use App\Entity\Right;
 use App\Entity\Slide;
 use App\Entity\PGroup;
 use App\Entity\Report;
@@ -272,7 +273,7 @@ class AppFixtures extends Fixture
 
         $projects=[];
         
-        for($i=1; $i <=40; $i++) {
+        for($i=1; $i <= 20; $i++) {
 
             $pp = new PPBasic ();
 
@@ -1115,11 +1116,43 @@ class AppFixtures extends Fixture
             }
 
 
+            // Presentation Access (edit; view; or admin the presentation) Creation
+
+            for($i=1; $i<=mt_rand(1,5); $i++){
+
+                $right = new Right();
+
+                // Right Owner
+
+                $rightOwner=$users[ mt_rand(0, count($users)-1) ];
+                    
+                // Created At
+
+                    $createdAt = $faker->dateTimeBetween($startDate = '-4 years', $endDate = '-3 years');
+
+                // Right Type 
+
+                    $rightTypes = ['edit', 'view', 'admin'];
+
+                    $rightType = $rightTypes[array_rand($rightTypes)];
+
+                // Right Hydratation
+
+                $right  ->setType($rightType)
+                        ->setPresentation($pp)
+                        ->setUser($rightOwner)
+                        ->setCreatedAt($createdAt);
+
+                $manager->persist($right);
+
+            }
+
+
             // Desired Ressources Creation
 
-            for($j=1;$j<=mt_rand(0,17);$j++){
+            for($j=1;$j<=mt_rand(0,9);$j++){
 
-                $dr = new Need();
+                $desiredRessource = new Need();
 
                 $needTitle = $faker->sentence();
 
@@ -1139,7 +1172,7 @@ class AppFixtures extends Fixture
                 $paiementPossibilities = ['yes','maybe','no'];
                 $isPaid = $paiementPossibilities[array_rand($paiementPossibilities)];
 
-                $dr ->setTitle($needTitle)
+                $desiredRessource ->setTitle($needTitle)
                     ->setDescription($needDescription)
                     ->setPosition($j)
                     ->setCreatedAt($createdAt)
@@ -1148,7 +1181,7 @@ class AppFixtures extends Fixture
                     ->setPaidService($isPaid)
                     ->setPresentation($pp);
 
-                $manager->persist($dr);
+                $manager->persist($desiredRessource);
             }
 
             $manager->persist($pp);
@@ -1160,7 +1193,7 @@ class AppFixtures extends Fixture
     
         // report messages creation (exemple : report a bug; an abuse; a comment; ...)
 
-        for ($j=1; $j<=15; $j++) {
+        for ($j=1; $j<=4; $j++) {
 
             $report = new Report();
 
@@ -1181,10 +1214,9 @@ class AppFixtures extends Fixture
 
         }
 
-
         // Project Groups Creation
 
-        for($i=1; $i<=1; $i++){
+       /* for($i=1; $i<=1; $i++){
 
             $projectGroup = new PGroup();
 
@@ -1298,11 +1330,14 @@ class AppFixtures extends Fixture
 
             $manager->persist($projectGroup);
 
-        }
+        } */
 
         $manager->flush();  
 
     }
 
   
+
+
+    
 }

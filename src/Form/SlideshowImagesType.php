@@ -22,12 +22,12 @@ class SlideshowImagesType extends ApplicationType
                 array(
                     'label' 	=> false,
                     'required' 	=> false,
-                    'required' => false,
                     'allow_delete' => false,
                     'download_label' => false,
-                    'download_uri' => false,
-                    'image_uri' => false,
-                    'asset_helper' => false,
+                    'download_uri' =>true,
+                    'image_uri' => true,
+                    'asset_helper' => true,
+                    'imagine_pattern' => 'slide_thumbnail',
                 )
             )
             ->add(

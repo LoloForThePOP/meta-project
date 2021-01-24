@@ -9,6 +9,7 @@
         "cocur/slugify": "^4.0",
         "easycorp/easyadmin-bundle": "^2.3",
         "fzaninotto/faker": "^1.9",
+        "gumlet/php-image-resize": "^2.0",
         "liip/imagine-bundle": "^2.3",
         "nucleos/antispam-bundle": "^2.1",
         "sensio/framework-extra-bundle": "^5.1",

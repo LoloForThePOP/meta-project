@@ -231,6 +231,16 @@ class PPBasic implements \Serializable
      */
     private $slides;
 
+    
+    public const MAX_ALLOWED_SLIDES = 8;
+    
+
+    function getMaxAllowedSlides() 
+    {
+        return  self::MAX_ALLOWED_SLIDES;
+    }
+
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Need", mappedBy="presentation", orphanRemoval=true)
      * @ORM\OrderBy({"position" = "ASC"})
@@ -425,6 +435,11 @@ class PPBasic implements \Serializable
      */
     private $status;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Right::class, mappedBy="presentation")
+     */
+    private $rights;
+
 
  
 
@@ -461,6 +476,7 @@ class PPBasic implements \Serializable
         $this->comments = new ArrayCollection();
         $this->news = new ArrayCollection();
         $this->usersFollow = new ArrayCollection();
+        $this->rights = new ArrayCollection();
     }
     
 
@@ -1346,6 +1362,36 @@ class PPBasic implements \Serializable
         }
 
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Right[]
+     */
+    public function getRights(): Collection
+    {
+        return $this->rights;
+    }
+
+    public function addRight(Right $right): self
+    {
+        if (!$this->rights->contains($right)) {
+            $this->rights[] = $right;
+            $right->setPresentation($this);
+        }
+
+        return $this;
+    }
+
+    public function removeRight(Right $right): self
+    {
+        if ($this->rights->removeElement($right)) {
+            // set the owning side to null (unless already changed)
+            if ($right->getPresentation() === $this) {
+                $right->setPresentation(null);
+            }
+        }
 
         return $this;
     }

@@ -81,7 +81,7 @@
         background-color: black;
     }
     
-    /* Modal Content */
+    /* Lightbox Content */
     #news-lightbox-content {
         position: relative;
         background-color: black;
@@ -169,9 +169,24 @@
 
     @media screen and (max-width: 580px) {
 
+        /* Lightbox Content */
+        #news-lightbox-content {
+            width: 90%;
+            height:340px;
+            max-width: 1200px;
+        }
+
         .news-lightbox-slide img {
             max-width: 100%;
             height: auto;
+        }
+
+        /* Caption text */
+        
+        .news-lightbox-caption-container {
+
+            height:100px;
+            font-size:1em;
         }
 
     }

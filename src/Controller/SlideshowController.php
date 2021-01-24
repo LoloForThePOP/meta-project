@@ -1,32 +1,42 @@
 <?php
 
+
+
 namespace App\Controller;
+
 
 use App\Entity\Slide;
 use App\Entity\PPBasic;
 use App\Form\SlideshowType;
 use App\Form\AddVideoSlideType;
 use App\Form\SlideshowImagesType;
+use App\Service\ImageEditService;
 use App\Form\SlideshowAddTextType;
 use App\Repository\SlideRepository;
+
 use App\Form\SlideshowColReorderType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
+
 use Symfony\Component\Routing\Annotation\Route;
+
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Entity;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
 
 /**
  * 
  */
 class SlideshowController extends AbstractController
 {
+
+
     /**
      * @Route("/projects/{slug}/slideshow/", name="slideshow_index")
      */
-    public function index(PPBasic $pp, Request $request, EntityManagerInterface $manager)
+    public function index(PPBasic $pp, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
     {        
 
         //Add an Image Form
@@ -37,20 +47,27 @@ class SlideshowController extends AbstractController
 
         if ($addImageForm->isSubmitted() && $addImageForm->isValid()){
 
-            $slide =  $addImageForm->getData();
+            $slide = $addImageForm->getData();
 
-            // count previous slide in order to set a new slide position
-
+            // count previous slides in order to set a position to the new image slide
             $countPreviousSlides = count($pp->getSlides());
+            $slide->setPosition($countPreviousSlides);
 
             $slide->setMediaType("image");
-            $slide->setPosition($countPreviousSlides);
-            $slide->setPP($pp);
+
+            $pp->addSlide($slide);
             
             $manager->persist($slide);
             $manager->persist($pp);
             $manager->flush();
+            
+            $editImageService->edit('presentation_slide',$slide->getSlideName());
 
+
+            /* $image = new ImageResize('images/projects/slides_images/'.$slide->getSlideName());
+            $image->resizeToWidth(700);
+            $image->save('images/projects/slides_images/'.$slide->getSlideName()); */
+            
             $this->addFlash(
                 'success',
                 "L'image a été ajoutée"
@@ -69,7 +86,7 @@ class SlideshowController extends AbstractController
     }
     
     /**
-     * Permet de modifier l'ordre des diapos en ajax
+     * Allow to update slideshow slides order
      *
      * @Route("/projects/{slug}/slideshow/ajax-reorder-slides/", name="ajax_reorder_slides")
      * 
@@ -188,7 +205,7 @@ class SlideshowController extends AbstractController
 
   
     /**
-     * Allow to add a video slide into a diapo pitch
+     * Allow to add a video slide into a slideshow
      * 
      * @Route("/projects/{slug}/slideshow/add-video",name="slideshow_video_add")
      * 
