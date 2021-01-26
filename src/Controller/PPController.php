@@ -86,11 +86,11 @@ class PPController extends AbstractController
      * 
      * @Route("/projects/{slug}/edit/", name="project_edit")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     *
      * @return void
      */
     public function edit (PPBasic $presentation, Request $request, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $form = $this->createForm(PPBasicType::class, $presentation);
 

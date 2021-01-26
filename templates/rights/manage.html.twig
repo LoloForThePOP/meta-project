@@ -1,0 +1,149 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme inviteByEmailForm 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+{% block title %}Gérer les accès à la présentation{% endblock %}
+
+{% block body %}
+
+    <div class="container">
+    
+        <!-- Title with Info Button Container -->
+
+        <div class="mt-md-5 mb-2">
+
+            <!-- ui Page Title -->
+
+            <h3 class="font-weight-bold d-inline mr-3 mb-5">Gérer les accès à la présentation</h3>
+
+            
+            <!-- collapsable advice trigger button -->	
+
+            <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+
+                <span class="btn btn-light fs-15 h5 sharp p-1 px-3" style="letter-spacing: 2px;">Info</span>
+                
+            </a>
+
+        </div>
+
+        <!-- Collapsible Info Container -->
+
+        <div class="info-box collapse col-md-8 mt-0 mb-4" id="collapseExample">
+
+            <p class="h5">
+
+                Ici vous pouvez ajouter d'autres présentateurs pour répartir le travail.
+
+            </p>
+
+        </div>
+
+        <!-- Add a presentor button (trigger a modal) -->
+
+        <div class="mt-md-4 mb-4">
+
+            <button type="button" data-toggle="modal" data-target="#addWebsiteMemberFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un membre du site</button> 
+
+            <button type="button" data-toggle="modal" data-target="#inviteByEmailFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Inviter par e-mail</button> 
+
+        </div>
+
+        
+        <!-- Add a presentor Form (in a Modal Box) -->
+
+        <div class="modal" id="addWebsiteMemberFormModal" tabindex="-1" role="dialog" aria-labelledby="addWebsiteMemberFormModal" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un membre du site</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body">
+                        
+                        Salut !
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                        <button class="btn btn-success sharp bg-green font-weight-bold">Valider</button>
+                        
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        
+        <!-- Add a presentor by email Form (in a Modal Box) -->
+
+        <div class="modal" id="inviteByEmailFormModal" tabindex="-1" role="dialog" aria-labelledby="inviteByEmailFormModal" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title" id="exampleModalLabel">Envoyer un email d'invitation</h5>
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+                    <div class="modal-body pt-4">
+                        
+                        {{ form_start(inviteByEmailForm) }}
+
+                        {{ form_widget(inviteByEmailForm) }}
+
+                    </div>
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
+
+                        <button class="btn btn-success sharp bg-green font-weight-bold">Envoyer</button>
+                        
+                    </div>
+
+                    {{ form_end(inviteByEmailForm) }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+    </div>
+
+{% endblock %}

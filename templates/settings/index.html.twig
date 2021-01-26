@@ -43,113 +43,149 @@
         </div>
 
 
+        <div class="row">
 
-        <!-- Publish Presentation, or Keep it as a Draft -->
+            <!-- Publish Presentation, or Keep it as a Draft -->
 
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    
-                    <div class="col">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        
+                        <div class="col">
 
-                    <div class="font-weight-bold fs-15 text-uppercase mb-3" style="color:#0051fc;">Publier la présentation</div>
+                        <div class="font-weight-bold fs-15 text-uppercase mb-3" style="color:#0051fc;">Publier la présentation</div>
 
-                        <div class="h5 font-weight-bold">
+                            <div class="h5 font-weight-bold">
 
-                            <span class="pr-2">Non</span>
-                                
-                            <input id="publishPresentationSwitch" type="checkbox" data-toggle="toggle" data-width="80" data-on=" <b>Oui</b>" data-off="<b>Non</b>" data-onstyle="success" data-offstyle="danger"
+                                <span class="pr-2">Non</span>
                                     
-                                {% if presentation.isPublished %}
-                                
-                                    checked 
-                                
-                                {% endif %}
+                                <input id="publishPresentationSwitch" type="checkbox" data-toggle="toggle" data-width="80" data-on=" <b>Oui</b>" data-off="<b>Non</b>" data-onstyle="success" data-offstyle="danger"
+                                        
+                                    {% if presentation.isPublished %}
+                                    
+                                        checked 
+                                    
+                                    {% endif %}
 
-                            >
-                           
-                            <span class="pl-2">Oui</span>
+                                >
+                            
+                                <span class="pl-2">Oui</span>
 
-                        </div>                           
+                            </div>                           
 
-                </div>
-                </div>
+                    </div>
+                    </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <!-- Private Messages Switch Activation -->
+            
+            <!-- Private Messages Switch Activation -->
 
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body pr-md-0">
-                <div class="row no-gutters align-items-center">
-                    
-                    <div class="col">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body pr-md-0">
+                    <div class="row no-gutters align-items-center">
+                        
+                        <div class="col">
 
-                    <div class="font-weight-bold fs-15 text-uppercase mb-3" style="color:#0051fc" >Activer les messages privés</div>
+                        <div class="font-weight-bold fs-15 text-uppercase mb-3" style="color:#0051fc" >Activer les messages privés</div>
 
-                        <div class="h5 font-weight-bold">
+                            <div class="h5 font-weight-bold">
 
-                            <span class="pr-2">Non</span>
-                                
-                            <input id="activeContactMessagesSwitch" type="checkbox" data-toggle="toggle" data-width="80" data-on=" <b>Oui</b>" data-off="<b>Non</b>" data-onstyle="success" data-offstyle="danger"
+                                <span class="pr-2">Non</span>
                                     
-                                {% if presentation.isActiveContactMessages %}
-                                
-                                    checked 
-                                
-                                {% endif %}
+                                <input id="activeContactMessagesSwitch" type="checkbox" data-toggle="toggle" data-width="80" data-on=" <b>Oui</b>" data-off="<b>Non</b>" data-onstyle="success" data-offstyle="danger"
+                                        
+                                    {% if presentation.isActiveContactMessages %}
+                                    
+                                        checked 
+                                    
+                                    {% endif %}
 
-                            >
-                           
-                            <span class="pl-2">Oui</span>
+                                >
+                            
+                                <span class="pl-2">Oui</span>
 
-                        </div>                           
+                            </div>                           
 
-                </div>
-                </div>
+                    </div>
+                    </div>
+                    </div>
                 </div>
             </div>
-        </div>
 
 
-        <!-- Allow or Disallow comments for this project presentation -->
+            <!-- Allow or Disallow comments for this project presentation -->
 
-        <div class="col-xl-4 col-md-6 mb-4">
-            <div class="card border-left-warning shadow h-100 py-2">
-                <div class="card-body">
-                <div class="row no-gutters align-items-center">
-                    
-                    <div class="col">
+            <div class="col-xl-4 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                    <div class="row no-gutters align-items-center">
+                        
+                        <div class="col">
 
-                    <div class="font-weight-bold fs-15 text-uppercase mb-3" style="color:#0051fc;">Autoriser les commentaires</div>
+                        <div class="font-weight-bold fs-15 text-uppercase mb-3" style="color:#0051fc;">Autoriser les commentaires</div>
 
-                        <div class="h5 font-weight-bold">
+                            <div class="h5 font-weight-bold">
 
-                            <span class="pr-2">Non</span>
-                                
-                            <input id="allowCommentsSwitch" type="checkbox" data-toggle="toggle" data-width="80" data-on=" <b>Oui</b>" data-off="<b>Non</b>" data-onstyle="success" data-offstyle="danger"
+                                <span class="pr-2">Non</span>
                                     
-                                {% if presentation.allowComments == 1 %}
-                                
-                                    checked 
-                                
-                                {% endif %}
+                                <input id="allowCommentsSwitch" type="checkbox" data-toggle="toggle" data-width="80" data-on=" <b>Oui</b>" data-off="<b>Non</b>" data-onstyle="success" data-offstyle="danger"
+                                        
+                                    {% if presentation.allowComments == 1 %}
+                                    
+                                        checked 
+                                    
+                                    {% endif %}
 
-                            >
-                           
-                            <span class="pl-2">Oui</span>
+                                >
+                            
+                                <span class="pl-2">Oui</span>
 
-                        </div>                           
+                            </div>                           
 
-                </div>
-                </div>
+                    </div>
+                    </div>
+                    </div>
                 </div>
             </div>
+
+            {# 
+
+            <!-- Manage Project Presentation Access -->
+            
+            <div class="col-xl-4 col-md-6 mb-4">
+                <a href="{{ path('manage_access', {'slug':presentation.slug}) }}">
+                    <div class="card border-left-warning shadow h-100 py-2 cursor-pointer">
+                        <div class="card-body">
+                            <div class="row no-gutters align-items-center">
+                                
+                                <div class="col">
+
+                                    <div class="font-weight-bold fs-15 text-uppercase mb-3 mr-2" >
+                                        
+                                        <span class="mr-3 h4">🔑</span>
+                                        <span style="color:#0051fc;"> Gérer les accès</span>
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            </div>
+
+            #}
+
+
+        <!-- End Of First Row -->
+
         </div>
 
+
+    <!-- End Of Main Container -->
 
     </div>
 
