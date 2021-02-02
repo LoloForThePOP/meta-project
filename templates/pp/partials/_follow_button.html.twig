@@ -2,11 +2,23 @@
 
     <!-- Structure Container -->
 
-    <div class="pp-struct-container pb-1 pb-md-3">
+    <div class="pp-struct-container">
 
-        <div class="mb-3">
+        {% if not app.user %}
+        
+        <p class="text-primary">Ce projet éveille votre intérêt ? <br>
 
-           <div class="pp-follow-project-button cursor-pointer col-md-5 border border-primary border-2 mb-4 mr-0 mr-md-4" style="height:40px;">
+            <a href="{{path('new_follow_presentation', {'slug':presentation.slug})}}" class="" style="color:navy;">Connectez-vous</a>
+                
+            </a>
+
+         pour suivre ce projet.
+
+        </p>
+        
+        {% endif %}
+
+           <div class="pp-follow-project-button cursor-pointer col-md-5 border border-primary rounded border-2 mb-4 mr-0 mr-md-4" style="height:40px; background-color:rgb(255, 251, 202);">
                         
                 <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
                                 
@@ -16,10 +28,7 @@
                     
             </div>
 
-        </div>
-
      </div>
-    
 
     <style>
         .pp-follow-project-button:hover, .pp-follow-project-button>* :hover {

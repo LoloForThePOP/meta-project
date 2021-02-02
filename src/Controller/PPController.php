@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Form\PPBasicType;
 use App\Form\ReplyCommentType;
 use App\Form\NewPresentationType;
+use App\Service\ImageEditService;
 use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\ExternalContributorsStructure;
@@ -88,7 +89,7 @@ class PPController extends AbstractController
      * 
      * @return void
      */
-    public function edit (PPBasic $presentation, Request $request, EntityManagerInterface $manager) {
+    public function edit (PPBasic $presentation, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService ) {
 
         $this->denyAccessUnlessGranted('edit', $presentation);
 
@@ -100,6 +101,8 @@ class PPController extends AbstractController
 
             $manager->persist($presentation);
             $manager->flush();
+
+            $editImageService->edit('presentation_logo', $presentation->getLogoName());
 
             $this->addFlash(
                 'success',
@@ -146,13 +149,14 @@ class PPController extends AbstractController
      * Allow to Display a Project Presentation Page by its slug
      *
      * @Route("/projects/{slug}", name="project_show")
-     * @Security("presentation.getIsPublished() == true or user === presentation.getCreator() ")
      * 
      * @return Response
      */
     public function show(PPBasic $presentation, Request $request){
 
         $user = $this->getUser();
+
+        $this->denyAccessUnlessGranted('view', $presentation);
 
         $comment = new Comment();
 

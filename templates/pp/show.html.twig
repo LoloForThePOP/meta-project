@@ -8,6 +8,8 @@
     <meta name="date" content="{{ presentation.createdAt | date}}">
     
 {% endblock %}
+
+{% block stylesheet %}{% endblock %}
     
 
 {% block title %}{{ presentation.goal | capitalize}}{% endblock %}
@@ -65,14 +67,27 @@
 
         margin-bottom: 38px;
 
+        //display: flex;
+        //align-items:center;
+
     }
 
     /* Each Structure Title */
   
     .pp-struct-title{
 
+        display:inline-block;
         color : navy;
         font-family : Verdana, Geneva, Tahoma, sans-serif; 
+        margin-right:10px;
+
+    }
+
+    /* Each Structure Icon */
+  
+    .pp-struct-icon{
+
+        margin-right : 7px;
 
     }
 
@@ -121,13 +136,9 @@
 
     <div class="pp-whole-container col-md-12 col-xl-10 mt-md-5 px-md-4 pt-3
     
-        {# we center the presentation display when we are in consultation mode (in contrast, when in edit view, the presentation is not centered) #}
+        {# we center the presentation display when we are in consultation mode (in contrast, when in edit mode view, the presentation is not centered) #}
 
-
-        {% if app.user == presentation.creator %}
-
-
-        {% else %}
+        {% if not app.user == presentation.creator %}
         
             container  
 
@@ -148,6 +159,12 @@
                 
                 <!-- Project Text Description -->
                 {% include 'pp/partials/_textDescription.html.twig' %}
+                
+                <!-- Project Follow Button -->
+                {% include 'pp/partials/_follow_button.html.twig' %}
+                
+                <!-- Test Slick Slideshow -->
+                 {% include 'pp/partials/_test_slick.html.twig' %}
                 
                 <!-- Project Supplementary Informations (aka Technical Data)-->
                 {% include 'pp/partials/_technicalData.html.twig' %}
@@ -176,6 +193,7 @@
                 <!-- Project Team -->
                 {% include 'pp/partials/_team.html.twig' %}
 
+
                 <!-- Project External Contributors -->
                 {% include 'pp/partials/_externalContributors.html.twig' %}
 
@@ -184,30 +202,32 @@
 
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
-              
-                <!-- Project Follow Button -->
-                {% include 'pp/partials/_follow_button.html.twig' %}
 
                 <!-- Users Comments -->
                 {% include 'pp/partials/_comments.html.twig' %}
 
+                <!-- Other Buttons -->
 
-                    <div class="mt-5 mb-3">
+                <div class="mt-5 mb-3">
 
-                        <!-- Display Some Metadatas -->
-                        {% include 'pp/partials/_metadataDisplay.html.twig' %}
+                    <!-- Back to top button -->
 
-                        <!-- some buttons (example : report abuse; save as pdf; ...) -->
-                        <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
+                    <button onclick="topFunction()" id="backTopButton" title="Retour en Haut">↑ Haut de Page</button> 
 
-                            <button type="button" class="btn btn-light">Signaler un abus</button>
+                    <!-- Display Some Metadatas -->
+                    {% include 'pp/partials/_metadataDisplay.html.twig' %}
 
-                        </a>
-                        
-                    </div>
+                    <!-- some buttons (example : report abuse; save as pdf; ...) -->
+                    <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
 
-                    <!-- Project Provider Caps -->
-                    {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
+                        <button type="button" class="btn btn-light">Signaler un abus</button>
+
+                    </a>
+                    
+                </div>
+
+                <!-- Project Provider Caps -->
+                {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
 
 
 
@@ -256,7 +276,7 @@
                 //alert('lol');
             }) 
             
-            //we hide form honey pot
+            //we hide the form honey pot
             
             $('.onpt').hide();
             
@@ -264,6 +284,10 @@
         });
 
     </script>
+
+    <!-- Back to Top Button Javascript -->
+
+    {% include 'pp/js_show/_back_top_button.html.twig' %}
 
 
     <!-- Project Needs Section : ajax call when user wants need details -->
@@ -293,11 +317,30 @@
             
             $(document).ready(function(){
 
-                $('.teammatesSlideshow').slick({
+                $('.test').slick({
+
+                    slidesToShow: 3,
+                    infinite:false,
+                    variableWidth: true,
+                    
+                });
+
+                jQuery(window).on('resize', function() {
+                    var viewportWidth = jQuery(window).width();
+                
+                    if (viewportWidth < 481) {
+                        $('.test').slick('unslick');
+                    } else {
+                        // Do some thing
+                    }
+                });
+
+  /*              $('.teammatesSlideshow').slick({
 
                     infinite: false,
                     slidesToShow: 6,
                     slidesToScroll: 2,
+                    variableWidth: true,
 
                     responsive: [
                     
@@ -326,6 +369,7 @@
                     infinite: false,
                     slidesToShow: 6,
                     slidesToScroll: 2,
+                    variableWidth: true,
 
                     responsive: [
                     
@@ -347,7 +391,7 @@
                     ],
 
                 });
-
+*/
 
 
             });

@@ -6,6 +6,7 @@ use App\Entity\Owner;
 use App\Entity\Persorg;
 use App\Entity\PPBasic;
 use App\Form\PersorgType;
+use App\Service\ImageEditService;
 use App\Repository\OwnerRepository;
 use App\Repository\PersorgRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -27,7 +28,7 @@ class OwnersController extends AbstractController
      * @Route("/", name="manage_owners")
      * 
      */
-    public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
+    public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
     {
         $owner = new Owner();
         
@@ -45,6 +46,8 @@ class OwnersController extends AbstractController
             $manager->persist($owner);
 
             $manager->flush();
+
+            $editImageService->edit('presentation_project_owner', $persorg->getImage());
 
             $this->addFlash(
                 'success',

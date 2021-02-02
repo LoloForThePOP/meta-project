@@ -19,15 +19,19 @@
 
     <!-- Project Presentation Team Display Container -->
 
-    <div class="pp-struct-container pb-3">
+    <div id="teamDisplay" class="pp-struct-container pb-3">
 
         <!-- Title Container with Edit Button -->
 
-        <div class="pp-struct-title-container">
+        <div class="pp-struct-title-container" style="margin-bottom:12px;">
 
+            <!-- Structure Icon
+            
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/team.svg" height="38" width="38" alt="team icon"> -->
+            
             <!-- Structure Title -->
 
-            <h3 class="pp-struct-title d-inline mr-2 mb-2">Membres</h3>
+            <h3 class="pp-struct-title d-inline">Membres</h3>
     
             <!-- Edit Text Description Button -->
     
@@ -36,7 +40,7 @@
 
                 <a class="" href="{{ path('manage_teammates', {'slug': presentation.slug}) }}">
     
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les membres</button>
+                    <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer les membres</button>
                     
                 </a>
 
@@ -50,99 +54,95 @@
 
         <div class="container">
 
-            <div class="">
+            <div class="teammatesDisplayRow d-flex align-items-start {% if presentation.teammates | length > 4 %} teammatesSlideshow {% endif %}">
 
-                <div class="teammatesDisplayRow {% if presentation.teammates | length > 4 %} teammatesSlideshow {% endif %}">
+                {% for teammate in presentation.teammates %}
 
-                    {% for teammate in presentation.teammates %}
+                {% set teammate = teammate.persorg %}
 
-                    {% set teammate = teammate.persorg %}
+                    <!-- Team Member Card -->
 
-                        <!-- Team Member Card -->
+                    <div class="teamMemberCard mb-2 px-1" >
 
-                        <div class="teamMemberCard mb-2 px-1" >
+                        <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
 
-                            <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">
+                        <!-- Teammate Missions -->
 
-                            <!-- Teammate Missions -->
-
-                            <div class="teammateMission font-weight-bold mb-2 text-center" style="height:45px; ">
+                        <div class="teammateMission font-weight-bold mb-2 text-center" style="height:45px;">
 
 
-                                {% if teammate.missions %} 
-                                
-                                  {{ teammate.missions | length < 22 ? teammate.missions : teammate.missions | slice(0, 19) ~ '...' }}
-
-                                  {% else %}
-     
-                                
-                                {% endif %}
-
-                            </div>
-
-                            <!-- Teammate Image -->
+                            {% if teammate.missions %} 
                             
-                            <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px;">
+                                {{ teammate.missions | length < 35 ? teammate.missions : teammate.missions | slice(0, 32) ~ '...' }}
 
-                                {% if teammate.image %}
-
-                                <div>
-
-                                    <img class="img-fluid rounded-lg border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.image) | imagine_filter('logo_thumbnail_sm') }}" style="max-width:100px; max-height:100px;">
-
-                                </div>
-
-                                    
-                                
                                 {% else %}
-                                                        
-                                <div class="avatar-circle mx-auto">
-
-                                    <span class="initials">
-
-                                        {{teammate.name | slice (0,1) }}
-
-                                    </span>
-
-                                </div>
+    
                             
-                                {% endif %}
-
-                            </div> 
-                                                
-                            <!-- Teammate Name -->
-
-                            <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
-
-                                {{ teammate.name | length < 35 ? teammate.name : teammate.name|slice(0, 35) ~ '...' }}
-
-                            </div>
-
-                                                
-                            <!-- Teammate Show More Info (if more info available) -->
-
-                            {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
-                                
-                                <div class="font-weight-bold mb-2 text-center" >
-
-                                    <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
-
-                                </div>
-
                             {% endif %}
 
+                        </div>
 
-                            </a>
-
-                            
-                            
+                        <!-- Teammate Image -->
                         
+                        <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px;">
 
-                        </div>   
+                            {% if teammate.image %}
 
-                    {% endfor %}
+                            <div>
 
-                </div>
+                                <img class="img-fluid rounded-lg border border-primary" src="{{ asset('/images/persorgs/' ~ teammate.image) | imagine_filter('logo_thumbnail_sm') }}" style="max-width:100px; max-height:100px;">
+
+                            </div>
+
+                                
+                            
+                            {% else %}
+                                                    
+                            <div class="avatar-circle mx-auto">
+
+                                <span class="initials">
+
+                                    {{teammate.name | slice (0,1) | capitalize }}
+
+                                </span>
+
+                            </div>
+                        
+                            {% endif %}
+
+                        </div> 
+                                            
+                        <!-- Teammate Name -->
+
+                        <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+
+                            {{ teammate.name | length < 35 ? teammate.name : teammate.name|slice(0, 35) ~ '...' }}
+
+                        </div>
+
+                                            
+                        <!-- Teammate Show More Info (if more info available) -->
+
+                        {% if teammate.description is not empty or teammate.email is not empty or teammate.webdomain1 is not empty or teammate.webdomain2 is not empty or teammate.webdomain3 is not empty or teammate.webdomain4 is not empty  %}
+                            
+                            <div class="font-weight-bold mb-2 text-center" >
+
+                                <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#teammateDisplayModal{{ loop.index }}">Voir +</a>
+
+                            </div>
+
+                        {% endif %}
+
+
+                        </a>
+
+                        
+                        
+                    
+
+                    </div>   
+
+                {% endfor %}
 
             </div>
 

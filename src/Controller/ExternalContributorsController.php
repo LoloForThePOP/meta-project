@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Persorg;
 use App\Entity\PPBasic;
 use App\Form\PersorgType;
+use App\Service\ImageEditService;
 use App\Repository\PersorgRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use App\Entity\ExternalContributorsStructure;
@@ -34,7 +35,7 @@ class ExternalContributorsController extends AbstractController
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      */
-    public function manageECS ($id_ecs, PPBasic $presentation, Request $request, EntityManagerInterface $manager, ExternalContributorsStructureRepository $ecsRepository)
+    public function manageECS ($id_ecs, PPBasic $presentation, Request $request, EntityManagerInterface $manager, ExternalContributorsStructureRepository $ecsRepository, ImageEditService $editImageService)
     {
         $ecs = $ecsRepository->find($id_ecs);
 
@@ -74,6 +75,8 @@ class ExternalContributorsController extends AbstractController
             $manager->persist($persorg);
 
             $manager->flush();
+
+            $editImageService->edit('presentation_external_contributor', $persorg->getImage());
 
             $this->addFlash(
                 'success',

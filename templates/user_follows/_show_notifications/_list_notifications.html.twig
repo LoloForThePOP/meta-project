@@ -57,31 +57,37 @@
                                 <div id="collapseMoreNotifications{{userFollow.id}}" class="collapse">
                             
                             {% endif %}
-
-
                             
-                           
 
+                            <div 
+                            
+                                data-entity-type="{{log.entityType}}"
 
-                            <div data-entity-type="{{log.entityType}}" data-entity-id='{{log.entityId}}' data-route-name=" {{path('show_embed_'~ log.entityType , { "slug" : userFollow.getPresentation.getSlug} ) }}" class="
+                                data-entity-id='{{log.entityId}}' 
 
-                                pp-notification-title btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
+                                data-route-name=" 
                                 
-                                {% if date(lastConnectionDate) < date(log.date.date) %}
+                                    {{path('show_embed_'~ log.entityType , { "slug" : userFollow.getPresentation.getSlug} ) }}" 
+                            
+                                class="
 
-                                    btn-primary
+                                    pp-notification-title btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
+                                    
+                                    {% if date(lastConnectionDate) < date(log.date.date) %}
 
-                                {% else %}
+                                        btn-primary
 
-                                    btn-light
-                                
-                                {% endif %}
-                                
+                                    {% else %}
+
+                                        btn-light
+                                    
+                                    {% endif %}
+                                    
                             ">
 
                                 {% if log.entityType == "need" %}
 
-                                   Nouveau besoin présenté
+                                    Nouveau besoin présenté
 
                                 {% elseif log.entityType == "news" %}
 
@@ -94,6 +100,10 @@
                                 {% elseif log.entityType == "teammate" %}
 
                                     Nouveau membre dans l'équipe présenté
+
+                                {% elseif log.entityType == "document" %}
+
+                                    Nouveau document présenté
 
                                 {% endif %}
 

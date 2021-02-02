@@ -7,6 +7,7 @@ use App\Entity\PPBasic;
 use App\Entity\Teammate;
 use App\Form\PersorgType;
 use App\Entity\PPMajorLogs;
+use App\Service\ImageEditService;
 use App\Repository\PersorgRepository;
 use App\Repository\TeammateRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -30,7 +31,7 @@ class TeammatesController extends AbstractController
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
      */
-    public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
+    public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
     {
         $teammate = new Teammate();
          
@@ -50,6 +51,9 @@ class TeammatesController extends AbstractController
             $manager->flush();
 
             $idTeammate=$teammate->getId();
+
+            $editImageService->edit('presentation_teammate', $teammate->getPersorg()->getImage());
+
 
             PPMajorLogs::updateLogs($presentation, 'teammate', 'new', $idTeammate, $manager);
 

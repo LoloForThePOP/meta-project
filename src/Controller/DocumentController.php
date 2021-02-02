@@ -189,6 +189,45 @@ class DocumentController extends AbstractController
 
     }
 
+    
+    /**
+     * show new document details in user notification page
+     * 
+     * @Route("/document/ajax-show-embed", name="show_embed_document")
+     * 
+     */
+    public function showEmbed(Request $request, DocumentRepository $documentRepository)
+    {
+        
+        if ($request->isXmlHttpRequest()) {
+
+            //get selected news
+
+            $idDocument = $request->request->get('idEntity');
+
+            $document = $documentRepository->findOneById($idDocument);
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'document/show_embed.html.twig', 
+
+                    [
+                        'document' => $document,
+                    ]
+                ),
+            ];
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        
+        }
+
+    }
+
 
 
 }

@@ -25,6 +25,10 @@
 
         <div class="pp-struct-title-container">
 
+            <!-- Structure Icon
+
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/owner.svg" height="38" width="38" alt="project owners icon"> -->
+
             <!-- Structure Title -->
 
             <h3 class="pp-struct-title d-inline mr-2 mb-2">Porteurs du Projet</h3>
@@ -52,7 +56,7 @@
 
             <div class="">
 
-                <div class="ownersDisplayRow{% if presentation.owners | length > 4 %} ownersSlideshow {% endif %}">
+                <div class="ownersDisplayRow{% if presentation.owners | length > 4 %} ownersSlideshow {% endif %} d-flex justify-content-start">
 
                     {% for owner in presentation.owners %}
 

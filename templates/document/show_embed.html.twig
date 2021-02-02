@@ -1,0 +1,131 @@
+<div class="container">
+
+    {% if document.title is not null %}
+
+        <!-- File Title -->
+
+        <div class="row mb-2"> 
+
+            <span class="h5" >
+    
+                Titre du Fichier :&nbsp;</span>
+
+            <span class="h5 font-weight-bold" >{{ document.title }}
+    
+            </span>
+        
+        </div>
+    
+    
+    {% endif %}
+
+    <!-- Document Type -->
+
+      <!-- Styles for Document Icon -->
+
+      {% set fileType = '' %}
+
+      {% if document.mimeType == 'application/pdf' or document.mimeType == 'application/x-pdf' %}
+  
+          {% set fileType = 'pdf' %}
+      
+      {% elseif document.mimeType == 'application/msword' or document.mimeType == 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' %}
+  
+          {% set fileType = 'word document' %}
+      
+      {% elseif  document.mimeType == 'application/vnd.ms-excel' or document.mimeType =='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' %}
+  
+          {% set fileType = 'excel' %}
+      
+      {% elseif document.mimeType == 'application/vnd.ms-powerpoint' or document.mimeType == 'application/vnd.openxmlformats-officedocument.presentationml.presentation' %}
+  
+          {% set fileType = 'powerpoint' %}
+      
+      {% elseif document.mimeType == 'text/rtf' %}
+  
+          {% set fileType = 'rich text format' %}
+      
+      {% elseif document.mimeType == 'application/vnd.oasis.opendocument.text' %}
+  
+          {% set fileType = 'text open document' %}
+  
+      
+      {% elseif document.mimeType == 'application/epub+zip' %}
+  
+          {% set fileType = 'epub' %}
+  
+      {% else %}
+  
+          {% set fileType = document.mimeType  %}
+          
+      {% endif %}
+
+    <div class="row fs-15 mb-2"> 
+
+        <span class="h5">
+            Type du Fichier :&nbsp; 
+        </span>
+
+        <span class="h5 font-weight-bold">
+             {{fileType}}
+        </span>
+        
+    </div>
+
+    <!-- File Size -->
+
+    <div class="row fs-15 mb-3"> 
+
+        <span class="h5">
+            Taille du Fichier :&nbsp;
+        </span>
+        <span class="h5 font-weight-bold"> {{document.size}} Ko</span>
+         
+    </div>
+
+
+    <!-- "Created At" & "Last Updated At" Display -->
+
+    <div class="row mb-3">
+
+        <small class="h6">
+
+            <!-- Last Updated at -->
+
+            {% if document.updatedAt %}
+            
+                Modifié le {{ document.updatedAt | date("Y-m-d") }} à 
+                {{ document.updatedAt | date("H:i") }}
+
+                <br>
+            
+            {% endif %}
+
+            <!-- Created At -->
+
+            Publié le {{ document.createdAt | date("Y-m-d") }} à {{ document.createdAt | date("H:i") }}
+
+        </small>
+
+    </div>
+
+     <!-- Link to File -->
+
+
+    <div class="row">
+
+        <a href="/files/projects/documents/{{document.fileName}}" class="w-100 h-100 text-body text-decoration-none">
+
+            <div class="btn btn-warning font-weight-bold">Accéder au fichier</div>
+        
+        </a>
+
+    </div>
+
+
+   
+
+    </a>
+    
+
+</div>

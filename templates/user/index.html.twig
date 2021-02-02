@@ -120,7 +120,7 @@
                         </span>
                     </h4>
 
-                    {% for presentation in user.presentations %}
+                    {% for presentation in user.presentations | reverse %}
 
                         {% include 'pp/_display_linear_list.html.twig' %}
 

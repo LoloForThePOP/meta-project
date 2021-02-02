@@ -192,7 +192,12 @@
         <div>
 
             <a class="text-decoration-none text-white" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
-                <button type="button" class="btn btn-info btn-lg bg-blue font-weight-bold mt-2 mb-4 sharp">Retour</button>
+                <button type="button" class="btn btn-info btn-lg bg-blue font-weight-bold mt-2 mr-2 mb-4 sharp">Menu</button>
+            </a>
+
+                        
+            <a class="text-decoration-none text-white" href="{{path('project_show', {'slug': presentation.slug })}}#documentsDisplay">
+                <button type="button" class="btn btn-warning btn-lg font-weight-bold mt-2 mb-4 sharp">Résultat</button>
             </a>
 
         </div>

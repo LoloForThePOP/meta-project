@@ -233,6 +233,8 @@ class EventController extends AbstractController
 
 
     /**
+     * show new event details in user notification page
+     * 
      * @Route("/event/ajax-show-embed", name="show_embed_event")
      * 
      */

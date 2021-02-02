@@ -19,7 +19,52 @@ class ImageEditService {
                 $imagePath='images/projects/slides_images/';
 
                 $image = new ImageResize($imagePath.$imageName);
+                $image->quality_jpg = 100;
                 $image->resizeToBestFit(700, 700);
+                $image->save($imagePath.$imageName);
+
+                break;
+
+            case 'presentation_logo':
+
+                $imagePath='images/projects/logos/';
+
+                $image = new ImageResize($imagePath.$imageName);
+                $image->quality_jpg = 100;
+                $image->resizeToBestFit(200, 200);
+                $image->save($imagePath.$imageName);
+
+                break;
+
+            case 'presentation_teammate':
+
+                $imagePath='images/persorgs/';
+
+                $image = new ImageResize($imagePath.$imageName);
+                $image->quality_jpg = 100;
+                $image->resizeToBestFit(200, 200);
+                $image->save($imagePath.$imageName);
+
+                break;
+
+            case 'presentation_external_contributor':
+
+                $imagePath='images/persorgs/';
+
+                $image = new ImageResize($imagePath.$imageName);
+                $image->quality_jpg = 100;
+                $image->resizeToBestFit(200, 200);
+                $image->save($imagePath.$imageName);
+
+                break;
+
+            case 'presentation_project_owner':
+
+                $imagePath='images/persorgs/';
+
+                $image = new ImageResize($imagePath.$imageName);
+                $image->quality_jpg = 100;
+                $image->resizeToBestFit(200, 200);
                 $image->save($imagePath.$imageName);
 
                 break;

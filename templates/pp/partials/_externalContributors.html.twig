@@ -8,21 +8,19 @@
         
     <!-- Title Container with Edit Button -->
 
-        <div class="pp-struct-title-container">
+        <div id="externalContributorsDisplay" class="pp-struct-title-container">
 
             <!-- Structure Title -->
 
-            <h3 class="pp-struct-title d-inline mr-2 mb-2">Contributions externes</h3>
+            <h3 class="pp-struct-title d-inline mr-2">Contributions externes</h3>
 
-            <!-- Edit Text Description Button -->
+            <!-- Edit Project External Contributors Button -->
 
-                <a class="" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+            <a class="" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
 
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
-                    
-                </a>
-
-            
+                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
+                
+            </a>
 
         </div>
 
@@ -36,13 +34,38 @@
 
             <div class="ecs">
 
-                <!-- ECS Title Display (ex: Our Sponsors) -->
+                <div class="pp-struct-title-container mb-4">
 
-                <h3 class="ecsTitle pp-struct-title">
+                   {# {% if loop.first %}
 
-                    {{ecs.title}}
+                        <!-- Structure Icon -->
 
-                </h3>
+                        <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors.svg" height="32" width="32" alt="external contributors icon">
+                    
+                    {% endif %}#}
+                    
+                    <!-- ECS Title Display (ex: Our Sponsors) -->
+
+                    <h3 class="ecsTitle pp-struct-title d-inline">
+
+                        {{ecs.title}}
+
+                    </h3>
+
+                    <!-- Edit this ECS Button -->
+
+                    {% if app.user and app.user == presentation.creator %}
+
+                        <a class="" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
+
+                            <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
+                            
+                        </a>
+
+                    {% endif %}
+
+                </div>
+
 
 
                  <!-- ECS Images Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
@@ -51,7 +74,7 @@
                     
                     <div class="container">
                         
-                        <div class="ecsDisplayRow ">
+                        <div class="ecsDisplayRow">
                             
                             <!-- ECS Content Display (ex: Coca-Cola; Nike; etc) (in cards) -->
                                                         
@@ -61,7 +84,7 @@
 
                                     <div class="externalContributorCard mb-2 px-1">
 
-                                        <div class="d-flex align-content-center" style="height:195px;">
+                                        <div class="d-flex align-content-center" style="height:210px;">
 
                                             <a href="#" class="my-auto mx-auto text-body" data-toggle="modal" data-target="#externalContributorDisplayModal{{loop.parent.loop.index}}{{loop.index}}">
 
@@ -79,7 +102,7 @@
 
                                                 <span class="initials">
 
-                                                    {{persorg.name | slice (0,1) }}
+                                                    {{persorg.name | slice (0,1) | capitalize }}
 
                                                 </span>
 
@@ -187,9 +210,9 @@
 
                                                     {% else %}
                                                                                          
-                                                        <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
+                                                        <div class="avatar-circle mx-auto">
 
-                                                            <span class="initials" style="font-size: 60px; top:30px;">
+                                                            <span class="initials" >
 
                                                                 {{persorg.name | slice (0,1) }}
 
@@ -425,7 +448,7 @@
     
     .ecsTitle{
 
-       margin-bottom: 20px;
+       //margin-bottom: 20px;
     }
 
     .persorgName{
