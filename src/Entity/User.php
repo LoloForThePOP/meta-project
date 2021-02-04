@@ -154,6 +154,9 @@ class User implements UserInterface
 
         // new user is allowed on website by default
         $this->isAllowed = true;
+
+        $this->setLastNotificationsConnection(new \DateTime('now'));
+
         
         $this->createdAt = new \DateTime('now');
         $this->presentations = new ArrayCollection();

@@ -27,11 +27,11 @@ class EventController extends AbstractController
      * 
      * @Route("/manage", name="manage_events")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
-    {
+    {   
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $event = new Event ();
         
         $form = $this->createForm(EventType::class, $event);
@@ -123,6 +123,8 @@ class EventController extends AbstractController
     public function edit (PPBasic $presentation, $idEvent, eventRepository $eventRepo, Request $request, EntityManagerInterface $manager)
     {
 
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $event = $eventRepo->findOneById($idEvent);
 
         $form = $this->createForm(EventType::class, $event);
@@ -162,10 +164,10 @@ class EventController extends AbstractController
      * 
      * @Route("/ajax-remove-event/", name="ajax_remove_event")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemovEvent(PPBasic $presentation, Request $request, EventRepository $eventRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -199,10 +201,10 @@ class EventController extends AbstractController
      *
      * @Route("/ajax-reorder-events/", name="ajax_reorder_events")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderEvents(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

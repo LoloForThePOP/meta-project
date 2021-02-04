@@ -18,13 +18,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TextDescriptionController extends AbstractController
 {
     /**
-     * @Route("/edit/", name="edit_text_description")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/edit/", name="edit_text_description")
      * 
      */
     public function edit(PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if (!$presentation->getTextDescription()){
 

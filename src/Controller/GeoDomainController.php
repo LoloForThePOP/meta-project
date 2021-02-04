@@ -20,13 +20,13 @@ class GeoDomainController extends AbstractController
 {
 
     /**
-     * @Route("/manage-places", name="geodomains_places_manage")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas gérer les lieux de ce projet")
+     * @Route("/manage-places", name="geodomains_places_manage")
      * 
      */
     public function managePlaces(PPBasic $presentation)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
   
         return $this->render('geoDomains/manage_places.html.twig', [
             'presentation' => $presentation,
@@ -35,9 +35,10 @@ class GeoDomainController extends AbstractController
 
     /** 
      * @Route("/ajax-new-place", name="ajax_new_place") 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas ajouter des lieux à ce projet")
     */ 
     public function ajaxNewPlace(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -107,11 +108,11 @@ class GeoDomainController extends AbstractController
      * 
      * @Route("/ajax-remove-place/", name="ajax_remove_place")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas supprimer des lieux de ce projet")
-     * 
      * @return Response
      */
    public function delete(Request $request, PPBasic $presentation, EntityManagerInterface $manager, GeoDomainRepository $geoRepository){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

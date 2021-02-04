@@ -77,9 +77,6 @@ class AccountController extends AbstractController
             $hash = $encoder->encodePassword($user, $user->getHash());
             $user->setHash($hash);
 
-
-            $user->setLastNotificationsConnection(new \DateTime('now'));
-
             $manager->persist($user);
             $manager->flush();
 

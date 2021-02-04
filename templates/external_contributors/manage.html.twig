@@ -116,54 +116,56 @@
 
             {% endif %}
 
- <!-- Project Text Description Rich Text Editor -->
+    <!-- External Contributors Edition by Textarea -  Rich Text Editor -->
 
- <div class="js-form-container 
+    <div class="js-form-container 
 
- {% if ecs.richTextContent is empty %} d-none {% endif %}
- 
- 
- " style="margin-top:3.3rem;">
+    {% if ecs.richTextContent is empty %} d-none {% endif %}
+    
+    
+    " style="margin-top:3.3rem;">
 
-    {{form_start(ecsForm)}}
+        {{form_start(ecsForm)}}
 
-    <!-- Form Errors Display -->
+        <!-- Form Errors Display -->
 
-    <span class="h5 text-danger">
+        <span class="h5 text-danger">
 
-        {{form_errors(ecsForm.richTextContent)}}
+            {{form_errors(ecsForm.richTextContent)}}
 
-    </span>
+        </span>
 
-    <!-- Rich Text Editor Area -->
+        <!-- Rich Text Editor Area -->
 
-    <div class="mb-4">
+        <div class="mb-4">
 
-      {{form_widget(ecsForm.richTextContent)}}
+        {{form_widget(ecsForm.richTextContent)}}
+
+        </div>
+
+
+        <!-- Hiding some form fields -->
+
+        <div class="d-none">
+            {{ form_rest(ecsForm) }}
+        </div>
+
+        <!-- Save Rich Text Content Button -->
+
+        <div class= "pt-2">
+            
+            <button type="submit" class="btn btn-success btn-lg bg-green sharp h3 font-weight-bold mb-4 mr-3">Enregistrer</button>
+
+        </div>
+
+        {{form_end(ecsForm)}}
 
     </div>
 
 
-    <!-- Hiding some form fields -->
-
-    <div class="d-none">
-        {{ form_rest(ecsForm) }}
-    </div>
-
-    <!-- Save Rich Text Content Button -->
-
-    <div class= "pt-2">
-        
-        <button type="submit" class="btn btn-success btn-lg bg-green sharp h3 font-weight-bold mb-4 mr-3">Enregistrer</button>
-
-    </div>
-
-    {{form_end(ecsForm)}}
-
-</div>
+    <!-- Actions Buttons -->
 
     <div class="pt-4">
-
         
         <!-- Edit ECS Title -->
 
@@ -189,10 +191,6 @@
 
 
     </div>
-
- 
-
-       
 
     </div>
 
@@ -261,7 +259,7 @@
 
         $(document).ready(function(){
 
-            // if user wants to use text, we reveal textarea and we scroll to textarea
+            // if user wants to use text, we reveal textarea and we scroll down to textarea
 
             $(".js-display-textarea").click(function() {
 

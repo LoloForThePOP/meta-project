@@ -5,12 +5,8 @@
 {% block title %}Liste des Ressources Désirées{% endblock %}
 
 {% block sidebar %} 
-
-    {% if app.user and app.user == presentation.creator %}
     
-        {% include 'partials/sidebar.html.twig' %} 
-
-    {% endif %}
+    {% include 'partials/sidebar.html.twig' %} 
     
 {% endblock %}
 
@@ -58,8 +54,7 @@
 
 
     <!-- Add a Need Button (Open a Modal Box and allows user to select a Need Type) -->
-    
-    {% if app.user and app.user == presentation.creator %}
+
 
         <div class="mb-3 p-0">
 
@@ -222,7 +217,6 @@
 
         </div>
             
-    {% endif %}
 
     <!-- Project Needs Display Listing -->
 

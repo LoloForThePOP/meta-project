@@ -7,6 +7,7 @@ use App\Entity\PPBasic;
 use App\Entity\Teammate;
 use App\Form\PersorgType;
 use App\Entity\PPMajorLogs;
+use App\Form\TeammatesByTextType;
 use App\Service\ImageEditService;
 use App\Repository\PersorgRepository;
 use App\Repository\TeammateRepository;
@@ -26,13 +27,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class TeammatesController extends AbstractController
 {
     /**
-     * @Route("/", name="manage_teammates")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/", name="manage_teammates")
      * 
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $teammate = new Teammate();
          
         $persorg = new Persorg();
@@ -68,9 +70,33 @@ class TeammatesController extends AbstractController
 
         }
 
+
+        $teammatesByTextForm = $this->createForm(TeammatesByTextType::class, $presentation);
+        
+        $teammatesByTextForm->handleRequest($request);
+        
+        if ($teammatesByTextForm->isSubmitted() && $teammatesByTextForm->isValid()){
+
+            $manager->persist($presentation);
+
+            $manager->flush();
+
+            $this->addFlash(
+                'success',
+                "Les modifications ont été effectuées !"
+            );
+
+            return $this->redirectToRoute('edit_presentation_menu', [
+                'slug' => $presentation->getSlug(),
+            ]);
+
+        }
+
+
         return $this->render('teammates/manage.html.twig', [
 
             'persorgForm' => $persorgForm->createView(),
+            'teammatesByTextForm' => $teammatesByTextForm->createView(),
             'slug' => $presentation->getSlug(),
             'presentation' => $presentation,
             
@@ -84,11 +110,11 @@ class TeammatesController extends AbstractController
      * 
      * @Route("/edit/{id_persorg}", name="edit_teammate_persorg")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function edit (PPBasic $presentation, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $persorg = $persorgRepository->findOneById($id_persorg);
 
@@ -129,10 +155,10 @@ class TeammatesController extends AbstractController
      *
      * @Route("/ajax-reorder-teammates/", name="ajax_reorder_teammates")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderTeammates(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -167,10 +193,11 @@ class TeammatesController extends AbstractController
      * 
      * @Route("/ajax-remove-teammate/", name="ajax_remove_teammate")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemoveTeammate(PPBasic $presentation, Request $request, TeammateRepository $teammateRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
 
         if ($request->isXmlHttpRequest()) {
 

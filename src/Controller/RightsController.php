@@ -65,7 +65,11 @@ class RightsController extends AbstractController
     public function requestAccess(PPBasic $presentation, Request $request, EntityManagerInterface $manager): Response
     {
 
-        $form = $this->createForm(ContributePresentationRequestType::class);
+        $form = $this->createForm(ContributePresentationRequestType::class, null, array(
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 4,
+            'antispam_time_max' => 3600,));
 
         $form->handleRequest($request);
 
@@ -115,7 +119,7 @@ class RightsController extends AbstractController
 
     /**
      * 
-     * Allow to integrate a new presenter
+     * Allow to integrate a new presentation presenter
      * 
      * @Route("/integrate_candidate/{rightId}", name="integrate_presenter_candidate")
      * 

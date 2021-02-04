@@ -167,7 +167,7 @@ class NeedController extends AbstractController
     public function delete($slug, Request $request, Need $need): Response
     {
 
-        $this->denyAccessUnlessGranted('edit', $presentation);
+        $this->denyAccessUnlessGranted('edit', $need->getPresentation());
 
         if ($this->isCsrfTokenValid('delete'.$need->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
@@ -186,6 +186,8 @@ class NeedController extends AbstractController
      * Allow to modify Needs positions with an ajax request
      *
      * @Route("/ajax-reorder-needs/", name="ajax_reorder_needs")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      * 
     */ 
     public function ajaxReorderNeeds(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {

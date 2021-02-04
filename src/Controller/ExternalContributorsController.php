@@ -24,19 +24,20 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
  */
 class ExternalContributorsController extends AbstractController
 {
-    /* The "External Contributors Creation" Form instanciation is located in PPController, into function "edit presentation menu" */
 
+    /* The "External Contributors Creation" creation is managed in PPController, into function "edit presentation menu" */
 
     /**
      * Allow to Manage an External Contributors Structure (ECS) (ui to create; delete; insert ec into ecs)
      * 
      * @Route("/{id_ecs}", name="manage_ecs")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function manageECS ($id_ecs, PPBasic $presentation, Request $request, EntityManagerInterface $manager, ExternalContributorsStructureRepository $ecsRepository, ImageEditService $editImageService)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $ecs = $ecsRepository->find($id_ecs);
 
         $ecsForm = $this->createForm(ExternalContributorsStructureType::class, $ecs);
@@ -111,11 +112,11 @@ class ExternalContributorsController extends AbstractController
      * 
      * @Route("/{id_ecs}/add-persorg", name="add_persorg")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function addPersorg (PPBasic $presentation, $ecs, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $persorg = new Persorg();
         
         $persorgForm = $this->createForm(PersorgType::class, $persorg);
@@ -151,11 +152,11 @@ class ExternalContributorsController extends AbstractController
      * 
      * @Route("/{id}/delete", name="ecs_delete")
      * 
-     * @Security("is_granted('ROLE_USER') and user === ecs.getProject().getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function deleteECS($slug, Request $request, ExternalContributorsStructure $ecs)
     {
+        $this->denyAccessUnlessGranted('edit', $ecs->getProject());
+
       
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($ecs);
@@ -172,10 +173,10 @@ class ExternalContributorsController extends AbstractController
      * 
      * @Route("/ajax-remove-persorg/{id_ecs}", name="ajax_remove_persorg")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemovePersorg($id_ecs, ExternalContributorsStructureRepository $ecsRepository, PPBasic $presentation, Request $request, PersorgRepository $persorgRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -216,7 +217,7 @@ class ExternalContributorsController extends AbstractController
      */
     public function editECS (PPBasic $presentation, $id_ecs, ExternalContributorsStructureRepository $ecsRepository, Request $request, EntityManagerInterface $manager)
     {
-        
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $ecs = $ecsRepository->findOneById($id_ecs);
 
@@ -256,11 +257,10 @@ class ExternalContributorsController extends AbstractController
      * 
      * @Route("/edit/{id_ecs}/{id_persorg}", name="edit_persorg")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function editPersorg (PPBasic $presentation, $id_ecs, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
    
         $persorg = $persorgRepository->findOneById($id_persorg);
 
@@ -302,10 +302,10 @@ class ExternalContributorsController extends AbstractController
      *
      * @Route("/ajax-reorder-ecs/", name="ajax_reorder_ecs")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderECS(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -339,10 +339,10 @@ class ExternalContributorsController extends AbstractController
      *
      * @Route("/ajax-reorder-ecs-persorgs/{id_ecs}", name="ajax_reorder_ecs_persorgs")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderECSPersorgs($id_ecs, ExternalContributorsStructureRepository $ecsRepository, Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

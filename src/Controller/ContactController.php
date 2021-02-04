@@ -25,6 +25,7 @@ class ContactController extends AbstractController
      */
     public function index(PPBasic $presentation, ContactRepository $contactRepository): Response
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         return $this->render('contacts/index.html.twig', [
             'contacts' => $contactRepository->findBy([
@@ -37,11 +38,13 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/new", name="contact_new", methods={"GET","POST"})
-     * @Security("is_granted('ROLE_USER')")
      * 
      */
     public function new(Request $request, PPBasic $presentation): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $contact = new Contact();
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
@@ -80,11 +83,13 @@ class ContactController extends AbstractController
      * @Route("/{contact_id}/edit", name="contact_edit", methods={"GET","POST"})
      * 
      * @Entity("contact", expr="repository.find(contact_id)")
-     * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function edit(PPBasic $presentation, Request $request, Contact $contact): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
+
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
 
@@ -105,10 +110,12 @@ class ContactController extends AbstractController
 
     /**
      * @Route("/{id}", name="contact_delete", methods={"DELETE"})
-     *  @Security("is_granted('ROLE_USER') and user === contact.getPresentation().getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function delete($slug, Request $request, Contact $contact): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $contact->getPresentation());
+
         if ($this->isCsrfTokenValid('delete'.$contact->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($contact);
@@ -126,10 +133,10 @@ class ContactController extends AbstractController
      *
      * @Route("/ajax-reorder-contact-cards/", name="ajax_reorder_contact_cards")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderContactCards(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation;
 
         if ($request->isXmlHttpRequest()) {
 

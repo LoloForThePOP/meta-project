@@ -25,11 +25,11 @@ class NewsController extends AbstractController
     /**
      * @Route("/", name="manage_news")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function index(PPBasic $presentation): Response
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         return $this->render('news/index.html.twig', [
             'presentation' => $presentation,
         ]);
@@ -37,11 +37,11 @@ class NewsController extends AbstractController
 
     /**
      * @Route("/create", name="create_news")
-     * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function create(PPBasic $presentation, Request $request, EntityManagerInterface $manager): Response
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $news = new News ();
 
         $form = $this->createForm(NewsType::class, $news);
@@ -79,10 +79,11 @@ class NewsController extends AbstractController
 
     /**
      * @Route("/edit/{idNews}", name="edit_news")
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function edit($idNews, NewsRepository $newsRepository, PPBasic $presentation, Request $request, EntityManagerInterface $manager): Response
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $news = $newsRepository->findOneById($idNews);
 
         $form = $this->createForm(NewsType::class, $news);
@@ -151,10 +152,11 @@ class NewsController extends AbstractController
      * 
      * @Entity("news", expr="repository.find(idNews)")
      * 
-     * @Security("is_granted('ROLE_USER') and user === news.getProject().getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function delete($slug, News $news, NewsRepository $newsRepository, Request $request): Response
     {
+        
+        $this->denyAccessUnlessGranted('edit', $news->getProject());
         
         $entityManager = $this->getDoctrine()->getManager();
         $entityManager->remove($news);

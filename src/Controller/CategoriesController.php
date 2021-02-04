@@ -24,11 +24,12 @@ class CategoriesController extends AbstractController
      * 
      * @Route("/", name="index_categories")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function index(PPBasic $presentation, Request $request, EntityManagerInterface $manager, CategoryRepository $categoryRepository)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $categories = $categoryRepository->findBy([], ['position' => 'ASC']);
 
         $form = $this->createForm(KeywordsOnlyType::class, $presentation);
@@ -63,9 +64,11 @@ class CategoriesController extends AbstractController
 
     /** 
      * @Route("/ajaxUpdateCategory", name="ajax_update_category") 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
     */ 
     public function ajaxUpdateCategory(Request $request, PPBasic $presentation, CategoryRepository $categoryRepository, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

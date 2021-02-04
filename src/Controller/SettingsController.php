@@ -20,6 +20,9 @@ class SettingsController extends AbstractController
      */
     public function index(PPBasic $presentation)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         return $this->render('settings/index.html.twig', [
             'presentation' => $presentation,
         ]);
@@ -30,10 +33,12 @@ class SettingsController extends AbstractController
      * Allow to switch Contact Messages Activation
      * 
      * @Route("/ajax-contact-messages-activation", name="ajax_contact_messages_activation") 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * 
     */ 
 
     public function ajaxContMessActivation(Request $request, PPBasic $presentation,EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -63,11 +68,11 @@ class SettingsController extends AbstractController
      * 
      * @Route("/ajax-publish-presentation", name="ajax_publish_presentation_switch") 
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
 
     public function ajaxPublishPresentationSwitch(Request $request, PPBasic $presentation,EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -92,13 +97,13 @@ class SettingsController extends AbstractController
     /** 
      * Allow or disallow comments for a project presentation
      * 
-     * @Route("/ajax-allow-comments", name="ajax_allow_comments_switch") 
-     * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * @Route("/ajax-allow-comments", name="ajax_allow_comments_switch")
      * 
     */ 
 
     public function ajaxDisableComments(Request $request, PPBasic $presentation,EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

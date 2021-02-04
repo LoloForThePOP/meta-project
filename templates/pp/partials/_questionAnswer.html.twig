@@ -49,7 +49,7 @@
 
                         <span class="question">
 
-                            {{ qa.question | capitalize }}
+                            {{ qa.question [:1] | upper ~ qa.question [1:] }}
 
                         </span>
 
@@ -71,7 +71,7 @@
 
                         <div class="answer mb-2">
                             
-                            {{ qa.answer | nl2br }}
+                            {{ qa.answer [:1] | upper ~ qa.answer [1:] | nl2br }}
                         
                         </div>
 

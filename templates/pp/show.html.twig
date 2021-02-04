@@ -16,7 +16,7 @@
 
 {% block sidebar %} 
 
-    {% if app.user and app.user == presentation.creator %}
+    {% if is_granted('edit', presentation) %}
     
         {% include 'partials/sidebar.html.twig' %} 
 

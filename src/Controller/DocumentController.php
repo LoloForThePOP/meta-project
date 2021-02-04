@@ -23,14 +23,16 @@ class DocumentController extends AbstractController
 
     
     /**
-     * user interface that allow to display, remove, reorder, add new Document
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
+     * user interface that allow to display, remove, reorder, add new Document
      * 
      * @Route("/", name="manage_documents")
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $document = new Document();
         
         $form = $this->createForm(DocumentType::class, $document);
@@ -74,11 +76,11 @@ class DocumentController extends AbstractController
      * 
      * @Route("/edit/{idDocument}", name="edit_document")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function edit (PPBasic $presentation, $idDocument, DocumentRepository $documentRepo, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $document = $documentRepo->findOneById($idDocument);
 
@@ -120,10 +122,10 @@ class DocumentController extends AbstractController
      * 
      * @Route("/ajax-remove-document/", name="ajax_remove_document")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemoveDocument(PPBasic $presentation, Request $request, DocumentRepository $documentRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -157,10 +159,10 @@ class DocumentController extends AbstractController
      *
      * @Route("/ajax-reorder-documents/", name="ajax_reorder_documents")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderDocuments(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

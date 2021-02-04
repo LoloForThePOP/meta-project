@@ -406,6 +406,18 @@
 
         </div>
 
+        <!-- ECS Rich Text Content Display -->
+            
+        {% if presentation.teammatesByText is not null %}
+
+            <div class="container richTextContent">
+
+                {{presentation.teammatesByText | raw}}
+
+            </div>
+
+        {% endif %}
+
     </div>
 
 

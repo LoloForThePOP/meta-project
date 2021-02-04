@@ -441,9 +441,14 @@ class PPBasic implements \Serializable
     private $rights;
 
     /**
-     * @ORM\Column(type="smallint", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     private $accessCode;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $teammatesByText;
 
 
  
@@ -459,8 +464,7 @@ class PPBasic implements \Serializable
         $this->isActiveContactMessages = true;
         $this->overallQualityAssessment = 3;
         $this->allowComments = true;
-        $this->accessCode = mt_rand(100000);
-
+        $this->accessCode = mt_rand(100000, 999999);
         $this->slides = new ArrayCollection();
         $this->needs = new ArrayCollection();
         $this->contacts = new ArrayCollection();
@@ -1409,6 +1413,18 @@ class PPBasic implements \Serializable
     public function setAccessCode(?int $accessCode): self
     {
         $this->accessCode = $accessCode;
+
+        return $this;
+    }
+
+    public function getTeammatesByText(): ?string
+    {
+        return $this->teammatesByText;
+    }
+
+    public function setTeammatesByText(?string $teammatesByText): self
+    {
+        $this->teammatesByText = $teammatesByText;
 
         return $this;
     }

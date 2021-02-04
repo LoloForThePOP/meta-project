@@ -26,9 +26,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 
-/**
- * 
- */
+
 class SlideshowController extends AbstractController
 {
 
@@ -36,8 +34,10 @@ class SlideshowController extends AbstractController
     /**
      * @Route("/projects/{slug}/slideshow/", name="slideshow_index")
      */
-    public function index(PPBasic $pp, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
+    public function index(PPBasic $presentation, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
     {        
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         //Add an Image Form
         
@@ -50,15 +50,15 @@ class SlideshowController extends AbstractController
             $slide = $addImageForm->getData();
 
             // count previous slides in order to set a position to the new image slide
-            $countPreviousSlides = count($pp->getSlides());
+            $countPreviousSlides = count($presentation->getSlides());
             $slide->setPosition($countPreviousSlides);
 
             $slide->setMediaType("image");
 
-            $pp->addSlide($slide);
+            $presentation->addSlide($slide);
             
             $manager->persist($slide);
-            $manager->persist($pp);
+            $manager->persist($presentation);
             $manager->flush();
             
             $editImageService->edit('presentation_slide',$slide->getSlideName());
@@ -74,13 +74,13 @@ class SlideshowController extends AbstractController
             );
 
             return $this->redirectToRoute('slideshow_index', [
-                'slug' => $pp->getSlug(),
+                'slug' => $presentation->getSlug(),
             ]);
 
         }
         return $this->render('slideshow/index.html.twig', [
-            'slug' => $pp->getSlug(),
-            'presentation' => $pp,
+            'slug' => $presentation->getSlug(),
+            'presentation' => $presentation,
             'addImageForm' => $addImageForm->createView(),
         ]);
     }
@@ -90,10 +90,10 @@ class SlideshowController extends AbstractController
      *
      * @Route("/projects/{slug}/slideshow/ajax-reorder-slides/", name="ajax_reorder_slides")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderSlides(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -128,10 +128,10 @@ class SlideshowController extends AbstractController
      * 
      * @Route("/projects/{slug}/slideshow/ajax-delete-slide/", name="ajax_delete_slide")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxDeleteSlide(PPBasic $presentation, Request $request, SlideRepository $slideRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -168,11 +168,11 @@ class SlideshowController extends AbstractController
      * 
      *  @Entity("slide", expr="repository.find(id_slide)")
      * 
-     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      * @return Response
      */
     public function editImageSlide (PPBasic $pp, Request $request, EntityManagerInterface $manager, Slide $slide){
+
+        $this->denyAccessUnlessGranted('edit', $pp);
 
         $form = $this->createForm(SlideshowImagesType::class, $slide);
 
@@ -209,11 +209,11 @@ class SlideshowController extends AbstractController
      * 
      * @Route("/projects/{slug}/slideshow/add-video",name="slideshow_video_add")
      * 
-     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      * @return Response
      */
     public function addVideoSlide (PPBasic $pp, Request $request, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $pp);
 
         $slide = new Slide ();
 
@@ -270,11 +270,11 @@ class SlideshowController extends AbstractController
      * 
      *  @Entity("slide", expr="repository.find(id_slide)")
      * 
-     * @Security("is_granted('ROLE_USER') and user === pp.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      * @return Response
      */
     public function editVideoSlide (PPBasic $pp, Slide $slide, Request $request, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $pp);
 
         $form = $this->createForm(AddVideoSlideType::class, $slide);
 

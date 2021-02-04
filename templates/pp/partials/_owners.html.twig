@@ -54,71 +54,67 @@
 
         <div class="container">
 
-            <div class="">
+            <div class="ownersDisplayRow {% if presentation.owners | length > 5 %} ownersSlideshow {% endif %} d-flex justify-content-start">
 
-                <div class="ownersDisplayRow{% if presentation.owners | length > 5 %} ownersSlideshow {% endif %} d-flex justify-content-start">
+                {% for owner in presentation.owners %}
 
-                    {% for owner in presentation.owners %}
+                    <!-- Owner Card -->
 
-                        <!-- Owner Card -->
+                    <div class="ownerCard mb-2 px-1 cursor-pointer">
 
-                        <div class="ownerCard mb-2 px-1 cursor-pointer">
+                        <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">
 
-                            <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">
+                        <!-- Owner Image -->
+                        
+                        <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px; width:150px;">
 
-                            <!-- Owner Image -->
+                            {% if owner.persorg.image is not null %}
+
+                                <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
                             
-                            <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px;">
+                            {% else %}
+                                                        
+                                <div class="avatar-circle mx-auto">
+                                    <span class="initials">
+                                        {{owner.persorg.name | slice (0,1) }}
+                                    </span>
+                                </div>
+                        
+                            {% endif %}
 
-                                {% if owner.persorg.image is not null %}
+                        </div> 
+                                            
+                        <!--Owner Name -->
 
-                                    <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
-                                
-                                {% else %}
-                                                            
-                                    <div class="avatar-circle mx-auto">
-                                        <span class="initials">
-                                            {{owner.persorg.name | slice (0,1) }}
-                                        </span>
-                                    </div>
+                        <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+
+                            {{ owner.persorg.name | length < 35 ? owner.persorg.name : owner.persorg.name|slice(0, 35) ~ '...' }}
+
+                        </div>
+
+                                            
+                        <!-- Owner Show More Info (if more info available) -->
+
+                        {% if owner.persorg.description is not empty or owner.persorg.email is not empty or owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
                             
-                                {% endif %}
+                            <div class="font-weight-bold mb-2 text-center" >
 
-                            </div> 
-                                                
-                            <!--Owner Name -->
-
-                            <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
-
-                                {{ owner.persorg.name | length < 35 ? owner.persorg.name : owner.persorg.name|slice(0, 35) ~ '...' }}
+                                <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">Voir +</a>
 
                             </div>
 
-                                                
-                            <!-- Owner Show More Info (if more info available) -->
-
-                            {% if owner.persorg.description is not empty or owner.persorg.email is not empty or owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
-                                
-                                <div class="font-weight-bold mb-2 text-center" >
-
-                                    <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">Voir +</a>
-
-                                </div>
-
-                            {% endif %}
+                        {% endif %}
 
 
-                            </a>
+                        </a>
 
-                            
-                            
                         
+                        
+                    
 
-                        </div>   
+                    </div>   
 
-                    {% endfor %}
-
-                </div>
+                {% endfor %}
 
             </div>
 
@@ -395,7 +391,6 @@
         cursor:pointer;
 
         white-space:normal;
-        overflow-x:auto;
     
     }
 

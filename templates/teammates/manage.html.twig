@@ -53,13 +53,22 @@
           
                 <!-- Add a Teammate Button -->
                     
-                <button type="button" data-toggle="modal" data-target="#teammateFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un membre</button> 
+                <button type="button" data-toggle="modal" data-target="#teammateFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-2">+ Ajouter un membre</button> 
 
             {% else %}
                 
                 <p class="fs-15 bg-light d-inline-block p-2 mb-0">La limite maximale de {{ constant('MAX_ALLOWED_TEAMMATES', presentation)}} membres d'équipe est atteinte. </p>
     
     
+            {% endif %}
+
+                           
+            {% if presentation.teammatesByText is empty %}
+   
+               <!-- Button Display Text Area -->
+   
+                <button type="button" class="js-display-textarea btn btn-success btn-lg sharp  p-3 font-weight-bold bg-green"> <span class="mr-2">+</span>Zone de texte</button>
+   
             {% endif %}
 
 
@@ -179,7 +188,46 @@
 
         </div>
 
- 
+
+
+        <!-- Teammates Display By Rich Text Editor -->
+
+        <div class="js-form-container p-0 col-md-8
+
+        {% if presentation.teammatesByText is empty %} d-none {% endif %} ">
+
+            {{form_start(teammatesByTextForm)}}
+
+            <!-- Form Errors Display -->
+
+            <span class="h5 text-danger">
+
+                {{form_errors(teammatesByTextForm.teammatesByText)}}
+
+            </span>
+
+            <!-- Rich Text Editor Area -->
+
+            <div class="mb-4">
+
+            {{form_widget(teammatesByTextForm.teammatesByText)}}
+
+            </div>
+
+            <!-- Save Rich Text Content Button -->
+
+            <div class= "pt-2">
+                
+                <button type="submit" class="btn btn-success btn-lg bg-green sharp h3 font-weight-bold mb-4 mr-3">Enregistrer</button>
+
+            </div>
+
+            {{form_end(teammatesByTextForm)}}
+
+        </div>
+
+
+        <!-- Back Buttons -->
 
         <div>
 
@@ -204,6 +252,55 @@
 
 {% block javascripts %}
 
+
+    <!-- CDN - TinyMCE Rich Text Editor -->
+
+    <script src="https://cdn.tiny.cloud/1/ozugcg6rtcsvf9xx1qfujj2aluoo7ezwd2pfx5xnwf4nhujq/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+
+
+    <!-- Parameters - TinyMCE Rich Text Editor -->
+
+    <script>
+        
+        tinymce.init({
+
+            mode : "specific_textareas",
+
+            editor_selector : "tinymce",
+
+            width : "100%",
+
+            height: "350",
+
+            entity_encoding : "raw",
+
+            menubar: 'edit format',
+
+            menu: {
+
+                edit: { title: 'Edit', items: 'undo redo | cut copy paste | selectall | searchreplace' },
+
+                format: { title: 'Format', items: 'bold italic underline strikethrough superscript subscript codeformat removeformat' },
+
+            }, 
+
+            language: 'fr_FR',
+
+            plugins: "emoticons, lists",
+
+            toolbar: "undo redo emoticons bullist bold italic underline alignleft aligncenter alignright alignjustify outdent indent",
+
+            content_style: "body {padding: 0px 15px;}",
+
+            nowrap : false,
+
+            //link_title: false, (only when links plugin will be integrated)
+            //target_list: false,
+        });
+
+    </script>
+
+
     <!-- sortable plugin in order to reorder Teammates Display -->
 
     <script src="/js/sortable/sortable.min.js"></script>
@@ -215,6 +312,20 @@
     <script>
 
         $(document).ready(function(){
+
+            
+            // if user wants to use text, we reveal textarea and we scroll down to textarea
+
+            $(".js-display-textarea").click(function() {
+
+                $(".js-display-textarea").hide();
+
+                $([document.documentElement, document.body]).animate({
+                    scrollTop: $('#teammates_by_text_teammatesByText').offset().top + $('#teammates_by_text_teammatesByText').outerHeight(true)}, 1700);
+                    
+                $('.js-form-container').removeClass("d-none");
+
+            });
 
             // if form errors are detected, we have to trigger form modal display
 

@@ -16,15 +16,10 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/projects/{slug}/question_answer")
- * 
- * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
- * 
  */
 
 class QuestionAnswerController extends AbstractController
 {
-
-
     /**
      * user interface that allow to display, remove, reorder, add new q&a
      * 
@@ -32,6 +27,8 @@ class QuestionAnswerController extends AbstractController
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $qa = new QuestionAnswer ();
         
         $form = $this->createForm(QuestionAnswerType::class, $qa);
@@ -72,10 +69,10 @@ class QuestionAnswerController extends AbstractController
      * 
      * @Route("/ajax-remove-qa/", name="ajax_remove_qa")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemoveQA(PPBasic $presentation, Request $request, QuestionAnswerRepository $qaRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -110,6 +107,8 @@ class QuestionAnswerController extends AbstractController
      */
     public function edit (PPBasic $presentation, $idQA, QuestionAnswerRepository $qaRepo, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $qa = $qaRepo->findOneById($idQA);
 
@@ -149,10 +148,10 @@ class QuestionAnswerController extends AbstractController
      *
      * @Route("/ajax-reorder-qa/", name="ajax_reorder_qas")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderQAs(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

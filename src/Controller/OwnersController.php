@@ -17,9 +17,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
+ * 
  * @Route("/projects/{slug}/owners")
  * 
- * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
  */
 class OwnersController extends AbstractController
 {
@@ -30,6 +30,8 @@ class OwnersController extends AbstractController
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager, ImageEditService $editImageService)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $owner = new Owner();
         
         $persorg = new Persorg();
@@ -77,11 +79,11 @@ class OwnersController extends AbstractController
      * 
      * @Route("/edit/{id_persorg}", name="edit_owner_persorg")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function editPersorg (PPBasic $presentation, $id_persorg, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
    
         $persorg = $persorgRepository->findOneById($id_persorg);
 
@@ -122,10 +124,10 @@ class OwnersController extends AbstractController
      *
      * @Route("/ajax-reorder-owners/", name="ajax_reorder_owners")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderOwners(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -160,10 +162,10 @@ class OwnersController extends AbstractController
      * 
      * @Route("/ajax-remove-owner/", name="ajax_remove_owner")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemoveOwner(PPBasic $presentation, Request $request, OwnerRepository $ownersRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

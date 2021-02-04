@@ -17,8 +17,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 /**
  * @Route("/projects/{slug}/websites")
  * 
- * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
- * 
  */
 class WebsiteController extends AbstractController
 {
@@ -28,6 +26,8 @@ class WebsiteController extends AbstractController
      */
     public function index (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $website = new Website ();
 
         $form = $this->createForm(WebsiteType::class, $website);
@@ -66,6 +66,8 @@ class WebsiteController extends AbstractController
      */
     public function edit (PPBasic $presentation, $idWebsite, WebsiteRepository $websiteRepo, Request $request, EntityManagerInterface $manager)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $website = $websiteRepo->findOneById($idWebsite);
 
@@ -106,10 +108,10 @@ class WebsiteController extends AbstractController
      *
      * @Route("/ajax-reorder-websites/", name="ajax_reorder_websites")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderWebsites(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -144,10 +146,10 @@ class WebsiteController extends AbstractController
      * 
      * @Route("/ajax-remove-website/", name="ajax_remove_website")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemoveWebsite(PPBasic $presentation, Request $request, WebsiteRepository $websiteRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

@@ -146,7 +146,7 @@ class PPController extends AbstractController
 
     
     /**
-     * Allow to Display a Project Presentation Page by its slug
+     * Allow to Display a Project Presentation Page
      *
      * @Route("/projects/{slug}", name="project_show")
      * 
@@ -269,11 +269,11 @@ class PPController extends AbstractController
      *
      * @Route("/projects/{slug}/edition-menu",name="edit_presentation_menu")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
-     * 
      * @return Response
      */
     public function showEditionMenu($slug, PPBasic $presentation, Request $request, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         /* External contributors structures can be created directly from the edition menu */
 

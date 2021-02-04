@@ -15,8 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/projects/{slug}/technicalData")
- * 
- * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
  */
 class TechnicalDataController extends AbstractController
 {
@@ -26,6 +24,8 @@ class TechnicalDataController extends AbstractController
      */
     public function manage (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $techData = new TechnicalData();
         
         $form = $this->createForm(TechnicalDataType::class, $techData);
@@ -71,6 +71,7 @@ class TechnicalDataController extends AbstractController
      */
     public function edit (PPBasic $presentation, $id_technicalData, TechnicalDataRepository $techDataRepository, Request $request, EntityManagerInterface $manager)
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $techData = $techDataRepository->findOneById($id_technicalData);
 
@@ -109,10 +110,10 @@ class TechnicalDataController extends AbstractController
      *
      * @Route("/ajax-reorder-techdata/", name="ajax_reorder_technicalDatas")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderTechDatas(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 
@@ -147,10 +148,10 @@ class TechnicalDataController extends AbstractController
      * 
      * @Route("/ajax-remove-techdata/", name="ajax_remove_technicalData")
      * 
-     *  @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function ajaxRemoveTechData(PPBasic $presentation, Request $request, TechnicalDataRepository $techDataRepository, EntityManagerInterface $manager){
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

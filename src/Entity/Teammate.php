@@ -54,8 +54,6 @@ class Teammate
      */
     private $position;
 
-  
-
     /**
      * @ORM\OneToOne(targetEntity=Persorg::class, inversedBy="teammate", cascade={"persist", "remove"})
      */
