@@ -136,7 +136,7 @@ class ContactController extends AbstractController
     */ 
     public function ajaxReorderContactCards(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
 
-        $this->denyAccessUnlessGranted('edit', $presentation;
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

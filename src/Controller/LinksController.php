@@ -14,14 +14,17 @@ class LinksController extends AbstractController
     
     /**
      * 
-     * some helpers for users in order to export or link its project presentation page
+     * some helpers for prsenters in order to export or link their project presentation page
      * 
-     * for example, give code to user to iframe its presentation into another website or get link to its presentation
+     * example : provide code to iframe presentation into another website
      * 
      * @Route("/projects/{slug}/links", name="links_index")
      */
     public function links($slug, PPBasic $presentation)
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $iFrameURL = $this->generateUrl('project_show_embed', array('id' => $presentation->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
 
         $projectPresentationURL = $this->generateUrl('project_show_by_id', array('id' => $presentation->getId()), UrlGeneratorInterface::ABSOLUTE_URL);
@@ -61,7 +64,7 @@ class LinksController extends AbstractController
 
     
     /**
-     * Allow to Display a Project Presentation Page without sidebars and other external contents and (purpose example : for export in iframes)
+     * Allow to Display a Project Presentation Page without sidebars and other external contents (for iframe display)
      *
      * @Route("/projects/{id}/embed", name="project_show_embed")
      * 
@@ -79,7 +82,7 @@ class LinksController extends AbstractController
 
     
     /**
-     * for test purpose : test a Project Presentation Display into a Fake external webpage (within an iFrame)
+     * for test purpose : test if a Project Presentation is well displayed into a Fake external webpage (within an iFrame)
      *
      * @Route("/testiframes", name="project_test_iframe")
      * 
