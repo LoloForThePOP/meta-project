@@ -54,7 +54,7 @@
 
         <div class="container">
 
-            <div class="teammatesDisplayRow d-flex align-items-start {% if presentation.teammates | length > 4 %} teammatesSlideshow {% endif %}">
+            <div class="teammatesDisplayRow d-flex align-items-start {% if presentation.teammates | length > 7 %} teammatesSlideshow {% endif %}">
 
                 {% for teammate in presentation.teammates %}
 
@@ -418,7 +418,6 @@
 
     .teamMemberCard{
 
-        
         display: inline-block !important;
 
         width:164px; 
@@ -431,7 +430,6 @@
         
         white-space:normal;
         overflow-x:auto;
-        
     
     }
 

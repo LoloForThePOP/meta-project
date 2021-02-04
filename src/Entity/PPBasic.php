@@ -440,6 +440,11 @@ class PPBasic implements \Serializable
      */
     private $rights;
 
+    /**
+     * @ORM\Column(type="smallint", nullable=true)
+     */
+    private $accessCode;
+
 
  
 
@@ -452,9 +457,9 @@ class PPBasic implements \Serializable
         $this->adminValidation = true;
         $this->isPublished = true;
         $this->isActiveContactMessages = true;
-        $this->isActiveContactMessages = true;
         $this->overallQualityAssessment = 3;
         $this->allowComments = true;
+        $this->accessCode = mt_rand(100000);
 
         $this->slides = new ArrayCollection();
         $this->needs = new ArrayCollection();
@@ -1392,6 +1397,18 @@ class PPBasic implements \Serializable
                 $right->setPresentation(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAccessCode(): ?int
+    {
+        return $this->accessCode;
+    }
+
+    public function setAccessCode(?int $accessCode): self
+    {
+        $this->accessCode = $accessCode;
 
         return $this;
     }

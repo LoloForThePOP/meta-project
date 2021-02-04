@@ -70,7 +70,7 @@
 
         <div class="row mb-4 mb-md-5">
             
-            <div class="mt-1">
+            <div class="container row mt-1">
 
                 {% if user is same as(app.user) %}
                 
@@ -96,6 +96,18 @@
                 {% endif %}
 
             </div>
+
+
+
+           {# <!-- Member Unique Identifier -->
+            
+            <div class="container row fs-25">
+
+                <div class="ml-3 mt-2"> Identifiant Unique : <span class="font-weight-bold mr-2">{{user.getId}}</span> </div>
+
+                <a tabindex="0" class="btn btn-light rounded-circle font-weight-bold" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Participer à des présentations" data-content="Cet identifiant vous permet de participer à la présentation d'autres projets. Communiquez-le aux créateurs d'une présentation.">?</a>
+
+            </div> #}
 
         </div>
 
@@ -184,5 +196,25 @@
         </div>
 
     </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {# <script>
+
+        //Popover management
+
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+        
+        
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+
+    </script> #}
 
 {% endblock %}

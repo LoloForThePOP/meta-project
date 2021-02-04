@@ -1118,13 +1118,14 @@ class AppFixtures extends Fixture
 
             // Presentation Access (edit; view; or admin the presentation) Creation
 
+
             for($i=1; $i<=mt_rand(1,5); $i++){
 
                 $right = new Right();
 
                 // Right Owner
 
-                $rightOwner=$users[ mt_rand(0, count($users)-1) ];
+                    $rightOwner=$users[ mt_rand(0, count($users)-1) ];
                     
                 // Created At
 
@@ -1136,11 +1137,18 @@ class AppFixtures extends Fixture
 
                     $rightType = $rightTypes[array_rand($rightTypes)];
 
+                // Right Status 
+
+                    $possibleStatus = ['candidate, confirmed'];
+
+                    $rightStatus = $possibleStatus [array_rand($possibleStatus)];
+
                 // Right Hydratation
 
                 $right  ->setType($rightType)
                         ->setPresentation($pp)
                         ->setUser($rightOwner)
+                        ->setStatus($rightStatus)
                         ->setCreatedAt($createdAt);
 
                 $manager->persist($right);

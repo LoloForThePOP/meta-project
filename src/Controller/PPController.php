@@ -68,7 +68,7 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'La présentation du projet a été créée ! <br> Vous pouvez maintenant ajouter toutes les informations que vous désirez présenter.'
+                'La présentation du projet a été créée ! <br> Vous pouvez maintenant ajouter des informations que vous désirez présenter.'
             );
 
             return $this->redirectToRoute('edit_presentation_menu', [

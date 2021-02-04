@@ -54,7 +54,6 @@ class TeammatesController extends AbstractController
 
             $editImageService->edit('presentation_teammate', $teammate->getPersorg()->getImage());
 
-
             PPMajorLogs::updateLogs($presentation, 'teammate', 'new', $idTeammate, $manager);
 
             $this->addFlash(

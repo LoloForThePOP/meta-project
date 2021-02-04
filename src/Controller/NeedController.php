@@ -24,26 +24,28 @@ class NeedController extends AbstractController
     /**
      * @Route("/", name="need_index", methods={"GET"})
      */
-    public function index(PPBasic $pp, NeedRepository $needRepository): Response
+    public function index(PPBasic $presentation, NeedRepository $needRepository): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         return $this->render('need/index.html.twig', [
             'needs' => 
                 $needRepository->findBy([
-                    'presentation' => $pp->getId(),
+                    'presentation' => $presentation->getId(),
                 ]),
-            'slug' => $pp->getSlug(),
-            'presentation' => $pp,
+            'slug' => $presentation->getSlug(),
+            'presentation' => $presentation,
         ]);
     }
 
     /**
      * @Route("/new/{needType}", name="need_new", methods={"GET","POST"})
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
      */
     public function new(PPBasic $presentation, $needType, $slug, Request $request, EntityManagerInterface $manager): Response
     {
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         $need = new Need();
 
@@ -135,10 +137,12 @@ class NeedController extends AbstractController
      * 
      * @Entity("need", expr="repository.find(need_id)")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function edit(PPBasic $presentation, Request $request, Need $need): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         $form = $this->createForm(NeedType::class, $need);
         $form->handleRequest($request);
 
@@ -159,10 +163,12 @@ class NeedController extends AbstractController
 
     /**
      * @Route("/{id}/delete", name="need_delete")
-     * @Security("is_granted('ROLE_USER') and user === need.getPresentation().getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
      */
     public function delete($slug, Request $request, Need $need): Response
     {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
+
         if ($this->isCsrfTokenValid('delete'.$need->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($need);
@@ -181,10 +187,10 @@ class NeedController extends AbstractController
      *
      * @Route("/ajax-reorder-needs/", name="ajax_reorder_needs")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()", message="Cette présentation ne vous appartient pas, vous ne pouvez pas la modifier")
-     * 
     */ 
     public function ajaxReorderNeeds(Request $request, PPBasic $presentation, EntityManagerInterface $manager) {
+
+        $this->denyAccessUnlessGranted('edit', $presentation);
 
         if ($request->isXmlHttpRequest()) {
 

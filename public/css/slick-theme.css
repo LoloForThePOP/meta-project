@@ -27,8 +27,8 @@
 
     display: block;
 
-    width: 20px;
-    height: 20px;
+    width: 27px;
+    height: 27px;
     padding: 0;
     -webkit-transform: translate(0, -50%);
     -ms-transform: translate(0, -50%);
@@ -40,7 +40,7 @@
     outline: none;
 
     border-radius:50%;
-    background-color: rgba(194, 181, 181, 0.8);
+    background-color: rgba(255, 249, 161, 0.8);
 }
 .slick-prev:hover,
 .slick-prev:focus,
@@ -90,12 +90,12 @@
 .slick-prev:before
 {
     content: '❮';    
-    color: blue;
+    color: navy;
 }
 [dir='rtl'] .slick-prev:before
 {
     content: '❯';    
-    color: blue;
+    color: navy;
 }
 
 .slick-next
@@ -111,11 +111,11 @@
 {
     content: '❯';
     
-    color: blue;
+    color: navy;
 }
 [dir='rtl'] .slick-next:before
 {
     content: '❮';
     
-    color: blue;
+    color: navy;
 }

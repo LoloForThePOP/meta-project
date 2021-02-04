@@ -163,9 +163,6 @@
                 <!-- Project Follow Button -->
                 {% include 'pp/partials/_follow_button.html.twig' %}
                 
-                <!-- Test Slick Slideshow -->
-                 {% include 'pp/partials/_test_slick.html.twig' %}
-                
                 <!-- Project Supplementary Informations (aka Technical Data)-->
                 {% include 'pp/partials/_technicalData.html.twig' %}
                 
@@ -217,10 +214,20 @@
                     <!-- Display Some Metadatas -->
                     {% include 'pp/partials/_metadataDisplay.html.twig' %}
 
+
+
                     <!-- some buttons (example : report abuse; save as pdf; ...) -->
+
                     <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
 
-                        <button type="button" class="btn btn-light">Signaler un abus</button>
+                        <button type="button" class="btn btn-light mr-2">Signaler un abus</button>
+                        
+                    </a>
+
+
+                    <a href="{{ path('edit_presentation_request', {'slug': presentation.slug}) }}">
+                    
+                        <button type="button" class="btn btn-light">Présenter ce projet</button>
 
                     </a>
                     
@@ -317,7 +324,9 @@
             
             $(document).ready(function(){
 
-                $('.test').slick({
+                // !!! Seems that only one instance is working
+
+                $('.teammatesSlideshow, .ownersSlideshow').slick({
 
                     slidesToShow: 3,
                     infinite:false,
@@ -335,63 +344,6 @@
                     }
                 });
 
-  /*              $('.teammatesSlideshow').slick({
-
-                    infinite: false,
-                    slidesToShow: 6,
-                    slidesToScroll: 2,
-                    variableWidth: true,
-
-                    responsive: [
-                    
-                        {
-
-                            breakpoint: 480,
-
-                            settings:
-
-                            {
-
-                                arrows: true,
-                                slidesToShow: 3,
-                                slidesToScroll: 2,
-
-                            }
-
-                        }
-                    ],
-
-                });
-
-
-                $('.ownersSlideshow').slick({
-
-                    infinite: false,
-                    slidesToShow: 6,
-                    slidesToScroll: 2,
-                    variableWidth: true,
-
-                    responsive: [
-                    
-                        {
-
-                            breakpoint: 480,
-
-                            settings:
-
-                            {
-
-                                arrows: true,
-                                slidesToShow: 3,
-                                slidesToScroll: 2,
-
-                            }
-
-                        }
-                    ],
-
-                });
-*/
 
 
             });

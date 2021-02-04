@@ -151,33 +151,36 @@
                 </div>
             </div>
 
-            {# 
 
-            <!-- Manage Project Presentation Access -->
-            
-            <div class="col-xl-4 col-md-6 mb-4">
-                <a href="{{ path('manage_access', {'slug':presentation.slug}) }}">
-                    <div class="card border-left-warning shadow h-100 py-2 cursor-pointer">
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                
-                                <div class="col">
+            {% if app.user == presentation.getCreator %}
+                
+                <!-- Manage Project Presentation Access -->
+                
+                <div class="col-xl-4 col-md-6 mb-4">
+                    <a href="{{ path('manage_access', {'slug':presentation.slug}) }}">
+                        <div class="card border-left-warning shadow h-100 py-2 cursor-pointer">
+                            <div class="card-body">
+                                <div class="row no-gutters align-items-center">
+                                    
+                                    <div class="col">
 
-                                    <div class="font-weight-bold fs-15 text-uppercase mb-3 mr-2" >
-                                        
-                                        <span class="mr-3 h4">🔑</span>
-                                        <span style="color:#0051fc;"> Gérer les accès</span>
+                                        <div class="font-weight-bold fs-15 text-uppercase mb-3 mr-2" >
+                                            
+                                            <span class="mr-3 h4">🔑</span>
+                                            <span style="color:#0051fc;"> Gérer les accès</span>
+
+                                        </div>
 
                                     </div>
-
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </a>
-            </div>
+                    </a>
+                </div>
+                
+            {% endif %}
 
-            #}
+
 
 
         <!-- End Of First Row -->

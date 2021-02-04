@@ -1,0 +1,49 @@
+{% extends 'base.html.twig' %}
+
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
+
+{% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
+
+
+{% block title %}Demander à Rejoindre une Présentation{% endblock %}
+
+{% block body %}
+
+<div class="container">
+
+    <h4 class="mt-5 mb-3">Participer à la présentation d'un Projet</h4>
+
+    <p class="fs-15 col-md-7 pl-0">Pour participer à cette présentation de ce projet, veuillez écrire son code d'accès (à demander au créateur de la présentation).</p>
+
+    <div class="col-md-5 pl-0">
+
+                
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+        <button class="btn btn-success bg-green sharp my-3 mr-2">
+
+            <span class="font-weight-bold">
+                {{ button_label|default('Envoyer ma demande') }}
+            </span>
+            
+        </button>
+
+        <!-- Back Button -->
+
+        <a href="">
+
+            <button type="button" class="btn btn-info sharp font-weight-bold my-3">Retour</button>
+
+        </a>
+
+        {{ form_end(form) }}
+
+
+    </div>
+
+</div>
+    
+    
+{% endblock %}

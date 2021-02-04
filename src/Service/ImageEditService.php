@@ -12,6 +12,11 @@ class ImageEditService {
 
     public function edit ($imageCategory, $imageName){
 
+        if ($imageName==null) {
+
+            return false;
+        }
+
         switch ($imageCategory) {
 
             case 'presentation_slide':

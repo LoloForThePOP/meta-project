@@ -83,10 +83,10 @@ class AccessPresentationVoter extends Voter
             return true;
         }
 
-        //otherwise we check if users is included in presentation rights, along with Edit presentation capability
+        //otherwise we check if users is included in presentation rights, along has been an admitted presenter, and with Edit presentation capability
         foreach ($presentation->getRights() as $right) {
             
-            if ($right->getUser() == $user && $right->getType()=='edit') {
+            if ($right->getUser() == $user && $right->getType()=='edit' && $right->getStatus()== 'admitted') {
                 
                 return true;
             }
