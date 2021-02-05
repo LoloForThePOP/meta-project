@@ -1,0 +1,239 @@
+
+<div class="modal fade" id="ownerDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="ownerDisplayLabel{{ loop.index }}" aria-hidden="true">
+            
+    <div class="modal-dialog" role="">
+
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+
+            <div class="modal-header">
+
+                <!-- Owner Name -->
+
+                <div class="row pl-4 font-weight-bold"> 
+
+                    <div class="h5" >
+
+                        {{ owner.persorg.name }}
+
+                    </div>
+                
+                </div>
+
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                    <span aria-hidden="true">&times;</span>
+
+                </button>
+
+            </div>
+
+            <!-- Modal Body -->
+
+            <div class="modal-body">
+
+                <div class="container pt-md-3">
+
+
+                    <!-- Upper Box (contains owner image; name & missions) -->
+
+                    <div class="row mb-4">
+
+                        <div class="col-4">
+                            
+                            <!-- Owner Image -->
+
+                            {% if owner.persorg.image is not null %}
+
+                            <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+                            
+
+                                {% else %}
+                                                                                
+                                <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
+
+                                        <span class="initials" style="font-size: 60px; top:30px;">
+
+                                            {{owner.persorg.name | slice (0,1) }}
+
+                                        </span>
+
+                                </div>
+                            
+                            {% endif %}
+
+                            
+
+                        </div>
+
+                        <div class="col-8">
+
+                            <div class="container">
+                        
+                                <!-- Owner Name -->
+
+                                <div class="row"> 
+
+                                    <div class="h5" >
+
+                                        {{ owner.persorg.name }}
+
+                                    </div>
+                                
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Owner Description / Comments (Potential) -->
+
+                    {% if owner.persorg.description %}
+
+                        <div class="row px-3 mb-4" style="font-size:1.09em;">
+
+                            {{ owner.persorg.description | nl2br }}
+
+                        </div>
+
+                    
+                    {% endif %}
+
+                <!-- Owner Email (Potential) -->
+
+                {% if owner.persorg.email %}
+
+                <div class=" mb-2 mb-md-3">
+
+                            <!-- Email (Label) -->
+
+                            <span class="font-weight-bold h5 text-primary">
+
+                                Email : 
+
+                            </span>
+
+                            <!-- Email (Display) -->
+
+
+                            <span class="font-weight-bold">
+
+                                <a href="mailto:{{ owner.persorg.email }}">
+
+                                    {{ owner.persorg.email }}
+
+                                </a>
+
+                            </span>
+
+
+                </div>
+                    
+        
+                
+                {% endif %}
+
+                <!-- Owner Potential Websites or Social Networks -->
+
+                {% if owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
+
+                    <!-- Label for Owner Potential Websites or Social Networks -->
+
+                    <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
+
+                        Sites Webs / Réseaux Sociaux
+
+                    </div>
+
+                {% endif %}
+
+
+                {% if owner.persorg.webdomain1 is not empty %}
+
+                    <!-- Owner Webdomain 1 (Potential) -->
+
+                    <div class="font-weight-bold mb-2">
+
+                        ● <a href="{{ owner.persorg.webdomain1}}"> 
+                            
+                            {{ owner.persorg.webdomain1 | length < 30 ? owner.persorg.webdomain1 : owner.persorg.webdomain1 | slice(0, 30) ~ '...' }}
+
+                        </a>
+
+                    </div>
+                
+                {% endif %}
+
+                <!-- Owner Webdomain 2 (Potential) -->
+
+                {% if owner.persorg.webdomain2 is not empty %}
+                
+                    <div class="font-weight-bold mb-2">
+
+                        ● <a href="{{ owner.persorg.webdomain2}}"> 
+                            
+                            {{ owner.persorg.webdomain2 | length < 30 ? owner.persorg.webdomain2 : owner.persorg.webdomain2 | slice(0, 30) ~ '...' }}
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+                <!-- Owner Webdomain 3 (Potential) -->
+
+                {% if owner.persorg.webdomain3 is not empty %}
+                
+                    <div class="font-weight-bold mb-2">
+
+                        ● <a href="{{ owner.persorg.webdomain3}}"> 
+                            
+                            {{ owner.persorg.webdomain3 | length < 30 ? owner.persorg.webdomain3 : owner.persorg.webdomain3 | slice(0, 30) ~ '...' }}
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+                <!-- Owner Webdomain 4 (Potential) -->
+
+                {% if owner.persorg.webdomain4 is not empty %}
+                
+                    <div class="font-weight-bold mb-2">
+
+                        ● <a href="{{ owner.persorg.webdomain4}}"> 
+                            
+                            {{ owner.persorg.webdomain4 | length < 30 ? owner.persorg.webdomain4 : owner.persorg.webdomain4 | slice(0, 30) ~ '...' }}
+
+                        </a>
+
+                    </div>
+
+                {% endif %}
+
+                <!-- End of Modal Body Container -->
+
+                </div>
+
+            <!-- End of Modal Body -->
+
+            </div>
+
+            <!-- Modal footer -->
+
+            <div class="modal-footer">
+
+            <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

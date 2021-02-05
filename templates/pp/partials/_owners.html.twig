@@ -12,7 +12,6 @@
     
 {% endblock %}
 
-
 <!-- Project Owner Display -->
 
 {% if presentation.owners | length > 0 %}
@@ -25,25 +24,19 @@
 
         <div class="pp-struct-title-container">
 
-            <!-- Structure Icon
-
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/owner.svg" height="38" width="38" alt="project owners icon"> -->
-
             <!-- Structure Title -->
 
             <h3 class="pp-struct-title d-inline mr-2 mb-2">Porteurs du Projet</h3>
     
-            <!-- Edit Text Description Button -->
+            <!-- Edit Owners Button -->
     
-            {% if app.user and app.user == presentation.creator %}
-
+            {% if is_granted('edit', presentation) %}
 
                 <a class="" href="{{ path('manage_owners', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
                     
                 </a>
-
 
             {% endif %}
 
@@ -60,309 +53,18 @@
 
                     <!-- Owner Card -->
 
-                    <div class="ownerCard mb-2 px-1 cursor-pointer">
-
-                        <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">
-
-                        <!-- Owner Image -->
-                        
-                        <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px; width:150px;">
-
-                            {% if owner.persorg.image is not null %}
-
-                                <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
-                            
-                            {% else %}
-                                                        
-                                <div class="avatar-circle mx-auto">
-                                    <span class="initials">
-                                        {{owner.persorg.name | slice (0,1) }}
-                                    </span>
-                                </div>
-                        
-                            {% endif %}
-
-                        </div> 
-                                            
-                        <!--Owner Name -->
-
-                        <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
-
-                            {{ owner.persorg.name | length < 35 ? owner.persorg.name : owner.persorg.name|slice(0, 35) ~ '...' }}
-
-                        </div>
-
-                                            
-                        <!-- Owner Show More Info (if more info available) -->
-
-                        {% if owner.persorg.description is not empty or owner.persorg.email is not empty or owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
-                            
-                            <div class="font-weight-bold mb-2 text-center" >
-
-                                <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">Voir +</a>
-
-                            </div>
-
-                        {% endif %}
-
-
-                        </a>
-
-                        
-                        
-                    
-
-                    </div>   
+                    {% include 'pp/partials/_owners/_card_display.html.twig' %}
 
                 {% endfor %}
 
             </div>
 
 
-            <!-- Owner Details (Modal Boxes Creation) -->
+            <!-- Owner Details (displayed in modal boxes) -->
    
             {% for owner in presentation.owners %}
 
-                <!-- Display More Info (Owner Details) (in a modal box) -->
-
-                <div class="modal fade" id="ownerDisplayModal{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="ownerDisplayLabel{{ loop.index }}" aria-hidden="true">
-                        
-                <div class="modal-dialog" role="">
-    
-                  <div class="modal-content">
-
-                    <!-- Modal Header -->
-    
-                    <div class="modal-header">
-
-                        <!-- Owner Name -->
-
-                        <div class="row pl-4 font-weight-bold"> 
-
-                            <div class="h5" >
-
-                                {{ owner.persorg.name }}
-
-                            </div>
-                        
-                        </div>
-
-    
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        
-                            <span aria-hidden="true">&times;</span>
-        
-                        </button>
-    
-                    </div>
-
-                    <!-- Modal Body -->
-    
-                    <div class="modal-body">
-
-                        <div class="container pt-md-3">
-
-
-                            <!-- Upper Box (contains owner image; name & missions) -->
-
-                            <div class="row mb-4">
-
-                                <div class="col-4">
-                                    
-                                    <!-- Owner Image -->
-
-                                    {% if owner.persorg.image is not null %}
-
-                                     <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
-                                    
-
-                                        {% else %}
-                                                                                        
-                                        <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
-
-                                                <span class="initials" style="font-size: 60px; top:30px;">
-
-                                                    {{owner.persorg.name | slice (0,1) }}
-
-                                                </span>
-
-                                        </div>
-                                    
-                                    {% endif %}
-
-                                    
-
-                                </div>
-
-                                <div class="col-8">
-
-                                    <div class="container">
-                                  
-                                        <!-- Owner Name -->
-
-                                        <div class="row"> 
-
-                                            <div class="h5" >
-
-                                                {{ owner.persorg.name }}
-
-                                            </div>
-                                        
-                                        </div>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                            <!-- Owner Description / Comments (Potential) -->
-
-                            {% if owner.persorg.description %}
-
-                                <div class="row px-3 mb-4" style="font-size:1.09em;">
-
-                                    {{ owner.persorg.description | nl2br }}
-
-                                </div>
-
-                            
-                            {% endif %}
-
-                        <!-- Owner Email (Potential) -->
-
-                        {% if owner.persorg.email %}
-
-                        <div class=" mb-2 mb-md-3">
-
-                                      <!-- Email (Label) -->
-
-                                      <span class="font-weight-bold h5 text-primary">
-
-                                        Email : 
-    
-                                    </span>
-
-                                    <!-- Email (Display) -->
-            
-
-                                    <span class="font-weight-bold">
-
-                                        <a href="mailto:{{ owner.persorg.email }}">
-
-                                            {{ owner.persorg.email }}
-
-                                        </a>
-            
-                                    </span>
-
-
-                        </div>
-                            
-                  
-                        
-                        {% endif %}
-
-                        <!-- Owner Potential Websites or Social Networks -->
-
-                        {% if owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
-
-                            <!-- Label for Owner Potential Websites or Social Networks -->
-
-                            <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
-
-                                Sites Webs / Réseaux Sociaux
-
-                            </div>
-
-                        {% endif %}
-
-
-                        {% if owner.persorg.webdomain1 is not empty %}
-
-                            <!-- Owner Webdomain 1 (Potential) -->
-    
-                            <div class="font-weight-bold mb-2">
-
-                                ● <a href="{{ owner.persorg.webdomain1}}"> 
-                                    
-                                    {{ owner.persorg.webdomain1 | length < 30 ? owner.persorg.webdomain1 : owner.persorg.webdomain1 | slice(0, 30) ~ '...' }}
-
-                                </a>
-    
-                            </div>
-                        
-                        {% endif %}
-
-                         <!-- Owner Webdomain 2 (Potential) -->
-
-                        {% if owner.persorg.webdomain2 is not empty %}
-                        
-                            <div class="font-weight-bold mb-2">
-
-                                ● <a href="{{ owner.persorg.webdomain2}}"> 
-                                    
-                                    {{ owner.persorg.webdomain2 | length < 30 ? owner.persorg.webdomain2 : owner.persorg.webdomain2 | slice(0, 30) ~ '...' }}
-
-                                </a>
-    
-                            </div>
-
-                        {% endif %}
-
-                         <!-- Owner Webdomain 3 (Potential) -->
-
-                        {% if owner.persorg.webdomain3 is not empty %}
-                        
-                            <div class="font-weight-bold mb-2">
-
-                                ● <a href="{{ owner.persorg.webdomain3}}"> 
-                                    
-                                    {{ owner.persorg.webdomain3 | length < 30 ? owner.persorg.webdomain3 : owner.persorg.webdomain3 | slice(0, 30) ~ '...' }}
-
-                                </a>
-    
-                            </div>
-
-                        {% endif %}
-
-                         <!-- Owner Webdomain 4 (Potential) -->
-
-                        {% if owner.persorg.webdomain4 is not empty %}
-                        
-                            <div class="font-weight-bold mb-2">
-
-                                ● <a href="{{ owner.persorg.webdomain4}}"> 
-                                    
-                                    {{ owner.persorg.webdomain4 | length < 30 ? owner.persorg.webdomain4 : owner.persorg.webdomain4 | slice(0, 30) ~ '...' }}
-
-                                </a>
-    
-                            </div>
-
-                        {% endif %}
-
-                        <!-- End of Modal Body Container -->
-
-                        </div>
-
-                    <!-- End of Modal Body -->
-
-                    </div>
-
-                    <!-- Modal footer -->
-    
-                    <div class="modal-footer">
-    
-                      <button type="button" class="btn btn-info sharp" data-dismiss="modal">Retour</button>
-    
-                    </div>
-    
-                  </div>
-    
-                </div>
-    
-                </div>  
+                {% include 'pp/partials/_owners/_modal_box.html.twig' %}
 
             {% endfor %}
 
@@ -441,6 +143,10 @@
 
     }
 
-
-
 </style>
+
+
+
+<!-- Structure Icon
+
+<img class="pp-struct-icon" src="/images/icons/consult_presentation/owner.svg" height="38" width="38" alt="project owners icon"> -->

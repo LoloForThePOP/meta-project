@@ -4,9 +4,9 @@
 
 {% if presentation.externalContributorsStructures | length > 0 %}
 
-    {% if app.user and app.user == presentation.creator %}
+    {% if is_granted('edit', presentation) %}
         
-    <!-- Title Container with Edit Button -->
+        <!-- Title Container with Edit Button -->
 
         <div id="externalContributorsDisplay" class="pp-struct-title-container">
 
@@ -30,19 +30,11 @@
 
     <div class="pp-struct-container pb-3">
             
-        {% for ecs in presentation.externalContributorsStructures  %}
+        {% for ecs in presentation.externalContributorsStructures %}
 
             <div class="ecs">
 
                 <div class="pp-struct-title-container mb-4">
-
-                   {# {% if loop.first %}
-
-                        <!-- Structure Icon -->
-
-                        <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors.svg" height="32" width="32" alt="external contributors icon">
-                    
-                    {% endif %}#}
                     
                     <!-- ECS Title Display (ex: Our Sponsors) -->
 
@@ -54,7 +46,7 @@
 
                     <!-- Edit this ECS Button -->
 
-                    {% if app.user and app.user == presentation.creator %}
+                    {% if is_granted('edit', presentation) %}
 
                         <a class="" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
 
@@ -66,333 +58,25 @@
 
                 </div>
 
-
-
-                 <!-- ECS Images Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
+                <!-- ECS Card Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                 
                 {% if ecs.persorgs | length > 0 %}
-                    
+
                     <div class="container">
-                        
+                                            
                         <div class="ecsDisplayRow">
-                            
-                            <!-- ECS Content Display (ex: Coca-Cola; Nike; etc) (in cards) -->
-                                                        
-                                {% for persorg in ecs.persorgs %}
 
-                                    <!-- Person or Organisation Card -->
+                            {% include 'pp/partials/_external_contributors/_card_display.html.twig' %}
 
-                                    <div class="externalContributorCard mb-2 px-1">
-
-                                        <div class="d-flex align-content-center" style="height:210px;">
-
-                                            <a href="#" class="my-auto mx-auto text-body" data-toggle="modal" data-target="#externalContributorDisplayModal{{loop.parent.loop.index}}{{loop.index}}">
-
-                                        <!-- Persorg Image -->
-                                        
-                                        <div class="mb-2 d-flex justify-content-center">
-
-                                            {% if persorg.image is not null %}
-
-                                                <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
-                                            
-                                            {% else %}
-                                                                    
-                                            <div class="avatar-circle mx-auto">
-
-                                                <span class="initials">
-
-                                                    {{persorg.name | slice (0,1) | capitalize }}
-
-                                                </span>
-
-                                            </div>
-                                        
-                                        {% endif %}
-
-                                        </div> 
-                                                            
-                                        <!-- Persorg Name -->
-
-                                        <div class="persorgName">
-
-                                            {{ persorg.name | length < 35 ? persorg.name : persorg.name|slice(0, 35) ~ '...' }}
-
-                                        </div>
-
-                                                            
-                                        <!-- Persorg Show More Info (if we have more info available) -->
-
-                                        {% if persorg.description is not empty or persorg.email is not empty or persorg.webdomain1 is not empty or persorg.webdomain2 is not empty or persorg.webdomain3 is not empty or persorg.webdomain4 is not empty  %}
-                                            
-                                            <div class="font-weight-bold mb-2 text-center" >
-
-                                                <span href="#" class="badge badge-primary" data-toggle="modal" data-target="#persorgDisplayModal{{ loop.index }}">Voir +</span>
-
-                                            </div>
-
-                                        {% endif %}
-
-
-                                        </a>
-
-                                    </div>
-
-                                      
-
-                                    </div>  
-                                    
-                                {% endfor %}
-
-                            </div>
+                        </div>
 
                     </div>
-            
-                    <!-- Persorg Details (Displayed in Modal Boxes) -->
-
-                    <!--Modal Boxes Creation -->
+                    
+                    <!-- ECS Details (Displayed in Modal Boxes) -->
                     
                     {% for persorg in ecs.persorgs %}
 
-                        <div class="modal fade" id="externalContributorDisplayModal{{loop.parent.loop.index}}{{ loop.index }}" tabindex="-1" role="dialog" aria-labelledby="externalContributorDisplayLabel{{loop.parent.loop.index}}{{ loop.index }}" aria-hidden="true">
-                                    
-                            <div class="modal-dialog" role="">
-
-                                <div class="modal-content">
-
-                                <!-- Modal Header -->
-
-                                <div class="modal-header">
-
-                                     <!-- Persorg Name -->
-
-                                     <div class="row pl-4"> 
-
-                                        <div class="h5 font-weight-bold" >
-
-                                            {{ persorg.name }}
-
-                                        </div>
-                                    
-                                    </div>
-
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    
-                                        <span aria-hidden="true">&times;</span>
-                    
-                                    </button>
-
-                                </div>
-
-                                <!-- Modal Body -->
-
-                                <div class="modal-body">
-
-                                    <div class="container pt-md-3">
-
-                                        <!-- Upper Box (contains persorg image; name) -->
-
-                                        <div class="row mb-4">
-
-                                            <div class="col-4">
-                                                
-                                                <!-- Persorg Image -->
-
-                                                    <!-- Case we got an Image -->
-
-                                                    {% if persorg.image is not null %}
-
-                                                        <img class="img-fluid" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('logo_thumbnail_md') }}" height="100px" width="100px">
-
-                                                    <!-- Case we don't have an Image -->
-
-                                                    <!-- We create a default persorg Image -->
-
-                                                    {% else %}
-                                                                                         
-                                                        <div class="avatar-circle mx-auto">
-
-                                                            <span class="initials" >
-
-                                                                {{persorg.name | slice (0,1) }}
-
-                                                            </span>
-
-                                                    </div>
-                                                
-                                                {% endif %}
-
-                                            </div>
-
-                                            <div class="col-8">
-
-                                                <div class="container">
-                                                    
-                                                    <!-- Persorg Name -->
-
-                                                    <div class="row"> 
-
-                                                       <!--  <div class="h5" >
-
-                                                            {{ persorg.name }}
-
-                                                        </div> -->
-                                                    
-                                                    </div>
-
-                                                </div>
-
-                                            </div>
-
-                                        </div>
-
-                                        <!-- Persorg Comments / Description (Potential) -->
-
-                                        {% if persorg.description %}
-
-                                            <div class="row px-3 mb-4" style="font-size:1.09em;">
-
-                                                {{ persorg.description | nl2br }}
-
-                                            </div>
-
-                                        
-                                        {% endif %}
-
-                                    <!-- Persorg Member Email (Potential) -->
-
-                                    {% if persorg.email %}
-
-                                    <div class=" mb-2 mb-md-3">
-
-                                                    <!-- Email (Label) -->
-
-                                                    <span class="font-weight-bold h5 text-primary">
-
-                                                    Email : 
-
-                                                </span>
-
-                                                <!-- Email (Display) -->
-                        
-
-                                                <span class="font-weight-bold">
-
-                                                    <a href="mailto:{{ persorg.email }}">
-
-                                                        {{ persorg.email }}
-
-                                                    </a>
-                        
-                                                </span>
-
-
-                                    </div>
-                                        
-                                
-                                    
-                                    {% endif %}
-
-                                    <!-- Persorg Potential Websites or Social Networks -->
-
-                                    {% if persorg.webdomain1 is not empty or persorg.webdomain2 is not empty or persorg.webdomain3 is not empty or persorg.webdomain4 is not empty  %}
-
-                                        <!-- Label for Persorg Potential Websites or Social Networks -->
-
-                                        <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
-
-                                            Sites Webs / Réseaux Sociaux
-
-                                        </div>
-
-                                    {% endif %}
-
-
-                                    {% if persorg.webdomain1 is not empty %}
-
-                                        <!-- Persorg Webdomain 1 (Potential) -->
-
-                                        <div class="font-weight-bold mb-2">
-
-                                            ● <a href="{{ persorg.webdomain1}}"> 
-                                                
-                                                {{ persorg.webdomain1 | length < 30 ? persorg.webdomain1 : persorg.webdomain1 | slice(0, 30) ~ '...' }}
-
-                                            </a>
-
-                                        </div>
-                                    
-                                    {% endif %}
-
-                                    <!-- Persorg Webdomain 2 (Potential) -->
-
-                                    {% if persorg.webdomain2 is not empty %}
-                                    
-                                        <div class="font-weight-bold mb-2">
-
-                                            ● <a href="{{ persorg.webdomain2}}"> 
-                                                
-                                                {{ persorg.webdomain2 | length < 30 ? persorg.webdomain2 : persorg.webdomain2 | slice(0, 30) ~ '...' }}
-
-                                            </a>
-
-                                        </div>
-
-                                    {% endif %}
-
-                                    <!-- Persorg Webdomain 3 (Potential) -->
-
-                                    {% if persorg.webdomain3 is not empty %}
-                                    
-                                        <div class="font-weight-bold mb-2">
-
-                                            ● <a href="{{ persorg.webdomain3}}"> 
-                                                
-                                                {{ persorg.webdomain3 | length < 30 ? persorg.webdomain3 : persorg.webdomain3 | slice(0, 30) ~ '...' }}
-
-                                            </a>
-
-                                        </div>
-
-                                    {% endif %}
-
-                                    <!-- Persorg Webdomain 4 (Potential) -->
-
-                                    {% if persorg.webdomain4 is not empty %}
-                                    
-                                        <div class="font-weight-bold mb-2">
-
-                                            ● <a href="{{ persorg.webdomain4}}"> 
-                                                
-                                                {{ persorg.webdomain4 | length < 30 ? persorg.webdomain4 : persorg.webdomain4 | slice(0, 30) ~ '...' }}
-
-                                            </a>
-
-                                        </div>
-
-                                    {% endif %}
-
-                                    <!-- End of Modal Body Container -->
-
-                                    </div>
-
-                                <!-- End of Modal Body -->
-
-                                </div>
-
-                                <!-- Modal footer -->
-
-                                <div class="modal-footer">
-
-                                    <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
-
-                                </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>  
+                        {% include 'pp/partials/_external_contributors/_modal_box.html.twig' %}
 
                     {% endfor %}
 
@@ -446,10 +130,10 @@
         overflow-x:auto;
     }
     
-    .ecsTitle{
+    /* .ecsTitle{
 
-       //margin-bottom: 20px;
-    }
+       margin-bottom: 20px;
+    } */
 
     .persorgName{
        
@@ -503,3 +187,13 @@
 
 
 </style>
+
+
+
+{# {% if loop.first %}
+
+    <!-- Structure Icon -->
+
+    <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors.svg" height="32" width="32" alt="external contributors icon">
+
+{% endif %}#}

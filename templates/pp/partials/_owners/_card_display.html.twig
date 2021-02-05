@@ -1,0 +1,53 @@
+<div class="ownerCard mb-2 px-1 cursor-pointer">
+
+    <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">
+
+    <!-- Owner Image -->
+    
+        <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px">
+
+            {% if owner.persorg.image is not empty %}
+
+                <div> <!-- sub img-fluid applies only applies to this parent div  -->
+
+                    <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+
+                </div>
+            
+            {% else %}
+                                        
+                <div class="avatar-circle mx-auto">
+                    <span class="initials">
+                        {{owner.persorg.name | slice (0,1) }}
+                    </span>
+                </div>
+        
+            {% endif %}
+
+        </div> 
+                        
+    <!--Owner Name -->
+
+    <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+
+        {{ owner.persorg.name | length < 35 ? owner.persorg.name : owner.persorg.name|slice(0, 35) ~ '...' }}
+
+    </div>
+
+                        
+    <!-- Owner Show More Info (if more info available) -->
+
+    {% if owner.persorg.description is not empty or owner.persorg.email is not empty or owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
+        
+        <div class="font-weight-bold mb-2 text-center" >
+
+            <a href="#" class="badge badge-primary" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">Voir +</a>
+
+        </div>
+
+    {% endif %}
+
+
+    </a>
+
+</div>   
