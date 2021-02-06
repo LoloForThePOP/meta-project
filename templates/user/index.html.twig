@@ -113,39 +113,72 @@
 
         <!-- User Project Presentations -->
 
-        <div class="row mt-4">
+        <div class="row mb-4">
 
-            {% if user.presentations | length > 0 %}
+            {% if userCreations | length > 0 %}
 
-                <div class="col-11">
+                <div class="col-11 mb-4">
 
-                    <!-- User Projects Count -->
+                    <!-- User CREATED Presentations Count -->
 
                     <h4 class="mb-5">
                         <span class="font-weight-bold">
 
-                            {% if user.presentations | length == 1 %}
-                                1 Projet Présenté
+                            {% if userCreations | length == 1 %}
+                                1 Présentation créée
                             {% else %}
-                                {{user.presentations | length}} Projets Présentés
+                                {{userCreations | length}} Présentations créées
                             {% endif %}
                         </span>
                     </h4>
 
-                    {% for presentation in user.presentations | reverse %}
+                    <!-- User CREATED presentations display -->
+
+                    {% for presentation in userCreations | reverse %}
 
                         {% include 'pp/_display_linear_list.html.twig' %}
 
                     {% endfor %}
 
+
                 </div>
-        
-            {% else %}
+
+            {# {% else %}
         
                 <div class="d-flex align-items-center py-3">
-                    <p class="my-0 h4"><strong>Pas de projet présenté</strong></p>
-                </div>
+                    <p class="my-0 h4"><strong>Pas de présentation créée</strong></p>
+                </div> #}
         
+            {% endif %}
+
+            {% if userContributions | length > 0 %}
+
+                <div class="col-11">
+
+                    <!-- User CONTRIBUTES Presentations Count -->
+
+                    <h4 class="mb-5">
+                        <span class="font-weight-bold">
+
+                            {% if userContributions | length == 1 %}
+                                1 autre projet présenté :
+                            {% else %}
+                                {{userContributions | length}} autres projets présentés :
+                            {% endif %}
+                        </span>
+                    </h4>
+
+                    <!-- User CONTRIBUTES presentations Display -->
+
+                    {% for presentation in userContributions | reverse %}
+
+                        {% include 'pp/_display_linear_list.html.twig' %}
+
+                    {% endfor %}
+
+
+                </div>
+
             {% endif %}
 
         </div>

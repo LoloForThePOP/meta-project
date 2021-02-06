@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Right;
 use App\Entity\PPBasic;
+use App\Entity\ContactMessage;
 use App\Repository\RightRepository;
 use App\Form\InvitePresenterByEmailType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -55,7 +56,7 @@ class RightsController extends AbstractController
 
     /**
      * 
-     * Allow visitor to request an edition access to project presentation
+     * Allow visitor to Request Edition Right for project presentation
      * 
      * @Route("/new_presenter_request", name="edit_presentation_request")
      * 
@@ -90,6 +91,19 @@ class RightsController extends AbstractController
                         ->setStatus('candidate');
     
                 $manager->persist($access);
+
+                // we send a message to presentation creator
+
+                $contactMessage = new ContactMessage();
+                
+                $contactMessage ->setCreatedAt(new \DateTime('now'))
+                                ->setSenderEmail('noreply@projetdesprojets.com')
+                                ->setTitle('Demande de Participation à une Présentation')
+                                ->setContent('Un utilisateur demande à participer à la présentation du projet "'.$presentation->getGoal().'". Seul le créateur de la présentation peut intégrer le candidat. Pour intégrer le candidat, aller dans Paramètres, puis Gérer les accès, puis Accepter.')
+                                ->setPresentation($presentation)
+                                ->addReceiver($presentation->getCreator());
+
+                $manager->persist($contactMessage);
     
                 $manager->flush();
     

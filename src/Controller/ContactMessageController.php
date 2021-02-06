@@ -21,11 +21,11 @@ class ContactMessageController extends AbstractController
 {
     /**
      * @Route("/", name="index_project_messages", methods={"GET"})
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      */
     public function index(PPBasic $presentation,ContactMessageRepository $contactMessageRepository): Response
     {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
         
         $projectMessages = $contactMessageRepository->findBy
             (
@@ -51,11 +51,10 @@ class ContactMessageController extends AbstractController
      * 
      * @Route("/ajaxShowMessage", name="ajax_get_message_content") 
      * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * 
     */ 
     public function ajaxMessageContent(Request $request, ContactMessageRepository $contactMessageRepository, EntityManagerInterface $manager, PPBasic $presentation) {
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
 
         if ($request->isXmlHttpRequest()) {
 
@@ -88,12 +87,11 @@ class ContactMessageController extends AbstractController
      * 
      * @Route("/ajaxDeleteMessage/", name="ajax_delete_message")
      * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * 
      * @return Response
      */
    public function deleteMessage(Request $request, PPBasic $presentation, EntityManagerInterface $manager, ContactMessageRepository $contactMessageRepository){
-
-        $this->denyAccessUnlessGranted('edit', $presentation);
-
 
         if ($request->isXmlHttpRequest()) {
 
@@ -138,7 +136,8 @@ class ContactMessageController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $contactMessage->setPresentation($pp);
+            $contactMessage ->setPresentation($pp)
+                            ->addReceiver($pp->getCreator());            ;
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($contactMessage);
@@ -187,10 +186,11 @@ class ContactMessageController extends AbstractController
      * 
      * @Route("/{id}", name="contact_message_show", methods={"GET"})
      * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * 
      */
     public function show(ContactMessage $contactMessage): Response
     {
-        $this->denyAccessUnlessGranted('edit', $contactMessage->getPresentation());
 
         return $this->render('contact_message/show.html.twig', [
             'contact_message' => $contactMessage,

@@ -103,6 +103,7 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+
     /**
      * when user forget his password
      * 
@@ -144,6 +145,8 @@ class User implements UserInterface
 
 
 
+
+
     public function __construct()
     {
         
@@ -168,7 +171,7 @@ class User implements UserInterface
         $this->comments = new ArrayCollection();
         $this->news = new ArrayCollection();
         $this->userFollows = new ArrayCollection();
-        $this->rights = new ArrayCollection();                
+        $this->rights = new ArrayCollection();
         
     }
   
@@ -611,10 +614,28 @@ class User implements UserInterface
 
         $countNotifications = 0;
 
+        //getting user last time notifications page access
+        $lastConnectionDate= $this->getLastNotificationsConnection();
+
+        //getting user last message date
+
+        $userMessages = $this->getContactMessages();
+
+        if (!$userMessages->isEmpty()) {
+
+            $userLastMessageDate = $userMessages->last()->getCreatedAt();
+
+            if ($lastConnectionDate < $userLastMessageDate) {
+        
+                $countNotifications++;
+                
+                
+            }
+            //dd($countNotifications);
+        }
+
         $userFollows = $this->getUserFollows();
 
-        //we get user last time notifications page access
-        $lastConnectionDate= $this->getLastNotificationsConnection();
 
         foreach ($userFollows as $followRow) {
 
@@ -639,11 +660,11 @@ class User implements UserInterface
 
     
     /**
-     * Allow to update last time user connect to notification page
+     * Allow to update last time user connected to notification page
      *
      * @return void
      */
-    public function updateLastNotificationConsultationDate($entityManager){
+    public function updateLastNotificationsConsultationDate($entityManager){
 
         //lastConnectionDateUpdate
         $this->setLastNotificationsConnection(new \DateTime('now'));

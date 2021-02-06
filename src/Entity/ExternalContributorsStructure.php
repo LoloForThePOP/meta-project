@@ -44,7 +44,7 @@ class ExternalContributorsStructure
     private $position;
 
     /**
-     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure", cascade={"persist", "remove"},orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure", cascade={"persist", "remove"}, orphanRemoval=true)
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      * 

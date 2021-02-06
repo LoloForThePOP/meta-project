@@ -207,14 +207,8 @@
 
                 <div class="mt-5 mb-3">
 
-                    <!-- Back to top button -->
-
-                    <button onclick="topFunction()" id="backTopButton" title="Retour en Haut">↑ Haut de Page</button> 
-
                     <!-- Display Some Metadatas -->
                     {% include 'pp/partials/_metadataDisplay.html.twig' %}
-
-
 
                     <!-- some buttons (example : report abuse; save as pdf; ...) -->
 
@@ -232,6 +226,11 @@
                     </a>
                     
                 </div>
+
+                <!-- Back to top button -->
+
+                <button onclick="topFunction()" id="backTopButton" class="btn btn-light" title="Retour en Haut">↑ Haut de Page</button> 
+               
 
                 <!-- Project Provider Caps -->
                 {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
@@ -252,7 +251,11 @@
 
 {% block javascripts %}
 
-    <!-- Project Comments Section -->
+    <!-- Back to Top Button -->
+
+    {% include 'pp/js_show/_back_top_button.html.twig' %}
+
+    <!-- Project Comments Management -->
 
     <script>
         
@@ -291,10 +294,6 @@
         });
 
     </script>
-
-    <!-- Back to Top Button Javascript -->
-
-    {% include 'pp/js_show/_back_top_button.html.twig' %}
 
 
     <!-- Project Needs Section : ajax call when user wants need details -->

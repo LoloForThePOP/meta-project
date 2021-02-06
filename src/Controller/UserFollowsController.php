@@ -16,7 +16,7 @@ class UserFollowsController extends AbstractController
 {
     /**
      * 
-     * Allow user to follow a project presentation
+     * Allow user to manage his followed projects
      * 
      * @Route("/user/follows/manage", name="manage_follow")
      * 
@@ -126,17 +126,16 @@ class UserFollowsController extends AbstractController
 
         $user = $this->getUser();
 
-        
         $userFollows = $user->getUserFollows();
 
         //we get user last time notification page access date
         $lastConnectionDate= $user->getLastNotificationsConnection();
 
         //we count user notifications
-        $countNotifications = $user->countNotifications();
+        //$countNotifications = $user->countNotifications();
 
         //we update last time user accessed notification page
-        $user->updateLastNotificationConsultationDate($manager);
+        $user->updateLastNotificationsConsultationDate($manager);
 
         return $this->render('user_follows/show_notifications.html.twig', [
 

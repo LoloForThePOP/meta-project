@@ -13,6 +13,7 @@ use App\Form\PasswordUpdateType;
 use App\Repository\UserRepository;
 use Symfony\Component\Form\FormError;
 use Doctrine\ORM\EntityManagerInterface;
+use App\Service\PresentationsRightsService;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -53,10 +54,33 @@ class AccountController extends AbstractController
      * @return void
      */
     public function logout(){
+        
+    }
+    
+
+    /**     
+     * Allow to show user profile
+     * @Route("/account",name="account_index")
+     * @IsGranted("ROLE_USER")
+     *
+     * @return Response
+     */
+    public function myAccount (PresentationsRightsService $PresentationsRightsService){
+
+        $user = $this->getUser();
+
+        $userCreations = $user->getPresentations();
+
+        $userContributions = $PresentationsRightsService->getUserPresentationsByRightType ($user, 'edit');
+        
+        return $this->render('user/index.html.twig', [
+            'user' => $user,
+            'userCreations' => $userCreations,
+            'userContributions' => $userContributions,
+        ]);
 
     }
-
-
+    
 
     /**
      * Subscribe to the Website (Display Register Form)
@@ -213,20 +237,6 @@ class AccountController extends AbstractController
             
         ]);
 
-    }
-
-      /**     
-     * Allow to show user profile
-     * @Route("/account",name="account_index")
-     * @IsGranted("ROLE_USER")
-     *
-     * @return Response
-     */
-    public function myAccount (){
-        
-        return $this->render('user/index.html.twig', [
-            'user' => $this->getUser(),
-        ]);
     }
 
     /**

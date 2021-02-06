@@ -8,15 +8,15 @@
 
     {% set sidebarItems = [ 
 
-        { 'name': 'Voir le Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+        { 'name': 'result', 'Fr_name': 'Voir le Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
         
-        { 'name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  
+        { 'name': 'edit', 'Fr_name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  
 
-        { 'name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
+        { 'name': 'messages', 'Fr_name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
 
-        { 'name': 'Liens & Export', 'route': 'links_index', 'iconName': 'links.svg'},
+        { 'name': 'links', 'Fr_name': 'Liens & Export', 'route': 'links_index', 'iconName': 'links.svg'},
 
-        { 'name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
+        { 'name': 'settings', 'Fr_name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
 
     ] %}
 
@@ -29,27 +29,57 @@
 
             {% for item in sidebarItems %}
 
-                <li class="d-flex align-items-center ">
+                {# checking if user can see current menu item #}
 
-                    <a class="w-100 " href="{{ path(item.route, {'slug':presentation.slug}) }}">  
+                {% set showItem = true %}
 
-                        <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"31px" width="31px">
+                {% if item.name == 'messages' %}
 
-                        <span class="align-middle">
-                            {{item.name}}
-                        </span> 
+                    {% if not app.user == presentation.getCreator %}
 
-                        {% if item.badge is defined and item.badge is not null %}
+                        {% set showItem = false %}
 
-                            <span class="badge badge-primary font-weight-bold ml-1">
-                                {{item.badge}}
-                            </span>
+                    {% endif %}
+                
+                {% endif %}
 
-                        {% endif %}
-                        
-                    </a>
+                {% if item.name == 'settings' %}
 
-                </li>
+                    {% if not app.user == presentation.getCreator %}
+
+                        {% set showItem = false %}
+
+                    {% endif %}
+                
+                {% endif %}
+
+
+
+                {% if showItem == true %}
+
+                    <li class="d-flex align-items-center ">
+
+                        <a class="w-100 " href="{{ path(item.route, {'slug':presentation.slug}) }}">  
+
+                            <img src="/images/icons/sidebar/{{item.iconName}}" alt="{{item.iconName}} icon" class="float-left mr-md-3" height:"31px" width="31px">
+
+                            <span class="align-middle">
+                                {{item.Fr_name}}
+                            </span> 
+
+                            {% if item.badge is defined and item.badge is not null %}
+
+                                <span class="badge badge-primary font-weight-bold ml-1">
+                                    {{item.badge}}
+                                </span>
+
+                            {% endif %}
+                            
+                        </a>
+
+                    </li>
+
+                {% endif %}
 
             {% endfor %}
 
