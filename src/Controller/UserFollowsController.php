@@ -51,7 +51,7 @@ class UserFollowsController extends AbstractController
 
         $this->addFlash(
             'success',
-            'Les Modifications ont étées enregistrées avec succès!'
+            'La modification est effectuée.'
         );
 
         return $this->redirectToRoute('manage_follow', [
@@ -76,17 +76,17 @@ class UserFollowsController extends AbstractController
 
         $user = $this->getUser();
 
-        $isAlreadyFollowed = $repository->findOneBy([
+        /* $isAlreadyFollowed = $repository->findOneBy([
             'user' => $user->getId(),
-            'presentation' => $presentation->getId(),
-        ]);
+            'presentation' => $presentation->getId(), 
+        ]);*/
 
-        if (!$isAlreadyFollowed) {
+        if (!$user->isFollowerOf($presentation)) {
             
             $followObject = new UserFollows();
 
             $followObject->setUser($user)
-                        ->setPresentation($presentation);
+                         ->setPresentation($presentation);
     
             $manager->persist($followObject);
             $manager->flush();
@@ -114,14 +114,14 @@ class UserFollowsController extends AbstractController
 
     /**
      * 
-     * Allow user to access follows notification page
+     * Allow user to access notification page
      * 
-     * @Route("/user/follows/show-notifications", name="show_follow_notifications")
+     * @Route("/user/notifications/show", name="show_notifications")
      * 
      * @Security("is_granted('ROLE_USER')")
      * 
      */
-    public function showFollowNotifications(EntityManagerInterface $manager): Response
+    public function showNotifications(EntityManagerInterface $manager): Response
     {
 
         $user = $this->getUser();
@@ -140,6 +140,7 @@ class UserFollowsController extends AbstractController
         return $this->render('user_follows/show_notifications.html.twig', [
 
             'userFollows' => $userFollows,
+            'unreadMessages' => $user->getUnreadMessages(),
             'lastConnectionDate' => $lastConnectionDate,
             'currentTime' => $user->getLastNotificationsConnection(),
 

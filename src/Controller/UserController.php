@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Entity\Persorg;
 use App\Form\PersorgType;
+use App\Repository\PersorgRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -23,17 +24,21 @@ class UserController extends AbstractController
             'user' => $user,
         ]);
     }
+
+  
     
     /**
      * Allow user to manage its public profile
      * 
-     * @Route("account/public-profile/{id}",name="edit_public_profile")
+     * @Route("account/public-profile/{persorg_id}/{context?}", name="edit_public_profile")
      * 
      * @Security("is_granted('ROLE_USER')")
      * 
      * @return Response
      */
-    public function publicProfile(Persorg $userPersorg, Request $request, EntityManagerInterface $manager){
+    public function publicProfile($context, $persorg_id, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager){
+
+        $userPersorg = $persorgRepository->findOneById($persorg_id);
 
         $persorgForm = $this->createForm(PersorgType::class, $userPersorg); 
 
@@ -47,7 +52,7 @@ class UserController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Les Modifications ont étées enregistrées avec succès!'
+                'Les Modifications ont étées enregistrées.'
             );
 
             return $this->redirectToRoute('user_show',[
@@ -59,6 +64,7 @@ class UserController extends AbstractController
      
             'persorgForm' => $persorgForm->createView(),
             'userPersorg' => $userPersorg,
+            'context' => $context,
         ]);
 
     }

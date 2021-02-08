@@ -13,10 +13,9 @@
 
     <h4 class="mt-5 mb-3">Participer à la présentation d'un Projet</h4>
 
-    <p class="fs-15 col-md-7 pl-0">Pour participer à la présentation de ce projet, veuillez écrire son code d'accès (le créateur de la présentation pourrait vous transmettre ce code).</p>
+    <p class="fs-15 col-md-7 pl-0">Pour participer à la présentation de ce projet, veuillez écrire son code d'accès (seul le créateur de la présentation peut vous le transmettre).</p>
 
     <div class="col-md-5 pl-0">
-
                 
         {{ form_start(form) }}
 
@@ -32,7 +31,7 @@
 
         <!-- Back Button -->
 
-        <a href="">
+        <a href="{{path('project_show', {'slug': slug })}}">
 
             <button type="button" class="btn btn-info sharp font-weight-bold my-3">Retour</button>
 

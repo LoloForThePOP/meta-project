@@ -76,7 +76,7 @@
                 
                 <div class="mt-3 ml-3">
 
-                    <a href="{{ path ('edit_public_profile', {'id': user.persorg.getId }) }}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mes informations publiques</a>
+                    <a href="{{ path ('edit_public_profile', {'persorg_id': user.persorg.getId }) }}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mes informations publiques</a>
 
                     <a href="{{ path ('account_update_menu') }}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mon compte utilisateur</a>
 
@@ -125,9 +125,9 @@
                         <span class="font-weight-bold">
 
                             {% if userCreations | length == 1 %}
-                                1 Présentation créée
+                                1 présentation créée
                             {% else %}
-                                {{userCreations | length}} Présentations créées
+                                {{userCreations | length}} présentations créées
                             {% endif %}
                         </span>
                     </h4>
@@ -161,9 +161,9 @@
                         <span class="font-weight-bold">
 
                             {% if userContributions | length == 1 %}
-                                1 autre projet présenté :
+                                Participation à une présentation :
                             {% else %}
-                                {{userContributions | length}} autres projets présentés :
+                                {{userContributions | length}} participations à des présentations :
                             {% endif %}
                         </span>
                     </h4>
@@ -198,7 +198,7 @@
                     {% if app.user %}
 
                     <div class="h5"> 
-                        Vous pouvez remplir une description <a href="{{ path ('edit_public_profile', {'id': user.persorg.getId }) }}"><button class="btn btn-info py-1"><span class="h5 font-weight-bold">ici</span></button></a>
+                        Vous pouvez remplir une description <a href="{{ path ('edit_public_profile', {'persorg_id': user.persorg.getId }) }}"><button class="btn btn-info py-1"><span class="h5 font-weight-bold">ici</span></button></a>
                     </div>
 
                     
@@ -207,7 +207,7 @@
 
                 {% else %}
                 
-                {{ user.description}}
+                    {{ user.persorg.description | nl2br }}
 
                 {% endif %}
                 

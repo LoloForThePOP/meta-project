@@ -8,6 +8,13 @@
 
 {% block body %}
 
+
+    {#
+        code to embed presentation or presentations list in iframes is provided in :
+        templates\links\test_code_embed_presentation.html.twig
+        
+        #}
+
     <div class="container ml-md-4 col-md-8">
        
         <div class="mt-md-5 mt-3">
@@ -52,108 +59,7 @@
             </div>
 
 
-            <!-- Code to cmbed Presentation into other websites (within an iframe) -->
-            <!-- Copy code button -->
-
-            <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
-      
-                <h4 class="font-weight-bold mb-3">
-                    Pour afficher la présentation dans un autre site web
-                </h4>
-
-                <p class="fs-25 mb-4">
-                    Copier le code suivant, et intégrez le dans votre propre site web.
-                </p>
-
-                <!-- Textarea containing iframe code -->
-
-                <div class="container">
-
-                    <div class="row">
-
-                        <div class="col"> <textarea id="iFrameTagTextarea" class="mb-3 col-md-12 h-100" name="" resize="none"><iframe id="iFrame" src="{{iFrameURL}}" scrolling="no" frameborder="0" ></iframe>
-<style>iframe {
-        width: 1px;
-        min-width: 100%;
-    }
-</style>
-                                 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.min.js" integrity="sha512-HY1lApSG7xxx8mYzs/lxRs+c5AaDThRaa3pvQB6puiswvf2lWqMJVf+8qSGiL4ZXfHQoPIqbd1TlpqfycPo3cQ==" crossorigin="anonymous"></script>
-
-<script>
-
-    iFrameResize({ log: true }, '#iFrame');
-    
-</script></textarea></div>
-
-                        <!-- Copy link button -->
-
-                        <div class="col-auto d-flex align-items-center">
-                            <div class="tooltipo">
-                                <button class="btn btn-success bg-green font-weight-bold" onclick="copyToClipboard('iFrameTagTextarea')" onmouseout="outFunc()">
-        
-                                    <span class="tooltiptext d-block" id="myTooltip">
-        
-                                        Copier ?
-                                    
-                                    </span>
-        
-                                    Copier
-        
-                                </button>
-        
-                            </div>  
-                        </div>
-
-                    </div>
-
-                </div>
-
-                <!-- Style for copy link button with tooltip -->
-                 
-                <style>
-
-                    .tooltipo {
-                        position: relative;
-                        display: inline-block;
-                    }
-                    
-                    .tooltipo .tooltiptext {
-                        visibility: hidden;
-                        width: 140px;
-                        background-color: #555;
-                        color: #fff;
-                        text-align: center;
-                        border-radius: 6px;
-                        padding: 5px;
-                        position: absolute;
-                        z-index: 1;
-                        bottom: 150%;
-                        left: 50%;
-                        margin-left: -75px;
-                        opacity: 0;
-                        transition: opacity 0.3s;
-                    }
-                    
-                    .tooltipo .tooltiptext::after {
-                        content: "";
-                        position: absolute;
-                        top: 100%;
-                        left: 50%;
-                        margin-left: -5px;
-                        border-width: 5px;
-                        border-style: solid;
-                        border-color: #555 transparent transparent transparent;
-                    }
-                    
-                    .tooltipo:hover .tooltiptext {
-                        visibility: visible;
-                        opacity: 1;
-                    }
-
-                </style>
-
-            </div>
+          
 
 
             <!-- ready-to-use links buttons, pointing to user project presentation page -->
@@ -270,48 +176,6 @@
 
             </div>
 
-            
-            <!-- User Projects List : code to embed the list into other websites (within an iframe) -->
-            <!-- Copy code button -->
-
-            <div class="mb-3 mb-md-5 p-2 p-md-4 bg-light rounded" style="border: 4px solid orange;">
-      
-                <h4 class="font-weight-bold mb-3">
-                    Pour afficher dans un autre site web la liste de tous vos projets présentés
-                </h4>
-
-                <p class="fs-25 mb-4">
-                    Copier le code suivant, et intégrez le dans votre site web.
-                </p>
-
-                <!-- Textarea containing iframe code -->
-
-                <div class="container">
-
-                    <div class="row">
-
-                        <div class="col"> <textarea id="iFrameTagTextarea" class="mb-3 col-md-12 h-100" name="" resize="none"><iframe id="iFrame" src="{{userProjectsListURL}}" scrolling="no" frameborder="0" ></iframe>
-
-<style>
-    iframe {
-        width: 1px;
-        min-width: 100%;
-    }
-</style>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/iframe-resizer/4.2.11/iframeResizer.min.js" integrity="sha512-HY1lApSG7xxx8mYzs/lxRs+c5AaDThRaa3pvQB6puiswvf2lWqMJVf+8qSGiL4ZXfHQoPIqbd1TlpqfycPo3cQ==" crossorigin="anonymous"></script>
-
-<script>
-    iFrameResize({ log: true }, '#iFrame');
-</script></textarea></div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            
     
 
         </div>

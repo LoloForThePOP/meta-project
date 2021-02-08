@@ -49,7 +49,7 @@ class DocumentController extends AbstractController
 
             $idDocument=$document->getId();
 
-            PPMajorLogs::updateLogs($presentation, 'document', 'new', $idDocument, $manager);
+            PPMajorLogs::updateLogs($presentation, 'document', 'new', $idDocument, $this->getUser()->getId(), $manager);
 
             $this->addFlash(
                 'success',

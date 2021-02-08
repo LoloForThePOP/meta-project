@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Right;
 use App\Entity\PPBasic;
+use App\Entity\UserFollows;
 use App\Entity\ContactMessage;
 use App\Repository\RightRepository;
 use App\Form\InvitePresenterByEmailType;
@@ -83,14 +84,44 @@ class RightsController extends AbstractController
             if ($userCode == $presentation->getAccessCode())
             {
 
+                $user = $this->getUser();
+
+                //giving user edition rights
+
                 $access = new Right();
 
                 $access ->setType('edit')
-                        ->setUser($this->getUser())
+                        ->setUser($user)
                         ->setPresentation($presentation)
                         ->setStatus('candidate');
     
                 $manager->persist($access);
+
+                //making user a follower of this presentation
+
+                if (!$user->isFollowerOf($presentation)) {
+            
+                    $followObject = new UserFollows();
+        
+                    $followObject->setUser($user)
+                                 ->setPresentation($presentation);
+            
+                    $manager->persist($followObject);
+
+                }
+
+                //making presentation creator a follower of his own presentation (to check presentation modifications by other presenters)
+
+                if (!$user->isFollowerOf($presentation)) {
+            
+                    $followObject = new UserFollows();
+        
+                    $followObject->setUser($presentation->getCreator())
+                                 ->setPresentation($presentation);
+            
+                    $manager->persist($followObject);
+
+                }
 
                 // we send a message to presentation creator
 
@@ -99,7 +130,7 @@ class RightsController extends AbstractController
                 $contactMessage ->setCreatedAt(new \DateTime('now'))
                                 ->setSenderEmail('noreply@projetdesprojets.com')
                                 ->setTitle('Demande de Participation à une Présentation')
-                                ->setContent('Un utilisateur demande à participer à la présentation du projet "'.$presentation->getGoal().'". Seul le créateur de la présentation peut intégrer le candidat. Pour intégrer le candidat, aller dans Paramètres, puis Gérer les accès, puis Accepter.')
+                                ->setContent('Un utilisateur demande à participer à la présentation du projet "'.$presentation->getGoal().'". Pour intégrer le candidat, aller dans Paramètres, puis Gérer les accès, puis Accepter.')
                                 ->setPresentation($presentation)
                                 ->addReceiver($presentation->getCreator());
 
@@ -128,6 +159,7 @@ class RightsController extends AbstractController
 
         return $this->render('rights/visitorRequest.html.twig', [
             'form' => $form->createView(),
+            'slug' => $presentation->getSlug(),
         ]);
     }
 

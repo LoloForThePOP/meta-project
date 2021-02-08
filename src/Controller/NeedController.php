@@ -63,7 +63,7 @@ class NeedController extends AbstractController
 
             $idNeed=$need->getId();
 
-            PPMajorLogs::updateLogs($presentation, 'need', 'new', $idNeed, $manager);
+            PPMajorLogs::updateLogs($presentation, 'need', 'new', $idNeed, $this->getUser()->getId(), $manager);
 
             return $this->redirectToRoute('need_index', [
                 'slug' => $slug,

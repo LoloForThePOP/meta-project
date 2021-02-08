@@ -14,17 +14,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-/**
- * @Route("/projects/{slug}/messages")
- */
+
 class ContactMessageController extends AbstractController
 {
     /**
-     * @Route("/", name="index_project_messages", methods={"GET"})
+     * @Route("/projects/{slug}/messages/", name="index_project_messages", methods={"GET"})
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      */
-    public function index(PPBasic $presentation,ContactMessageRepository $contactMessageRepository): Response
+    public function indexByProject(PPBasic $presentation,ContactMessageRepository $contactMessageRepository): Response
     {
         
         $projectMessages = $contactMessageRepository->findBy
@@ -45,11 +43,26 @@ class ContactMessageController extends AbstractController
         ]);
     }
 
+      /**
+     * @Route("/user/messages/show", name="show_user_messages")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     */
+/*     public function indexByUser()
+    {
+        $messages = $this->getUser()->getMessages();
+
+        return $this->render('contact_message/user_list.html.twig', [
+            'contact_messages' => $messages,
+        ]);
+    } */
+
+
     
     /** 
      * Allow to Display a Private Message (example : in a Modal Box).
      * 
-     * @Route("/ajaxShowMessage", name="ajax_get_message_content") 
+     * @Route("/projects/{slug}/messages/ajaxShowMessage", name="ajax_get_message_content") 
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      * 
@@ -85,7 +98,7 @@ class ContactMessageController extends AbstractController
     /**
      * Allow to Delete a Private Message
      * 
-     * @Route("/ajaxDeleteMessage/", name="ajax_delete_message")
+     * @Route("/projects/{slug}/messages/ajaxDeleteMessage/", name="ajax_delete_message")
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
      * 
@@ -125,7 +138,7 @@ class ContactMessageController extends AbstractController
     
     /**
      * Allow to create and send a private message
-     * @Route("/new/", name="contact_message_new", methods={"GET","POST"})
+     * @Route("/projects/{slug}/messages/new/", name="contact_message_new", methods={"GET","POST"})
      * @Security("is_granted('ROLE_USER')")
      */
     public function new (PPBasic $pp, Request $request, \Swift_Mailer $mailer): Response
@@ -181,20 +194,53 @@ class ContactMessageController extends AbstractController
         ]);
     }
 
+
     /**
-     * Allow to Show a Private Message
+     * allow to get embed html message display
      * 
-     * @Route("/{id}", name="contact_message_show", methods={"GET"})
-     * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * @Route("/messages/ajax-show-embed", name="show_embed_message")
      * 
      */
-    public function show(ContactMessage $contactMessage): Response
+    public function showEmbed(Request $request, ContactMessageRepository $repository, EntityManagerInterface $manager)
     {
+        
+        if ($request->isXmlHttpRequest()) {
 
-        return $this->render('contact_message/show.html.twig', [
-            'contact_message' => $contactMessage,
-        ]);
+            //get selected news
+
+            $idMessage = $request->request->get('idEntity');
+            
+            $message = $repository->findOneById($idMessage);
+
+            // for the moment, only presentation creators can read messages
+
+            if ($message->getPresentation()->getCreator() !== $this->getUser()) {
+                return false;
+            }
+            
+            $message->setHasBeenConsulted(true);
+
+            $manager->persist($message);
+            $manager->flush();
+
+            $dataResponse = [
+
+                'html' => $this->renderView(
+                    
+                    'contact_message/show_embed.html.twig', 
+
+                    [
+                        'message' => $message,
+                    ]
+                ),
+            ];
+
+            //dump($dataResponse);
+
+            return new JsonResponse($dataResponse);
+
+        }
+
     }
 
 

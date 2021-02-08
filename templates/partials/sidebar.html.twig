@@ -1,9 +1,5 @@
 
 
-{% if app.user and app.user == presentation.creator %}
-{% endif %}
-
-
     <!-- Sidebar Items Names paired with their Access Route Names, their icons -->
 
     {% set sidebarItems = [ 
@@ -14,7 +10,7 @@
 
         { 'name': 'messages', 'Fr_name': 'Messages', 'route': 'index_project_messages', 'iconName': 'messages.svg', 'badge': (presentation.countUnreadMessages() ?: null )},
 
-        { 'name': 'links', 'Fr_name': 'Liens & Export', 'route': 'links_index', 'iconName': 'links.svg'},
+        { 'name': 'links', 'Fr_name': 'Liens', 'route': 'links_index', 'iconName': 'links.svg'},
 
         { 'name': 'settings', 'Fr_name': 'Réglages', 'route': 'settings_index', 'iconName': 'settings.svg'},
 
@@ -35,7 +31,7 @@
 
                 {% if item.name == 'messages' %}
 
-                    {% if not app.user == presentation.getCreator %}
+                    {% if not app.user is same as presentation.getCreator %}
 
                         {% set showItem = false %}
 
@@ -45,15 +41,13 @@
 
                 {% if item.name == 'settings' %}
 
-                    {% if not app.user == presentation.getCreator %}
+                    {% if not app.user is same as presentation.getCreator %}
 
                         {% set showItem = false %}
 
                     {% endif %}
                 
                 {% endif %}
-
-
 
                 {% if showItem == true %}
 

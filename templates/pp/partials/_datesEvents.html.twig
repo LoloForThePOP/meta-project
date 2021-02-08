@@ -5,7 +5,7 @@
 
     <!-- Structure Container -->
 
-    <div class="pp-struct-container pb-1 pb-md-3">
+    <div id="eventsDisplay" class="pp-struct-container pb-1 pb-md-3">
 
         <!-- Title Container with Edit Button -->
 
@@ -17,7 +17,7 @@
     
             <!-- Edit Dates & Events (Button) -->
     
-            {% if app.user and app.user == presentation.creator %}
+            {% if is_granted('edit', presentation) %}
                 <a href="{{ path('manage_events', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les événements</button>

@@ -16,7 +16,7 @@ class ContributePresentationRequestType extends AbstractType
         
             ->add('accessCode', TextType::class, 
                 [
-                    'label' => 'Code d\'accès ?',
+                    'label' => 'Code d\'accès',
                     'attr' => [
                         
                         'placeholder'    => 'Écrire ici',

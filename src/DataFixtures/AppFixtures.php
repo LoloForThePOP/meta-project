@@ -1116,10 +1116,11 @@ class AppFixtures extends Fixture
             }
 
 
-            // Presentation Access (edit; view; or admin the presentation) Creation
+            // !!! fix this one OUT OF MEMORY WHEN I USE THIS ONE (and doesn't provide expected results)
+            //Presentation Access (edit; view; or admin the presentation) Creation
 
 
-            for($i=1; $i<=mt_rand(1,5); $i++){
+            /* for($i=1; $i<=mt_rand(1,5); $i++){
 
                 $right = new Right();
 
@@ -1154,7 +1155,7 @@ class AppFixtures extends Fixture
                 $manager->persist($right);
 
             }
-
+ */
 
             // Desired Ressources Creation
 

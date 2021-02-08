@@ -3,12 +3,12 @@
 namespace App\Entity;
 
 use App\Entity\Persorg;
-use Doctrine\ORM\Mapping as ORM;
 
+use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validator\Constraints\Email;
 
+use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -143,6 +143,11 @@ class User implements UserInterface
      */
     private $rights;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MessageConsultation::class, mappedBy="user", orphanRemoval=true)
+     */
+    private $getConsultedMessages;
+
 
 
 
@@ -172,6 +177,7 @@ class User implements UserInterface
         $this->news = new ArrayCollection();
         $this->userFollows = new ArrayCollection();
         $this->rights = new ArrayCollection();
+        $this->getConsultedMessages = new ArrayCollection();
         
     }
   
@@ -326,6 +332,46 @@ class User implements UserInterface
         }
 
         return $this;
+    }
+
+    
+    /**
+     * Allow to get user unread messages
+     *
+     * @return array
+     */
+    public function getUnreadMessages()
+    {
+        $unreadMessages = [];
+
+        foreach ($this->getContactMessages() as $item) {
+
+            if ($item->getHasBeenConsulted() == false) { 
+
+                $unreadMessages[] = $item;
+
+            }
+        }
+
+        return $unreadMessages;
+
+    }
+
+
+
+
+    public function countUnreadMessages()
+    {
+        $count = 0;
+
+        foreach ($this->getContactMessages() as $item) {
+
+            if ($item->getHasBeenConsulted() == false) { 
+                $count++;
+            }
+        }
+
+        return $count;
     }
 
     public function removeContactMessages(ContactMessage $contactMessages): self
@@ -592,6 +638,26 @@ class User implements UserInterface
         return $this;
     }
 
+    public function isFollowerOf($object): bool
+    {
+
+        $userFollows = $this->getUserFollows();
+        
+        if ($object instanceof PPBasic) {
+
+            foreach ($userFollows as $userFollow) {
+                
+                if ($userFollow->getPresentation() == $object) {
+
+                    return true;
+
+                }
+            }
+        }
+
+        return false;
+    }
+
     public function getLastNotificationsConnection(): ?\DateTimeInterface
     {
         return $this->lastNotificationsConnection;
@@ -614,8 +680,8 @@ class User implements UserInterface
 
         $countNotifications = 0;
 
-        //getting user last time notifications page access
-        $lastConnectionDate= $this->getLastNotificationsConnection();
+        //getting user last time user accessed notification page
+        $userLastConnectionDate= $this->getLastNotificationsConnection();
 
         //getting user last message date
 
@@ -625,10 +691,9 @@ class User implements UserInterface
 
             $userLastMessageDate = $userMessages->last()->getCreatedAt();
 
-            if ($lastConnectionDate < $userLastMessageDate) {
+            if ($userLastConnectionDate < $userLastMessageDate) {
         
                 $countNotifications++;
-                
                 
             }
             //dd($countNotifications);
@@ -636,23 +701,54 @@ class User implements UserInterface
 
         $userFollows = $this->getUserFollows();
 
-
         foreach ($userFollows as $followRow) {
 
-            if ($followRow->getPresentation()->getMajorLogs() !== null) {
+            $currentPresentation = $followRow->getPresentation();
+  
+            $presentationMajorLogs = $currentPresentation->getMajorLogs();
+            
+            if ($presentationMajorLogs !== null) {
 
-                $ppLastMajorUpdateDate = $followRow->getPresentation()->getMajorLogs()->getUpdatedAt();
+                $ppLastMajorUpdateDate = $presentationMajorLogs->getUpdatedAt();
 
-                if ($lastConnectionDate < $ppLastMajorUpdateDate) {
-    
-                    $countNotifications++;            
-                
+                if ($userLastConnectionDate < $ppLastMajorUpdateDate) {
+
+                    $events = $presentationMajorLogs->getLogs();
+
+                    // we check if user has made presentation modifications by himself. In that case, he doesn't have to be notified.
+
+                    if ($currentPresentation->isAccessedBy($this,'edit')) {
+                        
+                        foreach ($events as $event) {
+
+                            //if user has not done current modification by himself
+
+                            if ($event['creatorId'] !== $this->getId())
+                            {
+                                //we check if this modification has been done after his last connection, in that case we have to notify him
+
+                                if ($userLastConnectionDate < $event['date']) {
+
+                                    $countNotifications++;
+                                }
+        
+                            }
+        
+                            
+                        }
+                    }
+
+                    // case user has no right over this presentation : it is sure that he is not aware of presentation modifications
+
+                    else {
+                        $countNotifications++;
+                    }
+                    
                 }
+                
             }
 
         }
-
-        $countNotifications;
 
         return $countNotifications;
 
@@ -698,6 +794,36 @@ class User implements UserInterface
             // set the owning side to null (unless already changed)
             if ($right->getUser() === $this) {
                 $right->setUser(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MessageConsultation[]
+     */
+    public function getGetConsultedMessages(): Collection
+    {
+        return $this->getConsultedMessages;
+    }
+
+    public function addGetConsultedMessage(MessageConsultation $getConsultedMessage): self
+    {
+        if (!$this->getConsultedMessages->contains($getConsultedMessage)) {
+            $this->getConsultedMessages[] = $getConsultedMessage;
+            $getConsultedMessage->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeGetConsultedMessage(MessageConsultation $getConsultedMessage): self
+    {
+        if ($this->getConsultedMessages->removeElement($getConsultedMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($getConsultedMessage->getUser() === $this) {
+                $getConsultedMessage->setUser(null);
             }
         }
 

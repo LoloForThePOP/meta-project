@@ -2,15 +2,19 @@
 
 {% block title %}Messages du Projet{% endblock %}
 
-{% block sidebar %} {% include 'partials/sidebar.html.twig' %} {% endblock %}
+{% block sidebar %} 
+
+    {% include 'partials/sidebar.html.twig' %} 
+    
+{% endblock %}
 
 
 {% block css %}
 
-<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
- 
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.20/datatables.min.css"/>
 
 {% endblock %}
+
 
 {% block body %}
 
@@ -40,160 +44,11 @@
     
     <!-- Display Specific Message (in a Modal Box) -->
 
-    <div class="modal fade" id="modalBox" tabindex="-1" role="dialog" aria-labelledby="modalBoxTitle" aria-hidden="true">
-
-        <div class="modal-dialog modal-lg" role="document">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-
-                    <!-- Message Title Area -->
-
-                    <h4 class="modal-title mx-3 font-weight-bold" id="modalBoxTitle">
-                        
-                    </h4>
-
-                    <!-- Modal Close Button -->
-
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-
-                </div>
-
-                <div class="modal-body">
-
-                    <!-- Message Date Area -->
-
-                    <div class="dateBox font-weight-bold h4 col-md-5 ml-auto">Le <span id="dateString"></span> à <span id="hourString"></span></div>
-
-                    <!-- Message Content Area -->
-
-                    <div id="messageContent" class="mx-3 my-4 p-3 h6 border border-primary rounded" style="font-size:1.15em; white-space:pre-wrap;">
-
-                    </div>
-
-                    <!-- Message Sender Area -->
-
-                    <div class="senderBox mx-3 h4 font-weight-bold">Message envoyé par : <span id="emailString"></span></div>
-
-                </div>
-
-                <div class="modal-footer">
-
-                    <!-- Close Button -->
-
-                    <button type="button" class="btn btn-primary font-weight-bold" data-dismiss="modal">Fermer</button>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
+        {% include 'contact_message/_list/_modal_display.html.twig' %}
 
     <!-- Manage Messages (in a Table) -->
 
-    <div class="container-fluid mb-3">
-
-        <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
-
-            <thead>
-
-                <tr class="cursor-pointer">
-
-                    <th>Titre</th>
-                    <th>Contenu</th>
-                    <th>Envoyeur</th>
-                    <th>Date</th>
-                    <th>Actions</th>
-
-                </tr>
-
-            </thead>
-
-            <tbody>
-
-            {% for contact_message in contact_messages %}
-                <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
-
-                    <!-- Message Title -->
-
-                    <td class="{% if not contact_message.hasBeenConsulted %}unreadMessage {% endif %}">
-
-                        {% if contact_message.title | length > 40 %}
-
-                            {{ contact_message.title | slice (0,37) }}...
-
-                        {% else %}
-
-                            {{ contact_message.title }}
-
-                        {% endif %}
-
-                        <span class="ml-2 unreadBadge badge badge-success">nouveau</span>
-
-                    </td>
-
-                    <!-- Message Content -->
-                    
-                    <td>
-
-                        {% if contact_message.content | length > 40 %}
-
-                            {{ contact_message.content | slice (0,37) }}...
-
-                        {% else %}
-
-                            {{ contact_message.content }}
-
-                        {% endif %}
-
-                    </td>
-
-                    <!-- Message Provider (email address) -->
-
-                    <td>
-
-                        {{ contact_message.senderEmail }}
-
-                    </td>
-
-                    <!-- Message Date -->
-
-                    <td>
-
-                        {{ contact_message.createdAt ? contact_message.createdAt | date('Y-m-d H:i:s') : '' }}
-
-                    </td>
-
-                    <!-- Action Buttons (delete a message) -->
-
-                    <td class="messagesActions">
-
-                        <button type="button" class="js-delete-message btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
-
-                    </td>
-
-                </tr>
-
-            {% else %}
-
-                <tr>
-
-                    <td colspan="7">Aucun Message</td>
-
-                </tr>
-
-            {% endfor %}
-
-            </tbody>
-
-        </table>
-    
-    </div>
-
+        {% include 'contact_message/_list/_table.html.twig' %}
 
     <!-- Back button -->
 
@@ -344,12 +199,10 @@
 
              }; 
                 
-
-
         });
 
-
     } );
+
 </script>
 
 {% endblock %}

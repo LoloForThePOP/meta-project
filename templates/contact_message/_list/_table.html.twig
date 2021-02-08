@@ -1,0 +1,98 @@
+<div class="container-fluid mb-3">
+
+    <table id="messagesTable" class="table table-hover table-striped table-bordered cursor-pointer">
+
+        <thead>
+
+            <tr class="cursor-pointer">
+
+                <th>Titre</th>
+                <th>Contenu</th>
+                <th>Envoyeur</th>
+                <th>Date</th>
+                <th>Actions</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+        {% for contact_message in contact_messages %}
+            <tr data-message-id = "{{ contact_message.id }}"  data-message-title = "{{contact_message.title}}" data-message-sender="{{contact_message.senderEmail}}" data-message-date="{{contact_message.createdAt |date('d-m-Y')}}" data-message-hour="{{contact_message.createdAt |date('H:i:s')}}">
+
+                <!-- Message Title -->
+
+                <td class="{% if not contact_message.hasBeenConsulted %}unreadMessage {% endif %}">
+
+                    {% if contact_message.title | length > 40 %}
+
+                        {{ contact_message.title | slice (0,37) }}...
+
+                    {% else %}
+
+                        {{ contact_message.title }}
+
+                    {% endif %}
+
+                    <span class="ml-2 unreadBadge badge badge-success">nouveau</span>
+
+                </td>
+
+                <!-- Message Content -->
+                
+                <td>
+
+                    {% if contact_message.content | length > 40 %}
+
+                        {{ contact_message.content | slice (0,37) }}...
+
+                    {% else %}
+
+                        {{ contact_message.content }}
+
+                    {% endif %}
+
+                </td>
+
+                <!-- Message Provider (email address) -->
+
+                <td>
+
+                    {{ contact_message.senderEmail }}
+
+                </td>
+
+                <!-- Message Date -->
+
+                <td>
+
+                    {{ contact_message.createdAt ? contact_message.createdAt | date('Y-m-d H:i:s') : '' }}
+
+                </td>
+
+                <!-- Action Buttons (delete a message) -->
+
+                <td class="messagesActions">
+
+                    <button type="button" class="js-delete-message btn btn-danger font-weight-bold" data-dismiss="alert">&times;</button>
+
+                </td>
+
+            </tr>
+
+        {% else %}
+
+            <tr>
+
+                <td colspan="7">Aucun Message</td>
+
+            </tr>
+
+        {% endfor %}
+
+        </tbody>
+
+    </table>
+
+</div>

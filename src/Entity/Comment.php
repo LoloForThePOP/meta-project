@@ -58,12 +58,13 @@ class Comment
     private $updatedAt;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="childs", cascade={"persist", "remove"})
-     */
+     * @ORM\ManyToOne(targetEntity=Comment::class, inversedBy="childs")
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     */ 
     private $parent;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="parent", cascade={"persist", "remove"})
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="parent")
      */
     private $childs;
 

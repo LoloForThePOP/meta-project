@@ -8,7 +8,7 @@
 
 		<!-- Edit Slideshow Shortcut Button-->
 
-		{% if app.user and app.user == presentation.creator %}
+		{% if is_granted('edit', presentation) %}
 		
 			<div class="mb-3 mb-md-4">
 

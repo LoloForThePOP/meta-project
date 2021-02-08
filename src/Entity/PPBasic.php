@@ -249,6 +249,7 @@ class PPBasic implements \Serializable
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="presentations", cascade={"persist"})
+     * @ORM\JoinColumn(onDelete="set null")
      */
     private $creator;
 
@@ -1324,6 +1325,7 @@ class PPBasic implements \Serializable
         return $this;
     }
 
+
     public function removeUsersFollow(UserFollows $usersFollow): self
     {
         if ($this->usersFollow->removeElement($usersFollow)) {
@@ -1335,6 +1337,67 @@ class PPBasic implements \Serializable
 
         return $this;
     }
+
+    
+    public function isFollowedBy(User $user) : bool
+    {
+
+        $followRows = $this->getUsersFollow();
+
+        if ($followRows !== null) {
+           
+            foreach ($followRows as $followRow) {
+
+                if($followRow->getUser() == $user)
+                {
+                    return true;
+                }
+
+            }
+
+            return false;
+
+        }
+        
+    }
+
+
+    /**
+     * Allow to know wether an user can access this presentation with a specific right
+     *
+     * @param User $user
+     * @param string $rightType
+     * @return boolean
+     */
+    
+    public function isAccessedBy(User $user, $rightType) : bool
+    {
+
+        // if user created presentation, he has all access by default
+
+        if ($user == $this->getCreator()) {
+            return true;
+        }
+
+        $presentationRights = $this->getRights();
+
+        if ($presentationRights !== null) {
+           
+            foreach ($presentationRights as $right) {
+
+                if($right->getUser() == $user && $right->getType() == $rightType)
+                {
+                    return true;
+                }
+
+            }
+            return false;
+        }
+        
+    }
+
+
+
 
     public function getMajorLogs(): ?PPMajorLogs
     {

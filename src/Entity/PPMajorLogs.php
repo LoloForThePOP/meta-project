@@ -66,7 +66,7 @@ class PPMajorLogs
 
     //Allow to update presentation major logs journal
 
-    public function updateLogs (?PPBasic $presentation, $entityType, $eventType, $entityId, EntityManagerInterface $manager) {
+    public function updateLogs (?PPBasic $presentation, $entityType, $eventType, $entityId, $creatorId, EntityManagerInterface $manager) {
 
             
         if (!$presentation->getMajorLogs()){
@@ -86,8 +86,9 @@ class PPMajorLogs
             [
                 'entityType'=> $entityType, 
                 'eventType'=> $eventType, 
-                'entityId'=> $entityId, 
-                'date'=> new \DateTime('now')
+                'entityId'=> $entityId,
+                'creatorId'=> $creatorId,
+                'date'=> new \DateTime('now'),
             ]
         ;
 

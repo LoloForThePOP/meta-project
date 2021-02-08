@@ -7,7 +7,7 @@ use App\Entity\User;
 class PresentationsRightsService {
 
     /**
-    * Returns presentations that user can view or edit or any other kinds of rights.
+    * Returns presentations that user can view or edit (or any other kinds of rights types).
     */
     public function getUserPresentationsByRightType (User $user, string $rightType){
 

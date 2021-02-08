@@ -138,9 +138,10 @@
     
         {# we center the presentation display when we are in consultation mode (in contrast, when in edit mode view, the presentation is not centered) #}
 
-        {% if not app.user == presentation.creator %}
-        
-            container  
+
+        {% if not is_granted('edit', presentation) %}
+    
+            container 
 
         {% endif %}
     

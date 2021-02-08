@@ -85,6 +85,11 @@ class ContactMessage
      */
     private $hasBeenConsulted;
 
+    /**
+     * @ORM\OneToMany(targetEntity=MessageConsultation::class, mappedBy="message", orphanRemoval=true)
+     */
+    private $consultedBy;
+
 
 
 
@@ -93,6 +98,7 @@ class ContactMessage
         $this->receivers = new ArrayCollection();
         $this->setCreatedAt(new \DateTime('now'));
         $this->hasBeenConsulted = false;
+        $this->consultedBy = new ArrayCollection();
     }
   
     public function getId(): ?int
@@ -206,6 +212,36 @@ class ContactMessage
     public function setHasBeenConsulted(?bool $hasBeenConsulted): self
     {
         $this->hasBeenConsulted = $hasBeenConsulted;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|MessageConsultation[]
+     */
+    public function getConsultedBy(): Collection
+    {
+        return $this->consultedBy;
+    }
+
+    public function addConsultedBy(MessageConsultation $consultedBy): self
+    {
+        if (!$this->consultedBy->contains($consultedBy)) {
+            $this->consultedBy[] = $consultedBy;
+            $consultedBy->setMessage($this);
+        }
+
+        return $this;
+    }
+
+    public function removeConsultedBy(MessageConsultation $consultedBy): self
+    {
+        if ($this->consultedBy->removeElement($consultedBy)) {
+            // set the owning side to null (unless already changed)
+            if ($consultedBy->getMessage() === $this) {
+                $consultedBy->setMessage(null);
+            }
+        }
 
         return $this;
     }

@@ -20,8 +20,7 @@
     
             <!-- Edit Text Description Button -->
     
-            {% if app.user and app.user == presentation.creator %}
-
+            {% if is_granted('edit', presentation) %}
 
                 <a class="" href="{{ path('manage_documents', {'slug': presentation.slug}) }}">
     

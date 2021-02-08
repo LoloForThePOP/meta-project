@@ -83,7 +83,6 @@ class Slide implements \Serializable
      * The project presentation (pp) targeted by this slide
      * 
      * @ORM\ManyToOne(targetEntity="App\Entity\PPBasic", inversedBy="slides")
-     * @ORM\JoinColumn(nullable=false)
      */
     private $pp;
 

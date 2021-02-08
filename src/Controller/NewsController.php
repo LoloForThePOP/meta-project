@@ -58,7 +58,7 @@ class NewsController extends AbstractController
 
             $idNews=$news->getId();
 
-            PPMajorLogs::updateLogs($presentation, 'news', 'new', $idNews, $manager);
+            PPMajorLogs::updateLogs($presentation, 'news', 'new', $idNews, $this->getUser()->getId(), $manager);
 
             $this->addFlash(
                 'success',

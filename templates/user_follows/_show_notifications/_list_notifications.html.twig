@@ -1,8 +1,106 @@
-<div id="notificationsList" class="row col-md-10">
+<style>
+    body{
+        background-color: aliceblue;
+
+    }
+</style>
+
+<div id="notificationsList" class="container col-md-10">
+
+    <!-- Unread Messages -->
+    
+    <div class="container mb-5 mt-3 mt-md-5 px-0">
+
+        {% if unreadMessages | length > 0 %}
+
+            <h3 class="font-weight-bold" style="margin-bottom : 32px;">
+                
+                {{unreadMessages | length }} 
+                
+                {{ unreadMessages | length == 1 ? 'Message non lu' : 'Messages non lus' }}
+            
+            </h3>
+        
+            <div class="list-group col-md-8">
+
+                {% for message in unreadMessages %}
+
+                    <!-- If more than 4 items, we display these in a collapsible -->
+
+                    {% if loop.index == 5 %}
+
+                            <!-- Collapsible Trigger Button -->
+        
+                            <a class="d-block btn btn-lg btn-primary font-weight-bold sharp" onclick="this.remove();" data-toggle="collapse" href="#collapseOtherMessages" role="button" aria-expanded="false" aria-controls="collapseOtherMessages">▼ Afficher les autres nouveaux messages ▼</a>
+        
+                            <!-- Collapsible Other Messages Container -->
+        
+                            <div class="collapse" id="collapseOtherMessages">
+
+                    {% endif %}
+                    
+                    <a href="#" class=" list-group-item list-group-item-action mb-2 bg-primary p-3 text-white sharp">
+
+                        <div    class="notification-title container font-weight-bold"
+                        
+                                data-entity-id='{{message.id}}' 
+
+                                data-route-name=" 
+                                
+                                    {{ path('show_embed_message') }}" 
+                                    
+                        >
+
+                            <div class="row">
+
+                                {{message.title}}
+
+                            </div>
+
+                            <div class="row">
+
+                                {{message.createdAt | date('d-m-Y') }}
+
+                            </div>
+
+                            <div class="row">
+
+                                {{ message.content | length < 50 ? message.content : message.content | slice(0, 47) ~ '...' }}
+
+                            </div>
+                            
+                        </div>
+                    </a>
+
+                    {% if loop.last and loop.index >= 5 %}
+
+                        </div>
+
+                    {% endif %}
+                    
+                {% endfor %}
+
+            </div>
+        
+            
+        </div>
+        {% endif %}
+
+    <!-- Followed Projects Notifications -->
 
     {% if userFollows | length > 0 %}
         
-        <div class="">
+        <div class="container px-0">
+
+        <!-- UI Page Title -->
+
+        <div class="mt-3 mt-md-4">
+
+            <!-- ui Page Title -->
+
+            <h3 class="mb-4 font-weight-bold mr-3">Projet(s) suivi(s)</h3>
+
+        </div>
 
             {% for userFollow in userFollows | reverse %}
 
@@ -38,8 +136,7 @@
 
                             <!-- We contrast display events that are new for user (i.e. since last notification page connection) -->
 
-                            <!-- If more than 3 items, we display these in a collapsible -->
-
+                            <!-- If more than 4 items, we display these in a collapsible -->
 
                             {% if loop.index == 5 %}
 
@@ -71,7 +168,7 @@
                             
                                 class="
 
-                                    pp-notification-title btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
+                                    notification-title btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
                                     
                                     {% if date(lastConnectionDate) < date(log.date.date) %}
 

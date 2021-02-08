@@ -22,7 +22,7 @@
                                             
             <!-- Edit Project Contact Cards Button -->
 
-            {% if app.user and app.user == presentation.creator %}
+            {% if is_granted('edit', presentation) %}
                 <a href="{{ path('contact_index', {'slug': presentation.slug}) }}" class="">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>

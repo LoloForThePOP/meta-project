@@ -54,7 +54,7 @@
 
     <!-- Edit Project Goal Button -->
 
-    {% if app.user and app.user == presentation.creator %}
+    {% if is_granted('edit', presentation) %}
 
         <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
 

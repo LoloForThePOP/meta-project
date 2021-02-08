@@ -103,12 +103,7 @@ class AccountController extends AbstractController
 
             $manager->persist($user);
             $manager->flush();
-
-            $this->addFlash(
-                'success',
-                'Votre compte vient d\'être créé ! Vous pouvez maintenant vous connecter.'
-            );
-
+            
             $message = (new \Swift_Message('Merci pour votre inscription sur le site'))
             ->setFrom(['contact@projetdesprojets.com'=>'Projet des Projets'])
             ->setTo($user->getEmail())
@@ -117,13 +112,19 @@ class AccountController extends AbstractController
                     'emails/registred.html.twig'
                 ),
                 'text/html'
-            )
-    
-        ;
-    
-        $mailer->send($message);
+            );
+            
+            $mailer->send($message);
 
-            return $this->redirectToRoute('account_login');
+            $this->addFlash(
+                'success',
+                'Votre compte vient d\'être créé ! Vous pouvez maintenant vous connecter.'
+            );
+            
+            return $this->redirectToRoute('edit_public_profile',[
+                'persorg_id' => $user->getPersorg()->getId(),
+                'context' => 'registration',
+            ]);
         }
 
         return $this->render('account/registration.html.twig',[
@@ -173,7 +174,7 @@ class AccountController extends AbstractController
 
             $this->addFlash(
                 'success',
-                'Les Modifications ont étées enregistrées avec succès!'
+                'Adresse e-mail modifiée.'
             );
 
             return $this->redirectToRoute('user_show',[

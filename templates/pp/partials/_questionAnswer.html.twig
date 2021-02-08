@@ -21,7 +21,7 @@
                                             
             <!-- Edit Project Q&A Button -->
 
-            {% if app.user and app.user == presentation.creator %}
+            {% if is_granted('edit', presentation) %}
             
                 <a href="{{ path('qa_manage', {'slug': presentation.slug}) }}">
 

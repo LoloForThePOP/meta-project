@@ -21,8 +21,8 @@
     
     {% if presentation.creator is defined %}
 
-        {% if app.user and app.user == presentation.creator %}
-
+    {% if is_granted('edit', presentation) %}
+    
             <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0" style="border: 2px solid navy !important;">Outils</a>
 
         {% endif %}
@@ -74,7 +74,7 @@
 
                 {% if app.user.countNotifications() > 0 %}
 
-                    <a href="{{path('show_follow_notifications')}}">
+                    <a href="{{path('show_notifications')}}">
                             
                         <button type="button" class="btn btn-primary font-weight-bold" style="padding: 6px 12px !important;">
 
@@ -129,6 +129,20 @@
                            <span class=""></span> Ajouter un Projet</a>
 
                         <a href="{{ path('account_index') }}" class="dropdown-item">Mes Projets présentés</a>
+
+                        <a href="{{ path('show_notifications') }}" class="dropdown-item">Mes Projets suivis</a>
+
+                        <a href="" class="dropdown-item">Mes messages
+
+                            {% if app.user.countUnreadMessages() > 0 %}
+                            
+                                <span class="badge badge-primary font-weight-bold ml-1">
+                                    {{app.user.countUnreadMessages()}}
+                                </span>
+
+                            {% endif %}
+
+                        </a>
 
                         <div class="dropdown-divider"></div>
                         

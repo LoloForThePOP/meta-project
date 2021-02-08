@@ -51,6 +51,17 @@ class News
      */
     private $title;
 
+    
+    /**
+     * @ORM\Column(type="text")
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 6000,
+     *      minMessage = "L'actualité doit avoir au moins {{ limit }} caractères",
+     *      maxMessage = "L'actualité doit avoir au plus {{ limit }} caractères"
+     *      )
+     */
+    private $textContent;
 
 
         
@@ -285,16 +296,6 @@ class News
      */
     private $vichUpdatedAt;
 
-    /**
-     * @ORM\Column(type="text")
-     * @Assert\Length(
-     *      min = 5,
-     *      max = 7000,
-     *      minMessage = "Le Contenu du Message doit faire au minimum {{ limit }} caractères",
-     *      maxMessage = "Le Contenu du Message doit faire au maximum {{ limit }} caractères",
-     * )
-     */
-    private $textContent;
 
     /**
      * @ORM\Column(type="string", length=1000, nullable=true)

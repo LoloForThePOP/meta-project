@@ -92,7 +92,7 @@ class EventController extends AbstractController
 
             $idEvent=$event->getId();
 
-            PPMajorLogs::updateLogs($presentation, 'event', 'new', $idEvent, $manager);
+            PPMajorLogs::updateLogs($presentation, 'event', 'new', $idEvent, $this->getUser()->getId(), $manager);
 
             $this->addFlash(
                 'success',

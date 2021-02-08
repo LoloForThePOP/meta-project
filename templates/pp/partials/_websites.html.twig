@@ -11,10 +11,9 @@
 
         <div class="pp-struct-title-container">
 
+            <!-- Structure 
 
-            <!-- Structure Icon 
-
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/websites.svg" height="32" width="32" alt="websites icon">-->
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/websites.svg" height="32" width="32" alt="websites icon">Icon -->
 
             <!-- Structure Title -->
 
@@ -22,7 +21,7 @@
 
             <!-- Edit Project Title Button -->
     
-            {% if app.user and app.user == presentation.creator %}
+            {% if is_granted('edit', presentation) %}
                 <a href="{{ path('websites_index', {'slug': presentation.slug}) }}" class="">
 
                     <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer les sites web</button>

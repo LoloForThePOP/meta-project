@@ -1,0 +1,46 @@
+
+<div class="container">
+
+    <!-- Message Title -->
+
+    <div class="row mb-0">
+
+        <h4 class="font-weight-bold">{{ message.title }}</h4>
+
+    </div>
+
+
+    <!-- Creation Date -->
+
+    <div class="row mb-4" style="font-size:17px;">
+
+        <div class="container">
+
+            <div class="row">
+                Envoyé le {{message.createdAt | date('d-m-Y')}} (à {{message.createdAt | date('H\\Hm')}}) <br>
+            </div>
+            
+        </div>
+
+    </div>
+
+
+    <!-- Message Content -->
+    
+    <div class="row mb-4" style="font-size:17px;">
+
+        {{message.content | nl2br }}
+
+    </div>
+
+
+    <!-- Sender Email -->
+    
+    <div class="row mb-4" style="font-size:17px;">
+
+        Adresse de l'expéditeur : {{message.senderEmail }}
+
+    </div>
+
+
+</div>

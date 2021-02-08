@@ -8,7 +8,7 @@
 
         <!-- Logo Edit Button -->
         
-        {% if app.user and app.user == presentation.creator %}
+        {% if is_granted('edit', presentation) %}
 
             <div class="font-weight-bold text-center mt-3 mb-1">  
 

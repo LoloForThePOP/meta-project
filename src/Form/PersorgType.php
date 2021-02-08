@@ -134,7 +134,7 @@ class PersorgType extends AbstractType
 
                     'attr' => [
                         
-                        'placeholder'    => 'Écrire ici',
+                        'placeholder'    => 'Exemple : aime la lecture, la musique, et la marche.',
                     ],
 
                     'required'   => false,
