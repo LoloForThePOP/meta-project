@@ -29,7 +29,7 @@ class PPController extends AbstractController
     {
         // $presentations = $repo->findAll();
 
-        $lastInsertedProjects = $manager->createQuery('SELECT p FROM App\Entity\PPBasic p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
+        $lastInsertedProjects = $manager->createQuery('SELECT p FROM App\Entity\PPBasic p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 AND p.adminValidation=true ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
         return $this->render('pp/index.html.twig', [
             'presentations' => $lastInsertedProjects,

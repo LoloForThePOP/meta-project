@@ -17,11 +17,13 @@
             <!-- Edit Text Description Button -->
     
             {% if is_granted('edit', presentation) %}
-                <a href="{{ path('edit_text_description', {'slug': presentation.slug}) }}">
+
+                <a class="pp-edition-mode" href="{{ path('edit_text_description', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
                     
                 </a>
+
             {% endif %}
 
         </div>

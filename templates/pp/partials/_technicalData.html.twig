@@ -18,16 +18,15 @@
 
             <h3 class="pp-struct-title d-inline mr-2 mb-2">Informations supplémentaires</h3>
     
-            <!-- Edit Text Description Button -->
+            <!-- Edit Technical Data Button -->
     
             {% if is_granted('edit', presentation) %}
 
-                <a class="" href="{{ path('manage_technicalData', {'slug': presentation.slug}) }}">
+                <a class="pp-edition-mode" href="{{ path('manage_technicalData', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer ces informations</button>
                     
                 </a>
-
 
             {% endif %}
 

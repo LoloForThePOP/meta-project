@@ -29,7 +29,7 @@
 
         {% if is_granted('edit', presentation) %}
 
-            <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
+            <a class="pp-edition-mode" href="{{ path('project_edit', {'slug': presentation.slug}) }}">
 
                 <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Éditer</button>
                 

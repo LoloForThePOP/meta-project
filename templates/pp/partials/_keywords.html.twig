@@ -1,29 +1,5 @@
 <!-- Project Keywords Presentation -->
 
-<!-- Some Styles -->
-
-<style>
-
-    .pp-project-keywords{
-
-        font-size: 15px;
-
-        font-weight: bold;
-
-    }
-
-    @media screen and (max-width: 580px) {
-
-        .pp-project-keywords{
-
-           
-        }
-
-    }
-
-</style>
-
-
 {% if presentation.keywords | length > 0 %}
 
     <div class="keywords text-left" >
@@ -40,7 +16,7 @@
 
         {% if is_granted('edit', presentation) %}
 
-            <a href="{{ path('index_categories', {'slug': presentation.slug}) }}" class="">
+            <a class="pp-edition-mode" href="{{ path('index_categories', {'slug': presentation.slug}) }}" class="">
 
                 <button class="btn btn-light btn-sm sharp font-weight-bold mb-2 d-inline">Éditer</button>
                 
@@ -50,5 +26,29 @@
 
 
     </div>
+
+        
+    <!-- Some Styles -->
+
+    <style>
+
+        .pp-project-keywords{
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pp-project-keywords{
+
+            
+            }
+
+        }
+
+    </style>
 
 {% endif %}

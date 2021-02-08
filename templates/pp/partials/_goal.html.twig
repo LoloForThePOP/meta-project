@@ -2,43 +2,7 @@
 <!-- Project Goal Presentation -->
 
 
-
-<!-- Some Styles -->
-
-<style>
-
-    .pp-project-goal{
-
-        font-size: 1.8em;
-        font-family: Tahoma, Geneva, Verdana, sans-serif;
-
-    }
-
-    .untitledProject{
-
-        font-size: 1.7em !important;
-
-    } 
-
-    @media screen and (max-width: 580px) {
-
-        .pp-project-goal{
-
-            font-size: 1.1em;
-            font-weight: normal;
-        }
-            
-        .untitledProject{
-
-            font-size: 1.3em !important;
-
-        }
-
-    }
-
-</style>
-
-    <!-- Project Goal Display -->
+    <!-- Project Goal Text Display -->
     
     <h4 class="pp-project-goal d-inline-block mr-3 
         
@@ -56,10 +20,46 @@
 
     {% if is_granted('edit', presentation) %}
 
-        <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
+        <a class="pp-edition-mode" href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
 
             <button class="btn btn-light sharp font-weight-bold fs-15">Éditer</button>
             
         </a>
 
     {% endif %}
+
+        
+    <!-- Some Styles -->
+
+    <style>
+
+        .pp-project-goal{
+
+            font-size: 1.8em;
+            font-family: Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+
+        .untitledProject{
+
+            font-size: 1.7em !important;
+
+        } 
+
+        @media screen and (max-width: 580px) {
+
+            .pp-project-goal{
+
+                font-size: 1.1em;
+                font-weight: normal;
+            }
+                
+            .untitledProject{
+
+                font-size: 1.3em !important;
+
+            }
+
+        }
+
+    </style>

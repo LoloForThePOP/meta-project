@@ -15,6 +15,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class UserController extends AbstractController
 {
 
+    /*
+
+        Access to Notification Page : in UserFollowsController.
+
+    */
+
     /**
      * @Route("/user/{id}", name="user_show")
      */

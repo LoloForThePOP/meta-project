@@ -8,7 +8,7 @@
         
         <!-- Title Container with Edit Button -->
 
-        <div id="externalContributorsDisplay" class="pp-struct-title-container">
+        <div class="pp-edition-mode" id="externalContributorsDisplay" class="pp-struct-title-container">
 
             <!-- Structure Title -->
 
@@ -48,7 +48,7 @@
 
                     {% if is_granted('edit', presentation) %}
 
-                        <a class="" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
+                        <a class="pp-edition-mode" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
 
                             <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
                             

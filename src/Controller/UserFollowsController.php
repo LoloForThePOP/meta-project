@@ -142,7 +142,6 @@ class UserFollowsController extends AbstractController
             'userFollows' => $userFollows,
             'unreadMessages' => $user->getUnreadMessages(),
             'lastConnectionDate' => $lastConnectionDate,
-            'currentTime' => $user->getLastNotificationsConnection(),
 
         ]);
 

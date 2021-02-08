@@ -28,11 +28,13 @@
             <!-- Manage Project News Button -->
 
             {% if is_granted('edit', presentation) %}
-                <a href="{{ path('manage_news', {'slug': presentation.slug}) }}">
+
+                <a class="pp-edition-mode" href="{{ path('manage_news', {'slug': presentation.slug}) }}">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les actualités</button>
                     
                 </a>
+
             {% endif %}
 
         </div>

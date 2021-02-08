@@ -93,6 +93,7 @@ class PPMajorLogs
         ;
 
         $presentationMajorLogs->setLogs($logs);
+        //$presentationMajorLogs->setUpdatedAt(new \DateTime('now'));
 
         if (!$presentation->getMajorLogs()){
             

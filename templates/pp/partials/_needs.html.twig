@@ -29,11 +29,13 @@
             <!-- Manage Project Needs Button -->
 
             {% if is_granted('edit', presentation) %}
-                <a href="{{ path('need_index', {'slug': presentation.slug}) }}">
+
+                <a class="pp-edition-mode" href="{{ path('need_index', {'slug': presentation.slug}) }}">
 
                     <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les besoins</button>
                     
                 </a>
+                
             {% endif %}
 
         </div>

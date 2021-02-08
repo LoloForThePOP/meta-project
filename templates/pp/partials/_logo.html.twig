@@ -10,7 +10,7 @@
         
         {% if is_granted('edit', presentation) %}
 
-            <div class="font-weight-bold text-center mt-3 mb-1">  
+            <div class="pp-edition-mode font-weight-bold text-center mt-3 mb-1">  
 
                 <a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
 
@@ -22,7 +22,7 @@
         
         {% endif %}
 
-        <!-- Logo Edit Button -->
+        <!-- Logo Display -->
 
         <div class="d-inline-block m-0 d-flex align-items-center justify-content-center" >
 

@@ -12,6 +12,7 @@ use Symfony\Component\Validator\Constraints\Email;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
@@ -683,22 +684,6 @@ class User implements UserInterface
         //getting user last time user accessed notification page
         $userLastConnectionDate= $this->getLastNotificationsConnection();
 
-        //getting user last message date
-
-        $userMessages = $this->getContactMessages();
-
-        if (!$userMessages->isEmpty()) {
-
-            $userLastMessageDate = $userMessages->last()->getCreatedAt();
-
-            if ($userLastConnectionDate < $userLastMessageDate) {
-        
-                $countNotifications++;
-                
-            }
-            //dd($countNotifications);
-        }
-
         $userFollows = $this->getUserFollows();
 
         foreach ($userFollows as $followRow) {
@@ -713,37 +698,32 @@ class User implements UserInterface
 
                 if ($userLastConnectionDate < $ppLastMajorUpdateDate) {
 
+                    //dump('on détecte une modification ultérieure');
+                    //dump('on détecte que la présentation a été modifiée par quelqun dautre');
+
                     $events = $presentationMajorLogs->getLogs();
 
-                    // we check if user has made presentation modifications by himself. In that case, he doesn't have to be notified.
+                    foreach ($events as $event) {
 
-                    if ($currentPresentation->isAccessedBy($this,'edit')) {
-                        
-                        foreach ($events as $event) {
+                        //we check if this modification has been done after his last connection, in that case we have to notify him
+
+                        if ($userLastConnectionDate->getTimestamp() < strtotime($event['date']['date'])) {
+
+                            //dump('on détecte que la modification est ultérieure à la dernière connection sur la page de notification');
 
                             //if user has not done current modification by himself
 
                             if ($event['creatorId'] !== $this->getId())
                             {
-                                //we check if this modification has been done after his last connection, in that case we have to notify him
 
-                                if ($userLastConnectionDate < $event['date']) {
-
-                                    $countNotifications++;
-                                }
+                                $countNotifications++;
         
                             }
-        
                             
                         }
+                        
                     }
-
-                    // case user has no right over this presentation : it is sure that he is not aware of presentation modifications
-
-                    else {
-                        $countNotifications++;
-                    }
-                    
+                
                 }
                 
             }

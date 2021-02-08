@@ -152,6 +152,13 @@
 
             <div class="col-md-12 mb-3 pb-3" style="border-radius:4px !important;">
 
+                {% if is_granted('edit', presentation) %}
+
+                    <button id="pp-edition-mode" class="btn btn-light">edition</button>
+                    <button id="pp-consultation-mode" class="btn btn-light">consultation</button>
+
+                {% endif %}
+
                 <!-- Upper Box (Contains Project Logo; Title; Goal; Keywords) -->
                 {% include 'pp/partials/_upper_box.html.twig' %}
 
@@ -260,7 +267,31 @@
 
     <script>
         
-        $(document).ready(function(){  
+        $(document).ready(function(){
+            
+            {% if is_granted('edit', presentation) %}
+    
+                // edition and consultation switch mode
+                
+                $( "#pp-edition-mode" ).click(function() {
+                    
+                    $(".pp-edition-mode").show();
+                    //manage sidebar appearing
+                    $(".pp-whole-container").removeClass("container");
+                
+                });
+
+                $( "#pp-consultation-mode" ).click(function() {
+
+                    $(".pp-edition-mode").hide();
+                    //manage sidebar disappearing
+                    $(".pp-whole-container").addClass("container");
+                
+                });
+
+            {% endif %}
+
+
 
             // If reply to a comment form has errors, we display them to user (so we trigger Modal display) 
 
