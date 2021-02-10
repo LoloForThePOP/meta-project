@@ -10,7 +10,7 @@
 
 		{% if is_granted('edit', presentation) %}
 		
-			<div class="mb-3 mb-md-4">
+			<div class="pp-edition-mode mb-3 mb-md-4">
 
 				<!-- Structure Title -->
 
@@ -18,7 +18,7 @@
 										
 				<!-- Edit Slideshow Button -->
 
-					<a class="pp-edition-mode" href="{{ path('slideshow_index', {'slug': presentation.slug}) }}">
+					<a href="{{ path('slideshow_index', {'slug': presentation.slug}) }}">
 
 						<button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer le diaporama</button>
 						

@@ -70,6 +70,7 @@ class TeammatesController extends AbstractController
 
         }
 
+        /* Edit Teammates by Text */
 
         $teammatesByTextForm = $this->createForm(TeammatesByTextType::class, $presentation);
         
@@ -86,8 +87,9 @@ class TeammatesController extends AbstractController
                 "Les modifications ont été effectuées !"
             );
 
-            return $this->redirectToRoute('edit_presentation_menu', [
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'teamDisplay',
             ]);
 
         }

@@ -23,7 +23,7 @@ class StaticController extends AbstractController
      /**
      * @Route("/contact-us", name="contact_website")
      */
-    public function contactWebsite(Request $request)
+    public function contactWebsite(Request $request, \Swift_Mailer $mailer)
     {
 
         $contactMessage = new ContactWebsite();
@@ -48,9 +48,23 @@ class StaticController extends AbstractController
             $entityManager->persist($contactMessage);
             $entityManager->flush();
 
+            //sending a message to website administration
+
+            $message = (new \Swift_Message('Un utilisateur a envoyé un message'))
+            ->setFrom(['noreply@projetdesprojets.com'=>'Projet des Projets'])
+            ->setTo('contact@projetdesprojets.com')
+            ->setBody(
+                $this->renderView(
+                    'emails/registred.html.twig'
+                ),
+                'text/html'
+            );
+            
+            $mailer->send($message);
+
             $this->addFlash(
                 'success',
-                'Merci pour l\'envoi de votre message. Nous souhaitons le traiter dans les plus brefs délais'
+                'Merci pour l\'envoi de votre message. Nous souhaitons le consulter dans les plus brefs délais'
             );
 
             return $this->redirectToRoute('homepage');

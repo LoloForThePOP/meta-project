@@ -1,4 +1,4 @@
-<div class="ownerCard mb-2 px-1 cursor-pointer">
+<div class="ownerCard">
 
     <a href="#" class="h-100 w-100 text-body" data-toggle="modal" data-target="#ownerDisplayModal{{ loop.index }}">
 
@@ -10,7 +10,7 @@
 
                 <div> <!-- sub img-fluid applies only applies to this parent div  -->
 
-                    <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}">
+                    <img class="img-fluid rounded-lg" src="{{ asset('/images/persorgs/' ~ owner.persorg.image) | imagine_filter('logo_thumbnail_sm') }}" style="max-width:100px; max-height:100px;">
 
                 </div>
             

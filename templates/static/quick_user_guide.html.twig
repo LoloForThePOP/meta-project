@@ -4,115 +4,102 @@
 
 {% block body %}
 
-    <div class="container mt-4 mt-md-5">
+    <div class="container mt-4 mt-md-5 pl-md-4">
 
-        <h3 class="pageTitle font-weight-bold h2 mb-5 pl-md-4">Présentation du site</h3>
+        <!-- How to use the website, Step By Step -->
 
-          <!-- How to use the website, Step By Step -->
+        <!-- ui page title -->
 
-        <div class="container mt-5 mb-md-5">
-            
-             <!-- First Step -->
+        <!-- <h3 class="pageTitle font-weight-bold h2 mb-md-5 pt-md-3">Présentation du site</h3> -->
 
-            <div class="row step">
+        <!-- step by step rows -->
 
-                <div class="col-auto d-flex align-items-end">
-                    <span class="listNumber h1">1.</span>
+
+        <!-- write project goal -->
+
+        <div class="step col-md-8 mb-md-5">
+            <div class="row">
+                <div class="step-number col-md-2 d-flex align-items-center justify-content-center bg-info">
+                    <span class="listNumber h1">1</span>
                 </div>
-
-                <div class="col-auto d-flex align-items-end mb-3 mb-md-0">
-                    <img src="images/static/quick_user_guide/write_goal.png" class="img-fluid" alt="" srcset="" style="width:360px;">
+                <div class="step-image col-md-4 d-flex align-items-center bg-light">
+                    <img src="images/static/quick_user_guide/write_goal.png" class="img-fluid mb-md-5" alt="hand writing project goal" >
                 </div>
-
-                <div class="step-text col fs-15 d-flex align-items-end">
-
+                <div class="step-description col-md-6 d-flex align-items-center bg-warning">
                     <h4 class="step-text">Écrivez l'objectif de votre Projet</h4>
-                  
                 </div>
-
             </div>
+        </div>
 
-             <!-- Second Step -->
+        <!-- provide project informations -->
 
-            <div class="row step">
-
-                <div class="col-auto d-flex align-items-center">
-                    <span class="listNumber h1">2.</span>
+        <div class="step col-md-8 mb-md-5">
+            <div class="row">
+                <div class="step-number col-md-2 d-flex align-items-center justify-content-center bg-info">
+                    <span class="listNumber h1">2</span>
                 </div>
-
-                <div class="col-auto d-flex justify-content-center align-items-center mb-3 mb-md-0">
-                    <img src="images/static/quick_user_guide/bulletin_board.png" class="img-fluid" alt="" srcset="">
+                <div class="step-image col-md-4 d-flex align-items-center bg-light">
+                    <img src="images/static/quick_user_guide/bulletin_board.png" class="img-fluid" alt="bulletin board with mess informations" srcset="">
                 </div>
-
-                <div class="step-text col fs-15 d-flex align-items-center">
-
-                    <h4 class="step-text ">Présenter les informations que vous voulez, par exemple une description et quelques images</h4>
-                  
+                <div class="step-description col-md-6 d-flex align-items-center bg-warning">
+                    <h4 class="step-text">Présenter les informations que vous souhaitez, par exemple une description et quelques images</h4>
                 </div>
-
             </div>
+        </div>
+            
+        <!-- et voila -->
 
-             <!-- Third Step -->
-
-            <div class="row step">
-
-                <div class="col-auto d-flex align-items-center">
-                    <span class="listNumber h1">3.</span>
+        <div class="step col-md-8 mb-md-5">
+            <div class="row">
+                <div class="step-number col-md-2 d-flex align-items-center justify-content-center bg-info">
+                    <span class="listNumber h1">3</span>
                 </div>
-
-                <div class="col-auto d-flex justify-content-center align-items-center mb-3 mb-md-0">
-                    <img src="images/static/quick_user_guide/et_voila.png" class="img-fluid" alt="" srcset="">
-                    
+                <div class="step-image col-md-4 d-flex align-items-center bg-light">
+                    <img src="images/static/quick_user_guide/et_voila.png" class="img-fluid" alt="structured project presentation display" srcset="">
                 </div>
-
-                <div class="col fs-15 d-flex align-items-center">
-
-                    <h4 class="step-text ">Vous obtenez une présentation structurée de votre projet. Partagez son adresse. Les visiteurs peuvent s'abonner à votre présentation. Ils reçoivent les news de votre projet</h4>
-                  
+                <div class="step-description col-md-6 d-flex align-items-center bg-warning">
+                    <h4 class="step-text">Vous obtenez une présentation structurée de votre projet. Partagez son adresse. Les visiteurs pourront s'abonner à votre présentation. Ils recevront les news de votre projet.</h4>
                 </div>
-
             </div>
+        </div>
+          
+            
+        <!-- discover possibilities -->
 
-             <!-- Fourth Step -->
-
-            <div class="row step">
-
-                <div class="col-auto d-flex align-items-center">
-                    <span class="listNumber h1">4.</span>
+        <div class="step col-md-8 mb-md-5">
+            <div class="row">
+                <div class="step-number col-md-2 d-flex align-items-center justify-content-center bg-info">
+                    <span class="listNumber h1">4</span>
                 </div>
-
-                <div class="col-auto d-flex justify-content-center align-items-center mb-3 mb-md-0" style="width:420px;">
-                    <img src="images/static/quick_user_guide/launch.svg" class="img-fluid" alt="" srcset="" style="width:300px">    
-
+                <div class="step-image col-md-4 d-flex align-items-center justify-content-center bg-light">
+                    <img src="images/static/quick_user_guide/launch.svg" class="img-fluid" alt="rocket launch" srcset="" style="max-width:180px;">
                 </div>
+                <div class="step-description col-md-6 d-flex align-items-center bg-warning">
 
-                <div class="col fs-15 d-flex align-items-center">
+                    <div class="">
 
-                    <div class="step-text ">
-    
-                        <h4 class="mb-4">Plusieurs possibilités sont prévues pour faire progresser votre projet. Par exemple : </h4>
+                        <h4 class="step-text mb-4">Découvrez les autres possibilités prévues pour faire progresser votre projet :</h4>
                                 
-                        <ul class="fs-15 font-weight-bold">
-    
+                        <ul class="h5 font-weight-bold">
+
                             <li>présenter vos besoins</li>
                             <li>recevoir des commentaires</li>
                             <li>être contacté</li>
-    
+                            <li>présenter le projet à plusieurs</li>
+
                         </ul>
 
                     </div>
-                  
+         
                 </div>
-
             </div>
-            
         </div>
 
          <!-- Call to Action (Present a Project) -->
 
          <div class="container pt-3 mb-5">
 
-            <div class="row pl-md-4 d-flex justify-content-center"> 
+            <div class="row "> 
     
                 <a href="{{path('create_presentation')}}" class="font-weight-bold my-1" type="button" >
 
@@ -134,44 +121,66 @@
     </div>
 
     <style>
-
-        .step{
-           margin-bottom: 80px;
-        }
-
-        .step img{
-            width:380px;
-        }
         
+        .step .row{
+            height : 300px;
+        }
 
         .step-text{
-            width:400px;
+            font-weight:bold;
         }
 
         .CTA{
-            background-color: greenyellow;
+            background-color: rgb(220, 250, 176); 
         }
 
         .CTA:hover{
-            background-color: rgb(220, 250, 176);
+            background-color:greenyellow;
         }
 
         @media screen and (max-width: 580px) {
 
-            .pageTitle{
-                font-size: 1.8em;
-             }
 
-            .listNumber{
-                font-size: 1.7em;
-             }
 
             .step{
-                margin-bottom: 30px;
-             }
+                margin-bottom : 30px;
+                border:2px solid black;
+            }
+
+            .step .row{
+                height:auto;
+            }
+
+            .step-image{
+
+                padding: 15px 15px;
+
+                display:flex;
+                justify-content: center;
+            }
+
+            .step-image img{
+                width:200px;
+            }
+
+            .step-description{
+
+                padding: 10px 20px;
+            }
 
             .step-text{
-                font-size:1.3em;
+
+                font-size: 1.2em;
+            }
+
+            .pageTitle{
+                font-size: 1.8em;
+                margin-top : 31px;
+                margin-bottom : 31px;
+             }
+
+            .step-number{
+                height: 50px;
              }
 
 

@@ -8,29 +8,36 @@
 
     <div class="container">
 
-        <h3 class="my-5">Qui sommes nous ?</h3>
+        <div class="subpart">
 
-        <div>
+            <h3 class="subpart-title">Qui sommes nous ?</h3>
 
-            <p class="h5 pl-md-4 col-md-8 text-justify">
-               Je m'appelle Laurent GAILLARD, j'ai 36 ans, et je pense que la présentation des projets à grande échelle peut favoriser leur réalisation. 
-            </p>
+            <div class="subpart-content">
 
-            <p class="h5 pl-md-4 col-md-8 text-justify">
-               Des amis me donnet leur avis (merci à Joël et Lolo). 
-            </p>
+                <p class="subpart-paragraph">
+                Je m'appelle Laurent GAILLARD et je pense que la présentation structurée des projets à grande échelle peut favoriser leur réalisation. 
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="subpart">
+
+            <h3 class="subpart-title">Pourquoi ce site ?</h3>
+
+            <div class="subpart-content">
+
+                <p class="subpart-paragraph">
+                    Je pense qu'il manque une telle plateforme pour présenter facilement et rapidement nos projets, alors j'ai décidé de construire ce site.
+                </p>
+
+            </div>
 
         </div>
 
-        <h3 class="my-5">Pourquoi ce site ?</h3>
+        
 
-        <div>
-
-            <p class="h5 pl-md-4 col-md-8 text-justify">
-                Nous pensons qu'il manque une plateforme pour présenter facilement et rapidement les projets de chacun d'entre nous. Nous pensons qu'une telle plateforme permettrait la réalisation de projets utiles à tous. Alors voilà, on essaie de la rendre réalité !
-            </p>
-
-        </div>
 <!-- 
         <h3 class="my-5">Le manifeste du Projet des Projets</h3>
 
@@ -42,29 +49,90 @@
 
         </div> -->
 
-        <h3 class="my-5">Participer</h3>
 
-        <div>
+        <div class="subpart">
 
-            <p class="h5 pl-md-4 col-md-8 text-justify">
-                Le Projet des Projets à besoin de vous. Toutes vos remarques, critiques, idées, et autres propositions sont les bienvenues. N'hésitez pas à nous écrire avec le formulaire ci-dessous.
-            </p>
+            <h3 class="subpart-title">Participer</h3>
 
-        </div>
+            <div class="subpart-content">
 
-        <h3 class="my-5">Pour tout contact</h3>
+                <p class="subpart-paragraph">
+                    Le Projet des Projets à besoin de vous pour être développé. Toutes vos remarques, critiques, idées, et autres propositions de participation sont les bienvenues. N'hésitez pas à me contacter avec le formulaire ci-dessous.
+                </p>
 
-        <div class="h5 pl-md-4 col-md-8 text-justify">
-
-            <p>
-                Vous pouvez utiliser notre formulaire de contact en cliquant <a href="{{path('contact_website')}}">ici</a>.
-
-            </p>
+            </div>
 
         </div>
 
-   
+        <div class="subpart">
+
+            <h3 class="subpart-title">Pour tout contact</h3>
+
+            <div class="subpart-content">
+
+                <p class="subpart-paragraph">
+                    Vous pouvez accéder au formulaire de contact en cliquant <a href="{{path('contact_website')}}"> <span class="badge badge-info">ici</span></a>
+                </p>
+
+            </div>
+
+        </div>
+        
 
     </div>
+
+    <style>
+
+        .container .subpart:first-child{
+            margin-top : 50px;
+        }
+
+        .subpart{
+            
+            margin-bottom: 10px;
+
+            width: 740px;
+
+        }
+
+        .subpart-title{
+            font-weight: bold;
+            margin-bottom:20px;
+        }
+
+        .subpart-content{
+            font-size: 1.3em;
+            
+            padding : 10px 20px;
+
+            text-align: justify;
+        }
+
+        .subpart-paragraph{
+            margin-bottom: 15px;
+        }
+
+        @media screen and (max-width: 580px) {
+
+                
+            .container .subpart:first-child{
+                margin-top : 35px;
+            }
+
+            .subpart{
+            
+                width:100%;
+    
+            }
+
+            .subpart-title{
+            
+                font-size:1.5em;
+    
+            }
+
+        }
+
+    </style>
   
 {% endblock %}

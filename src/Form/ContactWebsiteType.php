@@ -29,7 +29,7 @@ class ContactWebsiteType extends AbstractType
                     'required'   => true,
                 ]
                 )
-            ->add(
+           /*  ->add(
                 'title', 
                 TextType::class,
                 [
@@ -42,7 +42,7 @@ class ContactWebsiteType extends AbstractType
 
                     'required'   => true,
                 ]
-            )
+            ) */
             ->add('content', 
                 TextareaType::class, 
                 [

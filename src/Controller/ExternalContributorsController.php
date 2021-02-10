@@ -25,7 +25,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class ExternalContributorsController extends AbstractController
 {
 
-    /* The "External Contributors Creation" creation is managed in PPController, into function "edit presentation menu" */
+    /* The "External Contributors Creation" is managed in PPController, into function "edit presentation menu" */
 
     /**
      * Allow to Manage an External Contributors Structure (ECS) (ui to create; delete; insert ec into ecs)
@@ -39,6 +39,8 @@ class ExternalContributorsController extends AbstractController
         $this->denyAccessUnlessGranted('edit', $presentation);
 
         $ecs = $ecsRepository->find($id_ecs);
+
+        /* Rich Text Content Form */
 
         $ecsForm = $this->createForm(ExternalContributorsStructureType::class, $ecs);
     
@@ -57,8 +59,9 @@ class ExternalContributorsController extends AbstractController
                 "Les modifications ont été effectuées !"
             );
 
-            return $this->redirectToRoute('edit_presentation_menu', [
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'externalContributorsDisplay',
             ]);
 
         }

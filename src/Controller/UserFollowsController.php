@@ -140,7 +140,6 @@ class UserFollowsController extends AbstractController
         return $this->render('user_follows/show_notifications.html.twig', [
 
             'userFollows' => $userFollows,
-            'unreadMessages' => $user->getUnreadMessages(),
             'lastConnectionDate' => $lastConnectionDate,
 
         ]);

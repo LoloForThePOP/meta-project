@@ -78,17 +78,37 @@ class UserController extends AbstractController
     /**
      * Allow user to see its comments list
      * 
-     * @Route("user/{id}/comments/list",name="list_user_comments")
+     * @Route("user/comments/list",name="list_user_comments")
      * 
      * @Security("is_granted('ROLE_USER')")
      * 
      * @return Response
      */
-    public function commentsIndex(User $user){
+    public function commentsIndex(){
 
         return $this->render('/user/show_comments.html.twig',[
+
+        ]);
+
+    }
+
+
+
+    /**
+     * Allow user to access its messages list
+     * 
+     * @Route("user/messages/show", name="show_user_messages")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * @return Response
+     */
+    public function messagesList(){
+
+        return $this->render('/user/list_unread_messages.html.twig',[
      
-            'user' => $user,
+            'unreadMessages' => $this->getUser()->getUnreadMessages(),
+
         ]);
 
     }

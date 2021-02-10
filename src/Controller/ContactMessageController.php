@@ -14,10 +14,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-
+/**
+ * 
+ * Allow to manage contact messages between users
+ * 
+ */ 
 class ContactMessageController extends AbstractController
 {
     /**
+     * 
+     * Allow to display messages list from a specific project presentation
+     * 
      * @Route("/projects/{slug}/messages/", name="index_project_messages", methods={"GET"})
      * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")

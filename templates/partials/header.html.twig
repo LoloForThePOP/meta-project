@@ -33,14 +33,55 @@
     
     <a class="navbar-brand ml-3 mr-4 mb-lg-n2 pb-0" href="{{ path('homepage') }}"><img src="/images/app/logo.svg" width="37px" height="44px" style="width:100%;"></a>
 
-    <!-- <div class="">
-        <span class="badge badge-pill badge-primary" style="float:right;margin-bottom:-10px;">1</span> 
-        <a class="" href="messages">Messages <span class="sr-only">(current)</span></a>
-    </div> -->
+
+    {% if app.user %}
+
+        <!-- Messsages and notification count -->
+
+        {% set notificationsCount = app.user.countNotifications %}
+
+        {% set unreadMessagesCount = app.user.countUnreadMessages %}    
+    
+    {% endif %}
+
+
+
+    <!-- Display Notifications Count on Tiny Screens -->
+    
+    <!-- Display Unread Messages Count on Tiny Screens -->
+
+    {% if app.user and unreadMessagesCount > 0 %}
+    
+        <a href="{{path('show_user_messages')}}">
+            
+            <div class="d-md-none">
+                <span class="badge badge-pill badge-primary" style="float:right;margin-bottom:-8px;">{{unreadMessagesCount}}</span> 
+
+            <img src="/images/icons/miscellaneous/envelope.svg" width="15px" height="19px" style="width:100%;">
+            </div> 
+
+        </a>
+    
+    {% endif %}
+    
+    {% if app.user and notificationsCount > 0 %}
+
+        <a href="{{path('show_notifications')}}">
+            
+            <div class="d-md-none">
+                <span class="badge badge-pill badge-primary" style="float:right;margin-bottom:-10px;">{{notificationsCount}}</span> 
+
+            <img src="/images/icons/miscellaneous/notification_bell.svg" width="27px" height="27px" style="width:100%;">
+            </div> 
+
+        </a>
+
+    
+    {% endif %}
+
         
-        
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="border: 2px solid navy; font-weight:bold; ">
-        <span class="" style="color: navy;">Menu</span> <!-- navbar-toggler-icon -->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="border: 2px solid #2C3E50; font-weight:bold; ">
+        <span class="" style="color: #2C3E50;">Menu</span> <!-- navbar-toggler-icon -->
     </button>
 
     <div class="collapse navbar-collapse ml-5 py-1 my-1 text-body" id="navbarColor03">
@@ -73,32 +114,76 @@
                 <a class="nav-link" href="{{path('create_presentation')}}">Ajouter un Projet</a>
             </li>
             
-            <!-- Notification Show -->
+            <!-- Notifications and new messages counters display -->
 
             {% if app.user %}
 
-                {% if app.user.countNotifications() > 0 %}
+                {% if notificationsCount > 0 %}
 
                     <a href="{{path('show_notifications')}}">
                             
-                        <button type="button" class="btn btn-primary font-weight-bold" style="padding: 6px 12px !important;">
+                        <button type="button" class="btn btn-primary mr-3" style="padding: 3px 8px !important; width:110px;">
 
-                            <span class="mr-2">
-                                Suivis
-                            </span>                 
-                            
-                            <span class="badge badge-success" style="font-size: 1em;">
-                                
-                                {{app.user.countNotifications()}}
-                            
-                            </span>
+                            <div class="container px-0">
+                                    
+                                <div class="col px-0"> 
+                                    <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;"    >
+
+                                    Projets
+                                    Suivis
+
+                                    </div>
+                                </div>
+
+                                <div class="col px-0">
+                                    <span class="badge badge-success" style="font-size: 1em;">
+                                        
+                                        {{notificationsCount}}
+                                    
+                                    </span>
+                                </div>
+                            </div>
 
                             <span class="sr-only">unread notifications</span>
 
                         </button>
+
                     </a>
                 
+                {% endif %}
 
+                {% if unreadMessagesCount > 0 %}
+
+                    <a href="{{ path('show_user_messages') }}">
+                            
+                        <button type="button" class="btn btn-primary" style="padding: 3px 8px !important; width:120px;">
+
+                            <div class="container px-0 d-flex align-items-center">
+                                    
+                                <div class="col px-0"> 
+                                    <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;"    >
+
+                                    Nouveaux messages
+
+                                    </div>
+                                </div>
+
+                                <div class="col px-0">
+                                    <span class="badge badge-success" style="font-size: 1em;">
+                                        
+                                        {{unreadMessagesCount}}
+                                    
+                                    </span>
+                                </div>
+
+                            </div>
+
+                            <span class="sr-only">unread messages</span>
+
+                        </button>
+
+                    </a>
+                
                 {% endif %}
 
             {% endif %}
@@ -135,14 +220,24 @@
 
                         <a href="{{ path('account_index') }}" class="dropdown-item">Mes Projets présentés</a>
 
-                        <a href="{{ path('show_notifications') }}" class="dropdown-item">Mes Projets suivis</a>
+                        <a href="{{ path('show_notifications') }}" class="dropdown-item">Mes Projets suivis
 
-                        <a href="" class="dropdown-item">Mes messages
-
-                            {% if app.user.countUnreadMessages() > 0 %}
+                            {% if notificationsCount > 0 %}
                             
                                 <span class="badge badge-primary font-weight-bold ml-1">
-                                    {{app.user.countUnreadMessages()}}
+                                    {{notificationsCount}}
+                                </span>
+
+                            {% endif %}
+
+                        </a>
+
+                        <a href="{{ path('show_user_messages') }}" class="dropdown-item">Mes messages
+
+                            {% if unreadMessagesCount > 0 %}
+                            
+                                <span class="badge badge-primary font-weight-bold ml-1">
+                                    {{unreadMessagesCount}}
                                 </span>
 
                             {% endif %}

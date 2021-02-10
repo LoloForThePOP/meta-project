@@ -1,0 +1,161 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messages de {{app.user.persorg.name}} {% endblock %}
+
+{% block body %}
+
+    <div class="container pl-md-5 pt-md-2 pb-5">
+
+        <!-- User Messages List -->
+
+        <!-- Unread Messages -->
+    
+        {% if unreadMessages | length > 0 %}
+            
+            <div class="container mb-5 mt-3 mt-md-5 px-0">
+
+                <h3 class="font-weight-bold" style="margin-bottom : 32px;">
+                    
+                    {{ unreadMessages | length }} 
+                    
+                    {{ unreadMessages | length == 1 ? 'Message non lu' : 'Messages non lus' }}
+                
+                </h3>
+            
+                <div class="list-group col-md-8">
+
+                    {% for message in unreadMessages | reverse %}
+
+                        <!-- If more than 4 items, we display these in a collapsible -->
+
+                        {% if loop.index == 5 %}
+
+                                <!-- Collapsible Trigger Button -->
+            
+                                <a class="d-block btn btn-lg btn-primary font-weight-bold sharp" onclick="this.remove();" data-toggle="collapse" href="#collapseOtherMessages" role="button" aria-expanded="false" aria-controls="collapseOtherMessages">▼ Afficher les autres nouveaux messages ▼</a>
+            
+                                <!-- Collapsible Other Messages Container -->
+            
+                                <div class="collapse" id="collapseOtherMessages">
+
+                        {% endif %}
+                        
+                        <div                        
+                            class="notification-title mb-2 btn btn-primary text-left p-3 sharp"
+
+                            data-entity-id='{{message.id}}' 
+
+                            data-route-name="{{ path('show_embed_message') }}" 
+                        >
+
+                            <div    class="container font-weight-bold">
+
+                                <div class="row">
+
+                                    {{message.title}}
+
+                                </div>
+
+                                <div class="row">
+
+                                    {{message.createdAt | date('d-m-Y') }}
+
+                                </div>
+
+                                <div class="row">
+
+                                    {{ message.content | length < 50 ? message.content : message.content | slice(0, 47) ~ '...' }}
+
+                                </div>
+                                
+                            </div>
+                        </div>
+
+                        {% if loop.last and loop.index >= 5 %}
+
+                            </div>
+
+                        {% endif %}
+                        
+                    {% endfor %}
+
+                </div>
+            
+            </div>
+
+            <!-- New Messages direct display in a modal box -->
+
+            {% include '/user_follows/_show_notifications/_content_display_modal.html.twig' %}
+
+        {% else %}
+
+            <h5 class="font-weight-bold mt-4 mt-md-4" style="margin-bottom : 32px;">Pas de nouveau message</h5>
+            
+        {% endif %}
+
+
+        {# Messages related to other user project(s) #}
+
+        {% if app.user.getPresentations | length > 0 %}
+
+        <h3 class="font-weight-bold my-4">Tous les messages</h3>
+
+        <div class="container px-0">
+
+            <div class="row">
+
+                <div class="col-md-6">
+                    {% for presentation in app.user.getPresentations %}
+
+                        <a href="{{ path('index_project_messages', {'slug':presentation.slug}) }}">
+
+                            <div class="text-primary font-weight-bold bg-light fs-15 p-3 mb-3">
+
+                                <div class="mb-3">
+                                    {{presentation.goal | length < 50 ? presentation.goal : presentation.goal | slice(0,47) ~ "..."}}
+                                </div>
+
+                                <div class="">
+                                    <span class="badge badge-info">{{presentation.getContactMessages | length}}</span>
+                                </div>
+
+                            </div>
+                        </a>
+
+                    {% endfor %}
+                </div>
+
+            </div>
+
+
+        </div>
+
+        
+        {% endif %}
+
+
+        
+        <!-- Back Button -->
+
+        <div class="">
+        
+            <a href="{{path('homepage')}}">
+
+                <button type="button" class="btn btn-info sharp font-weight-bold">Retour page d'accueil</button>
+
+            </a>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    {# new messages direct display in a modal box javascript handling #}
+
+    {% include '/user_follows/_show_notifications/_js.html.twig' %}
+
+{% endblock %}

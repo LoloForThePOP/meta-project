@@ -30,8 +30,8 @@ class Comment
      * @Assert\Length(
      *      min = 5,
      *      max = 2500,
-     *      minMessage = "Le commentaire doit avoir au minimum {{ limit }} caractères",
-     *      maxMessage = "L'objectif doit avoir au plus {{ limit }} caractères"
+     *      minMessage = "Le commentaire doit contenir au minimum {{ limit }} caractères",
+     *      maxMessage = "Le commentaire doit contenir au plus {{ limit }} caractères"
      *      )
      *
      */

@@ -55,8 +55,9 @@ class TextDescriptionController extends AbstractController
                 "La description texte a bien été éditée"
             );
 
-            return $this->redirectToRoute('edit_presentation_menu', [
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'textDescriptionDisplay',
             ]);
 
         }

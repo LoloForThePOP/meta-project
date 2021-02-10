@@ -17,6 +17,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 /**
  * @Route("/projects/{slug}/contacts")
+ * 
+ * Allow user to manage its presentation contact cards (ex : telephone; address; email; ...)
+ * 
  */
 class ContactController extends AbstractController
 {

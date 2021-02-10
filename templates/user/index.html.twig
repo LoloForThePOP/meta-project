@@ -198,7 +198,11 @@
                     {% if app.user %}
 
                     <div class="h5"> 
-                        Vous pouvez remplir une description <a href="{{ path ('edit_public_profile', {'persorg_id': user.persorg.getId }) }}"><button class="btn btn-info py-1"><span class="h5 font-weight-bold">ici</span></button></a>
+
+                        Vous pouvez remplir une description 
+                        
+                        <a class="h4" href="{{ path ('edit_public_profile', {'persorg_id': user.persorg.getId }) }}"> <span class="badge badge-info">ici</span></a>
+
                     </div>
 
                     
@@ -213,18 +217,17 @@
                 
             </div>
 
-        </div>
+            <div class="col-md-7">
+    
+                <!-- User Comments List Access Button -->
+        
+                <div class="mt-4 font-weight-bold">
+        
+                    <a href="{{ path ('list_user_comments')}}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mes commentaires</a>
+                    
+                </div>
 
-        <!-- User Comments List Access Button -->
-
-        <div class="row mt-4 font-weight-bold">
-
-            {% if user is same as(app.user) %}
-
-                <a href="{{ path ('list_user_comments', {'id': user.persorg.getId }) }}" class="btn btn-primary mr-2 mb-2 font-weight-bold">Mes commentaires</a>
-
-            {% endif %}
-            
+            </div>
 
         </div>
 

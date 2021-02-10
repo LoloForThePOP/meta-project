@@ -64,7 +64,7 @@
 
                     </div>
 
-                    <div class="col-8">
+                    <div class="col-8 d-flex align-items-center">
 
                         <div class="container">
 
@@ -72,7 +72,7 @@
 
                             <div class="row mb-2 mb-md-3"> 
 
-                                <div class="h5">
+                                <div class="h5 font-weight-bold">
 
                                     {{ teammate.missions | nl2br }}
 
@@ -103,7 +103,7 @@
 
                 {% if teammate.description %}
 
-                    <div class="row px-3 mb-4" style="font-size:1.09em;">
+                    <div class="row p-3 mx-2 mb-4 border border-primary rounded" style="font-size:1.09em; min-height:70px;">
 
                         {{ teammate.description | nl2br }}
 

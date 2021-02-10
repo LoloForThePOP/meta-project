@@ -1,17 +1,4 @@
 
-<!-- Some Styles -->
-
-
-{% block stylesheets %}
-
-    <!--Styles for Slick Slideshow -->
-
-    <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
-
-    <link rel="stylesheet" type="text/css" href="/css/slick-theme.css"/>
-    
-{% endblock %}
-
 <!-- Project Owner Display -->
 
 {% if presentation.owners | length > 0 %}
@@ -47,7 +34,7 @@
 
         <div class="container">
 
-            <div class="ownersDisplayRow {% if presentation.owners | length > 5 %} ownersSlideshow {% endif %} d-flex justify-content-start">
+            <div class="ownersDisplayRow row {% if presentation.owners | length > 4 %} ownersSlideshow {% endif %} d-flex justify-content-start">
 
                 {% for owner in presentation.owners %}
 
@@ -82,17 +69,15 @@
 
     .ownerCard{
 
-        display: inline-block !important;
+        display: inline !important;
 
-        width:164px; 
+        width:130px; 
 
-        min-height:140px; 
+        min-height:140px;
 
-        margin-right:10px;
+        margin-right : 20px;
 
         cursor:pointer;
-
-        white-space:normal;
     
     }
 
@@ -113,6 +98,7 @@
     .ownerName{
         color:#2d1cc3;
     }
+
 
 
     @media screen and (max-width: 580px) {

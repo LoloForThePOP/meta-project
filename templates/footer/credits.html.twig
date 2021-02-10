@@ -4,88 +4,19 @@
 
 {% block body %}
 
-    <div class="container">
+    <div class="container mb-5">
 
-        <h3 class="my-5">Crédits et Remerciements</h3>
+        <h3 class="font-weight-bold my-3 my-md-5 ">Crédits et Remerciements</h3>
                 
         <!-- People -->
 
-        <div>
+        <div class="px-0 px-md-2 col-md-8">
 
-            <h4 class="font-weight-bold my-4">● Merci à toutes les personnes qui, de près ou de loin, rendent possible l'utilisation de cet outil.  </h4>
-
-            <p class="h5 pl-md-4 col-md-8 text-justify">
-                
-            </p>
+            <h5 class="my-4">❤️❤️❤️ Merci à toutes les personnes qui rendent possible l'utilisation de cet outil. Le web est remplit de contributeurs qui partagent les outils qu'ils ont créés. Ce site web ne serait pas réalisé sans eux. Merci !</h5>
 
         </div>
 
 
-        <!-- Websites we Use(d) -->
-        
-        {# <h4 class="my-4">● Plateformes d'Informations</h4>
-
-        {% set websites = 
-            
-            [ 
-
-                { 
-                    'title': 'Google Search Engine', 
-                    'subtitle': 'Moteur de Recherche', 
-                    'comment': 'Un Bijou de Puissance et d\'Efficacité.', 
-                    'image': '/images/projects/thumbnails/1e90ff.gif', 
-                    'link' : 'https://www.google.com'
-                },
-                
-                { 
-                    'title': 'W3Schools', 
-                    'subtitle': 'Enseignement du Codage', 
-                    'comment': 'Clarté, Efficacité, Qualité, Accès pour tous, et Pédagogie. Tous mes remerciements.', 
-                    'image': '/images/projects/thumbnails/1e90ff.gif', 
-                    'link' : 'https://www.w3schools.com'
-                },
-
-                { 
-                    'title': 'Stack Overflow', 
-                    'subtitle': 'Forum d\'Entraide pour Codeurs', 
-                    'comment': 'Tellement de Bugs et de Problèmes de codages résolus grâce à cette plateforme et à ses participants.', 
-                    'image': '/images/projects/thumbnails/1e90ff.gif', 
-                    'link' : 'https://www.stackoverflow.com'
-                },
-
-
-            ]
-
-        %}
-
-        {% for website in websites %}
-
-            <div class="row pl-md-4 mb-2">
-
-                    <div class="col-auto d-flex align-items-center m-0 pr-2">
-                       <!--  <img class="rounded mb-2" src="" alt="Logo" style="width:100px; max-height:100px"> -->
-
-                    </div>
-
-                    <div class="col-md-6">
-
-                            <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
-                                {{website.title}}
-                            </h5>
-                                
-                            <div class="keywords  d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
-                                {{website.subtitle}}
-                            </div>
-
-                            <p class="card-text h5 py-0">
-                                {{website.comment}}
-                            </p> 
-
-                    </div>
-
-            </div>
-
-        {% endfor %} #}
 
         <!-- Programming Languages and Frameworks -->
 
@@ -121,10 +52,10 @@
 
         %}
         
-        <div class=" my-4">
+        <div class="px-0 px-md-2 col-md-8 my-4">
 
             <h4 class="font-weight-bold mb-4">
-                ● Langages et Frameworks Utilisés 
+                Langages et Frameworks Utilisés 
             </h4>
 
             
@@ -154,150 +85,10 @@
 
 
         </div>
-
-        <!-- Some Plugin Used -->
-
-        <div class="my-4">
-
-            <h4 class="mb-4">
-                ● Des Plugins Utilisés 
-            </h4>
-
-            {% set pluginList = 
-            
-                [ 
-    
-                    { 
-                        'title': ' tgalopin / html-sanitizer-bundle ', 
-                        'description': 'Manipuler des données HTML potentiellement malveillantes', 
-                        'link' : '',
-                    },
-    
-                    { 
-                        'title': ' dustin10 / VichUploaderBundle ', 
-                        'description': 'Gestion d\'upload de fichiers au sein du framework Symfony', 
-                        'link' : '',
-                    },
-    
-                    { 
-                        'title': '  fzaninotto / Faker  ', 
-                        'description': 'Utiliser des Jeux de Fausses Données pour concevoir un prototype de site web', 
-                        'link' : '',
-                    },        
-    
-                    { 
-                        'title': ' Data Tables plugin for jQuery ', 
-                        'description': 'Ajouter des Interactions sur des Tableaux HTML', 
-                        'link' : '',
-                    },
-    
-    
-                    { 
-                        'title': ' TinyMCE ', 
-                        'description': 'Utiliser un éditeur de texte riche dans un site web', 
-                        'link' : '',
-                    },
-    
-
-                    { 
-                        'title': ' Bootstrap Toggle ', 
-                        'description': 'Manipuler facilement des switch buttons (plugin pour Bootstrap 4 / jQuery)', 
-                        'link' : '',
-                    },
-                                    
-                ]
-    
-            %}
-
-            {% for pluginItem in pluginList %}
-
-            <div class="row pl-md-4 mb-2">
-
-                <div class="col-md-6">
-
-                        <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
-                            ● {{pluginItem.description}}
-                        </h5>
-                            
-                        <div class="keywords d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
-                            {{pluginItem.title}}
-                        </div>
-
-                        <p class="card-text h5 py-0">
-                            {{pluginItem.link}}
-                        </p>
-
-                </div>
-
-            </div>
-
-        {% endfor %}
-
-
-            
-
-        </div>
-
-        <!-- Some Softwares Used -->
-
-        <div class="my-4">
-
-            <h4 class="mb-4">
-                ● Des Logiciels Utilisés 
-            </h4>
-
-            {% set softwareList = 
-            
-                [ 
-    
-                    { 
-                        'title': ' Visual Studio Code (with its extensions)', 
-                        'description': 'Coder', 
-                        'comment': 'Je suis impressionné par les aides, parfois subtiles, que ce logiciel m\'apporte pour coder.', 
-                        'link' : '',
-                    },
-    
-                    { 
-                        'title': ' Open Office Suite ', 
-                        'description': 'Produire du Texte et des Visuels pour Communiquer',
-                        'comment' : 'Efficacité, Qualité, Gratuité, pour l\'Intérêt Général. Merci à tous les contributeurs.',
-                        'link' : '',
-                    },
-                                    
-                ]
-    
-            %}
-
-            {% for software in softwareList %}
-
-            <div class="row pl-md-4 mb-2">
-
-                <div class="col-md-6">
-
-                        <h5 class="font-weight-bold mb-0 d-flex align-items-center" style="font-size:1.25em;">
-                            ● {{software.description}}
-                        </h5>
-                            
-                        <div class="keywords d-flex align-items-center font-weight-bold my-1 mb-2 h6 text-left" >
-                            {{software.title}}
-                        </div>
-
-                       {# <p class="card-text h5 py-0">
-                            {{software.comment}}
-                        </p> #}
-
-                </div>
-
-            </div>
-
-        {% endfor %}
-
-     </div>
-
         
         <!-- Flaticons Attributions -->
 
-        <div class="mt-4 ">
+        <div class="px-0 px-md-2 col-md-8 mt-4 ">
 
             
         {% set flaticons = 
@@ -453,42 +244,47 @@
         %}
 
 
-            <h4 class="my-3">
+            <h4 class="font-weight-bold my-3">
 
-                ● Icons from www.flaticon.com 
+                Crédits Images
 
             </h4>
 
-            <ul>
+            <div class="px-0 px-md-2 pl-md-4">
+                        
+                <h5 class="font-weight-bold my-4">flaticon.com </h5>
 
-                {% for flaticon in flaticons %}
-                    
-                    <li> 
+                <ul>
 
-                        {{flaticon.iconName}}
+                    {% for flaticon in flaticons %}
+                        
+                        <li> 
 
-                        made by
+                            {{flaticon.iconName}}
 
-                        <a href="{{flaticon.madeByHref}}" title="{{flaticon.madeByTitle}}">{{flaticon.madeByTitle}}</a>
+                            made by
 
-                    </li>
-                    
-                {% endfor %}
+                            <a href="{{flaticon.madeByHref}}" title="{{flaticon.madeByTitle}}">{{flaticon.madeByTitle}}</a>
+
+                        </li>
+                        
+                    {% endfor %}
 
 
-            </ul>
+                </ul>
+
+            </div>
 
         </div>
 
-        <div>
-
-            <span class="h4"> ● Icons from www.thenounproject.com </span>
-           
-            <br>
-            <br>
+        <div class="pl-md-4">
+                        
+            <h5 class="font-weight-bold my-4">thenounproject.com</h5>
 
             <ul>
                 <li>like by FMF Design from the Noun Project</li>
+                <li>Email by Landan Lloyd from the Noun Project</li>
+                <li>notification by Landan Lloyd from the Noun Project</li>
                 <li>team by Justiconnic from the Noun Project</li>
                 <li>date by Alice Design from the Noun Project</li>
                 <li>List by Christopher T. Howlett from the Noun Project</li>

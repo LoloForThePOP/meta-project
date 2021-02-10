@@ -200,8 +200,8 @@ class PPBasic implements \Serializable
      * @Assert\Length(
      *      min = 10,
      *      max = 255,
-     *      minMessage = "L'objectif doit avoir au moins {{ limit }} caractères",
-     *      maxMessage = "L'objectif doit avoir au plus {{ limit }} caractères"
+     *      minMessage = "L'objectif doit contenir au moins {{ limit }} caractères",
+     *      maxMessage = "L'objectif doit contenir au plus {{ limit }} caractères"
      *      )
      */
     private $goal;

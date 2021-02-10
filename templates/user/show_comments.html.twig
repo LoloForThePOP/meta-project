@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaires de {{user.persorg.name}} {% endblock %}
+{% block title %}Commentaires de {{app.user.persorg.name}} {% endblock %}
 
 {% block body %}
 
@@ -12,9 +12,9 @@
 
         <!-- User Comments List -->
 
-        {% for comment in user.comments | reverse %}
+        {% for comment in app.user.comments | reverse %}
 
-            <article class="mb-5 comment-{{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
+            <article class="bg-light p-3 col-md-6 mb-5 comment-{{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
 
                 <header>
 
@@ -65,7 +65,7 @@
         
             <a href="{{path('account_index')}}">
 
-                <button type="button" class="btn btn-info sharp font-weight-bold">Retour</button>
+                <button type="button" class="btn btn-info sharp font-weight-bold">Retour mon compte</button>
 
             </a>
 

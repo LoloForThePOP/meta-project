@@ -49,7 +49,14 @@ class PPController extends AbstractController
 
         $presentation = new PPBasic();
 
-        $form = $this->createForm(NewPresentationType::class,$presentation);
+        $form = $this->createForm(NewPresentationType::class, $presentation, array(
+
+            // Time protection
+            'antispam_time'     => true,
+            'antispam_time_min' => 8,
+            'antispam_time_max' => 3600,
+            )
+        );
 
         $form->handleRequest($request);
 
@@ -137,7 +144,7 @@ class PPController extends AbstractController
 
         $this->addFlash(
             'success',
-            "La Présentation « {$presentation->getTitle()} » a été supprimée"
+            "La Présentation « {$presentation->getGoal()} » a été supprimée"
         );
 
         return $this->redirectToRoute('projects_index');
