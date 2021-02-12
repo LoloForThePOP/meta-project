@@ -21,6 +21,10 @@ services:
             - '../src/Kernel.php'
             - '../src/Tests/'
 
+    App\EventListener\LoginListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'security.interactive_login' }
+
     # controllers are imported separately to make sure services can be injected
     # as action arguments even if you don't extend any base controller class
     App\Controller\:

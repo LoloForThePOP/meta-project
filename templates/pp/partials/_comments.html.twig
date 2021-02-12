@@ -50,12 +50,19 @@
 
         <!-- Comments Display Box -->
 
-            <div class="ml-md-3 mb-4">
+            <div id="commentsDisplay" class="container ml-md-3 mb-4">
 
-                <!-- Comments Display Loop -->
-    
-                {% include 'pp/partials/_comments/_comments_display_loop.html.twig' %}
+                <div class="row">
 
+                    <div class="col-md-9 px-2">
+                                
+                        <!-- Comments Display Loop -->
+            
+                        {% include 'pp/partials/_comments/_comments_display_loop.html.twig' %}
+
+                    </div>
+
+                </div>
     
             </div>
 

@@ -121,14 +121,8 @@
     "gumlet/php-image-resize": {
         "version": "2.0.0"
     },
-    "guzzlehttp/psr7": {
-        "version": "1.7.0"
-    },
     "imagine/imagine": {
         "version": "1.2.3"
-    },
-    "intervention/image": {
-        "version": "2.5.1"
     },
     "league/uri-parser": {
         "version": "1.4.1"
@@ -188,17 +182,11 @@
     "psr/event-dispatcher": {
         "version": "1.0.0"
     },
-    "psr/http-message": {
-        "version": "1.0.1"
-    },
     "psr/link": {
         "version": "1.0.0"
     },
     "psr/log": {
         "version": "1.1.2"
-    },
-    "ralouphie/getallheaders": {
-        "version": "3.0.3"
     },
     "sensio/framework-extra-bundle": {
         "version": "5.2",
@@ -629,6 +617,9 @@
         "files": [
             "./config/packages/html_sanitizer.yaml"
         ]
+    },
+    "twig/cache-extra": {
+        "version": "v3.3.0"
     },
     "twig/extra-bundle": {
         "version": "v3.0.3"

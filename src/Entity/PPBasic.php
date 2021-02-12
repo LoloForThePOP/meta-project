@@ -1326,6 +1326,13 @@ class PPBasic implements \Serializable
     }
 
 
+    public function countFollowers(){
+
+        return $this->getUsersFollow()->count();
+
+    }
+
+
     public function removeUsersFollow(UserFollows $usersFollow): self
     {
         if ($this->usersFollow->removeElement($usersFollow)) {
@@ -1370,29 +1377,26 @@ class PPBasic implements \Serializable
      * @return boolean
      */
     
-    public function isAccessedBy(User $user, $rightType) : bool
+    public function isAccessedBy(User $user, string $rightType) : bool
     {
 
         // if user created presentation, he has all access by default
 
         if ($user == $this->getCreator()) {
+
             return true;
         }
+        
+        foreach ($this->getRights() as $right) {
 
-        $presentationRights = $this->getRights();
 
-        if ($presentationRights !== null) {
-           
-            foreach ($presentationRights as $right) {
-
-                if($right->getUser() == $user && $right->getType() == $rightType)
-                {
-                    return true;
-                }
-
+            if($right->getUser() == $user && $right->getType() == $rightType && $right->getStatus()== 'admitted')
+            {
+                return true;
             }
-            return false;
+
         }
+        return false;
         
     }
 

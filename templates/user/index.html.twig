@@ -115,7 +115,7 @@
 
         <div class="row mb-4">
 
-            {% if userCreations | length > 0 %}
+            {% if userCreations is defined and userCreations | length > 0 %}
 
                 <div class="col-11 mb-4">
 
@@ -151,7 +151,7 @@
         
             {% endif %}
 
-            {% if userContributions | length > 0 %}
+            {% if userContributions is defined and userContributions | length > 0 %}
 
                 <div class="col-11">
 

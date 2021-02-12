@@ -1,4 +1,6 @@
+
 {% for comment in presentation.comments | reverse %}
+
 
     <!-- First we display only parent comments -->
 
@@ -11,12 +13,26 @@
             <!-- Comment Header -->
 
             <header>
-
+    
                 <p>
+
                     <!-- Comment Author -->
 
-                    <a href="{{ path('user_show', {'id' : comment.user.id}) }}" class="text-primary font-weight-bold">
-                        <span class="highlight">{{comment.user.persorg.name}}</span>
+                    <a href="{{ path('user_show', {'id' : comment.user.id}) }}" class="font-weight-bold
+
+                    {% if comment.isCreatedByPresentationEditor %}
+
+                        bg-info rounded px-1 py-0 text-light mr-1
+
+                    {% else %}
+
+                        text-primary
+                    
+                    {% endif %}
+
+
+                    ">
+                        <span class="">{{comment.user.persorg.name}}</span>
                     </a> 
 
                     <!-- Comment Date -->
@@ -89,8 +105,20 @@
 
                         <p>
 
-                            <a href="{{ path('user_show', {'id' : subComment.user.id}) }}" class="text-primary font-weight-bold">
-                                <span class="highlight">{{subComment.user.persorg.name}}</span>
+                            <a href="{{ path('user_show', {'id' : subComment.user.id}) }}" class="font-weight-bold
+
+                            {% if subComment.isCreatedByPresentationEditor %}
+
+                                bg-info rounded px-1 py-0 text-light mr-1
+
+                            {% else %}
+
+                                text-primary
+                            
+                            {% endif %}
+                        ">
+
+                                <span class="">{{subComment.user.persorg.name}}</span>
                             </a>
 
                             <!-- Child Date -->

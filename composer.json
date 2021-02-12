@@ -38,6 +38,8 @@
         "symfony/web-link": "5.0.*",
         "symfony/yaml": "5.0.*",
         "tgalopin/html-sanitizer-bundle": "^1.2",
+        "twig/cache-extra": "^3.3",
+        "twig/extra-bundle": "^3.3",
         "vich/uploader-bundle": "^1.13"
     },
     "require-dev": {

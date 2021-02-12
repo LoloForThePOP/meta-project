@@ -214,4 +214,22 @@ class Comment
 
         return $this;
     }
+
+    /**
+     * Allow to know if this comment has been created by a presentation editor (to highlight comment's creator's name)
+     *
+     * @return boolean
+     */
+    public function isCreatedByPresentationEditor(): bool
+    {
+
+        if ($this->getPresentation()->isAccessedBy($this->getUser(), 'edit')) {
+
+            return true;
+
+        }
+
+        return false;
+        
+    }
 }

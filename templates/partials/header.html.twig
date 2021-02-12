@@ -13,9 +13,23 @@
         font-size:1.1em;
         font-weight:bold;
     }
-
+    
 </style>
 
+
+{# chaching long header for 15 minutes #}
+
+{% if app.user %}
+
+    {% set headerCacheName = app.user.id %}
+
+{% else %}
+    
+    {% set headerCacheName = 'notSignedIn' %}
+
+{% endif %}
+
+{% cache headerCacheName ttl (1) %}
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light pt-1 pb-0">
     
@@ -34,17 +48,30 @@
     <a class="navbar-brand ml-3 mr-4 mb-lg-n2 pb-0" href="{{ path('homepage') }}"><img src="/images/app/logo.svg" width="37px" height="44px" style="width:100%;"></a>
 
 
+    
+    
+    
     {% if app.user %}
+    
 
         <!-- Messsages and notification count -->
 
         {% set notificationsCount = app.user.countNotifications %}
 
-        {% set unreadMessagesCount = app.user.countUnreadMessages %}    
+        {% set unreadMessagesCount = app.user.countUnreadMessages %} 
+        
     
     {% endif %}
 
+    {% if app.user %}
 
+    {{date().timestamp}}
+        
+    <pre>
+        {{ dump(app.user.getCommentsSinceDate()) }}
+    </pre>
+    
+    {% endif %}
 
     <!-- Display Notifications Count on Tiny Screens -->
     
@@ -268,3 +295,6 @@
     </div>
     
 </nav>
+
+
+{% endcache %}

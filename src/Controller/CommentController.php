@@ -57,6 +57,7 @@ class CommentController extends AbstractController
 
             return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'commentsDisplay',
                 ]);
         }
 

@@ -197,6 +197,7 @@ class PPController extends AbstractController
 
             return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'commentsDisplay',
                 ]);
         }
 
@@ -243,6 +244,7 @@ class PPController extends AbstractController
 
             return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'commentsDisplay',
                 ]);
         }
 

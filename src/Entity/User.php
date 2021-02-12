@@ -149,6 +149,11 @@ class User implements UserInterface
      */
     private $getConsultedMessages;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastLoginDate;
+
 
 
 
@@ -580,6 +585,50 @@ class User implements UserInterface
     }
 
     /**
+     * Allow to get Comments related to user project presentations
+     *
+     * @param \DateTimeInterface $thresholdDate
+     * @return void
+     */
+    public function getCommentsSinceDate(\DateTimeInterface $thresholdDate)
+    {
+        $returnedComments = [];
+
+        //we investigate comments from project presentations user can edit
+
+        $projectPresentations = $this->getAccessedPresentationsByRightType('edit');
+
+        foreach ($projectPresentations as $projectPresentation) {
+
+            $comments = $projectPresentation->getComments();
+
+            foreach ($comments as $comment) {
+
+                if ($comment->getCreatedAt() > $thresholdDate && $comment->getUser() !== $this) {
+                    $returnedComments[] = $comment;
+                }
+
+            }
+        }
+
+        return $returnedComments;
+
+    }
+
+
+    /**
+     * Allow to count new comments since specified date
+     * Comments from this (user) ARE NOT taken in account
+     *
+     * @param \DateTimeInterface $lastLoginDate
+     * @return int
+     */
+    public function countCommentsSinceDate(\DateTimeInterface $thresholdDate){
+
+        return $getCommentsSinceDate($thresholdDate)->count();
+    }
+
+    /**
      * @return Collection|News[]
      */
     public function getNews(): Collection
@@ -780,6 +829,52 @@ class User implements UserInterface
         return $this;
     }
 
+
+ 
+
+    /**
+     * As its name suggest
+     *
+     * @param mixed $rightTypes Either a string name or an array with string values
+     * 
+     * @return Collection|PPBasic[]
+     */
+    public function getAccessedPresentationsByRightType($rightTypes){
+
+        $accessedPresentations=[];
+
+        // by default user has all access over presentations he created
+
+        foreach ($this->getPresentations() as $presentation) {
+
+            $accessedPresentations[]=$presentation;
+        }
+
+        //now we parse presentations over which he has access
+
+        $rights = $this->getRights();
+
+        if (!is_array($rightTypes)) {
+            $rightTypes = array($rightTypes);
+        }
+
+        foreach ($rightTypes as $rightType) {
+            foreach ($rights as $right) {
+
+                if ($right->getType() == $rightType and $right->getStatus()=='admitted') {
+                   
+                    $accessedPresentations[] = $right->getPresentation();
+    
+                }
+            }
+        }
+
+        
+
+        return $accessedPresentations;
+
+    }
+
     /**
      * @return Collection|MessageConsultation[]
      */
@@ -809,6 +904,19 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getLastLoginDate(): ?\DateTimeInterface
+    {
+        return $this->lastLoginDate;
+    }
+
+    public function setLastLoginDate(?\DateTimeInterface $lastLoginDate): self
+    {
+        $this->lastLoginDate = $lastLoginDate;
+
+        return $this;
+    }
+
 
   
 }
