@@ -76,7 +76,7 @@ class UserController extends AbstractController
     }
     
     /**
-     * Allow user to see its comments list
+     * Allow user to see comments he has created
      * 
      * @Route("user/comments/list",name="list_user_comments")
      * 
@@ -87,6 +87,59 @@ class UserController extends AbstractController
     public function commentsIndex(){
 
         return $this->render('/user/show_comments.html.twig',[
+
+        ]);
+
+    }
+
+    
+    /**
+     * Allow user to access new comments received from projects he presents
+     * 
+     * @Route("user/comments/new/show", name="show_user_new_comments")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * @return Response
+     */
+    public function newCommentsList(EntityManagerInterface $manager){
+
+        $user = $this->getUser();
+
+        $lastTimeConnection = $user->getLastNewCommentsConnection();
+
+        $newComments = $user->getCommentsSinceDate($lastTimeConnection);
+
+        //to get some context, we get its parent
+
+        $newCommentsParents=[];
+
+        foreach ($newComments as $newComment) {
+            
+            if ($newComment->getParent() !== null) {
+
+                //we make sure comment's parent is not already saved
+                $candidate = $newComment->getParent();
+
+                if (! in_array($candidate, $newCommentsParents)) {
+                    $newCommentsParents[] = $candidate;
+                }
+            }
+            else {
+                $newCommentsParents[] = $newComment;
+            }
+        }
+
+        //we update last time user accessed new comments page
+        //$user->setLastNewCommentsConnection(new \DateTime('now'));
+
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->render('/user/list_new_comments.html.twig',[
+     
+            'lastTimeConnection' => $lastTimeConnection,
+            'newComments' =>  $newCommentsParents,
 
         ]);
 
@@ -112,5 +165,7 @@ class UserController extends AbstractController
         ]);
 
     }
+
+
 
 }

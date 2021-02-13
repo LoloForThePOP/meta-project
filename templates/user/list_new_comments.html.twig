@@ -1,0 +1,303 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Nouveaux commentaires {% endblock %}
+
+{% block body %}
+
+    <div class="container pl-md-5 pt-md-2 pb-5">
+
+        <div class="row">
+            <div class="col-md-6">
+                
+        <h4 class="h3 mt-4 mt-md-5 mb-3 mb-md-5 font-weight-bold">
+
+            <span class="mr-2">Nouveaux commentaires</span>
+
+            <button tabindex="0" class="btn btn-light font-weight-bold" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="" data-content="depuis votre dernière visite ici">?</button>
+
+        </h4>
+
+        <div class="mb-4">
+
+            {# displaying project presentation title #}
+
+            {% set currentPresentation = null %}
+
+            {% for comment in newComments | reverse %}
+
+                {# case new comment is part of the same project presentation #}
+
+                {% if currentPresentation is same as comment.presentation.id %}
+
+                {# case new comment is part of another project presentation 
+                    we create a new title #}
+
+                {% else %}
+
+                    <h4 class="font-weight-bold mb-4 mt-4 mt-md-5">
+                        {{comment.presentation.goal | length < 50 ? comment.presentation.goal : comment.presentation.goal | slice (0,47) ~ '...'}}
+                    </h4>
+                    
+                {% endif %}
+
+                {# displaying parent comment #}
+
+               
+
+                <div class="mb-2 p-3 
+
+                    {# comment background accorting to its newness #}
+
+                    {% if comment.createdAt > lastTimeConnection and not app.user is same as comment.user  %}
+
+                        bg-success 
+                    
+                    {% else %}
+                    
+                        bg-light 
+                        
+                    {% endif %}
+
+                " style="min-height: 30px;">
+
+                    {% set currentPresentation = comment.presentation.id %}
+
+                    <header>
+            
+                        <p>
+
+                            <!-- Comment Author -->
+
+                            <a href="{{ path('user_show', {'id' : comment.user.id}) }}" class="font-weight-bold
+
+                            {% if comment.isCreatedByPresentationEditor %}
+
+                                bg-info rounded px-1 py-0 text-light mr-1
+
+                            {% else %}
+
+                                text-primary
+                            
+                            {% endif %}
+
+
+                            ">
+                                <span class="">{{comment.user.persorg.name}}</span>
+                            </a> 
+
+                            <!-- Comment Date -->
+                            
+                            le
+
+                            <time>
+                                {{ comment.createdAt | date("d/m/Y")}}
+                            </time>
+
+                            {% if comment.updatedAt is not null %}
+                                (modifié)
+                            {% endif %}
+
+                        </p>
+
+                    </header>
+
+                    <!-- Comment Content -->
+
+                    <p class="commentContent">
+                        {{ comment.content | nl2br }}
+                    </p>
+
+                    <!-- Reply to Comment Button -->
+                    <!-- Case user is logged in or not -->
+
+                    {% if is_granted('ROLE_USER') %}
+
+                        <span data-id="{{comment.id}}" class="js-reply-comment-button replyCommentButton cursor-pointer" data-toggle="modal" data-target="#replyCommentModal">RÉPONDRE</span>
+                        
+                    {% else %}
+                        
+                        <a href="{{ path('account_login') }}" class="text-primary">
+                            
+                            <span class="cursor-pointer" style="font-size: 0.8em;">RÉPONDRE</span>
+
+                        </a>
+
+                    {% endif %}
+
+                    <!-- Edit Comment Button -->
+
+                    {% if app.user == comment.user %}
+
+                        <a href="">
+
+                                <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- Show Comments Childs if exist -->
+
+                    {% if comment.childs | length > 0 %}
+
+                        <button type="button" data-toggle="collapse" data-target="#collapseChildsOf{{comment.id}}" aria-expanded="false" aria-controls="collapseChildsOf" class="btn btn-success btn-sm font-weight-bold">Afficher {{comment.childs | length}} réponse(s)</button>
+
+                    {% endif %}
+
+                </div>
+                
+        <!-- Maybe Some Comment Childs -->
+
+        {% if comment.childs | length > 0 %}
+
+            <div class="pl-4 pl-md-5 mt-4 mt-md-3">
+
+                <div class="collapse" id="collapseChildsOf{{comment.id}}">
+
+                {% for subComment in comment.childs %}
+
+                    <div class="p-3 mb-2
+
+                        {# comment background accorting to its newness #}
+
+                        {% if subComment.createdAt > lastTimeConnection and not app.user is same as subComment.user %}
+
+                            bg-success 
+                        
+                        {% else %}
+                        
+                            bg-light 
+                            
+                        {% endif %}
+                    
+                    ">
+
+                    
+                    <!-- Child Header -->
+
+                    <header>
+
+                        <!-- Child Author -->
+
+                        <p>
+
+                            <a href="{{ path('user_show', {'id' : subComment.user.id}) }}" class="font-weight-bold
+
+                            {% if subComment.isCreatedByPresentationEditor %}
+
+                                bg-info rounded px-1 py-0 text-light mr-1
+
+                            {% else %}
+
+                                text-primary
+                            
+                            {% endif %}
+                        ">
+
+                                <span class="">{{subComment.user.persorg.name}}</span>
+                            </a>
+
+                            <!-- Child Date -->
+                            
+                            le
+
+                            <time>
+                                {{ subComment.createdAt | date("d/m/Y")}}                
+                            </time>
+
+                            {% if subComment.updatedAt is not null %}
+                                (modifié)
+                            {% endif %}
+
+                        </p>
+
+                        <!-- Child Content -->
+
+                        <p class="commentContent">
+
+                            {{ subComment.content | nl2br  }}
+
+                        </p>
+
+                    </header>
+
+                    <!-- Edit Child Comment Button -->
+
+                    {% if app.user == subComment.user %}
+
+                        <a href="">
+
+                            <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
+
+                        </a>
+
+                    {% endif %}
+
+                    <!-- End of Child Commment Box -->
+                
+                    </div>
+
+                {% endfor %}
+
+                <!-- End Of Collapsible -->
+
+                </div>
+
+            <!-- End Of Comment Childs Section-->
+
+            </div>
+
+
+        {% endif %}
+
+        
+    {% endfor %}
+
+</div>
+       
+        <!-- Back Button -->
+
+        <div class="">
+        
+            <a href="{{path('homepage')}}">
+
+                <button type="button" class="btn btn-info sharp font-weight-bold">Retour page d'accueil</button>
+
+            </a>
+
+        </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+<style>
+    .bg-success{
+        background-color: rgb(221, 255, 221) !important;
+    }
+</style>
+
+{% endblock %}
+
+
+{% block javascripts %}
+
+    <script>
+
+        //Popover management
+
+        $(function () {
+            $('[data-toggle="popover"]').popover()
+        })
+        
+        
+        $('.popover-dismiss').popover({
+            trigger: 'focus'
+        })
+
+    </script>
+
+{% endblock %}

@@ -154,6 +154,11 @@ class User implements UserInterface
      */
     private $lastLoginDate;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $lastNewCommentsConnection;
+
 
 
 
@@ -170,7 +175,7 @@ class User implements UserInterface
         $this->isAllowed = true;
 
         $this->setLastNotificationsConnection(new \DateTime('now'));
-
+        $this->setLastNewCommentsConnection(new \DateTime('now'));
         
         $this->createdAt = new \DateTime('now');
         $this->presentations = new ArrayCollection();
@@ -625,7 +630,7 @@ class User implements UserInterface
      */
     public function countCommentsSinceDate(\DateTimeInterface $thresholdDate){
 
-        return $getCommentsSinceDate($thresholdDate)->count();
+        return count($this->getCommentsSinceDate($thresholdDate));
     }
 
     /**
@@ -913,6 +918,18 @@ class User implements UserInterface
     public function setLastLoginDate(?\DateTimeInterface $lastLoginDate): self
     {
         $this->lastLoginDate = $lastLoginDate;
+
+        return $this;
+    }
+
+    public function getLastNewCommentsConnection(): ?\DateTimeInterface
+    {
+        return $this->lastNewCommentsConnection;
+    }
+
+    public function setLastNewCommentsConnection(?\DateTimeInterface $lastNewCommentsConnection): self
+    {
+        $this->lastNewCommentsConnection = $lastNewCommentsConnection;
 
         return $this;
     }

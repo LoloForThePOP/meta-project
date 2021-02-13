@@ -20,11 +20,9 @@
             <div class="alert alert-success h5 font-weight-bold bg-green sharp col-md-6">
             Dernière étape : vous présenter un peu. <br>
 
-            Toutes ces informations sont facultatives. <br>
+            Toutes les informations demandées sont facultatives. <br>
 
-            Mais remplissez au moins un peu votre profil. <br>
-
-            Les visiteurs apprécieront et gagneraient en confiance.<br>
+            Remplir un peu votre profil donne confiance aux visiteurs. <br>
 
             </div>
         
@@ -56,7 +54,7 @@
 
                     <div class="mb-5 p-5" style="border:1px solid black;">
 
-                        <h5 class="mt-2 mb-5 font-weight-bold">Photo, image ou logo</h5>
+                        <h5 class="mt-2 mb-5 font-weight-bold">Une photo, image ou logo ?</h5>
 
                         <!-- If an image already exists, we display it -->
 
@@ -74,7 +72,7 @@
 
                     <div class="mb-5">
 
-                        <h4 class="font-weight-bold h5 mb-4">Une description de vous ou de votre organisation (facultatif)</h4>
+                        <h4 class="font-weight-bold h5 mb-4">Une description de vous ou de votre organisation</h4>
 
                         {{ form_widget(persorgForm.description) }}
 
@@ -82,7 +80,7 @@
 
                     <div class="mb-5">
 
-                        <h4 class="font-weight-bold h5 mb-4">Site web ou réseau social (facultatif)</h4>
+                        <h4 class="font-weight-bold h5 mb-4">Site web ou réseau social </h4>
 
                         {{ form_widget(persorgForm.webdomain1) }}
 
@@ -111,7 +109,7 @@
                             
                             <div class="mb-md-5">
 
-                                <h4 class="font-weight-bold h5 mb-4">Site web ou réseau social 2 (facultatif)</h4>
+                                <h4 class="font-weight-bold h5 mb-4">Site web ou réseau social 2 </h4>
         
                                 {{ form_widget(persorgForm.webdomain2) }}
         
@@ -119,7 +117,7 @@
         
                             <div class="mb-md-5">
         
-                                <h4 class="font-weight-bold h5">Site web ou réseau social 3 (facultatif)</h4>
+                                <h4 class="font-weight-bold h5">Site web ou réseau social 3 </h4>
         
                                 {{ form_widget(persorgForm.webdomain3) }}
         
@@ -127,7 +125,7 @@
         
                             <div class="mb-md-5">
         
-                                <h4 class="font-weight-bold h5">Site web ou réseau social 4 (facultatif)</h4>
+                                <h4 class="font-weight-bold h5">Site web ou réseau social 4 </h4>
         
                                 {{ form_widget(persorgForm.webdomain4) }}
         
@@ -137,14 +135,16 @@
     
                     </div>
 
-
+                    {#
                     <div class="mb-md-5">
 
-                        <h4 class="font-weight-bold h5">Adresse e-mail (facultatif)</h4>
+                        <h4 class="font-weight-bold h5">Adresse e-mail</h4>
 
                         {{ form_widget(persorgForm.email) }}
 
                     </div>
+
+                    #}
 
                     <div class="d-none">
 

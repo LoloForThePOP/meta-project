@@ -35,17 +35,19 @@
     
     {% if presentation.creator is defined %}
 
-    {% if is_granted('edit', presentation) %}
+        {% if is_granted('edit', presentation) %}
     
-            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0" style="border: 2px solid navy !important;">Outils</a>
+            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0 mr-0 ml-0" style="border: 2px solid navy !important;">Outils</a>
 
+         <!--    <a class="navbar-brand ml-3 mr-0 mr-md-4 mb-lg-n2 pb-0" href="{{ path('homepage') }}"><img src="/images/icons/miscellaneous/tools.svg" width="37px" height="44px" style="width:100%;" alt="tools"></a>
+ -->
         {% endif %}
 
     {% endif %}
 
     <!-- Website Logo -  The Project of Projects Logo -->
     
-    <a class="navbar-brand ml-3 mr-4 mb-lg-n2 pb-0" href="{{ path('homepage') }}"><img src="/images/app/logo.svg" width="37px" height="44px" style="width:100%;"></a>
+    <a class="navbar-brand ml-0 ml-md-3 mr-0 mr-md-4 mb-lg-n2 pb-0" href="{{ path('homepage') }}"><img src="/images/app/logo.svg" width="37px" height="44px" style="width:100%;"></a>
 
 
     
@@ -59,25 +61,18 @@
         {% set notificationsCount = app.user.countNotifications %}
 
         {% set unreadMessagesCount = app.user.countUnreadMessages %} 
-        
-    
-    {% endif %}
 
-    {% if app.user %}
-
-    {{date().timestamp}}
+        {% set newCommentsCount = app.user.countCommentsSinceDate(app.user.getLastNewCommentsConnection) %} 
         
-    <pre>
-        {{ dump(app.user.getCommentsSinceDate()) }}
-    </pre>
-    
     {% endif %}
 
     <!-- Display Notifications Count on Tiny Screens -->
     
     <!-- Display Unread Messages Count on Tiny Screens -->
 
-    {% if app.user and unreadMessagesCount > 0 %}
+    <!-- Display New Comments Count on Tiny Screens -->
+
+    {% if app.user and unreadMessagesCount == 0 %}
     
         <a href="{{path('show_user_messages')}}">
             
@@ -91,7 +86,7 @@
     
     {% endif %}
     
-    {% if app.user and notificationsCount > 0 %}
+    {% if app.user and notificationsCount == 0 %}
 
         <a href="{{path('show_notifications')}}">
             
@@ -102,7 +97,20 @@
             </div> 
 
         </a>
+    
+    {% endif %}
+    
+    {% if app.user and newCommentsCount > 0 %}
 
+        <a href="{{path('show_user_new_comments')}}">
+            
+            <div class="d-md-none">
+                <span class="badge badge-pill badge-primary" style="float:right;margin-bottom:-10px;">{{newCommentsCount}}</span> 
+
+            <img src="/images/icons/miscellaneous/comment_rounded.svg" width="27px" height="25px" style="width:100%;">
+            </div> 
+
+        </a>
     
     {% endif %}
 
@@ -143,77 +151,118 @@
             
             <!-- Notifications and new messages counters display -->
 
+            <div class="d-none d-md-block">
+
+                
             {% if app.user %}
 
-                {% if notificationsCount > 0 %}
+            {% if notificationsCount == 0 %}
 
-                    <a href="{{path('show_notifications')}}">
-                            
-                        <button type="button" class="btn btn-primary mr-3" style="padding: 3px 8px !important; width:110px;">
+                <a href="{{path('show_notifications')}}">
+                        
+                    <button type="button" class="btn btn-primary mr-3" style="padding: 3px 8px !important; width:110px;">
 
-                            <div class="container px-0">
-                                    
-                                <div class="col px-0"> 
-                                    <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;"    >
+                        <div class="container px-0">
+                                
+                            <div class="col px-0"> 
+                                <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;"    >
 
-                                    Projets
-                                    Suivis
+                                Projets
+                                Suivis
 
-                                    </div>
-                                </div>
-
-                                <div class="col px-0">
-                                    <span class="badge badge-success" style="font-size: 1em;">
-                                        
-                                        {{notificationsCount}}
-                                    
-                                    </span>
                                 </div>
                             </div>
 
-                            <span class="sr-only">unread notifications</span>
-
-                        </button>
-
-                    </a>
-                
-                {% endif %}
-
-                {% if unreadMessagesCount > 0 %}
-
-                    <a href="{{ path('show_user_messages') }}">
-                            
-                        <button type="button" class="btn btn-primary" style="padding: 3px 8px !important; width:120px;">
-
-                            <div class="container px-0 d-flex align-items-center">
+                            <div class="col px-0">
+                                <span class="badge badge-success" style="font-size: 1em;">
                                     
-                                <div class="col px-0"> 
-                                    <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;"    >
-
-                                    Nouveaux messages
-
-                                    </div>
-                                </div>
-
-                                <div class="col px-0">
-                                    <span class="badge badge-success" style="font-size: 1em;">
-                                        
-                                        {{unreadMessagesCount}}
-                                    
-                                    </span>
-                                </div>
-
+                                    {{notificationsCount}}
+                                
+                                </span>
                             </div>
+                        </div>
 
-                            <span class="sr-only">unread messages</span>
+                        <span class="sr-only">unread notifications</span>
 
-                        </button>
+                    </button>
 
-                    </a>
-                
-                {% endif %}
-
+                </a>
+            
             {% endif %}
+
+            {% if unreadMessagesCount == 0 %}
+
+                <a href="{{ path('show_user_messages') }}">
+                        
+                    <button type="button" class="btn btn-primary mr-3" style="padding: 3px 8px !important; width:120px;">
+
+                        <div class="container px-0 d-flex align-items-center">
+                                
+                            <div class="col px-0"> 
+                                <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;"    >
+
+                                Nouveaux messages
+
+                                </div>
+                            </div>
+
+                            <div class="col px-0">
+                                <span class="badge badge-success" style="font-size: 1em;">
+                                    
+                                    {{unreadMessagesCount}}
+                                
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <span class="sr-only">unread messages</span>
+
+                    </button>
+
+                </a>
+            
+            {% endif %}
+
+            {% if newCommentsCount > 0 %}
+
+                <a href="{{ path('show_user_new_comments') }}">
+                        
+                    <button type="button" class="btn btn-primary" style="padding: 3px 8px !important; width:140px;">
+
+                        <div class="container px-0 d-flex align-items-center">
+                                
+                            <div class="col px-0"> 
+                                <div class="" style="font-weight: bold; line-height:1.2; font-size:0.85em;">
+
+                                Nouveaux Commentaires
+
+                                </div>
+                            </div>
+
+                            <div class="col px-0">
+                                <span class="badge badge-success" style="font-size: 1em;">
+                                    
+                                    {{newCommentsCount}}
+                                
+                                </span>
+                            </div>
+
+                        </div>
+
+                        <span class="sr-only">new comments</span>
+
+                    </button>
+
+                </a>
+            
+            {% endif %}
+
+        {% endif %}
+
+
+            </div>
+
 
         </ul>
 

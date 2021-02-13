@@ -2,9 +2,7 @@
 {% for comment in presentation.comments | reverse %}
 
 
-    <!-- First we display only parent comments -->
-
-    {% if comment.getParent is null %}
+    {% if comment.getParent is null %} {# we display only parent comments (and then its potential child) #}
 
         <!-- One Comment Box -->
 
