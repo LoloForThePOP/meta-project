@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Entity\Comment;
 use App\Entity\Persorg;
 use App\Form\PersorgType;
+use App\Form\ReplyCommentType;
 use App\Repository\PersorgRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Contracts\Cache\ItemInterface;
+use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -102,12 +106,20 @@ class UserController extends AbstractController
      * 
      * @return Response
      */
-    public function newCommentsList(EntityManagerInterface $manager){
+    public function newCommentsList(CacheInterface $cache, EntityManagerInterface $manager, Request $request){
 
         $user = $this->getUser();
 
-        $lastTimeConnection = $user->getLastNewCommentsConnection();
+        //we cache last time user went to new comments page for 20 min, so that he can go back to new comments page within 20 minutes, and still see new comments highlighted.
 
+        $lastTimeConnection = $cache->get('last-time-connection', function (ItemInterface $item) {
+
+            $item->expiresAfter(1200);
+
+            return $this->getUser()->getLastNewCommentsConnection();
+
+        });
+        
         $newComments = $user->getCommentsSinceDate($lastTimeConnection);
 
         //to get some context, we get its parent
@@ -130,8 +142,48 @@ class UserController extends AbstractController
             }
         }
 
-        //we update last time user accessed new comments page
-        //$user->setLastNewCommentsConnection(new \DateTime('now'));
+        //reply to a comment form
+
+           $replyComment = new Comment();
+
+           $replyForm = $this->createForm(ReplyCommentType::class, $replyComment, array(
+               // Time protection
+               'antispam_time'     => true,
+               'antispam_time_min' => 10,
+               'antispam_time_max' => 3600,
+           ));
+   
+           $replyForm->handleRequest($request);
+   
+           if ($replyForm->isSubmitted() && $replyForm->isValid()) {
+   
+               //we retrieve parent comment
+   
+               $parentCommentId = $replyForm->get('parentCommentId')->getData();
+   
+               $entityManager = $this->getDoctrine()->getManager();
+               $parentComment = $entityManager->getRepository(Comment::class)->findOneById($parentCommentId);
+   
+               $replyComment->setParent($parentComment);
+   
+               $replyComment->setPresentation($parentComment->getPresentation())
+                       ->setUser($user);
+   
+               $entityManager = $this->getDoctrine()->getManager();
+               $entityManager->persist($replyComment);
+               $entityManager->flush();
+   
+               $this->addFlash(
+                   'success',
+                   'Votre commentaire est ajouté.'
+               );
+   
+               return $this->redirectToRoute('show_user_new_comments', [
+                   ]);
+           }
+
+        //we update last time user accessed to this page (consult new comments)
+        $user->setLastNewCommentsConnection(new \DateTime('now'));
 
         $manager->persist($user);
         $manager->flush();
@@ -139,6 +191,7 @@ class UserController extends AbstractController
         return $this->render('/user/list_new_comments.html.twig',[
      
             'lastTimeConnection' => $lastTimeConnection,
+            'replyForm' => $replyForm->createView(),
             'newComments' =>  $newCommentsParents,
 
         ]);

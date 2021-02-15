@@ -41,7 +41,7 @@
                         {% endif %}
                         
                         <div                        
-                            class="notification-title mb-2 btn btn-primary text-left p-3 sharp"
+                            class="notification-title mb-2 btn btn-info text-left p-3 sharp"
 
                             data-entity-id='{{message.id}}' 
 
@@ -98,37 +98,45 @@
 
         {% if app.user.getPresentations | length > 0 %}
 
-        <h3 class="font-weight-bold my-4">Tous les messages</h3>
+        <div class="mb-4">
 
-        <div class="container px-0">
+            <h3 class="font-weight-bold my-4">Messages triés par projets présentés</h3>
 
-            <div class="row">
+            <div class="container px-0">
 
-                <div class="col-md-6">
-                    {% for presentation in app.user.getPresentations %}
+                <div class="row">
 
-                        <a href="{{ path('index_project_messages', {'slug':presentation.slug}) }}">
+                    <div class="col-md-8">
 
-                            <div class="text-primary font-weight-bold bg-light fs-15 p-3 mb-3">
+                        {% for presentation in app.user.getPresentations %}
 
-                                <div class="mb-3">
-                                    {{presentation.goal | length < 50 ? presentation.goal : presentation.goal | slice(0,47) ~ "..."}}
+                            <a href="{{ path('index_project_messages', {'slug':presentation.slug}) }}">
+
+                                <div class="text-primary font-weight-bold bg-warning fs-15 p-3 mb-3">
+
+                                    <div class="mb-3">
+                                        {{presentation.goal | length < 50 ? presentation.goal : presentation.goal | slice(0,47) ~ "..."}}
+                                    </div>
+
+                                    <div class="">
+                                        <span class="badge badge-primary sharp p-2 font-weight-bold">
+                                            
+                                            {{presentation.getContactMessages | length}} Message(s)</span>
+                                    </div>
+
                                 </div>
+                            </a>
 
-                                <div class="">
-                                    <span class="badge badge-info">{{presentation.getContactMessages | length}}</span>
-                                </div>
+                        {% endfor %}
+                    </div>
 
-                            </div>
-                        </a>
-
-                    {% endfor %}
                 </div>
+
 
             </div>
 
-
         </div>
+
 
         
         {% endif %}
@@ -146,6 +154,7 @@
             </a>
 
         </div>
+
 
     </div>
 

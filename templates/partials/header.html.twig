@@ -37,7 +37,7 @@
 
         {% if is_granted('edit', presentation) %}
     
-            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-2 py-0 mr-0 ml-0" style="border: 2px solid navy !important;">Outils</a>
+            <a id="sidebarCollapse" class="navbar-brand d-md-none font-weight-bold cursor-pointer rounded px-1 py-0 mr-0 ml-0" style="border: 2px solid navy !important;">Outils</a>
 
          <!--    <a class="navbar-brand ml-3 mr-0 mr-md-4 mb-lg-n2 pb-0" href="{{ path('homepage') }}"><img src="/images/icons/miscellaneous/tools.svg" width="37px" height="44px" style="width:100%;" alt="tools"></a>
  -->
@@ -72,7 +72,7 @@
 
     <!-- Display New Comments Count on Tiny Screens -->
 
-    {% if app.user and unreadMessagesCount == 0 %}
+    {% if app.user and unreadMessagesCount > 0 %}
     
         <a href="{{path('show_user_messages')}}">
             
@@ -86,7 +86,7 @@
     
     {% endif %}
     
-    {% if app.user and notificationsCount == 0 %}
+    {% if app.user and notificationsCount > 0 %}
 
         <a href="{{path('show_notifications')}}">
             
@@ -115,7 +115,7 @@
     {% endif %}
 
         
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="border: 2px solid #2C3E50; font-weight:bold; ">
+    <button class="navbar-toggler px-1" type="button" data-toggle="collapse" data-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation" style="border: 2px solid #2C3E50; font-weight:bold; ">
         <span class="" style="color: #2C3E50;">Menu</span> <!-- navbar-toggler-icon -->
     </button>
 
@@ -156,7 +156,7 @@
                 
             {% if app.user %}
 
-            {% if notificationsCount == 0 %}
+            {% if notificationsCount > 0 %}
 
                 <a href="{{path('show_notifications')}}">
                         
@@ -190,7 +190,7 @@
             
             {% endif %}
 
-            {% if unreadMessagesCount == 0 %}
+            {% if unreadMessagesCount > 0 %}
 
                 <a href="{{ path('show_user_messages') }}">
                         
