@@ -28,6 +28,11 @@
 
         </div>
 
+
+        <div class="col-lg-9 p-0 text-justify">
+
+        
+
         <!-- Project Text Description Display -->
 
         {% set textDescription = presentation.textDescription.content %}
@@ -38,7 +43,7 @@
 
         {% if textDescription | length < 300 %}
         
-            <div class="container fs-15 pl-md-3">
+            <div class="container pp-text-description px-0 pl-md-3">
                 
                 {{ textDescription | sanitize_html }}
 
@@ -48,11 +53,11 @@
             
         {% else %}
             
-            <div id="moduleCollapseTextDescription" class="container fs-15 pl-md-3">
+            <div id="moduleCollapseTextDescription" class="container px-0 pl-md-3">
 
                 <!-- Text Description (Display) -->
 
-                <div id="collapseTextDescription" class="collapse" aria-expanded="false">
+                <div id="collapseTextDescription" class="pp-text-description collapse" aria-expanded="false">
 
                     {{ textDescription | sanitize_html }}
 
@@ -72,6 +77,8 @@
 
             
         {% endif %}
+
+        </div>
 
     </div>
     
@@ -98,6 +105,20 @@
         
         #moduleCollapseTextDescription #collapseTextDescription.collapsing {
             height: 7.5em;
+        }
+
+        .pp-text-description{
+            font-size:1.15em;
+        }
+
+
+        @media screen and (max-width: 580px) {
+
+            .pp-text-description{
+
+                font-size: 1.03em;
+                line-height:19px;
+            }
         }
         
     </style>

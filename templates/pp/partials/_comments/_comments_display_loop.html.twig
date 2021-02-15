@@ -2,172 +2,177 @@
 {% for comment in presentation.comments | reverse %}
 
 
-    {% if comment.getParent is null %} {# we display only parent comments (and then its potential child) #}
+{% if comment.getParent is null %} {# we display only parent comments (and then its potential child) #}
 
-        <!-- One Comment Box -->
+    <!-- One Comment Box -->
 
-        <article class="mb-5 comment-{{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
+    <article class="mb-5 comment-{{ cycle(['odd', 'even'], loop.index0) }}" id="comment-{{ comment.id }}">
 
-            <!-- Comment Header -->
+        <!-- Comment Header -->
 
-            <header>
-    
-                <p>
+        <header>
 
-                    <!-- Comment Author -->
+            <p>
+                
+                <!-- Comment Author -->
 
-                    <a href="{{ path('user_show', {'id' : comment.user.id}) }}" class="font-weight-bold
+                <a href="{{ path('user_show', {'id' : comment.user.id}) }}" class="comment-user-name">
 
-                    {% if comment.isCreatedByPresentationEditor %}
+                    <span class="
+                                
+                        {% if comment.isCreatedByPresentationEditor %}
 
-                        bg-info rounded px-1 py-0 text-light mr-1
+                            badge badge-info
 
-                    {% else %}
+                        {% else %}
 
-                        text-primary
+                            text-body
                     
-                    {% endif %}
-
-
+                        {% endif %}
+                    
                     ">
-                        <span class="">{{comment.user.persorg.name}}</span>
-                    </a> 
-
-                    <!-- Comment Date -->
                     
-                    le
+                        {{comment.user.persorg.name}}
+                    
+                        </span>
+                </a> 
 
-                    <time>
-                        {{ comment.createdAt | date("d/m/Y")}}
-                    </time>
+                <!-- Comment Date -->
+                
+                le
 
-                    {% if comment.updatedAt is not null %}
-                        (modifié)
-                    {% endif %}
+                <time>
+                    {{ comment.createdAt | date("d/m/Y")}}
+                </time>
 
-                </p>
+                {% if comment.updatedAt is not null %}
+                    (modifié)
+                {% endif %}
 
-            </header>
-
-            <!-- Comment Content -->
-
-            <p class="commentContent">
-                {{ comment.content | nl2br }}
             </p>
 
-            <!-- Reply to Comment Button -->
-            <!-- Case user is logged in or not -->
+        </header>
 
-            {% if is_granted('ROLE_USER') %}
+        <!-- Comment Content -->
 
-                <span data-id="{{comment.id}}" class="js-reply-comment-button replyCommentButton cursor-pointer" data-toggle="modal" data-target="#replyCommentModal">RÉPONDRE</span>
+        <p class="commentContent">
+            {{ comment.content | nl2br }}
+        </p>
+
+        <!-- Reply to Comment Button -->
+        <!-- Case user is logged in or not -->
+
+        {% if is_granted('ROLE_USER') %}
+
+            <span data-id="{{comment.id}}" class="js-reply-comment-button replyCommentButton cursor-pointer" data-toggle="modal" data-target="#replyCommentModal">RÉPONDRE</span>
+            
+        {% else %}
+            
+            <a href="{{ path('account_login') }}" class="text-primary">
                 
-            {% else %}
-                
-                <a href="{{ path('account_login') }}" class="text-primary">
-                    
-                    <span class="cursor-pointer" style="font-size: 0.8em;">RÉPONDRE</span>
+                <span class="cursor-pointer" style="font-size: 0.8em;">RÉPONDRE</span>
 
-                </a>
-
-            {% endif %}
-
-            <!-- Edit Comment Button -->
-
-            {% if app.user == comment.user %}
-
-                <a href="{{ path('edit_comment', {'slug': presentation.slug, 'id_comment': comment.id} ) }}">
-
-                        <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
-
-                </a>
-
-            {% endif %}
-
-
-        <!-- Maybe Some Comment Childs -->
-
-        {% if comment.childs | length > 0 %}
-
-            <!-- Indentation -->
-
-            <div class="pl-4 pl-md-5 mt-4 mt-md-3">
-
-                {% for subComment in comment.childs %}
-
-                    <!-- Child Header -->
-
-                    <header>
-
-                        <!-- Child Author -->
-
-                        <p>
-
-                            <a href="{{ path('user_show', {'id' : subComment.user.id}) }}" class="font-weight-bold
-
-                            {% if subComment.isCreatedByPresentationEditor %}
-
-                                bg-info rounded px-1 py-0 text-light mr-1
-
-                            {% else %}
-
-                                text-primary
-                            
-                            {% endif %}
-                        ">
-
-                                <span class="">{{subComment.user.persorg.name}}</span>
-                            </a>
-
-                            <!-- Child Date -->
-                            
-                            le
-
-                            <time>
-                                {{ subComment.createdAt | date("d/m/Y")}}                
-                            </time>
-
-                            {% if subComment.updatedAt is not null %}
-                                (modifié)
-                            {% endif %}
-
-                        </p>
-
-                        <!-- Child Content -->
-
-                        <p class="commentContent">
-
-                            {{ subComment.content | nl2br  }}
-
-                        </p>
-
-                    </header>
-
-                    <!-- Edit Child Comment Button -->
-
-                    {% if app.user == subComment.user %}
-
-                        <a href="{{ path('edit_comment', {'slug': presentation.slug, 'id_comment': subComment.id} ) }}">
-
-                            <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
-
-                        </a>
-
-                    {% endif %}
-
-                {% endfor %}
-                
-            <!-- End Of Comment Childs Section-->
-
-            </div>
+            </a>
 
         {% endif %}
 
-        <!-- End of Comment Section -->
+        <!-- Edit Comment Button -->
 
-        </article>
+        {% if app.user == comment.user %}
+
+            <a href="{{ path('edit_comment', {'slug': presentation.slug, 'id_comment': comment.id} ) }}">
+
+                    <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
+
+            </a>
+
+        {% endif %}
+
+
+    <!-- Maybe Some Comment Childs -->
+
+    {% if comment.childs | length > 0 %}
+
+        <!-- Indentation -->
+
+        <div class="pl-4 pl-md-5 mt-4 mt-md-3">
+
+            {% for subComment in comment.childs %}
+
+                <!-- Child Header -->
+
+                <header>
+
+                    <!-- Child Author -->
+
+                    <p>
+
+                        <a class="comment-user-name" href="{{ path('user_show', {'id' : subComment.user.id}) }}">
+
+                            <span class="
+
+                                {% if subComment.isCreatedByPresentationEditor %}
+
+                                    badge badge-info
+
+                                {% else %}
+
+                                    text-body
+                                
+                                {% endif %}">{{subComment.user.persorg.name}}
+                            
+                            </span>
+                        </a>
+
+                        <!-- Child Date -->
+                        
+                        le
+
+                        <time>
+                            {{ subComment.createdAt | date("d/m/Y")}}                
+                        </time>
+
+                        {% if subComment.updatedAt is not null %}
+                            (modifié)
+                        {% endif %}
+
+                    </p>
+
+                    <!-- Child Content -->
+
+                    <p class="commentContent">
+
+                        {{ subComment.content | nl2br  }}
+
+                    </p>
+
+                </header>
+
+                <!-- Edit Child Comment Button -->
+
+                {% if app.user == subComment.user %}
+
+                    <a href="{{ path('edit_comment', {'slug': presentation.slug, 'id_comment': subComment.id} ) }}">
+
+                        <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
+
+                    </a>
+
+                {% endif %}
+
+            {% endfor %}
+            
+        <!-- End Of Comment Childs Section-->
+
+        </div>
 
     {% endif %}
+
+    <!-- End of Comment Section -->
+
+    </article>
+
+{% endif %}
 
 {% endfor %}
 
@@ -176,14 +181,25 @@
 
 <style>
 
-    .commentContent{
-        font-size:1.1em;
-    }
+.commentContent{
+    font-size:1.1em;
+    
+}
 
-    .replyCommentButton{
-        font-size: 0.8em;
-        
-    }
+.comment-user-name{
+    font-size: 18px;
+    font-weight:bold;
+}
+
+
+.badge-info{
+    font-size:15px !important;
+}
+
+.replyCommentButton{
+    font-size: 0.8em;
+    
+}
 
 
 </style>

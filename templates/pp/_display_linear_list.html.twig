@@ -1,6 +1,6 @@
 
 
-<div class="cursor-pointer col-md-8 mb-3 px-0 pr-md-3">
+<div class="project-list-elem cursor-pointer col-md-8 mb-3 px-0 pr-md-3">
 
     <div class="card border-left-info shadow-sm h-100">
 
@@ -94,11 +94,7 @@
                                             height: 60px;
                                             background-color: #27ae60;
                                         }
-
-                                        .initials {
-                                            
-                                        }
-                        
+                    
                         
                                     }
 
@@ -109,24 +105,24 @@
 
                         </div>
 
-                        <div class="text-container col">
+                        <div class="text-container col px-0 px-md-3">
                                 
                             <!-- Project Goal -->
         
-                            <h6 class="projectTitle font-weight-bold mb-0" style="font-size:1.25em">
+                            <h6 class="project-goal">
                                 {{presentation.goal[:1] | upper ~ presentation.goal[1:] | slice(0, 140)}}{% if presentation.goal | length > 141 %}...{% endif %}
                             </h6>
 
                             <!-- Project Title -->
 
                             {% if presentation.title is not empty %}
-                                <h6 class="font-weight-bold mb-0 fs-15">{{ presentation.title[:1] | upper ~ presentation.title[1:] | slice(0, 63)}}</h6>
+                                <h6 class="project-title">{{ presentation.title[:1] | upper ~ presentation.title[1:] | slice(0, 63)}}</h6>
                             {% endif %}
                                 
                             <!-- Project Keywords -->
                             {% if presentation.keywords | length > 0 %}
 
-                                <div class="keywords font-weight-bold my-1 h6 text-left" style="line-height:1.05em;" >
+                                <div class="project-keywords">
 
                                     <span class="text-break">
                                     #{{presentation.keywords | replace({" " : "", "," : " #"}) | slice(0, 64) | capitalize}}
@@ -148,4 +144,62 @@
 
     </div>
 
+    <style>
+
+        .project-list-elem .project-goal{
+            
+            font-size:1.25em;
+            color:#1a0dab;
+            font-weight:bold;
+
+            line-height: 1.13em;
+
+            margin-bottom:0px;
+        }
+
+        .project-list-elem .project-title{
+            
+            font-size:1.15em;
+            font-weight:bold;
+
+            line-height: 1.13em;
+
+            margin-bottom:0px;
+        }
+
+        .project-list-elem .project-keywords{
+
+            font-weight:bold;
+            color:#065fd4;
+            line-height:1.05em;
+            text-align: left;
+            font-size:15px;
+            margin: 4px 0px;
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .project-list-elem .project-goal{
+            
+                font-size:1.07em;
+            }
+
+            .project-list-elem .project-title{
+            
+                font-size:1.07em;
+            }
+
+            .project-list-elem .project-keywords{
+            
+                font-size:13px;
+            }
+
+        }
+
+
+
+    </style>
+
     </div>
+
+    

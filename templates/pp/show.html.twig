@@ -123,7 +123,7 @@
             color : navy;
             font-family : Verdana, Geneva, Tahoma, sans-serif;
 
-            font-size: 25px;
+            font-size: 20px;
     
         }
 
@@ -216,22 +216,22 @@
 
                     <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
 
-                        <button type="button" class="btn btn-light mr-2">Signaler un abus</button>
+                        <button type="button" class="btn btn-light mr-2 mb-2 ">Signaler un abus</button>
                         
                     </a>
 
 
                     <a href="{{ path('edit_presentation_request', {'slug': presentation.slug}) }}">
-                    
-                        <button type="button" class="btn btn-light">Présenter ce projet</button>
+                        <button type="button" class="btn btn-light mb-2">Présenter ce projet</button>
 
                     </a>
-                    
+                        
+
+                    <!-- Back to top button -->
+
+                    <button onclick="topFunction()" id="backTopButton" class="btn btn-light mb-2" title="Retour en Haut">↑ Haut de Page</button> 
+
                 </div>
-
-                <!-- Back to top button -->
-
-                <button onclick="topFunction()" id="backTopButton" class="btn btn-light" title="Retour en Haut">↑ Haut de Page</button> 
 
                 {# Switch Between Edition Mode and Consultation Mode #}
 

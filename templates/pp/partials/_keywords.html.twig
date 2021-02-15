@@ -2,13 +2,19 @@
 
 {% if presentation.keywords | length > 0 %}
 
-    <div class="keywords text-left" >
+    <div class="pp-project-keywords keywords text-left" >
 
         <!-- Project Keywords Display -->
 
         <span class="d-inline-block mr-2">
 
-            #{{presentation.keywords | replace({"," : " #", " " : ""}) | slice(0, 104) }}
+            {% set keywords = presentation.keywords | replace({" " : ""}) | split(',') %}
+
+            {% for keyword in keywords %}
+
+                #{{keyword | first | capitalize ~ keyword[1:] | replace({"," : " #"}) }}
+
+            {% endfor %}
 
         </span>
        
@@ -34,7 +40,7 @@
 
         .pp-project-keywords{
 
-            font-size: 15px;
+            font-size: 17px;
 
             font-weight: bold;
 
@@ -43,6 +49,9 @@
         @media screen and (max-width: 580px) {
 
             .pp-project-keywords{
+
+                font-size: 15px;
+                font-weight:normal;
 
             
             }

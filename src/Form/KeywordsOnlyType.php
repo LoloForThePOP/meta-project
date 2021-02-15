@@ -14,7 +14,7 @@ class KeywordsOnlyType extends ApplicationType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('keywords', TextType::class, $this->getConfiguration("Mots-Clés (séparer avec des virgules , ) :", "Mots-Clés (séparer avec des virgules , )",['required'=>false]))
+            ->add('keywords', TextType::class, $this->getConfiguration("Mots-Clés (séparer avec des virgules , ) :", "Mots-Clés (séparer avec des virgules , )", ['required'=>false]))
         ;
     }
 

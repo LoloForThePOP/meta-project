@@ -60,7 +60,15 @@
 							">
 					
 							<p id="caption">
-						
+
+								{% if presentation.slides | length == 1 %}
+
+									{% set slide = presentation.slides | first %}
+
+									<div class="pl-md-3">{{ slide.caption[:1] | upper ~ slide.caption[1:] }}</div>
+
+								{% endif %}
+										
 							</p>
 						
 						</div>
@@ -73,13 +81,18 @@
 
 								<div class="mySlides">
 
-									<!-- Current Slide Number Display (only on small screens) -->
+									<!-- Current Slide Counter Display (only on small screens when more than one slide) -->
 
-									<div class="numbertext d-md-none">
+									{% if presentation.slides | length > 1 %}
 										
-										{{loop.index}} / {{ presentation.slides | length }}
+										<div class="numbertext d-md-none">
+											
+											{{loop.index}} / {{ presentation.slides | length }}
+										
+										</div>
 									
-									</div>
+									{% endif %}
+
 
 									<!-- Case Slide is an Image -->
 
