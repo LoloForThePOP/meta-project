@@ -15,7 +15,7 @@
                         <!-- Project Thumbnail -->
                         <!-- We try to find a picture into the project presentation -->
 
-                        <div class="thumbnail-container col-4 col-md-2 d-flex align-items-center justify-content-center">
+                        <div class="thumbnail-container px-2 px-md-1 col-4 col-md-2 d-flex align-items-center justify-content-center">
 
                             <!-- If we have a project logo -->
 
@@ -80,7 +80,7 @@
                                     @media screen and (max-width: 580px) {
 
                                         .thumbnail-container{
-                                            min-height:100px;
+                                            min-height:80px;
                                         }
 
                                         .text-container{
@@ -105,11 +105,20 @@
 
                         </div>
 
-                        <div class="text-container col px-0 px-md-3">
+                        <div class="text-container col p-0 pl-md-2 mr-md-3">
                                 
                             <!-- Project Goal -->
+
         
-                            <h6 class="project-goal">
+                            <h6 class="project-goal
+                                
+                                {% if presentation.title is empty %}
+                                
+                                    no-title
+                                    
+                                {% endif %}
+                            
+                            ">
                                 {{presentation.goal[:1] | upper ~ presentation.goal[1:] | slice(0, 140)}}{% if presentation.goal | length > 141 %}...{% endif %}
                             </h6>
 
@@ -125,7 +134,13 @@
                                 <div class="project-keywords">
 
                                     <span class="text-break">
-                                    #{{presentation.keywords | replace({" " : "", "," : " #"}) | slice(0, 64) | capitalize}}
+                                        {% set keywords = presentation.keywords | replace({" " : ""}) | split(',') %}
+
+                                        {% for keyword in keywords [1:6] %}
+                            
+                                            #{{keyword | first | capitalize ~ keyword[1:] }}
+                            
+                                        {% endfor %}
                                     </span>
 
                                 </div>
@@ -177,21 +192,42 @@
             margin: 4px 0px;
         }
 
+        
+        .project-list-elem .no-title{
+            
+            margin-top:6px;
+        }
+
         @media screen and (max-width: 580px) {
+
+            .project-list-elem .row {
+                padding : 6px 0px;
+            }
 
             .project-list-elem .project-goal{
             
                 font-size:1.07em;
+                line-height: 15px;
+                margin-bottom: 2px;
             }
 
             .project-list-elem .project-title{
             
                 font-size:1.07em;
+
+                margin-bottom: -2px;
+
+                
             }
 
             .project-list-elem .project-keywords{
             
                 font-size:13px;
+            }
+
+            .project-list-elem .no-title{
+            
+                margin-top:15px;
             }
 
         }

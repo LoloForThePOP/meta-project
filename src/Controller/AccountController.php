@@ -92,7 +92,20 @@ class AccountController extends AbstractController
         
         $user = new User();
 
-        $form=$this->createForm(RegistrationType::class,$user);
+        $form=$this->createForm(
+            
+            RegistrationType::class, 
+            
+            $user, 
+            
+            array(
+
+                // Time protection
+                'antispam_time'     => true,
+                'antispam_time_min' => 8,
+                'antispam_time_max' => 3600,
+            )
+        );
 
         $form->handleRequest($request);
 

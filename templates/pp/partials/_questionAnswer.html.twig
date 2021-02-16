@@ -32,54 +32,59 @@
 
         </div>
 
+
          <!-- Q & A (Collapsible) -->
 
-        <div class="container mt-3 pb-2">
+        <div class="container mt-3 ml-md-1 pb-2 pl-0 pl-md-2 pr-0 pr-md-3">
 
+            <div class="col-md-10 col-lg-9 pr-0">
                 
-            {% for qa in presentation.questionAnswers %}
+                {% for qa in presentation.questionAnswers %}
 
-                <!-- Question with Collapse Symbol Display -->
-                
-                <div class="questionRow row p-1 mb-2 mb-md-3 cursor-pointer collapsed" data-toggle="collapse" href="#collapse{{ qa.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ qa.id }}">
-                                                
-                    <!-- Question Display -->
+                    <!-- Question with Collapse Symbol Display -->
+                    
+                    <div class="questionRow row p-1 mb-2 mb-md-3 cursor-pointer collapsed" data-toggle="collapse" href="#collapse{{ qa.id }}" role="button" aria-expanded="false" aria-controls="collapse{{ qa.id }}">
+                                                    
+                        <!-- Question Display -->
 
-                    <div class="col-11 pr-0">
+                        <div class="col-11 pl-0 pl-md-3 pr-0">
 
-                        <span class="question">
+                            <span class="question">
 
-                            {{ qa.question [:1] | upper ~ qa.question [1:] }}
+                                {{ qa.question [:1] | upper ~ qa.question [1:] }}
 
-                        </span>
+                            </span>
 
-                    </div>
+                        </div>
 
-                    <!-- Collapse Symbol Display -->
+                        <!-- Collapse Symbol Display -->
 
-                    <div class="collapseSymbolDisplay col-1 d-flex justify-content-center px-0">
+                        <div class="collapseSymbolDisplay col-1 d-flex justify-content-center px-0">
 
-                    </div>
-
-                </div>
-
-                <!-- Answer Display -->
-
-                <div class="collapse mb-2 mb-md-3" id="collapse{{ qa.id }}">
-
-                    <div class="p-2 " style="background-color: aliceblue;">
-
-                        <div class="answer mb-2">
-                            
-                            {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
-                        
                         </div>
 
                     </div>
 
-                </div>
+                    <!-- Answer Display -->
+
+                    <div class="collapse mb-2 mb-md-3" id="collapse{{ qa.id }}">
+
+                        <div class="p-2 " style="background-color: aliceblue;">
+
+                            <div class="answer mb-2">
+                                
+                                {{ qa.answer [:1] | upper }}{{ qa.answer [1:] | nl2br }}
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                {% endfor %}  
+            </div>
+
                 
-            {% endfor %}
 
         
         </div>
@@ -126,7 +131,8 @@
     
             .question{
     
-                font-size:17px;
+                font-size:16px;
+                line-height:20px;
     
             }
     

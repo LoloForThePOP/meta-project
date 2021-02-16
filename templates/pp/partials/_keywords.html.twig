@@ -12,7 +12,7 @@
 
             {% for keyword in keywords %}
 
-                #{{keyword | first | capitalize ~ keyword[1:] | replace({"," : " #"}) }}
+                #{{keyword | first | capitalize ~ keyword[1:] }}
 
             {% endfor %}
 
