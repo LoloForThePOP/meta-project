@@ -26,80 +26,80 @@
 
     {% endif %}
 
-    <!-- ECS Presentation Structure Container -->
+        <!-- ECS Display Container -->
 
-    <div class="pp-struct-container pb-3">
-            
-        {% for ecs in presentation.externalContributorsStructures %}
+        <div class="pp-struct-container pb-3">
+                
+            {% for ecs in presentation.externalContributorsStructures %}
 
-            <div class="ecs">
+                <div class="ecs">
 
-                <div class="pp-struct-title-container mb-4">
+                    <div class="pp-struct-title-container mb-2 mb-md-3 mb-lg-4">
+                        
+                        <!-- ECS Title Display (ex: Our Sponsors) -->
+
+                        <h3 class="ecsTitle pp-struct-title d-inline">
+
+                            {{ecs.title}}
+
+                        </h3>
+
+                        <!-- Edit this ECS Button -->
+
+                        {% if is_granted('edit', presentation) %}
+
+                            <a class="pp-edition-mode" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
+
+                                <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
+                                
+                            </a>
+
+                        {% endif %}
+
+                    </div>
+
+                    <!-- ECS Card Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                     
-                    <!-- ECS Title Display (ex: Our Sponsors) -->
+                    {% if ecs.persorgs | length > 0 %}
 
-                    <h3 class="ecsTitle pp-struct-title d-inline">
+                        <div class="container">
+                                                
+                            <div class="ecsDisplayRow">
 
-                        {{ecs.title}}
+                                {% include 'pp/partials/_external_contributors/_card_display.html.twig' %}
 
-                    </h3>
+                            </div>
 
-                    <!-- Edit this ECS Button -->
+                        </div>
+                        
+                        <!-- ECS Details (Displayed in Modal Boxes) -->
+                        
+                        {% for persorg in ecs.persorgs %}
 
-                    {% if is_granted('edit', presentation) %}
+                            {% include 'pp/partials/_external_contributors/_modal_box.html.twig' %}
 
-                        <a class="pp-edition-mode" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
+                        {% endfor %}
 
-                            <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
-                            
-                        </a>
+                    {% endif %} 
+
+                    <!-- ECS Rich Text Content Display -->
+                    
+                    {% if ecs.richTextContent is not null %}
+
+                            <div class="container richTextContent px-0 pl-1 px-md-2 px-lg-3">
+
+                                {{ecs.richTextContent | raw}}
+
+                            </div>
 
                     {% endif %}
 
                 </div>
-
-                <!-- ECS Card Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                 
-                {% if ecs.persorgs | length > 0 %}
-
-                    <div class="container">
-                                            
-                        <div class="ecsDisplayRow">
-
-                            {% include 'pp/partials/_external_contributors/_card_display.html.twig' %}
-
-                        </div>
-
-                    </div>
-                    
-                    <!-- ECS Details (Displayed in Modal Boxes) -->
-                    
-                    {% for persorg in ecs.persorgs %}
-
-                        {% include 'pp/partials/_external_contributors/_modal_box.html.twig' %}
-
-                    {% endfor %}
-
-                {% endif %} 
-
-                <!-- ECS Rich Text Content Display -->
-                
-                 {% if ecs.richTextContent is not null %}
-
-                        <div class="container richTextContent px-0 pl-1 px-md-2 px-lg-3">
-
-                            {{ecs.richTextContent | raw}}
-
-                        </div>
-
-                 {% endif %}
-
-            </div>
-            
-        {% endfor %}
+            {% endfor %}
 
 
-    </div>
+        </div>
 
 {% endif %}
 

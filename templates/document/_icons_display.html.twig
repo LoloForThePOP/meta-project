@@ -52,25 +52,16 @@
         
     {% endif %}
 
-    <style>
-
-        .documentRepresentation:hover 
-        {
-            background-color: gainsboro;
-
-        }
-
-    </style>
 
     <!-- Documents Icon Display -->
 
-    <div class="documentRepresentation col border border-primary" style="width:140px; height:170px;">
+    <div class="documentRepresentation col border border-primary" style="width:170px; height:140px;">
 
         <div class="row h-100">
 
             <!--Document "mime type" Display (vertical text) -->
 
-            <div class="col-4 d-flex align-items-center text-white" style="background-color: {{ bgColor }};">
+            <div class="col-3 px-0 d-flex align-items-center text-white" style="padding-left : 12px !important; background-color: {{ bgColor }};">
 
                 <div class="font-weight-bold h4" style="word-break:break-all; width:0px;">
                     {{ fileType }}
@@ -81,9 +72,9 @@
 
             <!--Document Title (as renamed by user) -->
 
-            <div class="col-8 h6 font-weight-bold d-flex justify-content-center align-items-center pt-3 px-1" style="text-transform:uppercase; word-break: break-word;">
+            <div class="pp-document-title col-9 d-flex justify-content-center align-items-center pt-3 pl-2 pr-1">
 
-                {{ document.title | striptags | length > 33 ? document.title | striptags | slice(0, 33) ~ ' ...' : document.title | striptags }}
+                {{ document.title | striptags | length > 33 ? document.title | striptags | slice(0, 33) ~ '...' : document.title | striptags }}
 
                 
 
@@ -92,3 +83,34 @@
         </div>
         
     </div> 
+
+{# Some Styles #}
+
+<style>
+
+    .pp-document-title
+    {
+        font-weight : bold;
+
+        text-transform:uppercase;
+
+        font-size: 14px;
+
+        word-break: break-word;
+
+
+        -webkit-hyphens: auto;
+        -moz-hyphens: auto;
+        -ms-hyphens: auto;
+        -o-hyphens: auto;
+        hyphens: auto;
+
+    }
+
+    .documentRepresentation:hover 
+    {
+        background-color: gainsboro;
+
+    }
+
+</style>

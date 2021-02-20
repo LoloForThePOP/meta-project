@@ -170,6 +170,9 @@
                 
                 <!-- Project Documents -->
                 {% include 'pp/partials/_documents.html.twig' %}
+
+                <!-- Project News -->
+                {% include 'pp/partials/_news.html.twig' %}
                 
                 <!-- Project Dates & Events -->
                 {% include 'pp/partials/_datesEvents.html.twig' %}
@@ -196,9 +199,6 @@
                 <!-- Project External Contributors -->
                 {% include 'pp/partials/_externalContributors.html.twig' %}
 
-                <!-- Project News -->
-                {% include 'pp/partials/_news.html.twig' %}
-
                 <!-- Project Contact Us Cards & Private Message Button -->
                 {% include 'pp/partials/_contactUs.html.twig' %}
 
@@ -222,7 +222,7 @@
 
 
                     <a href="{{ path('edit_presentation_request', {'slug': presentation.slug}) }}">
-                        <button type="button" class="btn btn-light mb-2">Présenter ce projet</button>
+                        <button type="button" class="btn btn-light mr-2 mb-2">Présenter ce projet</button>
 
                     </a>
                         
@@ -292,10 +292,20 @@
         $(document).ready(function(){
             
             {% if is_granted('edit', presentation) %}
+    
+                //if user edit presentation, we enter in edition mode by default
+
+                //some elements are only displayed in consultation mode (follow button for exemple)
+
+                $(".pp-consultation-mode").addClass("d-none");
+
+                //switching between edition and consultation mode
                     
                 $( "#pp-switch-edit-consult-mode" ).click(function() {
                     
                     if($(this).hasClass("edition-mode")){
+
+                        //we enter consultation mode
 
                         // toggling switch button class
 
@@ -306,12 +316,18 @@
                         //hiding pp elements related to edition
                         $(".pp-edition-mode").hide();
 
+                        $(".pp-consultation-mode").addClass("d-block");
+
                         //manage sidebar disappearing
                         $(".pp-whole-container").addClass("container");
 
                     }
 
                     else{
+
+                        //we enter edition mode
+
+
                         // toggling switch button class
 
                         $(this).removeClass("consultation-mode");
@@ -320,6 +336,9 @@
                         
 
                         $(".pp-edition-mode").show();
+
+                        $(".pp-consultation-mode").removeClass("d-block");
+
                         //manage sidebar appearing
                         $(".pp-whole-container").removeClass("container");
 

@@ -159,6 +159,11 @@ class User implements UserInterface
      */
     private $lastNewCommentsConnection;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $registrationToken;
+
 
 
 
@@ -693,6 +698,13 @@ class User implements UserInterface
         return $this;
     }
 
+
+    /**
+     * Allow to know whether user follow a presentation or not
+     *
+     * @param [type] $object
+     * @return boolean
+     */
     public function isFollowerOf($object): bool
     {
 
@@ -930,6 +942,18 @@ class User implements UserInterface
     public function setLastNewCommentsConnection(?\DateTimeInterface $lastNewCommentsConnection): self
     {
         $this->lastNewCommentsConnection = $lastNewCommentsConnection;
+
+        return $this;
+    }
+
+    public function getRegistrationToken(): ?string
+    {
+        return $this->registrationToken;
+    }
+
+    public function setRegistrationToken(?string $registrationToken): self
+    {
+        $this->registrationToken = $registrationToken;
 
         return $this;
     }

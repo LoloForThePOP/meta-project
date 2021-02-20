@@ -1,8 +1,18 @@
 <!-- Project Follow Button Display -->
 
+{# Only Displayed for Users who dont' already follow it #}
+
     <!-- Structure Container -->
 
-    <div class="pp-struct-container">
+    <div class="pp-struct-container pp-consultation-mode
+    
+        {% if app.user and app.user.isFollowerOf(presentation) and not is_granted('edit', presentation) %}
+
+            d-none 
+
+        {% endif %}
+    
+    ">
 
         {% if not app.user %}
         
@@ -18,11 +28,15 @@
         
         {% endif %}
 
-           <div class="pp-follow-project-button cursor-pointer col-md-5 border border-primary rounded border-2 mb-4 mr-0 mr-md-4" style="height:40px; background-color:rgb(255, 251, 202);">
+           <div class="pp-follow-project-button cursor-pointer border border-primary rounded border-2 mb-4 mr-0 mr-md-4" style="height:40px; width:244px; background-color:rgb(255, 251, 202);">
                         
                 <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
                                 
-                    <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('new_follow_presentation', {'slug':presentation.slug})}}">Suivre ce Projet</a>
+                    <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('new_follow_presentation', {'slug':presentation.slug})}}">
+
+                        <img class="" src="/images/icons/miscellaneous/follow.svg" height="22" width="22" alt="follow icon" style="margin-right:7px; margin-top:1px;">
+                        
+                        Suivre ce Projet</a>
 
                 </div>
                     

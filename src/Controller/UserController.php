@@ -7,7 +7,6 @@ use App\Entity\Comment;
 use App\Entity\Persorg;
 use App\Form\PersorgType;
 use App\Form\ReplyCommentType;
-use App\Repository\PersorgRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -35,20 +34,21 @@ class UserController extends AbstractController
         ]);
     }
 
+
   
     
     /**
      * Allow user to manage its public profile
      * 
-     * @Route("account/public-profile/{persorg_id}/{context?}", name="edit_public_profile")
+     * @Route("account/public-profile/{context?}", name="edit_public_profile")
      * 
      * @Security("is_granted('ROLE_USER')")
      * 
      * @return Response
      */
-    public function publicProfile($context, $persorg_id, PersorgRepository $persorgRepository, Request $request, EntityManagerInterface $manager){
+    public function publicProfile($context, Request $request, EntityManagerInterface $manager){
 
-        $userPersorg = $persorgRepository->findOneById($persorg_id);
+        $userPersorg = $this->getUser()->getPersorg();
 
         $persorgForm = $this->createForm(PersorgType::class, $userPersorg); 
 
