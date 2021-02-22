@@ -165,6 +165,18 @@ class PPController extends AbstractController
 
         $this->denyAccessUnlessGranted('view', $presentation);
 
+        // incrementing views count (we exclude project presenters viewers)
+        // $user === null check if user is not logged in
+
+        if ($user === null || !$presentation->isAccessedBy($user, 'edit')) {
+            
+            $presentation->incrementViewsCount();
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->persist($presentation);
+            $entityManager->flush();
+
+        }
+
         $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment, array(
@@ -201,7 +213,7 @@ class PPController extends AbstractController
                 ]);
         }
 
-         //reply to a comment form 
+        //reply to a comment form 
 
         $replyComment = new Comment();
 

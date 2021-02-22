@@ -233,6 +233,38 @@
 
                 </div>
 
+                <!-- Some Statistics -->
+
+                <div class="pl-2">
+
+                    <!-- Views Count -->
+
+                    <div class="">
+                        {{presentation.viewsCount}} vues
+                    </div>
+
+                    <!-- Followers Count -->
+
+                    <div class="">
+
+                        {% set followersCount = presentation.countFollowers %}
+                        
+                        {% if followersCount > 0 %}
+                        
+                            {{followersCount}}
+
+                            {% if followersCount == 1 %}
+                                follower
+                                {% else %}
+                                followers
+                            {% endif %}
+
+                        {% endif %}
+
+                    </div>
+
+                </div>
+
                 {# Switch Between Edition Mode and Consultation Mode #}
 
                 {% if is_granted('edit', presentation) %}
@@ -385,15 +417,6 @@
         });
 
     </script>
-
-
-    <!-- Project Needs Section : ajax call when user wants need details -->
-
-    {% if presentation.needs %}
-
-        {% include 'pp/js_show/_needs.html.twig' %}
-        
-    {% endif %}
 
     <!-- Project News Section : ajax call when user wants news details -->
 

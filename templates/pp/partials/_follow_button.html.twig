@@ -1,10 +1,11 @@
 <!-- Project Follow Button Display -->
 
-{# Only Displayed for Users who dont' already follow it #}
+{# Only Displayed for Users who dont' already follow it AND Project Presenters (so that they can check people can follow their project) #}
 
     <!-- Structure Container -->
 
     <div class="pp-struct-container pp-consultation-mode
+
     
         {% if app.user and app.user.isFollowerOf(presentation) and not is_granted('edit', presentation) %}
 

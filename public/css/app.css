@@ -1,16 +1,13 @@
 
+/* Dark Mode Coming one day I hope :-) */
+
+
+/* Website defaults */
 
 a {
     text-decoration: none !important
   }
 
-@media (max-width: 568px) {
-
-    .pageTitle {
-        margin-top:20px;
-    }
-
-}
 
   
 /* BS4 Collapse Component Remove Effects */

@@ -1,5 +1,4 @@
 
-
 <div class="project-list-elem cursor-pointer col-md-8 mb-3 px-0 pr-md-3">
 
     <div class="card border-left-info shadow-sm h-100">
@@ -105,47 +104,52 @@
 
                         </div>
 
-                        <div class="text-container col p-0 pl-md-2 mr-md-3">
-                                
-                            <!-- Project Goal -->
+                        <div class="text-container col p-0 pl-md-2 mr-md-3 d-flex align-items-center">
 
+                            <div>
+
+                                                              
+                            <!-- Project Goal -->
         
                             <h6 class="project-goal
                                 
-                                {% if presentation.title is empty %}
+                            {% if presentation.title is empty %}
+                            
+                                no-title
                                 
-                                    no-title
-                                    
-                                {% endif %}
-                            
-                            ">
-                                {{presentation.goal[:1] | upper ~ presentation.goal[1:] | slice(0, 140)}}{% if presentation.goal | length > 141 %}...{% endif %}
-                            </h6>
-
-                            <!-- Project Title -->
-
-                            {% if presentation.title is not empty %}
-                                <h6 class="project-title">{{ presentation.title[:1] | upper ~ presentation.title[1:] | slice(0, 63)}}</h6>
                             {% endif %}
-                                
-                            <!-- Project Keywords -->
-                            {% if presentation.keywords | length > 0 %}
+                        
+                        ">
+                            {{presentation.goal[:1] | upper ~ presentation.goal[1:] | slice(0, 140)}}{% if presentation.goal | length > 141 %}...{% endif %}
+                        </h6>
 
-                                <div class="project-keywords">
+                        <!-- Project Title -->
 
-                                    <span class="text-break">
-                                        {% set keywords = presentation.keywords | replace({" " : ""}) | split(',') %}
-
-                                        {% for keyword in keywords [1:6] %}
+                        {% if presentation.title is not empty %}
+                            <h6 class="project-title">{{ presentation.title[:1] | upper ~ presentation.title[1:] | slice(0, 63)}}</h6>
+                        {% endif %}
                             
-                                            #{{keyword | first | capitalize ~ keyword[1:] }}
-                            
-                                        {% endfor %}
-                                    </span>
+                        <!-- Project Keywords -->
+                        {% if presentation.keywords | length > 0 %}
 
-                                </div>
+                            <div class="project-keywords">
 
-                            {% endif %}
+                                <span class="text-break">
+                                    {% set keywords = presentation.keywords | replace({" " : ""}) | split(',') %}
+
+                                    {% for keyword in keywords [0:6] %}
+                        
+                                        #{{keyword | first | capitalize ~ keyword[1:] }}
+                        
+                                    {% endfor %}
+                                </span>
+
+                            </div>
+
+                        {% endif %}
+
+                            </div>
+  
 
                         </div>
 
@@ -192,12 +196,6 @@
             margin: 4px 0px;
         }
 
-        
-        .project-list-elem .no-title{
-            
-            margin-top:6px;
-        }
-
         @media screen and (max-width: 580px) {
 
             .project-list-elem .row {
@@ -223,11 +221,6 @@
             .project-list-elem .project-keywords{
             
                 font-size:13px;
-            }
-
-            .project-list-elem .no-title{
-            
-                margin-top:15px;
             }
 
         }

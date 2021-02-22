@@ -51,13 +51,12 @@
                     {% for need in presentation.needs %}
 
                         <!-- Needs Titles Display (in a Table) -->
-
-                                    
-                        <!-- Is it a Paid Service ? We prepare the Answer. -->
+  
+                        <!-- Is it a Paid Service ? -->
 
                         {% set isPaid = '' %}
 
-                        {% if need.paidService %}
+                        {% if not need.paidService == null %}
                         
                             {% if need.paidService == 'yes' %}
                                 {% set isPaid = "Payé" %}
@@ -74,13 +73,14 @@
                             
                             {% endif %}
 
+                        {% else %}
+                            
+                            {% set isPaid = "Non précisé" %}
+
                         {% endif %}
 
-                        <tr id="{{ need.id }}" data-need-title = "{{ need.title }}" data-need-date = "{{need.createdAt | date('d-m-Y')}}" data-need-isPaid = "{{ isPaid }}" class="cursor-pointer h5 font-weight-bold">
-
-                            <td>
-                
-                                <a data-toggle="modal" data-target="#displayNeedDescriptionModal" class="text-body text-decoration-none">
+                        <tr class="cursor-pointer h5 font-weight-bold"  data-toggle="modal" data-target="#displayNeedDescriptionModal{{need.id}}">
+                            <td>    
 
                                     {# Blue Arrow bullet point #}
                                     
@@ -90,11 +90,109 @@
 
                                     {{ need.title | capitalize | length < 50 ? need.title : need.title|slice(0, 50) ~ '...' }}
 
-                                </a>
 
                             </td>
-
                         </tr>
+                        
+                                
+                        <!-- Display Need Details (in a Modal Box) -->
+
+                        <div class="modal" id="displayNeedDescriptionModal{{need.id}}" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
+
+                            <div class="modal-dialog" role="document">
+
+                                <div class="modal-content">
+
+                                    <!-- Need Title Display -->
+
+                                    <div class="modal-header">
+                                        
+                                        <h5 class="modal-title titleNeedModal font-weight-bold">
+                                            {{ need.title }}
+                                        </h5>
+
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                                            <span aria-hidden="true">&times;</span>
+
+                                        </button>
+
+                                    </div>
+
+                                    <div class="modal-body fs-15" >
+
+                                        <!-- Date Display -->
+
+                                        <div class = "mb-2" >
+
+                                            <span class="">
+                                                Publié le 
+                                            </span>
+
+                                            <span>
+                                                {{need.createdAt | date('d-m-Y')}}
+                                            </span>
+
+                                        </div>
+
+                                        <!-- is it Payed ? -->
+
+                                        <div class = "mb-4" >
+
+                                            <span class="font-weight-bold">
+                                                Payé ?  
+                                            </span>
+                                            
+                                            <span class="h6 p-1 font-weight-bold rounded bg-primary text-white">
+                                                {{ isPaid }}
+                                            </span>
+
+                                        </div>
+
+                                        <!-- Need Description Display -->
+
+                                        <div class="px-md-3 pt-md-1 pb-md-3">
+
+                                            {{need.description | nl2br}}
+
+                                        </div>
+
+                                    </div>
+
+
+                                    <!-- Action Buttons -->
+
+                                    <div class="modal-footer">
+
+                                        {% if is_granted('edit', presentation) %}
+
+                                            {# Modify this Need #}
+
+                                            <a id="modifyNeedButton" href="{{path('need_edit', {'slug':presentation.slug, 'need_id' : need.id })}}">
+                                                <button type="button" class="btn btn-light sharp font-weight-bold">Modifier</button>
+                                            </a>
+
+                                        {% endif %}
+
+                                        <!-- Send a Private Message Button -->
+
+                                        <a href="{{path('contact_message_new', {'slug':presentation.slug})}}">
+                                            <button type="button" class="btn btn-primary sharp font-weight-bold">Entrer en contact</button>
+                                        </a>
+
+                                        
+                                        <!-- Back Button -->
+
+                                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
+
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
 
                     {% endfor %}
 
@@ -105,85 +203,6 @@
 
         </div>
 
-                
-        <!-- Display Need Details (in a Modal Box) -->
-
-        <div class="modal fade" id="displayNeedDescriptionModal" tabindex="-1" role="dialog" aria-labelledby="" aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
-
-                    <!-- Need Title Display -->
-
-                    <div class="modal-header">
-                        
-                        <h5 id="titleNeedModal" class="modal-title font-weight-bold"></h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-
-                            <span aria-hidden="true">&times;</span>
-
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body fs-15" >
-
-                        <!-- Date Display -->
-
-                        <div class = "mb-2" >
-
-                            <span class="">
-                                Publié le 
-                            </span>
-
-                            <span id="dateNeedModal"></span>
-
-                        </div>
-
-                        <!-- + Info Display -->
-
-                        <div class = "mb-4" >
-
-                            <span class="font-weight-bold">
-                                Info + : 
-                            </span>
-                            
-                            <span id="isPaidNeedModal" class="h6 p-1 font-weight-bold rounded bg-primary text-white"></span>
-
-                        </div>
-
-                        <!-- Need Description Display -->
-
-                        <div id="descriptionNeedModal" style="white-space:pre-wrap;">
-
-                        </div>
-
-                    </div>
-
-
-                    <!-- Action Buttons -->
-
-                    <div class="modal-footer">
-
-                        <!-- Back Button -->
-
-                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
-
-                        <!-- Send a Private Message Button -->
-
-                        <a href="{{path('contact_message_new', {'slug':presentation.slug})}}">
-                            <button type="button" class="btn btn-primary sharp font-weight-bold">Entrer en contact</button>
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
 
     </div>
 
@@ -198,15 +217,6 @@
             background-color : lavender;
 
         }
-
-      /*  #needsDisplayTable tbody tr:first-child {
-                    
-             margin-top:0px !important;
-            padding-top:0px !important;
-
-            background-color: brown; 
-
-        }*/
 
 
         @media screen and (max-width: 580px) {

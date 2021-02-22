@@ -72,7 +72,7 @@
 
             <!--Document Title (as renamed by user) -->
 
-            <div class="pp-document-title col-9 d-flex justify-content-center align-items-center pt-3 pl-2 pr-1">
+            <div class="pp-document-title col-9 d-flex justify-content-center align-items-center pl-2 pr-1">
 
                 {{ document.title | striptags | length > 33 ? document.title | striptags | slice(0, 33) ~ '...' : document.title | striptags }}
 

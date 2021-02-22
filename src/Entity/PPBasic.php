@@ -451,6 +451,11 @@ class PPBasic implements \Serializable
      */
     private $teammatesByText;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $viewsCount;
+
 
  
 
@@ -465,6 +470,7 @@ class PPBasic implements \Serializable
         $this->isActiveContactMessages = true;
         $this->overallQualityAssessment = 3;
         $this->allowComments = true;
+        $this->viewsCount = 0;
         $this->accessCode = mt_rand(100000, 999999);
         $this->slides = new ArrayCollection();
         $this->needs = new ArrayCollection();
@@ -1377,7 +1383,7 @@ class PPBasic implements \Serializable
      * @return boolean
      */
     
-    public function isAccessedBy(User $user, string $rightType) : bool
+    public function isAccessedBy(?User $user, string $rightType) : bool
     {
 
         // if user created presentation, he has all access by default
@@ -1396,6 +1402,7 @@ class PPBasic implements \Serializable
             }
 
         }
+
         return false;
         
     }
@@ -1492,6 +1499,32 @@ class PPBasic implements \Serializable
     public function setTeammatesByText(?string $teammatesByText): self
     {
         $this->teammatesByText = $teammatesByText;
+
+        return $this;
+    }
+
+    public function getViewsCount(): ?int
+    {
+        return $this->viewsCount;
+    }
+
+    public function setViewsCount(?int $viewsCount): self
+    {
+        $this->viewsCount = $viewsCount;
+
+        return $this;
+    }
+
+    public function incrementViewsCount(): self
+    {
+
+        if ($this->getViewsCount()==null) {
+            $this->setViewsCount(1);
+        }
+
+        else {
+            $this->setViewsCount($this->getViewsCount() + 1);
+        }
 
         return $this;
     }
