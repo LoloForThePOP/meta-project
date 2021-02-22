@@ -67,8 +67,9 @@
 
         margin-bottom: 38px;
 
-        //display: flex;
-        //align-items:center;
+        display: flex;
+        align-items:center;
+        flex-wrap: wrap !important;
 
     }
 
@@ -76,10 +77,12 @@
   
     .pp-struct-title{
 
-        display:inline-block;
+        display:inline;
         color : navy;
         font-family : Verdana, Geneva, Tahoma, sans-serif; 
-        margin-right:10px;
+        font-size: 2rem;
+        margin:0px;
+        margin-right:8px;
 
     }
 
@@ -88,6 +91,9 @@
     .pp-struct-icon{
 
         margin-right : 7px;
+        position: relative;
+        /* Adjust these values accordingly */
+        top: 4px;
 
     }
 
@@ -125,6 +131,15 @@
 
             font-size: 20px;
     
+        }
+
+        .pp-struct-icon{
+
+            width:23px;
+            height:23px;
+
+            margin-right:5px;
+
         }
 
     }
@@ -175,10 +190,10 @@
                 {% include 'pp/partials/_news.html.twig' %}
                 
                 <!-- Project Dates & Events -->
-                {% include 'pp/partials/_datesEvents.html.twig' %}
+                {% include 'pp/partials/_events.html.twig' %}
                 
                 <!-- Project Questions & Answers -->
-                {% include 'pp/partials/_questionAnswer.html.twig' %}
+                {% include 'pp/partials/_faq.html.twig' %}
 
                 <!-- Project Needs -->
                 {% include 'pp/partials/_needs.html.twig' %}

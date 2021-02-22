@@ -10,10 +10,14 @@
         <!-- Title Container with Edit Button -->
 
         <div class="pp-struct-title-container">
+                
+            <!-- Structure Icon -->
+
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/owner.svg" height="38" width="38" alt="project owners icon">
 
             <!-- Structure Title -->
 
-            <h3 class="pp-struct-title d-inline mr-2 mb-2">Porteurs du Projet</h3>
+            <h3 class="pp-struct-title">Porteurs du Projet</h3>
     
             <!-- Edit Owners Button -->
     
@@ -21,7 +25,7 @@
 
                 <a class="pp-edition-mode" href="{{ path('manage_owners', {'slug': presentation.slug}) }}">
     
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
+                    <button class="btn btn-light sharp font-weight-bold">Gérer</button>
                     
                 </a>
 
@@ -132,7 +136,3 @@
 </style>
 
 
-
-<!-- Structure Icon
-
-<img class="pp-struct-icon" src="/images/icons/consult_presentation/owner.svg" height="38" width="38" alt="project owners icon"> -->

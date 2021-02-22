@@ -35,6 +35,17 @@
                 <div class="ecs">
 
                     <div class="pp-struct-title-container mb-2 mb-md-3 mb-lg-4">
+
+                                            
+                    {# Only First Occurence Has an Icon #}
+                        
+                        {% if loop.first %}
+
+                            <!-- Structure Icon -->
+
+                            <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors2.svg" height="34" width="34" alt="external contributors icon" style="top:0px; margin-right:10px;   ">
+
+                        {% endif %}
                         
                         <!-- ECS Title Display (ex: Our Sponsors) -->
 
@@ -188,13 +199,3 @@
 
 
 </style>
-
-
-
-{# {% if loop.first %}
-
-    <!-- Structure Icon -->
-
-    <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors.svg" height="32" width="32" alt="external contributors icon">
-
-{% endif %}#}

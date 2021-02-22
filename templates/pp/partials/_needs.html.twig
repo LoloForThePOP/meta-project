@@ -12,7 +12,13 @@
 
         <div class="pp-struct-title-container">
 
-            <h3 class="pp-struct-title d-inline mr-2">
+            {# Structure Icon #}
+
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/needs.svg" height="33" width="33" alt="project needs icon" style="top:0; margin-right:5px;">
+
+            {# Structure Title #}
+
+            <h3 class="pp-struct-title mr-2">
                 
                 {% if presentation.needs | length == 1 %}
                     Participer - 1 besoin
@@ -32,7 +38,7 @@
 
                 <a class="pp-edition-mode" href="{{ path('need_index', {'slug': presentation.slug}) }}">
 
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les besoins</button>
+                    <button class="btn btn-light sharp font-weight-bold d-inline-block fs-15">Gérer les besoins</button>
                     
                 </a>
                 

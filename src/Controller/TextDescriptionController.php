@@ -52,7 +52,7 @@ class TextDescriptionController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "La description texte a bien été éditée"
+                "La description texte a été modifiée"
             );
 
             return $this->redirectToRoute('project_show', [

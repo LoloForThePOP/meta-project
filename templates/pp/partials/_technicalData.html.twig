@@ -10,13 +10,13 @@
 
         <div class="pp-struct-title-container" style="margin-bottom:22px;">
 
-            <!-- Structure Icon
+            <!-- Structure Icon -->
 
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/technical_data.svg" height="32" width="32" alt="tachnical data icon"> -->
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/data.svg" height="24" width="24" alt="tachnical data icon" style="top:1px; margin-right:10px;"> 
 
             <!-- Structure Title -->
 
-            <h3 class="pp-struct-title d-inline mr-2 mb-2">Informations supplémentaires</h3>
+            <h3 class="pp-struct-title">Quelques Données</h3>
     
             <!-- Edit Technical Data Button -->
     
@@ -24,7 +24,7 @@
 
                 <a class="pp-edition-mode" href="{{ path('manage_technicalData', {'slug': presentation.slug}) }}">
     
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer ces informations</button>
+                    <button class="btn btn-light sharp font-weight-bold">Gérer ces informations</button>
                     
                 </a>
 
@@ -43,13 +43,13 @@
 
               <!-- Data Container -->
 
-              <div class="dataContainer">
+              <div class="dataContainer px-md-4">
 
                   <!-- Data Name -->
 
                   <div class="dataName">
 
-                      {{data.name}}
+                    {{data.name[:1] | upper ~ data.name[1:] }} <span class="d-none d-md-inline">:</span>
                       
                   </div>
 
@@ -70,54 +70,55 @@
             
         {% elseif presentation.technicalData | length > 3 %} <!-- we divide display in two column -->
 
-                  <div class="row px-3">
+                  <div class="row col-md-9 px-md-3 pl-lg-5">
 
                         {% for data in presentation.technicalData %}
 
-                            {% if presentation.technicalData | length >= 5 and loop.index == 5 %}
+                            {% if loop.index == 5 %}
 
-                                    <div class="btn btnlight"><button class="hideWhenClicked btn btn-light sharp font-weight-bold my-0 py-0 fs-15" data-toggle="collapse" data-target="#collapseMoreTechData" aria-expanded="false" aria-controls="collapseMoreTechData">Afficher plus</button></div>
+                                <button class="hideWhenClicked btn btn-light sharp font-weight-bold mb-0 mt-2 py-0" data-toggle="collapse" data-target="#collapseMoreTechData" aria-expanded="false" aria-controls="collapseMoreTechData">Afficher plus</button>
+                                
 
-                                    <div id="collapseMoreTechData" class="collapse row mt-0 px-3">
+                                <div id="collapseMoreTechData" class="collapse container mt-0">
+
+                                    <div class="row">
                                     
-
                             {% endif %}
-  
+    
+                                <div id="{{data.id}}" class="dataContainer col-6 {{ cycle(['', 'px-0'], loop.index0) }}">
 
-                            <div id="{{data.id}}" class="dataContainer col-6">
+                                    <!-- Data Name -->
 
-                                <!-- Data Name -->
+                                    <div class="dataName">
 
-                                <div class="dataName">
+                                        {{data.name[:1] | upper ~ data.name[1:] }} <span class="d-none d-md-inline">:</span>
+                                        
+                                    </div>
 
-                                    {{data.name[:1] | upper ~ data.name[1:] }}
-                                    
+                                    <!-- Data Value -->
+
+                                    <div class="dataValue">
+
+                                        {{data.value}}
+
+                                    </div>
+
+                                
+
                                 </div>
 
-                                <!-- Data Value -->
 
-                                <div class="dataValue">
+                            {# closing the collapsible when more than 6 items #}
 
-                                    {{data.value}}
-
-                                </div>
-
-                              
-
-                            </div>
-
-                            
-                            
-
-                            {# closing the collapsible when more than 4 items #}
-
-                            {% if loop.index >= 5 and loop.last %}
+                            {% if loop.index > 4 and loop.last %}
      
-                    </div>
+                                </div>
+                            </div>
                             
                             {% endif %}
 
                         {% endfor %}
+
                   </div>
 
           
@@ -164,6 +165,16 @@
     }
 
     @media screen and (max-width: 580px) {
+
+        .dataContainer{
+
+            margin-bottom: 5px;
+        }
+        
+        .hideWhenClicked{
+            
+            font-size: 14px;
+        }
 
         .dataName{
             font-size:1em;

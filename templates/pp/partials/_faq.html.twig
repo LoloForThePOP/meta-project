@@ -9,11 +9,11 @@
 
         <!-- Title Container -->
 
-        <div class="pp-struct-title-container pb-1">
+        <div class="pp-struct-title-container">
 
-            <!-- Structure Icon 
+            {# structure icon #}
 
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/faq.svg" height="38" width="38" alt="faq icon">-->
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/faq.svg" height="29" width="29" alt="faq icon" style="top:3px;">
 
             <!-- Structure Title -->
                     
@@ -25,7 +25,7 @@
             
                 <a class="pp-edition-mode" href="{{ path('qa_manage', {'slug': presentation.slug}) }}">
 
-                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer les Questions / Réponses </button>
+                    <button class="btn btn-light sharp font-weight-bold fs-15">Gérer les Questions / Réponses </button>
                     
                 </a>
             {% endif %}
