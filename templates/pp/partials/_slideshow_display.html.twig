@@ -15,8 +15,25 @@
 				<!-- Structure Title -->
 
 				<h2 class="h3 pp-struct-title d-inline mr-2">Diaporama</h2>
+
+
+				{# Add Image Shortcut Button #}
+
+					<button data-toggle="modal" data-target="#addImageFormModal" class="btn btn-light sharp font-weight-bold mb-2 mr-2 d-inline fs-15">+ Image</button>
+
+					{#  Add an Image Form Display (in a Modal Box)  #}
+
+					{% include '/slideshow/partials/_add_image_modal.html.twig' %}
+
+				{#  Add a youtube Video Shorcut #}
+					
+					<a href="{{path('slideshow_video_add', {'slug':presentation.slug, 'presentation':presentation})}}">
+
+						<button class="btn btn-light sharp font-weight-bold mb-2 mr-2 d-inline fs-15">+ Video</button>
+						
+					</a>
 										
-				<!-- Edit Slideshow Button -->
+				{# Manage Slideshow Button #}
 
 					<a href="{{ path('slideshow_index', {'slug': presentation.slug}) }}">
 

@@ -1,0 +1,17 @@
+{% set followersCount = presentation.countFollowers %}
+                        
+{% if followersCount > 0 %}
+
+    {{followersCount}}
+
+    {% if followersCount == 1 %}
+
+        follower
+
+        {% else %}
+
+        followers
+        
+    {% endif %}
+
+{% endif %}

@@ -73,6 +73,16 @@
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');
                 });
+
+                //Popover management
+
+                $(function () {
+                    $('[data-toggle="popover"]').popover()
+                })
+                
+                $('.popover-dismiss').popover({
+                    trigger: 'focus'
+                })
             
             });
         </script>

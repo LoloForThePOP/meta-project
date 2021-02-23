@@ -171,8 +171,11 @@
                 <!-- Upper Box (Contains Project Logo; Title; Goal; Keywords) -->
                 {% include 'pp/partials/_upper_box.html.twig' %}
 
-                <!-- Project Images & Videos (Displayed in a Slideshow) -->
-                {% include 'pp/partials/_slideshow.html.twig' %}
+                {# Edit Slideshow #}
+                {% include 'pp/partials/_slideshow_edit_placeholder.html.twig' %}
+
+                <!-- Display Project Images & Videos (Displayed in a Slideshow) -->
+                {% include 'pp/partials/_slideshow_display.html.twig' %}
                 
                 <!-- Project Text Description -->
                 {% include 'pp/partials/_textDescription.html.twig' %}
@@ -255,26 +258,16 @@
                     <!-- Views Count -->
 
                     <div class="">
-                        {{presentation.viewsCount}} vues
+
+                        {% include 'pp/partials/_statistics/_views_count.html.twig' %}
+                        
                     </div>
 
                     <!-- Followers Count -->
 
                     <div class="">
 
-                        {% set followersCount = presentation.countFollowers %}
-                        
-                        {% if followersCount > 0 %}
-                        
-                            {{followersCount}}
-
-                            {% if followersCount == 1 %}
-                                follower
-                                {% else %}
-                                followers
-                            {% endif %}
-
-                        {% endif %}
+                        {% include 'pp/partials/_statistics/_followers_count.html.twig' %}
 
                     </div>
 
@@ -392,6 +385,15 @@
                     }
                 
                 });
+
+                // Manage add an image form errors : we have to trigger modal box display for the user to be aware of thesses form errors.
+
+                {% if not addImageForm.vars.valid %}
+
+                    $('#addImageFormModal').modal('show');
+
+                {% endif %}
+
 
 
             {% endif %}

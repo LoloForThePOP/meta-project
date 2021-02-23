@@ -68,6 +68,9 @@
                 <div class="row fs-25">
 
                     <div class="bg-warning p-2 ml-3 mr-3"> Code d'accès à la présentation : <span class="font-weight-bold">{{accessCode}}</span> </div>
+
+
+                    {# Tooltip #}
     
                     <button tabindex="0" class="btn btn-light font-weight-bold" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Intégrer de nouveaux présentateurs" data-content="Transmettez ce code aux personnes que vous invitez à rejoindre la présentation. Vous devrez ensuite valider ici leur arrivée.">?</button>
     
@@ -203,19 +206,5 @@
 
 {% block javascripts %}
 
-    <script>
-
-        //Popover management
-
-        $(function () {
-            $('[data-toggle="popover"]').popover()
-        })
-        
-        
-        $('.popover-dismiss').popover({
-            trigger: 'focus'
-        })
-
-    </script>
 
 {% endblock %}

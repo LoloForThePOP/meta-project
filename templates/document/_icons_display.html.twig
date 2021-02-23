@@ -55,7 +55,7 @@
 
     <!-- Documents Icon Display -->
 
-    <div class="documentRepresentation col border border-primary" style="width:170px; height:140px;">
+    <div class="documentRepresentation col border border-primary" style="width:170px; height:130px;">
 
         <div class="row h-100">
 
@@ -72,11 +72,9 @@
 
             <!--Document Title (as renamed by user) -->
 
-            <div class="pp-document-title col-9 d-flex justify-content-center align-items-center pl-2 pr-1">
+            <div class="pp-document-title col-9 d-flex justify-content-center text-center align-items-center px-2">
 
-                {{ document.title | striptags | length > 33 ? document.title | striptags | slice(0, 33) ~ '...' : document.title | striptags }}
-
-                
+                {{ document.title | striptags | length > 52 ? document.title | striptags | slice(0, 49) ~ '...' : document.title | striptags }}
 
             </div>
 

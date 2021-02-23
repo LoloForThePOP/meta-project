@@ -1,0 +1,95 @@
+{% if is_granted('edit', presentation) %}
+
+	{# slideshow placeholder in order to project presenter to feed a slideshow directly from Project Presentation Page #}
+
+	{# this placeholder is left for one day #}
+
+	{% set presentationCreatedAtTimestamp = presentation.createdAt | date("U") %}
+
+	{% set placeHolderAppearanceTime = presentationCreatedAtTimestamp + 86400  %}
+
+
+	{% if presentation.slides | length == 0 and date().timestamp < placeHolderAppearanceTime %}
+
+	<div class="pp-struct-container pp-edition-mode container pb-3">
+
+		<div class="row">
+
+			<div class="col-md-9">
+					
+				<div id="slideshowPlaceholder">
+
+					<div class="row h-100">
+
+						<!-- Add an Image Button (Triggers a Modal Box with a Form, included below) -->
+							
+						<div class="col-6 pr-1 d-flex align-items-center justify-content-center" data-toggle="modal" data-target="#addImageFormModal">
+
+							<img class="addImageIcon img-fluid" src="/images/icons/miscellaneous/add_image.svg" height="150" width="150" alt="add image icon">
+
+						</div>
+
+						<!-- add a video button -->
+						
+						<div class="col-6 pl-1 d-flex align-items-center justify-content-center">
+							
+							<a href="{{path('slideshow_video_add', {'slug':presentation.slug, 'presentation':presentation})}}">
+
+								<img class="addVideoIcon img-fluid" src="/images/icons/miscellaneous/add_youtube_video.svg" height="150" width="150" alt="add image icon" >
+
+							</a>
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<style>
+
+		#slideshowPlaceholder{
+
+			height: 200px;
+
+			border: 5px dashed rgb(180, 204, 236);
+			border-radius: 6px;
+
+		}
+
+		.addImageIcon, .addVideoIcon {
+			cursor: pointer;
+		}
+
+
+		@media screen and (max-width: 580px) {
+
+			#slideshowPlaceholder{
+				
+				height: 100px;
+
+			}
+
+			.addImageIcon, .addVideoIcon {
+				
+				height : 70px;
+			}
+
+
+		}
+
+	</style>
+
+	<!-- Add an Image Form Display (in a Modal Box) -->
+
+	{% include '/slideshow/partials/_add_image_modal.html.twig' %}
+
+
+	{% endif %}
+{% endif %}

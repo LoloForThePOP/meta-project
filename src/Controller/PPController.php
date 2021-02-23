@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Form\PPBasicType;
 use App\Form\ReplyCommentType;
 use App\Form\NewPresentationType;
+use App\Form\SlideshowImagesType;
 use App\Service\ImageEditService;
 use App\Repository\PPBasicRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -154,12 +155,14 @@ class PPController extends AbstractController
     
     /**
      * Allow to Display a Project Presentation Page
-     *
-     * @Route("/projects/{slug}", name="project_show")
+     * 
+     * + Some Presentation Edition Shortcuts for project presenters
+     * 
+     * @Route("/projects/{slug}/", name="project_show")
      * 
      * @return Response
      */
-    public function show(PPBasic $presentation, Request $request){
+    public function show(PPBasic $presentation, Request $request, ImageEditService $editImageService){
 
         $user = $this->getUser();
 
@@ -174,6 +177,50 @@ class PPController extends AbstractController
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($presentation);
             $entityManager->flush();
+
+        }
+
+        // edition possibilities for project presenters
+
+        $addImageForm = $this->createForm(SlideshowImagesType::class);
+
+        if ($presentation->isAccessedBy($user, 'edit')) {
+            
+            //Add an Image Form
+            $addImageForm->handleRequest($request);
+
+            if ($addImageForm->isSubmitted() && $addImageForm->isValid()){
+
+                $slide = $addImageForm->getData();
+    
+                // count previous slides in order to set a position to the new image slide
+                $countPreviousSlides = count($presentation->getSlides());
+                $slide->setPosition($countPreviousSlides);
+    
+                $slide->setMediaType("image");
+    
+                $presentation->addSlide($slide);
+
+                $manager = $this->getDoctrine()->getManager();
+                
+                $manager->persist($slide);
+                $manager->persist($presentation);
+                $manager->flush();
+                
+                $editImageService->edit('presentation_slide',$slide->getSlideName());
+                
+                $this->addFlash(
+                    'success',
+                    "L'image a été ajoutée"
+                );
+    
+                return $this->redirectToRoute('slideshow_index', [
+
+                    'slug' => $presentation->getSlug(),
+
+                ]);
+    
+            }
 
         }
 
@@ -264,6 +311,7 @@ class PPController extends AbstractController
             'presentation' => $presentation,
             'form' => $form->createView(),
             'replyForm' => $replyForm->createView(),
+            'addImageForm' => $addImageForm->createView(),
         ]);
 
     }

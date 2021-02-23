@@ -29,18 +29,45 @@
         
         {% endif %}
 
-           <div class="pp-follow-project-button cursor-pointer border border-primary rounded border-2 mb-4 mr-0 mr-md-4" style="height:40px; width:244px; background-color:rgb(255, 251, 202);">
-                        
-                <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
-                                
-                    <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('new_follow_presentation', {'slug':presentation.slug})}}">
+            <div class="container">
 
-                        <img class="" src="/images/icons/miscellaneous/follow.svg" height="22" width="22" alt="follow icon" style="margin-right:7px; margin-top:1px;">
+                <div class="row">
+
+                    {# Follow Button #}
+                    <div class="col-auto px-0">
+                                        
+                        <div class="pp-follow-project-button mb-4 mr-3">
+                                        
+                            <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center">
+                                            
+                                <a class="text-decoration-none text-body h-100 w-100 d-flex align-items-center justify-content-center" href="{{path('new_follow_presentation', {'slug':presentation.slug})}}">
+
+                                    <img class="" src="/images/icons/miscellaneous/follow.svg" height="22" width="22" alt="follow icon" style="margin-right:7px; margin-top:1px;">
+                                    
+                                    Suivre ce Projet
+                                
+                                </a>
+
+                            </div>
+                                
+                        </div>
+                    </div>
+
+                    {# Tooltip #}
+
+                    <div class="col px-0">
+
+                        {# large screens #}
+        
+                        <button tabindex="0" class="d-none d-md-block btn btn-light sharp rounded-right font-weight-bold" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Suivre un Projet" data-content="Permet de recevoir des notifications lorsque des nouveautés sur ce projet sont publiées, par exemle des actualités. Les notifications apparaissent sur la barre-menu du site.">?</button>
                         
-                        Suivre ce Projet</a>
+                        {# tiny screens #}
+                        <button tabindex="0" class="d-md-none btn btn-light btn-sm sharp rounded-right font-weight-bold" role="button" data-toggle="popover" data-placement="top" data-trigger="focus" title="Suivre un Projet" data-content="Permet de recevoir des notifications lorsque des nouveautés sur ce projet sont publiées, par exemle des actualités. Les notifications apparaissent sur le menu du site.">?</button>
+
+                    </div>
 
                 </div>
-                    
+
             </div>
 
      </div>
@@ -49,5 +76,40 @@
         .pp-follow-project-button:hover, .pp-follow-project-button>* :hover {
 
             background-color:rgb(229, 239, 248)  !important; 
-        }*/ 
+        }*/
+
+
+
+
+        .pp-follow-project-button{
+
+            height:40px; 
+            width:244px; 
+            background-color:rgb(255, 251, 202);
+
+            letter-spacing: 1.15px; 
+            font-size:1.20em;
+            
+            border:2px solid navy;
+            border-radius:4px;
+            cursor:pointer; 
+
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .pp-follow-project-button {
+
+                height: 30px; 
+                width: 180px; 
+                font-size:1em;
+            }
+
+            .pp-follow-project-button > * {
+
+                letter-spacing: normal; 
+                font-size:1em;
+            }
+        }
+
     </style>

@@ -9,6 +9,16 @@ a {
   }
 
 
+/* Popover Header */
+   .popover-header {
+    font-size: 16px;
+}
+/* Popover Body */
+    .popover-body {
+        font-size: 16px;
+    }
+
+
   
 /* BS4 Collapse Component Remove Effects */
 

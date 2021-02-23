@@ -4,7 +4,7 @@
 
     {% set sidebarItems = [ 
 
-        { 'name': 'result', 'Fr_name': 'Voir le Résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
+        { 'name': 'result', 'Fr_name': 'Voir le résultat', 'route': 'project_show', 'iconName': 'presentation.svg'}, 
         
         { 'name': 'edit', 'Fr_name': 'Modifier', 'route': 'edit_presentation_menu', 'iconName': 'edit.svg'},  
 
@@ -77,12 +77,32 @@
 
             {% endfor %}
 
+            {# Some Figures or Statistics #}
+
+            <!-- Separator Horizontal rule -->
+
+            <hr class="" style="border : 2px solid orange; margin-left:17px; margin-right:32px; margin-top: 18px;">
+
+            <div class="pr-md-3 text-center">
+                
+                {# views count #}
+                
+                {% include 'pp/partials/_statistics/_views_count.html.twig' %}
+                
+                <br>
+                
+                {# followers count #}
+
+                {% include 'pp/partials/_statistics/_followers_count.html.twig' %}
+
+            </div>
+
 
         </ul>
 
-        <!-- adjoining ul exemple -->
+        <!-- adjoining ul exemple 
 
-        <!-- <ul class="list-unstyled CTAs">
+        <ul class="list-unstyled CTAs">
 
         </ul> -->
 
