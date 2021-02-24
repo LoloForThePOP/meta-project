@@ -12,7 +12,7 @@
 
             <!-- Structure Icon -->
 
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/data.svg" height="24" width="24" alt="tachnical data icon" style="top:1px; margin-right:10px;"> 
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/data.svg" height="22" width="22" alt="tachnical data icon"> 
 
             <!-- Structure Title -->
 
@@ -70,56 +70,56 @@
             
         {% elseif presentation.technicalData | length > 3 %} <!-- we divide display in two column -->
 
-                  <div class="row col-md-9 px-md-3 pl-lg-5">
+            <div class="row col-md-9 px-md-3 pl-lg-5">
 
-                        {% for data in presentation.technicalData %}
+                {% for data in presentation.technicalData %}
 
-                            {% if loop.index == 5 %}
+                    {% if loop.index == 5 %}
 
-                                <button class="hideWhenClicked btn btn-light sharp font-weight-bold mb-0 mt-2 py-0" data-toggle="collapse" data-target="#collapseMoreTechData" aria-expanded="false" aria-controls="collapseMoreTechData">Afficher plus</button>
-                                
+                        <button class="hideWhenClicked btn btn-light sharp font-weight-bold mb-0 mt-2 py-0" data-toggle="collapse" data-target="#collapseMoreTechData" aria-expanded="false" aria-controls="collapseMoreTechData">Afficher plus</button>
+                        
 
-                                <div id="collapseMoreTechData" class="collapse container mt-0">
+                        <div id="collapseMoreTechData" class="collapse container mt-0">
 
-                                    <div class="row">
-                                    
-                            {% endif %}
-    
-                                <div id="{{data.id}}" class="dataContainer col-6 {{ cycle(['', 'px-0'], loop.index0) }}">
-
-                                    <!-- Data Name -->
-
-                                    <div class="dataName">
-
-                                        {{data.name[:1] | upper ~ data.name[1:] }} <span class="d-none d-md-inline">:</span>
-                                        
-                                    </div>
-
-                                    <!-- Data Value -->
-
-                                    <div class="dataValue">
-
-                                        {{data.value}}
-
-                                    </div>
-
-                                
-
-                                </div>
-
-
-                            {# closing the collapsible when more than 6 items #}
-
-                            {% if loop.index > 4 and loop.last %}
-     
-                                </div>
-                            </div>
+                            <div class="row">
                             
-                            {% endif %}
+                    {% endif %}
 
-                        {% endfor %}
+                        <div id="{{data.id}}" class="dataContainer col-6 {{ cycle(['', 'px-0'], loop.index0) }}">
 
-                  </div>
+                            <!-- Data Name -->
+
+                            <div class="dataName">
+
+                                {{data.name[:1] | upper ~ data.name[1:] }} <span class="d-none d-md-inline">:</span>
+                                
+                            </div>
+
+                            <!-- Data Value -->
+
+                            <div class="dataValue">
+
+                                {{data.value}}
+
+                            </div>
+
+                        
+
+                        </div>
+
+
+                    {# closing the collapsible when more than 6 items #}
+
+                    {% if loop.index > 4 and loop.last %}
+
+                        </div>
+                    </div>
+                    
+                    {% endif %}
+
+                {% endfor %}
+
+            </div>
 
           
 
@@ -141,12 +141,8 @@
 
     .dataContainer{
 
-        //width:350px;
         margin-bottom: 15px;
         word-wrap: break-word;
-        //padding-left:20px;
-        //padding-right:5px;
-       // border:1px solid black;
     }
 
     .dataName{
@@ -162,6 +158,13 @@
     .hideWhenClicked[aria-expanded="true"]{
         
         display: none;
+    }
+
+    
+    #technicalDataDisplay .pp-struct-icon {
+        top: 1px;
+        margin-right: 16px;
+        margin-left: 5px;
     }
 
     @media screen and (max-width: 580px) {
@@ -182,6 +185,16 @@
 
         .dataValue{
             font-size:1em;
+        }
+
+            
+        #technicalDataDisplay .pp-struct-icon {
+
+            width: 13px;
+            height: 13px;
+            top: 1px;
+            margin-right: 9px;
+            margin-left: 1px;
         }
 
     }

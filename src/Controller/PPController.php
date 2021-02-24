@@ -184,7 +184,7 @@ class PPController extends AbstractController
 
         $addImageForm = $this->createForm(SlideshowImagesType::class);
 
-        if ($presentation->isAccessedBy($user, 'edit')) {
+        if ($this->isGranted('edit', $presentation)) {
             
             //Add an Image Form
             $addImageForm->handleRequest($request);

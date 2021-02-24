@@ -14,7 +14,7 @@
 
             {# Structure Icon #}
 
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/needs.svg" height="33" width="33" alt="project needs icon" style="top:0; margin-right:5px;">
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/needs.svg" height="32" width="32" alt="project needs icon">
 
             {# Structure Title #}
 
@@ -86,15 +86,16 @@
                         {% endif %}
 
                         <tr class="cursor-pointer h5 font-weight-bold"  data-toggle="modal" data-target="#displayNeedDescriptionModal{{need.id}}">
-                            <td>    
+
+                            <td class="pl-4">    
 
                                     {# Blue Arrow bullet point #}
                                     
-                                    <span class="arrowCar blueArrow">► </span>
+                                    <span class="arrowCar blueArrow mr-2">► </span>
 
                                     {# Need Title #}
 
-                                    {{ need.title | capitalize | length < 50 ? need.title : need.title|slice(0, 50) ~ '...' }}
+                                    {{ need.title | length < 50 ? need.title | capitalize : need.title | slice(0, 50) ~ '...'  | capitalize }}
 
 
                             </td>
@@ -224,6 +225,13 @@
 
         }
 
+            
+        #needsDisplay .pp-struct-icon {
+            margin-right: 12px;
+            margin-left: 0px;
+            top: -2px;
+        }
+
 
         @media screen and (max-width: 580px) {
 
@@ -235,6 +243,24 @@
                 padding-top: 9px;
                 padding-bottom: 9px;
 
+            }
+
+            #needsDisplay.pp-struct-container {
+               
+                padding-bottom:8px;
+            }
+            
+            #needsDisplay .pp-struct-title-container {
+               
+                margin-bottom:8px;
+            }
+
+            #needsDisplay .pp-struct-icon {
+                width: 19px;
+                height: 19px;
+                top: -1px;
+                margin-right: 6px;
+                margin-left: 0px;
             }
 
 

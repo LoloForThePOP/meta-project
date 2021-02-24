@@ -28,7 +28,7 @@
 
             <!-- Structure Icon -->
 
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/team.svg" height="38" width="34" alt="team icon" style="top:2px; margin-right:9px;">
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/team_2.svg" height="40" width="40" alt="team icon">
 
             <!-- Structure Title -->
 
@@ -138,32 +138,46 @@
         color:black;
     }
 
+    #teamDisplay .pp-struct-icon {
+        top: 1px;
+        margin-right: 16px;
+        margin-left: 4px;
+    }
+
 
     @media screen and (max-width: 580px) {
 
         /* One Letter Avatars */
 
-            .avatar-circle {
-                width: 82px;
-                height: 82px;
-            }
+        .avatar-circle {
+            width: 82px;
+            height: 82px;
+        }
+
+        
+        .initials {
+            position: relative;
+            top: 20px; /* 25% of parent */
+            font-size: 40px; /* 50% of parent */
+            line-height: 40px; /* 50% of parent */
+        }
+
+        .teammatesDisplayRow{
+
+            overflow-x: auto;
+            white-space: nowrap;
+            overflow-y: hidden;
+
+        }
 
             
-            .initials {
-                position: relative;
-                top: 20px; /* 25% of parent */
-                font-size: 40px; /* 50% of parent */
-                line-height: 40px; /* 50% of parent */
-            }
-
-            .teammatesDisplayRow{
-
-                overflow-x: auto;
-                white-space: nowrap;
-                overflow-y: hidden;
-
-            }
-
+        #teamDisplay .pp-struct-icon {
+            width: 28px;
+            height: 28px;
+            top: 1px;
+            margin-right: 8px;
+            margin-left: 3px;
+        }
 
     }
 

@@ -4,174 +4,180 @@
 
 {% if presentation.externalContributorsStructures | length > 0 %}
 
-    {% if is_granted('edit', presentation) %}
+    <div id="externalContributorsDisplay" class="pp-struct-container">
         
-        <!-- Title Container with Edit Button -->
+        {% if is_granted('edit', presentation) %}
+            
+            <!-- Title Container with Edit Button -->
 
-        <div id="externalContributorsDisplay" class="pp-struct-title-container pp-edition-mode">
+            <div class="pp-struct-title-container pp-edition-mode">
 
-            <!-- Structure Title -->
+                <!-- Structure Title -->
 
-            <h3 class="pp-struct-title d-inline mr-2">Contributions externes</h3>
+                <h3 class="pp-struct-title d-inline-block mr-2">Contributions externes</h3>
 
-            <!-- Edit Project External Contributors Button -->
+                <!-- Edit Project External Contributors Button -->
 
-            <a class="" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
+                <a class="" href="{{ path('edit_presentation_menu', {'slug': presentation.slug }) }}">
 
-                <button class="btn btn-light sharp font-weight-bold mb-2 d-inline fs-15">Gérer</button>
+                    <button class="btn btn-light sharp font-weight-bold mb-2 d-inline-block fs-15">Gérer</button>
+                    
+                </a>
+
+            </div>
+
+        {% endif %}
+
+            <!-- ECS Display Container -->
+
+            <div class="pp-struct-container pb-3">
+                    
+                {% for ecs in presentation.externalContributorsStructures %}
                 
-            </a>
+                    <div class="ecs">
 
-        </div>
+                        
+                            <div class="row">
+                                        <div class="pp-struct-title-container mb-2 mb-md-3 mb-lg-4">
+                                                        
+                                {# Only First Occurence Has an Icon #}
+                                    
+                                    {% if loop.first %}
 
-    {% endif %}
+                                        <!-- Structure Icon -->
 
-        <!-- ECS Display Container -->
+                                        <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors2.svg" height="29" width="29" alt="external contributors icon">
 
-        <div class="pp-struct-container pb-3">
-                
-            {% for ecs in presentation.externalContributorsStructures %}
+                                    {% endif %}
+                                    
+                                    <!-- ECS Title Display (ex: Our Sponsors) -->
 
-                <div class="ecs">
+                                    <h3 class="ecsTitle pp-struct-title">
 
-                    <div class="pp-struct-title-container mb-2 mb-md-3 mb-lg-4">
+                                        {{ecs.title}}
 
+                                    </h3>
+
+                                    <!-- Edit this ECS Button -->
+
+                                    {% if is_granted('edit', presentation) %}
+
+                                        <a class="pp-edition-mode" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
+
+                                            <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
                                             
-                    {# Only First Occurence Has an Icon #}
+                                        </a>
+
+                                    {% endif %}
+
+                                </div>
+                            </div>
+
+                     
+
+                        <!-- ECS Card Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                         
-                        {% if loop.first %}
+                        {% if ecs.persorgs | length > 0 %}
 
-                            <!-- Structure Icon -->
+                            <div class="container">
+                                                    
+                                <div class="ecsDisplayRow">
 
-                            <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors2.svg" height="34" width="34" alt="external contributors icon" style="top:0px; margin-right:10px;   ">
+                                    {% include 'pp/partials/_external_contributors/_card_display.html.twig' %}
 
-                        {% endif %}
+                                </div>
+
+                            </div>
+                            
+                            <!-- ECS Details (Displayed in Modal Boxes) -->
+                            
+                            {% for persorg in ecs.persorgs %}
+
+                                {% include 'pp/partials/_external_contributors/_modal_box.html.twig' %}
+
+                            {% endfor %}
+
+                        {% endif %} 
+
+                        <!-- ECS Rich Text Content Display -->
                         
-                        <!-- ECS Title Display (ex: Our Sponsors) -->
+                        {% if ecs.richTextContent is not null %}
 
-                        <h3 class="ecsTitle pp-struct-title d-inline">
+                                <div class="container richTextContent px-0 pl-1 px-md-2 px-lg-3">
 
-                            {{ecs.title}}
+                                    {{ecs.richTextContent | raw}}
 
-                        </h3>
-
-                        <!-- Edit this ECS Button -->
-
-                        {% if is_granted('edit', presentation) %}
-
-                            <a class="pp-edition-mode" href="{{ path('manage_ecs', {'slug':presentation.slug, 'id_ecs':ecs.id}) }}">
-
-                                <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
-                                
-                            </a>
+                                </div>
 
                         {% endif %}
 
                     </div>
-
-                    <!-- ECS Card Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                     
-                    {% if ecs.persorgs | length > 0 %}
-
-                        <div class="container">
-                                                
-                            <div class="ecsDisplayRow">
-
-                                {% include 'pp/partials/_external_contributors/_card_display.html.twig' %}
-
-                            </div>
-
-                        </div>
-                        
-                        <!-- ECS Details (Displayed in Modal Boxes) -->
-                        
-                        {% for persorg in ecs.persorgs %}
-
-                            {% include 'pp/partials/_external_contributors/_modal_box.html.twig' %}
-
-                        {% endfor %}
-
-                    {% endif %} 
-
-                    <!-- ECS Rich Text Content Display -->
-                    
-                    {% if ecs.richTextContent is not null %}
-
-                            <div class="container richTextContent px-0 pl-1 px-md-2 px-lg-3">
-
-                                {{ecs.richTextContent | raw}}
-
-                            </div>
-
-                    {% endif %}
-
-                </div>
-                
-            {% endfor %}
+                {% endfor %}
 
 
-        </div>
+            </div>
 
-{% endif %}
-
-
-<!-- Styles External Contributors Display -->
-
-<style>
+    </div>
     
-    .ecs{
+    <!-- Styles External Contributors Display -->
+    
+    <style>
         
-        margin-bottom: 5px;
-    }
+        .ecs{
+            
+            margin-bottom: 5px;
+        }
+        
     
-
-    .externalContributorCard {
-
-        display: inline-block !important;
-
-        width: 175px;
-
-        min-height:175px; 
-
-        margin-right : 10px;
-
-        cursor: pointer;
-
-        white-space:normal;
-        overflow-x:auto;
-    }
+        .externalContributorCard {
     
-    /* .ecsTitle{
-
-       margin-bottom: 20px;
-    } */
-
-    .persorgName{
-       
-        text-align: center;
-
-        font-weight: bold;
-
-        margin-bottom: 7px;
-
-        overflow-y: hidden;
-
-    }
-
-    .richTextContent{
-        font-size:1.17em;
-    }
-
+            display: inline-block !important;
     
-    @media screen and (max-width: 580px) {
-
-        /* One Letter Avatars */
-
+            width: 175px;
+    
+            min-height:175px; 
+    
+            margin-right : 10px;
+    
+            cursor: pointer;
+    
+            white-space:normal;
+            overflow-x:auto;
+        }
+    
+        .persorgName{
+           
+            text-align: center;
+    
+            font-weight: bold;
+    
+            margin-bottom: 7px;
+    
+            overflow-y: hidden;
+    
+        }
+    
+        .richTextContent{
+            font-size:1.17em;
+        }
+    
+        #externalContributorsDisplay .pp-struct-icon {
+            margin-right: 16px;
+            top: -1px;
+            margin-left: 10px;
+        }
+    
+        
+        @media screen and (max-width: 580px) {
+    
+            /* One Letter Avatars */
+    
             .avatar-circle {
                 width: 82px;
                 height: 82px;
             }
-
+    
             
             .initials {
                 position: relative;
@@ -179,23 +185,33 @@
                 font-size: 40px; /* 50% of parent */
                 line-height: 40px; /* 50% of parent */
             }
-
-
+    
+    
             .ecsDisplayRow{
-
+    
                 overflow-x: auto;
                 white-space: nowrap;
                 overflow-y: hidden;
-
+    
             }
-
+    
             .richTextContent{
                 font-size:15px !important;
                 line-height: 21px;
             }
+         
+            #externalContributorsDisplay .pp-struct-icon {
+                width: 19px;
+                height: 18px;
+                top: 0px;
+                margin-right: 8px;
+                margin-left: 4px;
+            }
+    
+    
+        }
+    
+    
+    </style>
 
-
-    }
-
-
-</style>
+{% endif %}

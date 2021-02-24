@@ -14,11 +14,11 @@
 
             <!-- Structure Icon -->
             
-            <img class="pp-struct-icon" src="/images/icons/consult_presentation/news.svg" height="27" width="27" alt="news icon" style="top:1px;">
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/news.svg" height="24" width="24" alt="news icon">
             
              <!-- Structure Title -->
 
-            <h3 class="pp-struct-title d-inline mr-2">
+            <h3 class="pp-struct-title d-inline mr-2 mr-md-3">
 
                 Informations
 
@@ -35,9 +35,9 @@
 
                 <a class="pp-edition-mode" href="{{ path('create_news', {'slug':presentation.slug}) }}">
 
-                    <button type="button" class="btn btn-light font-weight-bold fs-15 mr-2">
+                    <button type="button" class="btn btn-light fs-15 mr-2 mr-md-3">
 
-                        <span class="h5">+</span>  
+                        <span class="h5 font-weight-bold">+</span>  
 
                     </button>
 
@@ -91,13 +91,25 @@
 
     }
 
-    /* #newsDisplayTable tbody tr:first-child {
-                
-        margin-top:0px !important;
-        padding-top:0px !important;
+    #newsDisplay .pp-struct-icon {
 
-        background-color: brown; 
-    }*/
+        margin-right: 14px;
+        margin-left: 6px;
+        top: 1px;
+        
+    }
+
+    @media screen and (max-width: 580px) {
+            
+        #newsDisplay .pp-struct-icon {
+            width: 15px;
+            height: 15px;
+            top: 1px;
+            margin-right: 9px;
+            margin-left: 1px;
+        }
+
+    }
 
 
 
