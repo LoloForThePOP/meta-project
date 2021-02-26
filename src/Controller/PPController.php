@@ -6,6 +6,7 @@ use App\Entity\Comment;
 use App\Entity\PPBasic;
 use App\Form\CommentType;
 use App\Form\PPBasicType;
+use App\Entity\PPMajorLogs;
 use App\Form\ReplyCommentType;
 use App\Form\NewPresentationType;
 use App\Form\SlideshowImagesType;
@@ -30,7 +31,7 @@ class PPController extends AbstractController
     {
         // $presentations = $repo->findAll();
 
-        $lastInsertedProjects = $manager->createQuery('SELECT p FROM App\Entity\PPBasic p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 AND p.adminValidation=true ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
+        $lastInsertedProjects = $manager->createQuery('SELECT p FROM App\Entity\PPBasic p WHERE p.isPublished=true AND p.overallQualityAssessment>=3 AND p.adminValidation=true AND p.isDeleted=false ORDER BY p.createdAt DESC')->setMaxResults('10')->getResult();
 
         return $this->render('pp/index.html.twig', [
             'presentations' => $lastInsertedProjects,
@@ -132,23 +133,85 @@ class PPController extends AbstractController
     
     
      /**
+     * Allow to access project deletion page
+     * 
+     * @Route("projects/{slug}/delete-page",name="project_delete_page")
+     * 
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * 
+     */
+    public function accessDeletePage(PPBasic $presentation){
+        
+        return $this->render('pp/delete.html.twig', [
+            'presentation' => $presentation,
+        ]);
+
+    }
+    
+    
+     /**
      * Allow to delete a project presentation
      * 
      * @Route("projects/{slug}/delete",name="project_delete")
+     * 
      * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * 
      * @return Response
      */
     public function delete(PPBasic $presentation, EntityManagerInterface $manager){
 
+        // we want followers to be notified of project deletion
+        // I decided to clone presentation and keep minimal elements (presentation title; goal; followers; and one major log (project deletion))
+
+
+        // cloning presentation logs
+
+        $clonePresentationLogs = $presentation->getMajorLogs();
+
+        // cloning presentation followers
+
+        $clonePresentationFollowers = $presentation->getUsersFollow();
+
+        // creating a temporary clone presentation with only title; goal; and status = deleted
+
+        $clonePresentation = new PPBasic();
+
+        $clonePresentation  
+                            ->setTitle($presentation->getTitle())
+                            ->setGoal($presentation->getGoal())
+                            ->setIsDeleted(true);
+
+        //removing project presentation with all its childs
+        
         $manager->remove($presentation);
+
+        //inserting cloned presentation
+
+        $manager->persist($clonePresentation);
+
         $manager->flush();
 
+        //linking followers to cloned presentation
+
+        foreach ($clonePresentationFollowers as $follower) {
+            $follower->setPresentation($clonePresentation);
+            $clonePresentation->addUsersFollow($follower);
+        }
+        
+        //store changes
+        $manager->flush();
+
+        //creating a major log : presentation has been deleted
+
+        PPMajorLogs::updateLogs($clonePresentation, 'presentation', 'deletion', $clonePresentation->getId(), $this->getUser()->getId(), $manager);
+        
         $this->addFlash(
             'success',
-            "La Présentation « {$presentation->getGoal()} » a été supprimée"
+            "Le contenu de la présentation du projet « {$presentation->getGoal()} » a été supprimé"
         );
 
         return $this->redirectToRoute('projects_index');
+
     }
 
 

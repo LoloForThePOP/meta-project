@@ -31,6 +31,7 @@ class UserFollows
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="usersFollow")
+     * @ORM\JoinColumn(onDelete="SET NULL"))
      */
     private $presentation;
 

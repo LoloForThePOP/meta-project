@@ -14,7 +14,7 @@
 
                 <!-- Structure Title -->
 
-                <h3 class="pp-struct-title">Contributions externes</h3>
+                <h3 class="pp-struct-title d-inline-block mr-2">Contributions externes</h3>
 
                 <!-- Edit Project External Contributors Button -->
 
@@ -42,17 +42,17 @@
                                                         
                                 {# Only First Occurence Has an Icon #}
                                     
+                                    {% if loop.first %}
+
+                                        <!-- Structure Icon -->
+
+                                        <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors2.svg" height="29" width="29" alt="external contributors icon">
+
+                                    {% endif %}
+                                    
                                     <!-- ECS Title Display (ex: Our Sponsors) -->
 
                                     <h3 class="ecsTitle pp-struct-title">
-
-                                        {% if loop.first %}
-
-                                            <!-- Structure Icon -->
-
-                                            <img class="pp-struct-icon" src="/images/icons/consult_presentation/external_contributors2.svg" height="29" width="29" alt="external contributors icon">
-
-                                        {% endif %}
 
                                         {{ecs.title}}
 

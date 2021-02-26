@@ -28,9 +28,9 @@
             
                 <h4 class="mb-3 font-weight-bold">
 
-                      <!-- we display project title, otherwise we display project goal -->
+                    {# displaying project title, otherwise we display project goal #}
 
-                      {% if userFollow.getPresentation.getTitle > 0 %}
+                    {% if userFollow.getPresentation.getTitle > 0 %}
 
                         {% set projectTitle = userFollow.getPresentation.getTitle %}
 
@@ -38,9 +38,9 @@
                         
                         {% set projectTitle = userFollow.getPresentation.getGoal %}                       
                   
-                  {% endif %}
+                    {% endif %}
 
-                  {{ projectTitle | length > 50 ? projectTitle | slice(0, 50)  | capitalize ~ '...' : projectTitle  | capitalize}}
+                    {{ projectTitle | length > 50 ? projectTitle | slice(0, 50)  | capitalize ~ '...' : projectTitle  | capitalize}}
 
                 </h4>
 
@@ -48,101 +48,41 @@
 
                 <div class="ml-md-4 mb-5">
 
-                    {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
-
-                    {% if projectLogs is not null %}
-
-                        {% for log in projectLogs.getLogs | reverse | slice (0,15) %}
-
-                            <!-- We contrast display events that are new for user (i.e. since last notification page connection) -->
-
-                            <!-- If more than 4 items, we display these in a collapsible -->
-
-                            {% if loop.index == 5 %}
-
-                                <button id="collapseMoreNotificationsButton{{userFollow.id}}" type="button" data-toggle="collapse" data-target="#collapseMoreNotifications{{userFollow.id}}" aria-expanded="false" aria-controls="collapseMoreNotifications{{userFollow.id}}" class="btn btn-light btn-sm font-weight-bold sharp mt-2">Afficher plus</button>
+                    {# special behaviour when presentation has been deleted #}
                     
-                                <script type="text/javascript">
-                                    var button = document.getElementById('collapseMoreNotificationsButton{{userFollow.id}}')
-                                    button.addEventListener('click',hideshow,false);
-                                
-                                    function hideshow() {
-                                        this.style.display = 'none'
-                                    }   
-                                </script>
-                    
-                                <div id="collapseMoreNotifications{{userFollow.id}}" class="collapse">
+                    {# case presentation not deletd #}
+
+                    {% if userFollow.getPresentation.isDeleted == false %}
+
+                        {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
+
+                        {% if projectLogs is not null %}
+                        
+                            {% include '/user_follows/_show_notifications/_partials/_clickable_notifications.html.twig' %} 
+
+                        {% else %}
                             
-                            {% endif %}
-                            
+                            pas de modification majeure détectée
+                        
+                        {% endif %}
 
-                            <div 
-                            
-                                data-entity-type="{{log.entityType}}"
-
-                                data-entity-id='{{log.entityId}}' 
-
-                                data-route-name=" 
-                                
-                                    {{path('show_embed_'~ log.entityType , { "slug" : userFollow.getPresentation.getSlug} ) }}" 
-                            
-                                class="
-
-                                    notification-title btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
-
-                                    {% if date(lastConnectionDate) < date(log.date.date) and  not log.creatorId is same as app.user.id %}
-
-                                        btn-primary
-
-                                    {% else %}
-
-                                        btn-light
-                                    
-                                    {% endif %}
-                                    
-                            ">
-
-                                {% if log.entityType == "need" %}
-
-                                    Nouveau besoin présenté
-
-                                {% elseif log.entityType == "news" %}
-
-                                    Nouvelle actualité ajoutée
-
-                                {% elseif log.entityType == "event" %}
-
-                                    Nouvel événement présenté
-
-                                {% elseif log.entityType == "teammate" %}
-
-                                    Nouveau membre dans l'équipe présenté
-
-                                {% elseif log.entityType == "document" %}
-
-                                    Nouveau document présenté
-
-                                {% endif %}
-
-                                le {{ log.date.date | date('d-m-Y') }}
-
-                            </div>
-
-
-                                                            
-                            {% if loop.last and loop.index >= 5 %}
-                    
-                                </div>
-                            
-                            {% endif %}
-
-                        {% endfor %}
-
+                    {# presentation has been deleted #}
 
                     {% else %}
-                        
-                        pas de modification majeure détectée
-                    
+                            
+                        <div class="col-md-8 alert alert-warning text-body fs-15 font-weight-bold mb-2">
+
+                            Présentation Supprimée<br><br>
+
+                            <a href="{{path('unfollow_presentation', {'idUserFollow':userFollow.id})}}">
+
+                                <button type="button" class="d-md-inline block btn btn-success bg-green font-weight-bold">ne plus afficher</button>
+
+                            </a>
+
+                        </div>
+
+
                     {% endif %}
 
                 </div>

@@ -3,16 +3,13 @@
 
     $(document).ready(function(){
 
-        
-        $('.notification-title').on('click', function (){
-
+        $('.notification-title:not(.notClickable)').on('click', function (){
 
             var idEntity = $(this).attr("data-entity-id");
 
             var routeName = $(this).attr("data-route-name");
 
             
-
             $(this).addClass("btn-light");
 
             $('#notifContentDisplayModal').modal('show');

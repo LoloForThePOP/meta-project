@@ -314,7 +314,7 @@ class PPBasic implements \Serializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=QuestionAnswer::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=QuestionAnswer::class, mappedBy="presentation", cascade={"remove"})
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -329,7 +329,7 @@ class PPBasic implements \Serializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=Document::class, mappedBy="presentation", cascade={"persist", "remove"})
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      */
@@ -348,7 +348,7 @@ class PPBasic implements \Serializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Teammate::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=Teammate::class, mappedBy="project", cascade={"persist", "remove"})
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      * 
@@ -367,7 +367,7 @@ class PPBasic implements \Serializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=Event::class, mappedBy="project", cascade={"remove"})
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      * 
@@ -375,7 +375,7 @@ class PPBasic implements \Serializable
     private $events;
 
     /**
-     * @ORM\OneToMany(targetEntity=TechnicalData::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=TechnicalData::class, mappedBy="presentation", cascade={"remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $technicalData;
@@ -388,7 +388,7 @@ class PPBasic implements \Serializable
     private $externalContributorsStructures;
 
     /**
-     * @ORM\OneToMany(targetEntity=Owner::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=Owner::class, mappedBy="project", cascade={"remove"})
      * @ORM\OrderBy({"position" = "ASC"})
      */
     private $owners;
@@ -422,7 +422,7 @@ class PPBasic implements \Serializable
 
 
     /**
-     * @ORM\OneToMany(targetEntity=UserFollows::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=UserFollows::class, mappedBy="presentation", cascade={"persist", "remove"})
      */
     private $usersFollow;
 
@@ -456,6 +456,11 @@ class PPBasic implements \Serializable
      */
     private $viewsCount;
 
+    /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $isDeleted;
+
 
  
 
@@ -470,6 +475,7 @@ class PPBasic implements \Serializable
         $this->isActiveContactMessages = true;
         $this->overallQualityAssessment = 3;
         $this->allowComments = true;
+        $this->isDeleted = false;
         $this->viewsCount = 0;
         $this->accessCode = mt_rand(100000, 999999);
         $this->slides = new ArrayCollection();
@@ -1525,6 +1531,18 @@ class PPBasic implements \Serializable
         else {
             $this->setViewsCount($this->getViewsCount() + 1);
         }
+
+        return $this;
+    }
+
+    public function getIsDeleted(): ?bool
+    {
+        return $this->isDeleted;
+    }
+
+    public function setIsDeleted(?bool $isDeleted): self
+    {
+        $this->isDeleted = $isDeleted;
 
         return $this;
     }

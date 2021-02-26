@@ -30,6 +30,9 @@ class ExternalContributorsStructure
 
     /**
      * @ORM\ManyToOne(targetEntity=PPBasic::class, inversedBy="externalContributorsStructures", cascade={"persist"})
+     * 
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * 
      */
     private $project;
 
@@ -45,6 +48,8 @@ class ExternalContributorsStructure
 
     /**
      * @ORM\OneToMany(targetEntity=Persorg::class, mappedBy="externalContributorsStructure", cascade={"persist", "remove"}, orphanRemoval=true)
+     * 
+     * @ORM\JoinColumn(onDelete="CASCADE")
      * 
      * @ORM\OrderBy({"position" = "ASC"})
      * 

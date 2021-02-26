@@ -27,10 +27,6 @@
             <!-- Project Categories and Keywords -->
 
             {% include "pp/edition_menu/items/_categories_keywords.html.twig" %}
-            
-            <!-- Project News -->
-
-            {% include "pp/edition_menu/items/_news.html.twig" %}
 
           </div>
           
@@ -45,21 +41,15 @@
             
             
             {% include "pp/edition_menu/items/_text_description.html.twig" %}
-
-
+            
             <!-- Project Images & Videos -->
 
             {% include "pp/edition_menu/items/_images_videos.html.twig" %}
 
+            <!-- Project Geodomains -->
 
-            <!-- Project Documents -->
+            {% include "pp/edition_menu/items/_geodomains.html.twig" %}
 
-            {% include "pp/edition_menu/items/_documents.html.twig" %}
-
-            
-            <!-- Project Needs -->
-
-            {% include "pp/edition_menu/items/_needs.html.twig" %}
 
           </div>
 
@@ -69,22 +59,17 @@
           <!-- Third Column -->
           
           <div class="col-xl-4 col-md-6 mb-4">
-                
-            <!-- Project Geodomains -->
-
-            {% include "pp/edition_menu/items/_geodomains.html.twig" %}
-
-
+              
             <!-- Project Websites -->
 
             {% include "pp/edition_menu/items/_websites.html.twig" %}
+          
+            <!-- Project News -->
+  
+            {% include "pp/edition_menu/items/_news.html.twig" %}
 
-            
-            <!-- Project Contact Us Cards -->
-
-            {% include "pp/edition_menu/items/_contact_us.html.twig" %}
-      
           </div>
+
 
           <!-- End of Third Column -->
 
@@ -112,14 +97,14 @@
               <!-- First Column -->
               
               <div class="col-xl-4 col-md-6 pl-0 mb-4">
-                                
-                <!-- Project Team -->
 
-                {% include "pp/edition_menu/items/_team.html.twig" %}          
-                                
-                <!-- Project External Contributors (donors; partners; etc) -->
+                <!-- Project Documents -->
 
-                {% include "pp/edition_menu/items/_external_contributors.html.twig" %}
+                {% include "pp/edition_menu/items/_documents.html.twig" %}
+                        
+                <!-- Project Needs -->
+
+                {% include "pp/edition_menu/items/_needs.html.twig" %}
 
               </div>
               
@@ -134,7 +119,73 @@
 
                 {% include "pp/edition_menu/items/_events.html.twig" %}
 
-                            
+                <!-- Project Contact Us Cards -->
+
+                {% include "pp/edition_menu/items/_contact_us.html.twig" %}
+
+
+              </div>
+
+              <!-- End of Second Column -->
+
+              <!-- Third Column -->
+              
+              <div class="col-xl-4 col-md-6 mb-4">
+
+                <!-- Project Team -->
+
+                {% include "pp/edition_menu/items/_team.html.twig" %}  
+                                
+                <!-- Project External Contributors (donors; partners; etc) -->
+
+                {% include "pp/edition_menu/items/_external_contributors.html.twig" %}
+          
+              </div>
+
+              <!-- End of Third Column -->
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <!-- Third Row : Even More Options -->
+
+        <div class="row">
+
+          <div class="col">
+
+            <!-- UI Third Row Title -->
+
+            <div class="row">
+
+              <h3 class="font-weight-bold mb-4">Encore plus d'options</h3>
+
+            </div>
+
+            <!-- Third Row Content (Three Column) -->
+
+            <div class="row">
+              
+              
+              <!-- First Column -->
+              
+              <div class="col-xl-4 col-md-6 pl-0 mb-4">
+
+                <!-- Project Q&A -->
+
+                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
+                
+              </div>
+              
+              <!-- End of First column -->
+          
+              
+              <!-- Second Column -->
+              
+              <div class="col-xl-4 col-md-6 mb-4">
+                
                 <!-- Project Other Data -->
 
                 {% include "pp/edition_menu/items/_data_list.html.twig" %}
@@ -151,10 +202,6 @@
                 <!-- Project Owners -->
 
                 {% include "pp/edition_menu/items/_owners.html.twig" %}
-
-                <!-- Project Q&A -->
-
-                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
           
               </div>
 
@@ -166,7 +213,7 @@
 
         </div>
 
-        <!-- Third Row : See Result Button -->
+        <!-- Fourth Row : See Result Button -->
 
         <div class="row">
 
@@ -174,7 +221,7 @@
 
             <div class="row">
 
-              <div class="col">
+              <div class="col pl-0">
 
                 <h3 class="font-weight-bold mb-4">Résultat</h3>
 

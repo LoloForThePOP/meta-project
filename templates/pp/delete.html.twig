@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Supprimer un Projet{% endblock %}
+
+{% block body %}
+
+    {#
+        
+        Processus :
+
+            - we ask user to confirm presentation deletion by typing 'confirm'
+
+            - we check if user typed 'confirm' (javascript)
+
+            - if so, we trigger click on hidden link to project deletion route
+        
+    #}
+
+    <div class="container">
+
+        <div class="row mt-5">
+
+            <div class="col">
+
+                <h4 class="font-weight-bold mb-5">Supprimer la présentation du projet {{presentation.goal [0:15] | capitalize}}...</h4>
+
+                <div class="">
+                        
+                    <button onclick="confirmDeletion()" type="button" class="btn btn-danger btn-lg sharp font-weight-bold">Supprimer la présentation</button>
+
+                    <a id="deleteProjectLink" class="d-none" href="{{ path('project_delete', {'slug':presentation.slug}) }}">ok</a>
+                    
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+
+    <script>
+
+        function confirmDeletion() {
+
+            var userConfirmation = prompt("Attention, cette action est irréversible. Pour confirmer, écrire confirmer", "écrire ici");
+
+            if (userConfirmation == "confirmer" || userConfirmation == "Confirmer") {
+                
+                document.getElementById("deleteProjectLink").click();
+            } 
+
+        }
+
+    </script>
+
+{% endblock %}

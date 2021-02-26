@@ -64,6 +64,11 @@ class AccessPresentationVoter extends Voter
             return false;
         }
 
+        // if presentation has been deleted, other users can not view it
+        if ($presentation->getIsDeleted()) {
+            return false;
+        }
+
         return true;
         
     }
@@ -72,6 +77,11 @@ class AccessPresentationVoter extends Voter
     {     
 
         $user = $token->getUser();
+
+        // if presentation has been deleted, it can not be edited
+        if ($presentation->getIsDeleted()) {
+            return false;
+        }
 
         // if user is anonymous, do not grant access
         if (!$user instanceof UserInterface) {

@@ -24,8 +24,8 @@ class PPMajorLogs
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity=PPBasic::class, inversedBy="majorLogs", cascade={"persist", "remove"})
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\OneToOne(targetEntity=PPBasic::class, inversedBy="majorLogs", cascade={"persist"})
+     * @ORM\JoinColumn(nullable=false, onDelete="CASCADE")
      */
     private $presentation;
 

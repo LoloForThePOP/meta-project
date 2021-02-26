@@ -118,6 +118,8 @@ class Persorg implements \Serializable
     /**
      * @ORM\ManyToOne(targetEntity=ExternalContributorsStructure::class, inversedBy="persorgs", cascade={"persist", "remove"})
      * 
+     * @ORM\JoinColumn(onDelete="CASCADE")
+     * 
      */
     private $externalContributorsStructure;
 
