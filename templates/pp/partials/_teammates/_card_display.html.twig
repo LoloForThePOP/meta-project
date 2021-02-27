@@ -4,21 +4,25 @@
 
     <!-- Teammate Missions -->
 
-    <div class="teammateMission d-flex align-items-center justify-content-center font-weight-bold mb-2" style="height:45px;">
+    <div class="teammateMission d-flex align-items-center font-weight-bold mb-2" style="height:45px;">
 
-        {% if teammate.missions %} 
-        
-            {{ teammate.missions | length < 35 ? teammate.missions : teammate.missions | slice(0, 32) ~ '...' }}
+        <div class="text-center">
+    
+            {% if teammate.missions %} 
+            
+                {{ teammate.missions | length < 35 ? teammate.missions : teammate.missions | slice(0, 32) ~ '...' }}
 
-            {% else %}
-        
-        {% endif %}
+                {% else %}
+            
+            {% endif %}          
+
+        </div>
 
     </div>
 
     <!-- Teammate Image -->
     
-    <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px;">
+    <div class="mb-2 d-flex align-items-center justify-content-center" style="height:110px;width:110px;">
 
         {% if teammate.image is not empty %}
 

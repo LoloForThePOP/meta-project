@@ -55,7 +55,7 @@
 
     <!-- Documents Icon Display -->
 
-    <div class="documentRepresentation col border border-primary" style="width:170px; height:130px;">
+    <div class="documentRepresentation col border border-primary">
 
         <div class="row h-100">
 
@@ -105,9 +105,32 @@
 
     }
 
+    .documentRepresentation
+    {
+        width:170px; 
+        height:130px;
+    }
+
     .documentRepresentation:hover 
     {
         background-color: gainsboro;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .documentRepresentation
+        {
+            width:180px; 
+            height:130px;
+        }
+
+        .pp-document-title
+        {
+
+            font-size: 13px;
+
+        }
 
     }
 

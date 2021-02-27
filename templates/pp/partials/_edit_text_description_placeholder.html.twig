@@ -1,0 +1,85 @@
+{% if is_granted('edit', presentation) %}
+
+	{# slideshow placeholder in order to project presenter to feed a slideshow directly from Project Presentation Page #}
+
+	{# this placeholder is left for one day #}
+
+	{% set presentationCreatedAtTimestamp = presentation.createdAt | date("U") %}
+
+	{% set placeHolderAppearanceTime = presentationCreatedAtTimestamp + 86400  %}
+
+
+	{% if presentation.textDescription is empty and date().timestamp < placeHolderAppearanceTime %}
+
+	<div class="pp-struct-container pp-edition-mode container pb-3">
+
+		<div class="row">
+
+			<div class="col-md-9">
+					
+				<div id="textDescriptionPlaceholder">
+
+					<div class="row h-100">
+
+						<!-- add a text-description button -->
+						
+						<div class="col-6 pl-md-4 d-flex align-items-center justify-content-center">
+							
+							<a href="{{path('edit_text_description', {'slug':presentation.slug})}}">
+
+								<img class="addTextDescriptionIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/add_text_description.svg" height="145" width="140" alt="add text description icon" >
+
+							</a>
+
+						</div>
+
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<style>
+
+		#textDescriptionPlaceholder{
+
+			height: 200px;
+
+			border: 5px dashed rgb(180, 204, 236);
+			border-radius: 6px;
+
+		}
+
+		#textDescriptionPlaceholder:hover {
+			cursor: pointer;
+			background-color: lavender;
+		}
+
+
+		@media screen and (max-width: 580px) {
+
+			#textDescriptionPlaceholder{
+				
+				height: 100px;
+
+			}
+
+			.addTextDescriptionIcon {
+				
+				height : 55px;
+			}
+
+
+		}
+
+	</style>
+
+
+	{% endif %}
+
+{% endif %}

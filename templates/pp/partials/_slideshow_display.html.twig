@@ -173,7 +173,7 @@
 
 										<div class="row mb-5">
 				
-											<div onclick="currentSlide({{loop.index}})" class="thumbnail">
+											<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index}})" class="thumbnail">
 				
 												{% if slide.mediaType == 'video' %}	
 				
@@ -232,7 +232,7 @@
 					
 											<div class="row mb-5">
 					
-												<div onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
+												<div data-loop-index="{{loop.index}}" onclick="currentSlide({{loop.index + 4}})" class="thumbnail">
 					
 													{% if slide.mediaType == 'video' %}	
 					

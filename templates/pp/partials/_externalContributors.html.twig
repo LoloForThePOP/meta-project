@@ -30,21 +30,20 @@
 
             <!-- ECS Display Container -->
 
-            <div class="pp-struct-container pb-3">
+            <div class="ecs-display-container pb-3" >
                     
                 {% for ecs in presentation.externalContributorsStructures %}
                 
-                    <div class="ecs">
+                    <div class="each-ecs-container">
 
-                        <div class="row">
 
-                            <div class="pp-struct-title-container mb-2 mb-md-3 mb-lg-4">
+                        <div class="pp-struct-title-container mb-2 mb-md-3 mb-lg-4">
                                                         
                                 {# Only First Occurence Has an Icon #}
                                     
                                     <!-- ECS Title Display (ex: Our Sponsors) -->
 
-                                    <h3 class="ecsTitle pp-struct-title">
+                                    <h3 class="pp-struct-title" style="margin-right:0px;">
 
                                         {% if loop.first %}
 
@@ -70,17 +69,15 @@
 
                                     {% endif %}
 
-                            </div>
-                            
                         </div>
-
+                            
                         <!-- ECS Card Display (ex: Coca-Cola Logo; Mr Smith Picture; etc) -->
                         
                         {% if ecs.persorgs | length > 0 %}
 
                             <div class="container">
                                                     
-                                <div class="ecsDisplayRow">
+                                <div class="ecsDisplayRow d-flex justify-content-start">
 
                                     {% include 'pp/partials/_external_contributors/_card_display.html.twig' %}
 
@@ -98,13 +95,51 @@
 
                         {% endif %} 
 
+                        
+
                         <!-- ECS Rich Text Content Display -->
                         
                         {% if ecs.richTextContent is not null %}
 
-                                <div class="container richTextContent px-0 pl-1 px-md-2 px-lg-3">
+                            {# managing long texts with display more button #}
 
-                                    {{ecs.richTextContent | raw}}
+                            {% set longText = false %}
+
+                            {% if ecs.richTextContent  | length > 300 %}
+
+                                {% set longText = true %}
+        
+                            {% endif %}
+
+                                <div class="richTextContent col-md-10 pr-0 pl-2 px-md-2 px-lg-4">
+
+                                    {% if longText %}
+                                                                            
+                                        <div  class="moduleCollapseText">
+
+                                            <div id="collapseECSRichText{{ecs.id}}" class="ecs-text-description collapse" aria-expanded="false">
+
+                                    {% endif %}
+
+                                        {{ecs.richTextContent | raw}}
+                                    
+                                    {# closing long text container #}
+
+                                    {% if longText %}
+
+                                            </div>
+
+                                            <!-- Toggle Collapse Button -->
+
+                                            <div class="mt-4 mb-2">
+
+                                                <button class="collapsed btn btn-primary btn-sm sharp font-weight-bold" data-toggle="collapse" data-target="#collapseECSRichText{{ecs.id}}"></button>
+                                                
+                                            </div>
+
+                                        </div>                             
+                                    
+                                    {% endif %}
 
                                 </div>
 
@@ -123,9 +158,11 @@
     
     <style>
         
-        .ecs{
+        .each-ecs-container{
             
-            margin-bottom: 5px;
+            margin-bottom: 34px;
+
+            padding-left: 2px;
         }
         
     
@@ -146,8 +183,13 @@
         }
     
         .persorgName{
-           
-            text-align: center;
+
+            padding-left :5px;
+            padding-right: 5px;
+            
+            min-height:50px;
+
+            text-align:center;
     
             font-weight: bold;
     
@@ -162,13 +204,43 @@
         }
     
         #externalContributorsDisplay .pp-struct-icon {
-            margin-right: 16px;
-            top: -1px;
-            margin-left: 10px;
+            margin-right: 7px;
+            top: -3px;
+            margin-left: 5px;
         }
-    
+  
+        .moduleCollapseText button.collapsed:after {
+            content: '+ Afficher Plus';
+        }
+        
+        .moduleCollapseText button:not(.collapsed):after {
+            content: '- Réduire';
+        }
+        
+        .moduleCollapseText .ecs-text-description.collapse:not(.show) {
+            
+            display: block;
+            
+            height: 2.8em; /* height = lineheight * no of lines to display */
+
+            overflow: hidden;
+
+        }
         
         @media screen and (max-width: 580px) {
+
+            .each-ecs-container{
+            
+                padding-left: 0px;
+            }
+
+            
+            #externalContributorsDisplay .pp-struct-container {
+               
+                padding-right: 0px;
+                padding-left: 7px;
+            }
+    
     
             /* One Letter Avatars */
     
@@ -198,15 +270,14 @@
                 font-size:15px !important;
                 line-height: 21px;
             }
-         
+
             #externalContributorsDisplay .pp-struct-icon {
-                width: 19px;
+                width: 18px;
                 height: 18px;
-                top: 0px;
-                margin-right: 8px;
-                margin-left: 4px;
+                top: -3px;
+                margin-right: 2px;
+                margin-left:  2px;
             }
-    
     
         }
     

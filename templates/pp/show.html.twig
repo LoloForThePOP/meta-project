@@ -104,8 +104,9 @@
         .pp-struct-container {
     
             padding-left: 10px;
-            padding-right: 10px;
-            padding-top: 4px;
+
+            padding-right: 0px;
+            padding-top: 7px;
 
             margin-bottom: 15px;
 
@@ -168,11 +169,14 @@
                 <!-- Upper Box (Contains Project Logo; Title; Goal; Keywords) -->
                 {% include 'pp/partials/_upper_box.html.twig' %}
 
-                {# Edit Slideshow #}
-                {% include 'pp/partials/_slideshow_edit_placeholder.html.twig' %}
+                {# "Inline" Edit Slideshow #}
+                {% include 'pp/partials/_edit_slideshow_placeholder.html.twig' %}
 
                 <!-- Display Project Images & Videos (Displayed in a Slideshow) -->
                 {% include 'pp/partials/_slideshow_display.html.twig' %}
+
+                {# Edit Text Description #}
+                {% include 'pp/partials/_edit_Text_Description_placeholder.html.twig' %}
                 
                 <!-- Project Text Description -->
                 {% include 'pp/partials/_textDescription.html.twig' %}
@@ -426,6 +430,12 @@
             //we hide the form honey pot
             
             $('.onpt').hide();
+
+            //displaying slideshow image when hovering its thumbnail
+
+            $( ".thumbnail" ).mouseover(function() {
+                currentSlide($(this).data("loop-index"));
+            });
             
             
         });

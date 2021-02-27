@@ -28,14 +28,17 @@
                         
     <!--Owner Name -->
 
-    <div class="font-weight-bold mb-2 text-center" style="height:45px; overflow-y: hidden;">
+    <div class="font-weight-bold mb-2 d-flex align-items-center justify-content-center" style="height:45px; overflow-y: hidden;">
 
-        {{ owner.persorg.name | length < 35 ? owner.persorg.name : owner.persorg.name|slice(0, 35) ~ '...' }}
+        <div>
+
+            {{ owner.persorg.name | length < 35 ? owner.persorg.name : owner.persorg.name|slice(0, 35) ~ '...' }}
+
+        </div>
 
     </div>
-
-                        
-    <!-- Owner Show More Info (if more info available) -->
+       
+    <!-- Owner Show More Info (only if more info available) -->
 
     {% if owner.persorg.description is not empty or owner.persorg.email is not empty or owner.persorg.webdomain1 is not empty or owner.persorg.webdomain2 is not empty or owner.persorg.webdomain3 is not empty or owner.persorg.webdomain4 is not empty  %}
         
@@ -46,7 +49,6 @@
         </div>
 
     {% endif %}
-
 
     </a>
 

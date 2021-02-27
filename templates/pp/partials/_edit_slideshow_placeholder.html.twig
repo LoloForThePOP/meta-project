@@ -25,7 +25,7 @@
 							
 						<div class="col-6 pr-1 d-flex align-items-center justify-content-center" data-toggle="modal" data-target="#addImageFormModal">
 
-							<img class="addImageIcon img-fluid" src="/images/icons/miscellaneous/add_image.svg" height="150" width="150" alt="add image icon">
+							<img class="addImageIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/add_image.svg" height="150" width="150" alt="add image icon">
 
 						</div>
 
@@ -35,7 +35,7 @@
 							
 							<a href="{{path('slideshow_video_add', {'slug':presentation.slug, 'presentation':presentation})}}">
 
-								<img class="addVideoIcon img-fluid" src="/images/icons/miscellaneous/add_youtube_video.svg" height="150" width="150" alt="add image icon" >
+								<img class="addVideoIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/add_youtube_video.svg" height="150" width="150" alt="add video icon" >
 
 							</a>
 
@@ -58,13 +58,16 @@
 
 			height: 200px;
 
+			cursor: pointer;
+
 			border: 5px dashed rgb(180, 204, 236);
 			border-radius: 6px;
 
 		}
 
-		.addImageIcon, .addVideoIcon {
-			cursor: pointer;
+		#slideshowPlaceholder .col-6:hover {
+			
+			background-color: lavender;
 		}
 
 

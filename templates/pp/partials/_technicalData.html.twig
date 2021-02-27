@@ -31,7 +31,6 @@
             {% endif %}
 
         </div>
-
        
         <!-- Project Supplementary Informations Display -->
 
@@ -67,63 +66,66 @@
 
         
             
-            
-        {% elseif presentation.technicalData | length > 3 %} <!-- we divide display in two column -->
+            {% elseif presentation.technicalData | length > 3 %} <!-- we divide display in two column -->
 
-            <div class="row col-md-9 px-md-3 pl-lg-5">
+                <div class="row col-md-9 pr-0 px-md-3 pl-lg-5">
 
-                {% for data in presentation.technicalData %}
+                    <div class="container pr-0">
+                        <div class="row pr-0">
+                                    
+                            {% for data in presentation.technicalData %}
 
-                    {% if loop.index == 5 %}
+                                {% if loop.index == 5 %}
 
-                        <button class="hideWhenClicked btn btn-light sharp font-weight-bold mb-0 mt-2 py-0" data-toggle="collapse" data-target="#collapseMoreTechData" aria-expanded="false" aria-controls="collapseMoreTechData">Afficher plus</button>
-                        
+                                    <button class="hideWhenClicked btn btn-light sharp font-weight-bold mb-0 mt-2 py-0" data-toggle="collapse" data-target="#collapseMoreTechData" aria-expanded="false" aria-controls="collapseMoreTechData">Afficher plus</button>
+                                    
 
-                        <div id="collapseMoreTechData" class="collapse container mt-0">
+                                    <div id="collapseMoreTechData" class="collapse container mt-0">
 
-                            <div class="row">
-                            
-                    {% endif %}
+                                        <div class="row">
+                                        
+                                {% endif %}
 
-                        <div id="{{data.id}}" class="dataContainer col-6 {{ cycle(['', 'px-0'], loop.index0) }}">
+                                    <div id="{{data.id}}" class="dataContainer col-6 {{ cycle(['', 'px-0'], loop.index0) }}">
 
-                            <!-- Data Name -->
+                                        <!-- Data Name -->
 
-                            <div class="dataName">
+                                        <div class="dataName">
 
-                                {{data.name[:1] | upper ~ data.name[1:] }} <span class="d-none d-md-inline">:</span>
+                                            {{data.name[:1] | upper ~ data.name[1:] }} <span class="d-none d-md-inline">:</span>
+                                            
+                                        </div>
+
+                                        <!-- Data Value -->
+
+                                        <div class="dataValue">
+
+                                            {{data.value}}
+
+                                        </div>
+
+                                    
+
+                                    </div>
+
+
+                                {# closing the collapsible when more than 6 items #}
+
+                                {% if loop.index > 4 and loop.last %}
+
+                                    </div>
+                                </div>
                                 
-                            </div>
+                                {% endif %}
 
-                            <!-- Data Value -->
-
-                            <div class="dataValue">
-
-                                {{data.value}}
-
-                            </div>
-
-                        
-
-                        </div>
-
-
-                    {# closing the collapsible when more than 6 items #}
-
-                    {% if loop.index > 4 and loop.last %}
-
+                            {% endfor %}
                         </div>
                     </div>
-                    
-                    {% endif %}
 
-                {% endfor %}
 
-            </div>
+                </div>
 
-          
-
-        {% endif %}
+            {% endif %}
 
 
         </div>
