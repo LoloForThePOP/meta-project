@@ -13,6 +13,17 @@ class SendPeriodicEmailsCommand extends Command
 {
     protected static $defaultName = 'app:send-periodic-emails';
 
+    private $mailer;
+
+    public function __construct(
+        \Swift_Mailer $mailer
+    )
+
+    {
+        parent::__construct();
+        $this->mailer = $mailer;
+    }
+
     protected function configure()
     {
         $this
@@ -24,6 +35,21 @@ class SendPeriodicEmailsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
+
+        $message = (
+            
+            new \Swift_Message('Test emails automatisés'))
+
+            ->setFrom(['contact@projetdesprojets.com'=>'Projet des Projets'])
+            ->setTo('lauguy@free.fr')
+            ->setBody(
+                'test envoi emails'
+            );
+            
+        $this->mailer->send($message);
+
+
+
         $io = new SymfonyStyle($input, $output);
         $arg1 = $input->getArgument('arg1');
         
@@ -38,6 +64,9 @@ class SendPeriodicEmailsCommand extends Command
         }
 
         $io->success('You have a new command! Now make it your own! Pass --help to see your options.');
+
+
+
 
         return 0;
     }

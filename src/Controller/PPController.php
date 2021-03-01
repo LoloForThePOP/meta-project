@@ -207,7 +207,7 @@ class PPController extends AbstractController
         
         $this->addFlash(
             'success',
-            "Le contenu de la présentation du projet « {$presentation->getGoal()} » a été supprimé"
+            "Le contenu de la présentation du Projet « {$presentation->getGoal()} » a été supprimé"
         );
 
         return $this->redirectToRoute('projects_index');

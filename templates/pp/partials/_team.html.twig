@@ -1,18 +1,3 @@
-
-<!-- Some Styles -->
-
-
-{% block stylesheets %}
-
-    <!--Styles for Slick Slideshow -->
-
-    <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
-
-    <link rel="stylesheet" type="text/css" href="/css/slick-theme.css"/>
-    
-{% endblock %}
-
-
 <!-- Project Team Display -->
 
 {% if presentation.teammates | length > 0 %}
@@ -23,8 +8,7 @@
 
         <!-- Title Container with Edit Button -->
 
-        <div class="pp-struct-title-container" style="margin-bottom:12px;">
-            
+        <div class="pp-struct-title-container">
 
             <!-- Structure Icon -->
 
@@ -38,59 +22,47 @@
     
             {% if is_granted('edit', presentation) %}
 
-
                 <a class="pp-edition-mode" href="{{ path('manage_teammates', {'slug': presentation.slug}) }}">
     
                     <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer les membres</button>
                     
                 </a>
 
-
             {% endif %}
 
         </div>
 
 
-        <!-- Display Teammates Cards -->
+        {# Displaying Teammates Cards #}
 
         <div class="container">
-
-            <div class="teammatesDisplayRow d-flex align-items-start {% if presentation.teammates | length > 7 %} teammatesSlideshow {% endif %}">
+            
+            <div class="scrolling-wrapper-flexbox row pl-md-4 mb-4">
 
                 {% for teammate in presentation.teammates %}
 
-                {% set teammate = teammate.persorg %}
+                    {% set persorg = teammate.persorg %}
 
-                    <!-- Team Member Card -->
+                    {% include 'pp/partials/_persorg/_card.html.twig' %}
 
-                    {% include 'pp/partials/_teammates/_card_display.html.twig' %}
+                    {% include 'pp/partials/_persorg/_modal_box.html.twig' %}
 
                 {% endfor %}
 
+                {# Style Persorg Card #}
+
+                {% include 'pp/partials/_persorg/_style_card.html.twig' %}
+
             </div>
-
-
-            <!-- Teammate Details (Modal Boxes Creation) -->
-   
-            {% for teammate in presentation.teammates %}
-
-                {% set teammate = teammate.persorg %}
-
-                {% include 'pp/partials/_teammates/_modal_box.html.twig' %}
-
-            {% endfor %}
 
         </div>
 
-        <!-- ECS Rich Text Content Display -->
+
+        {# Displaying Teammates Presented with Rich text #}
             
         {% if presentation.teammatesByText is not null %}
 
-            <div class="container richTextContent">
-
-                {{presentation.teammatesByText | raw}}
-
-            </div>
+            {% include 'pp/partials/_persorg/_rich_text_display.html.twig' with {'richText': presentation.teammatesByText, 'entityType': 'teammate', 'entityId': presentation.id} %}
 
         {% endif %}
 
@@ -104,63 +76,13 @@
 
 <style>
 
-    .teamMemberCard{
-
-        display: inline-block !important;
-
-        width:164px; 
-
-        min-height:140px; 
-
-        margin-right:10px; 
-
-        cursor:pointer;
-        
-        white-space:normal;
-    
-    }
-
-    
-    .avatar-circle {
-        width: 100px;
-        height: 100px;
-    }
-
-    
-    .initials {
-        position: relative;
-        top: 22px; /* 25% of parent */
-        font-size: 58px; /* 50% of parent */
-        line-height: 58px; /* 50% of parent */
-    }
-
-    .teammateMission{
-        color:black;
-    }
-
     #teamDisplay .pp-struct-icon {
         top: 1px;
         margin-right: 16px;
         margin-left: 4px;
     }
 
-
     @media screen and (max-width: 580px) {
-
-        /* One Letter Avatars */
-
-        .avatar-circle {
-            width: 82px;
-            height: 82px;
-        }
-
-        
-        .initials {
-            position: relative;
-            top: 20px; /* 25% of parent */
-            font-size: 40px; /* 50% of parent */
-            line-height: 40px; /* 50% of parent */
-        }
 
         .teammatesDisplayRow{
 
@@ -170,13 +92,22 @@
 
         }
 
-            
         #teamDisplay .pp-struct-icon {
             width: 28px;
             height: 28px;
             top: 1px;
             margin-right: 8px;
             margin-left: 3px;
+        }
+
+        .scrolling-wrapper-flexbox {
+
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+
+            -webkit-overflow-scrolling: touch;
+
         }
 
     }

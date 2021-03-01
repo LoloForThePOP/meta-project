@@ -33,31 +33,28 @@
 
         </div>
 
-
-        <!-- Display Owners Cards -->
+        
+        {# Displaying Onwers Cards #}
 
         <div class="container">
-
-            <div class="ownersDisplayRow row {% if presentation.owners | length > 4 %} ownersSlideshow {% endif %} d-flex justify-content-start">
+            
+            <div class="scrolling-wrapper-flexbox row pl-md-4 mb-4">
 
                 {% for owner in presentation.owners %}
 
-                    <!-- Owner Card -->
+                    {% set persorg = owner.persorg %}
 
-                    {% include 'pp/partials/_owners/_card_display.html.twig' %}
+                    {% include 'pp/partials/_persorg/_card.html.twig' %}
+
+                    {% include 'pp/partials/_persorg/_modal_box.html.twig' %}
 
                 {% endfor %}
 
+                {# Style Persorg Card #}
+
+                {% include 'pp/partials/_persorg/_style_card.html.twig' %}
+
             </div>
-
-
-            <!-- Owner Details (displayed in modal boxes) -->
-   
-            {% for owner in presentation.owners %}
-
-                {% include 'pp/partials/_owners/_modal_box.html.twig' %}
-
-            {% endfor %}
 
         </div>
 
@@ -71,78 +68,32 @@
 
 <style>
 
-    .ownerCard{
-
-        display: inline !important;
-
-        width:130px; 
-
-        min-height:140px;
-
-        margin-right : 20px;
-
-        cursor:pointer;
-    
-    }
-
-    
-    .avatar-circle {
-        width: 100px;
-        height: 100px;
-    }
-
-    
-    .initials {
-        position: relative;
-        top: 22px; /* 25% of parent */
-        font-size: 58px; /* 50% of parent */
-        line-height: 58px; /* 50% of parent */
-    }
-
-    .ownerName{
-        color:#2d1cc3;
-    }
-
     #ownersDisplay .pp-struct-icon {
         top: 0px;
         margin-right: 14px;
         margin-left: 2px;
     }
 
-
-
     @media screen and (max-width: 580px) {
 
-        /* One Letter Avatars */
-
-        .avatar-circle {
-            width: 82px;
-            height: 82px;
-        }
-
-        
-        .initials {
-            position: relative;
-            top: 20px; /* 25% of parent */
-            font-size: 40px; /* 50% of parent */
-            line-height: 40px; /* 50% of parent */
-        }
-
-        .ownersDisplayRow{
-
-            overflow-x: auto;
-            white-space: nowrap;
-            overflow-y: hidden;
-
-        }
-
-                
+                        
        #ownersDisplay .pp-struct-icon {
+
             width: 25px;
             height: 25px;
             top: 1px;
             margin-right: 8px;
             margin-left: 1px;
+        }
+
+        .scrolling-wrapper-flexbox {
+
+            display: flex;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+
+            -webkit-overflow-scrolling: touch;
+
         }
 
     }

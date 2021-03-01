@@ -434,7 +434,9 @@
             //displaying slideshow image when hovering its thumbnail
 
             $( ".thumbnail" ).mouseover(function() {
+
                 currentSlide($(this).data("loop-index"));
+                
             });
             
             
@@ -467,13 +469,11 @@
 
                 // !!! Seems that only one instance is working
 
-                $('.teammatesSlideshow, .ownersSlideshow').slick({
+                $('.scrolling-wrapper-flexbox .teammatesSlideshow, .ownersSlideshow').slick({
 
                     slidesToShow: 3,
                     infinite:false,
                     variableWidth: true,
-
-           
                     
                 });
 

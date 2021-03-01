@@ -1,0 +1,253 @@
+
+{# Display More Persorg Infos (in a Modal Box) #}
+
+<div class="modal" id="persorgDisplayModal{{persorg.id}}" tabindex="-1" role="dialog" aria-labelledby="persorgDisplayModal{{persorg.id}}" aria-hidden="true">
+                        
+    <div class="modal-dialog" role="">
+
+      <div class="modal-content">
+
+        <!-- Modal Header -->
+
+        <div class="modal-header">
+
+            <!-- Empty Title -->
+
+            <div class="row pl-4 font-weight-bold"> 
+
+                .
+
+            
+            </div>
+
+
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+
+                <span aria-hidden="true">&times;</span>
+
+            </button>
+
+        </div>
+
+        <!-- Modal Body -->
+
+        <div class="modal-body">
+
+            <div class="container pt-md-3">
+
+                <!-- Upper Box (contains persorg image; name & missions) -->
+
+                <div class="row mb-4">
+
+                    <div class="col-4">
+                        
+                        <!-- Persorg Image -->
+
+                        {% if persorg.image %}
+
+                         <img class="img-fluid border border-primary" src="{{ asset('/images/persorgs/' ~ persorg.image) | imagine_filter('teammate_thumbnail') }}" height="115px" width="115px">
+                        
+
+                            {% else %}
+                                                                            
+                            <div class="avatar-circle mx-auto" style="width:115px; height:115px;">
+
+                                    <span class="initials" style="font-size: 60px; top:30px;">
+
+                                        {{persorg.name | slice (0,1) }}
+
+                                    </span>
+
+                            </div>
+                        
+                        {% endif %}
+
+                    </div>
+
+                    <div class="col-8 d-flex align-items-center">
+
+                        <div class="container">
+
+                            {% if persorg.missions is not empty %}
+    
+                                <!-- Persorg Missions -->
+    
+                                <div class="row mb-2 mb-md-3"> 
+    
+                                    <div class="h5 font-weight-bold">
+    
+                                        {{ persorg.missions | nl2br }}
+    
+                                    </div>
+    
+                                </div>
+                            
+                            {% endif %}
+
+                            
+                            <!-- Persorg Name -->
+
+                            <div class="row"> 
+
+                                <div class="h5" >
+
+                                    {{ persorg.name }}
+
+                                </div>
+                            
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Persorg Member Description / Comments (Potential) -->
+
+                {% if persorg.description %}
+
+                    <div class="mb-3 mb-md-4" style="font-size:1.09em;">
+
+                        {{ persorg.description | nl2br }}
+
+                    </div>
+
+                {% endif %}
+
+                <!-- Persorg Email (Potential) -->
+
+                {% if persorg.email %}
+
+                    <div class=" mb-2 mb-md-3">
+
+                                <!-- Email (Label) -->
+
+                                <span class="font-weight-bold h5 text-primary">
+
+                                    Email : 
+
+                                </span>
+
+                                <!-- Email (Display) -->
+
+
+                                <span class="font-weight-bold h5">
+
+                                    <a href="mailto:{{ persorg.email }}">
+
+                                        {{ persorg.email }}
+
+                                    </a>
+
+                                </span>
+
+
+                    </div>
+                
+                {% endif %}
+
+                <!-- Persorg Potential Websites or Social Networks -->
+
+                {% if persorg.webdomain1 is not empty or persorg.webdomain2 is not empty or persorg.webdomain3 is not empty or persorg.webdomain4 is not empty  %}
+
+                    <!-- Label for Persorg Potential Websites or Social Networks -->
+
+                    <div class="font-weight-bold h5 text-primary mb-2 mb-md-3">
+
+                        Sites Webs / Réseaux Sociaux
+
+                    </div>
+
+                    <div class="pl-3">
+                                
+                        {% if persorg.webdomain1 is not empty %}
+
+                            <!-- Persorg Webdomain 1 (Potential) -->
+
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ persorg.webdomain1}}"> 
+                                    
+                                    {{ persorg.webdomain1 | length < 30 ? persorg.webdomain1 : persorg.webdomain1 | slice(0, 30) ~ '...' }}
+
+                                </a>
+
+                            </div>
+                        
+                        {% endif %}
+
+                        <!-- Persorg Webdomain 2 (Potential) -->
+
+                        {% if persorg.webdomain2 is not empty %}
+                        
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ persorg.webdomain2}}"> 
+                                    
+                                    {{ persorg.webdomain2 | length < 30 ? persorg.webdomain2 : persorg.webdomain2 | slice(0, 30) ~ '...' }}
+
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+
+                        <!-- Persorg Webdomain 3 (Potential) -->
+
+                        {% if persorg.webdomain3 is not empty %}
+                        
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ persorg.webdomain3}}"> 
+                                    
+                                    {{ persorg.webdomain3 | length < 30 ? persorg.webdomain3 : persorg.webdomain3 | slice(0, 30) ~ '...' }}
+
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+
+                        <!-- Persorg Webdomain 4 (Potential) -->
+
+                        {% if persorg.webdomain4 is not empty %}
+                        
+                            <div class="font-weight-bold mb-2">
+
+                                ● <a href="{{ persorg.webdomain4}}"> 
+                                    
+                                    {{ persorg.webdomain4 | length < 30 ? persorg.webdomain4 : persorg.webdomain4 | slice(0, 30) ~ '...' }}
+
+                                </a>
+
+                            </div>
+
+                        {% endif %}
+                        
+                    </div>
+
+                {% endif %}
+
+
+            <!-- End of Modal Body Container -->
+
+            </div>
+
+        <!-- End of Modal Body -->
+
+        </div>
+
+        <!-- Modal footer -->
+
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
+
+        </div>
+
+      </div>
+
+    </div>
+
+</div>  

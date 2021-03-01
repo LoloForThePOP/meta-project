@@ -1,0 +1,96 @@
+
+    {# managing long texts with a display more button #}
+
+    {# flaging long texts #}
+
+    {% set longText = false %}
+
+    {% if richText  | length > 300 %}
+
+        {% set longText = true %}
+
+    {% endif %}
+
+    
+
+    {# Rich Text Display #}
+
+    <div class="richTextContent col-md-10 pr-0 pl-2 px-md-2 px-lg-4">
+
+        {# creating long text container #}
+
+        {% if longText %}
+                                                
+            <div  class="moduleCollapseText">
+
+                <div id="collapseRichText{{entityType}}{{entityId}}" class="ecs-text-description collapse" aria-expanded="false">
+
+        {% endif %}
+
+
+        {# rich text string #}
+
+        {{richText | raw}}
+
+        
+        {# closing long text container #}
+
+        {% if longText %}
+
+                </div>
+
+                <!-- Toggle Collapse Button -->
+
+                <div class="mt-3 mb-2">
+
+                    <button class="collapsed btn btn-primary btn-sm sharp font-weight-bold" data-toggle="collapse" data-target="#collapseRichText{{entityType}}{{entityId}}"></button>
+                    
+                </div>
+
+            </div>                             
+        
+        {% endif %}
+
+    </div>
+
+
+
+    <style>
+
+                
+        .richTextContent{
+
+            font-size:1.17em;
+
+        }
+        
+        .moduleCollapseText button.collapsed:after {
+            content: 'Afficher +';
+        }
+        
+        .moduleCollapseText button:not(.collapsed):after {
+            content: 'Réduire';
+        }
+        
+        .moduleCollapseText #collapseRichText{{entityType}}{{entityId}}.collapse:not(.show) {
+            
+            display: block;
+            
+            height: 2.8em; /* height = lineheight * no of lines to display */
+
+            overflow: hidden;
+            
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .richTextContent{
+                    
+                font-size: 15px !important;
+                line-height: 21px;
+
+            }
+
+        }
+        
+    </style>
