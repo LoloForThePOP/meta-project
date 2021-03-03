@@ -2,12 +2,15 @@
 
 namespace App\Command;
 
+use App\Entity\User;
+use Twig\Environment;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Style\SymfonyStyle;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Style\SymfonyStyle;
 
 class SendPeriodicEmailsCommand extends Command
 {
@@ -16,12 +19,20 @@ class SendPeriodicEmailsCommand extends Command
     private $mailer;
 
     public function __construct(
-        \Swift_Mailer $mailer
+
+        \Swift_Mailer $mailer,
+        EntityManagerInterface $entityManager,
+        Environment $twig
+
     )
 
     {
         parent::__construct();
+
+        $this->entityManager = $entityManager;
         $this->mailer = $mailer;
+        $this->twig = $twig;
+
     }
 
     protected function configure()
@@ -36,17 +47,54 @@ class SendPeriodicEmailsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
+        $user = $this->entityManager
+                     ->getRepository(User::class)
+                     ->findOneById(1);
+
+        //dump($user);
+
+        $userFollows = $user->getUserFollows();
+
+        //last time user accessed notification page
+        $lastConnectionDate = $user->getLastNotificationsConnection();
+ 
         $message = (
             
             new \Swift_Message('Test emails automatisés'))
 
             ->setFrom(['contact@projetdesprojets.com'=>'Projet des Projets'])
+
             ->setTo('lauguy@free.fr')
+
             ->setBody(
-                'test envoi emails'
+
+                $this->twig->render(
+
+                    'emails/notifications.html.twig',[
+
+                        'userFollows' => $userFollows,
+                        'lastConnectionDate' => $lastConnectionDate,
+                        'displayContext' => 'email',
+                    ]
+                ),
+                
+                'text/html'
             );
+
             
         $this->mailer->send($message);
+
+        /*
+        $headers = 'From: contact@projetdesprojets.com' . "\n";
+        $headers .= 'Reply-To: contact@projetdesprojets.com' . "\n";
+        $headers .= 'Content-Type: text/html; charset="utf-8"' . "\n";
+        $headers .= 'Content-Transfer-Encoding: 8bit';
+        $sendMails = mail(
+            'lauguy@free.fr',
+            'Sujet',
+            'Contenu',
+            $headers); */
+
 
 
 

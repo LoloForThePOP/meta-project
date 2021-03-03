@@ -1,0 +1,33 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}E-mails de notifications - désinscription {% endblock %}
+
+{% block body %}
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        <div class="row my-5">
+
+            <div class="container p-3 fs-15 mb-4">
+                Votre demande de désinscription aux emails de notifications a bien été prise en compte.
+            </div>
+
+            <div class="container">
+
+                <a href="{{path('homepage')}}">
+                    <button type="button" value="" class="btn btn-info sharp font-weight-bold">
+                        Retour page d'accueil
+                    </button>
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+   
+
+{% endblock %}

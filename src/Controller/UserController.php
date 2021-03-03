@@ -219,6 +219,30 @@ class UserController extends AbstractController
 
     }
 
+    /**
+     * Allow user to unsubscribe emails notifications
+     * 
+     * @Route("user/emails/unsubscribe-notifications", name="unsubscribe_emails_notifications")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * @return Response
+     */
+    public function unsubscribeEmailsNotifications(EntityManagerInterface $manager){
+
+        $user = $this->getUser();
+
+        $user->updateEmailsReception('notificationsAcceptation', false);
+
+        $manager->persist($user);
+        $manager->flush();
+
+        return $this->render('/user/unsubscribe_emails_notifications.html.twig',[
+
+        ]);
+
+    }
+
 
 
 }

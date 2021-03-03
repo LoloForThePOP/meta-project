@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html>
+
+    <head>
+  
+  
+        <title>Lettre d'Informations du Projet des Projets</title>
+  
+        <meta charset="UTF-8">
+
+        <meta name="viewport" content="width=device-width">
+
+    </head>
+    
+    
+    <body>
+
+        {# Page Content Container #}
+
+        <div class="message-container">
+
+            <div class="message-header">
+
+                <img src="{{absolute_url("/images/app/logo.svg")}}" width="37px" height="49px">
+
+                <div class="textcontent">
+
+                    <h3>Bonjour</h3>
+
+                    <h3>Voici votre bulletin d'informations</h3>
+                    
+                </div>
+
+
+            </div>
+
+
+            <div class="message-core">
+                
+                <!-- Notifications List -->
+                
+                {% include '/user_follows/_show_notifications/_list_notifications.html.twig' %} 
+            
+            </div>
+
+            <div class="message-footer">
+
+                <h3>❤️ Bonne journée et à bientôt sur le Projet des Projets</h3>
+
+                {# unsubscribe emails soon come #}
+
+                <br>
+
+                Si vous ne souhaitez plus recevoir votre bulletin d'information, <a href="">cliquez ici</a>.
+
+            </div>
+
+
+        </div>
+  
+        {# Some Styles #}
+
+        <style>
+
+            body {
+                background-color: #f0f8ff;
+            }
+
+            .message-container{
+                padding: 20px;
+            }
+
+            .message-header {
+                width: 450px;
+                display: flex;
+                justify-content:space-around;
+                align-items: center;
+                /* background: #ccc;*/
+                }
+
+            .message-header img {
+
+                width:37px;
+            }
+
+            .message-header .textcontent {
+                width:377px;;
+            }
+
+            .message-core{
+                margin-bottom: 40px;
+            }
+
+            h3{
+                
+                font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+            }
+
+
+        </style>
+
+
+    
+</body>
+
+</html>

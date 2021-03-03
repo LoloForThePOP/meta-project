@@ -1,0 +1,156 @@
+{# displaying new events for follower (i.e. since last notification page connection) #}
+
+{# emails display : breaking loop at 5 items #}
+
+{% set break = false %}
+
+{% for log in projectLogs.getLogs | reverse | slice (0,10) %}
+
+    {# opening a collapsible if more than 4 items #}
+
+    {% if loop.index == 5 %}
+
+        {% if displayContext =='email' %}
+
+            <div class="">...</div>
+
+            {% set break = true %}
+            
+        {% elseif displayContext =='website'  %}
+    
+            <button id="collapseMoreNotificationsButton{{userFollow.id}}" type="button" data-toggle="collapse" data-target="#collapseMoreNotifications{{userFollow.id}}" aria-expanded="false" aria-controls="collapseMoreNotifications{{userFollow.id}}" class="btn btn-light btn-sm font-weight-bold sharp mt-2">Afficher plus</button>
+
+            <script type="text/javascript">
+                var button = document.getElementById('collapseMoreNotificationsButton{{userFollow.id}}')
+                button.addEventListener('click',hideshow,false);
+            
+                function hideshow() {
+                    this.style.display = 'none'
+                }   
+            </script>
+
+            <div id="collapseMoreNotifications{{userFollow.id}}" class="collapse">
+        
+        {% endif %}
+    
+    {% endif %}
+
+    {% if break == false %}
+
+        {# Email Display : each toast is a clickable link directed to website user notifications page  #}
+
+        {% if displayContext =='email' %}
+
+            <a class="toast-link" href="{{url('show_notifications')}}" target="_blank">
+
+        {% endif %}
+
+        <div 
+        
+            data-entity-type="{{log.entityType}}"
+
+            data-entity-id='{{log.entityId}}' 
+
+            data-route-name=" 
+        
+                {{path('show_embed_'~ log.entityType , { "slug" : userFollow.getPresentation.getSlug} ) }}
+                
+            "   
+            class="
+
+                js-notification-toast-title notif-toast btn btn-lg d-block text-left sharp cursor-pointer mb-2 font-weight-bold fs-15 
+
+                {% if date(lastConnectionDate) < date(log.date.date) and not log.creatorId is same as app.user.id %}
+
+                    new-toast btn-primary
+
+                {% else %}
+
+                    btn-light
+                
+                {% endif %}
+                
+            "
+        >
+
+            {% if log.entityType == "need" %}
+
+                Nouveau besoin présenté
+
+            {% elseif log.entityType == "news" %}
+
+                Nouvelle actualité ajoutée
+
+            {% elseif log.entityType == "event" %}
+
+                Nouvel événement présenté
+
+            {% elseif log.entityType == "teammate" %}
+
+                Nouveau membre dans l'équipe présenté
+
+            {% elseif log.entityType == "document" %}
+
+                Nouveau document présenté
+
+            {% endif %}
+
+            le {{ log.date.date | date('d-m-Y') }}
+
+        </div>
+                                        
+        {% if loop.last and loop.index >= 5 %}
+
+            </div>
+        
+        {% endif %}
+
+         {# Email Display : end of clickable link directed to website user notifications page  #}
+
+        {% if displayContext =='email' %}
+
+            </a>
+
+        {% endif %}
+
+    {% endif %}
+
+{% endfor %}
+
+
+{# special styling for emails #}
+
+{% if displayContext =='email' %}
+
+    <style>
+
+        a.toast-link{
+            text-decoration: none;
+            color:black;
+        }
+
+        .notif-toast {
+
+            width: 60%;
+        
+        }
+
+        @media screen and (max-width: 580px) {
+
+            .notif-toast {
+            
+                width: 100%;    
+
+            }
+
+        }
+
+        .new-toast{
+
+            background-color: rgb(240, 255, 225);
+        
+        }
+
+    </style>
+
+{% endif %}

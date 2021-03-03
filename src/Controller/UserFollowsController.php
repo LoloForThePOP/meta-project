@@ -128,24 +128,55 @@ class UserFollowsController extends AbstractController
 
         $userFollows = $user->getUserFollows();
 
-        //we get user last time notification page access date
-        $lastConnectionDate= $user->getLastNotificationsConnection();
-
-        //we count user notifications
-        //$countNotifications = $user->countNotifications();
+        //last time user accessed notification page
+        $lastConnectionDate = $user->getLastNotificationsConnection();
 
         //we update last time user accessed notification page
         $user->updateLastNotificationsConsultationDate($manager);
+
 
         return $this->render('user_follows/show_notifications.html.twig', [
 
             'userFollows' => $userFollows,
             'lastConnectionDate' => $lastConnectionDate,
+            'displayContext' => 'website', //notifications can be shown in emails context, see below
 
         ]);
 
     }
 
 
+     /**
+     * 
+     * Notifications email display test
+     * 
+     * @Route("/user/notifications/emailRendering", name="notifications_emails_rendering")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     */
+    public function showEmailsNotifications()
+    {
+
+        $user = $this->getUser();
+
+        $userFollows = $user->getUserFollows();
+
+        //we get user last time notification page access date
+        $lastConnectionDate= $user->getLastNotificationsConnection();
+
+        
+        //we count user notifications
+        //$countNotifications = $user->countNotifications();
+
+        return $this->render('emails/notifications.html.twig', [
+
+            'userFollows' => $userFollows,
+            'lastConnectionDate' => $lastConnectionDate,
+            'displayContext' => 'email',
+
+        ]);
+
+    }
 
 }

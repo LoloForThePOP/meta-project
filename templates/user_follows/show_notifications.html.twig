@@ -22,11 +22,15 @@
 
             <div class="container col-md-10">
 
-                <!-- Manage Projects Follows -->
+                {# Manage Projects Follows if relevant #}
 
-                <a class="text-decoration-none text-white" href="{{ path('manage_follow') }}">
-                    <button type="button" class="btn btn-primary font-weight-bold mr-3 mt-2 mb-4 sharp">Gérer les projets suivis</button>
-                </a>
+                {% if userFollows | length > 0 %}
+
+                    <a class="text-decoration-none text-white" href="{{ path('manage_follow') }}">
+                        <button type="button" class="btn btn-primary font-weight-bold mr-3 mt-2 mb-4 sharp">Gérer les projets suivis</button>
+                    </a>
+
+                {% endif %}
 
                 <!-- Back Button -->
 

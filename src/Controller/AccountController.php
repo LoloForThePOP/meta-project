@@ -259,7 +259,7 @@ class AccountController extends AbstractController
      * @Route("/forgotten-password-request", name="forgotten_password_request")
      * 
      */
-    public function forgottenPass(Request $request, UserRepository $user, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
+    public function forgottenPass(Request $request, UserRepository $userRepo, \Swift_Mailer $mailer, TokenGeneratorInterface $tokenGenerator
     ): Response
     {
         // On initialise le formulaire
@@ -274,7 +274,7 @@ class AccountController extends AbstractController
             $donnees = $form->getData();
 
             // On cherche un utilisateur ayant cet e-mail
-            $user = $user->findOneByEmail($donnees['email']);
+            $user = $userRepo->findOneByEmail($donnees['email']);
 
             // Si l'utilisateur n'existe pas
             if ($user === null) {

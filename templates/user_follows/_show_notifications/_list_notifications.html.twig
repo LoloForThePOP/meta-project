@@ -6,29 +6,37 @@
         
         <div class="container px-0">
 
-        <!-- UI Page Title -->
+            {# Count Followed Projects #}
 
-        <div class="mt-3 mt-md-4">
+            <div class="followed-project-count-container my-md-5">
 
-            <!-- ui Page Title -->
+                <h3 class="mb-4 font-weight-bold mr-3">
 
-            <h3 class="mb-4 font-weight-bold mr-3">
+                    {{userFollows | length}}
+                    
+                    {{ userFollows | length == 1 ? 'Projet suivi' : 'Projets suivis' }}
 
-                {{userFollows | length}}
-                
-                {{ userFollows | length == 1 ? 'Projet suivi' : 'Projets suivis' }}
+                </h3>
 
-            </h3>
+            </div>
 
-        </div>
+            {# List Followed Projects with informations #}
 
             {% for userFollow in userFollows | reverse %}
 
-                <!-- Followed Project Title -->
-            
-                <h4 class="mb-3 font-weight-bold">
+                {# Followed Project Title #}
 
-                    {# displaying project title, otherwise we display project goal #}
+                {# Links to its presentation page if not deleted #}
+
+                {% if displayContext == "website" and userFollow.getPresentation.isDeleted == false %}
+
+                    <a class="text-primary text-decoration-none" href="{{absolute_url('project_show', {'slug': userFollow.getPresentation.getSlug})}}" target="_blank">
+                        
+                {% endif %}
+            
+                <h4 class="notif-project-title mb-4">
+
+                    {# Displaying project title, otherwise we display project goal #}
 
                     {% if userFollow.getPresentation.getTitle > 0 %}
 
@@ -44,9 +52,16 @@
 
                 </h4>
 
+                {% if displayContext == "website" %}
+
+                    </a>
+
+                {% endif %}
+
+
                 <!-- Followed Projects, Display Last Major Modifications -->
 
-                <div class="ml-md-4 mb-5">
+                <div class="notification-toast-title col-lg-8 ml-md-4 mb-5">
 
                     {# special behaviour when presentation has been deleted #}
                     
@@ -58,11 +73,16 @@
 
                         {% if projectLogs is not null %}
                         
-                            {% include '/user_follows/_show_notifications/_partials/_clickable_notifications.html.twig' %} 
+                            {% include '/user_follows/_show_notifications/_partials/_notifications_toasts.html.twig' %} 
 
                         {% else %}
+
+                            <div class="fs-15 font-weight-bold">
+
+                                Pas de modification majeure détectée
+
+                            </div>
                             
-                            pas de modification majeure détectée
                         
                         {% endif %}
 
@@ -70,18 +90,23 @@
 
                     {% else %}
                             
-                        <div class="col-md-8 alert alert-warning text-body fs-15 font-weight-bold mb-2">
+                        <div class="alert alert-warning text-body fs-15 font-weight-bold sharp mb-2">
 
-                            Présentation Supprimée<br><br>
+                            Présentation Supprimée
 
-                            <a href="{{path('unfollow_presentation', {'idUserFollow':userFollow.id})}}">
-
-                                <button type="button" class="d-md-inline block btn btn-success bg-green font-weight-bold">ne plus afficher</button>
-
-                            </a>
+                            {% if displayContext =='website' %}
+                            
+                                <br><br>
+    
+                                <a href="{{path('unfollow_presentation', {'idUserFollow': userFollow.id})}}">
+    
+                                    <button type="button" class="d-md-inline block btn btn-success bg-green font-weight-bold">ne plus afficher</button>
+    
+                                </a>
+                            
+                            {% endif %}
 
                         </div>
-
 
                     {% endif %}
 
@@ -92,9 +117,67 @@
         </div>
 
     {% else %}
-        
-        Aucun projet suivis actuellement
+
+        <div class="my-5">
+
+            <h4>
+                Aucun projet suivi actuellement
+            </h4>
+
+        </div>       
 
     {% endif %}
 
 </div>
+
+
+{# special styling for emails #}
+
+{% if displayContext =='email' %}
+
+    <style>
+
+        .followed-project-count-container{
+            margin-bottom: 40px;
+        }
+
+        .notif-project-title{
+
+            margin-top: 18px;
+            margin-bottom: 18px;
+
+            color:navy; 
+            font-weight:bold; 
+            font-size: 23px; 
+            font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+        }
+
+        
+        .notification-toast-title{
+
+            font-size: 18px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+            padding-left: 35px;
+
+        }
+
+    </style>
+
+{% else %}
+    
+    <style>
+
+        .notif-project-title{
+
+            color:navy; 
+            font-weight:bold; 
+            font-size: 23px; 
+
+        }
+
+
+    </style>
+
+{% endif %}

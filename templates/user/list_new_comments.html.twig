@@ -117,13 +117,37 @@
 
                     {% if is_granted('ROLE_USER') %}
 
-                        <span data-id="{{comment.id}}" class="js-reply-comment-button replyCommentButton cursor-pointer" data-toggle="modal" data-target="#replyCommentModal">RÉPONDRE</span>
+                        <button 
+
+                            type="button"
+                            
+                            data-id="{{comment.id}}"
+                            data-toggle="modal" 
+                            data-target="#replyCommentModal"
+
+                            class="js-reply-comment-button btn-sm mb-2 cursor-pointer" 
+
+                        >
+
+                            Répondre
+                        
+                        </button>
                         
                     {% else %}
                         
-                        <a href="{{ path('account_login') }}" class="text-primary">
+                        <a href="{{ path('account_login') }}" class="text-primary mb-2">
                             
-                            <span class="cursor-pointer" style="font-size: 0.8em;">RÉPONDRE</span>
+                            <button 
+                                
+                                type="button" 
+                                
+                                class="btn btn-sm mb-2 cursor-pointer"
+                            
+                            >
+                                
+                                Répondre
+                            
+                            </button>
 
                         </a>
 
@@ -135,7 +159,7 @@
 
                         <a href="">
 
-                                <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
+                            <button type="button" class="btn btn-sm btn-light sharp font-weight-bold mr-2 mb-2">Modifier</button>
 
                         </a>
 
@@ -146,7 +170,19 @@
 
                     {% if comment.childs | length > 0 %}
 
-                        <button type="button" data-toggle="collapse" data-target="#collapseChildsOf{{comment.id}}" aria-expanded="false" aria-controls="collapseChildsOf" class="btn btn-success btn-sm font-weight-bold">Afficher {{comment.childs | length == 1 ? '1 réponse' : comment.childs | length ~ ' réponses'}}</button>
+                        <button 
+                        
+                        type="button" 
+                        data-toggle="collapse" 
+                        data-target="#collapseChildsOf{{comment.id}}" 
+                        aria-expanded="false" 
+                        aria-controls="collapseChildsOf" 
+                        
+                        class="btn btn-light btn-sm font-weight-bold mb-2">
+                        
+                            Afficher {{comment.childs | length == 1 ? '1 réponse' : comment.childs | length ~ ' réponses'}}
+                        
+                        </button>
 
                     {% endif %}
 

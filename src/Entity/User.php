@@ -164,6 +164,16 @@ class User implements UserInterface
      */
     private $registrationToken;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     * 
+     * List of properties :
+     * 
+     * 'notificationsAcceptation' : boolean : does user accept regular emails about projects he follows
+     * 
+     */
+    private $emailsReception = [];
+
 
 
 
@@ -175,6 +185,15 @@ class User implements UserInterface
         $userPersorg = new Persorg();
         $userPersorg->setName('anonyme');
         $this->setPersorg($userPersorg);
+
+
+        // default user emails reception and preferences
+        $this->setEmailsReception(
+            [
+                'notificationsAcceptation' => true,
+            ]
+        
+        );
 
         // new user is allowed on website by default
         $this->isAllowed = true;
@@ -957,6 +976,39 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getEmailsReception(): ?array
+    {
+        return $this->emailsReception;
+    }
+
+    public function setEmailsReception(?array $emailsReception): self
+    {
+        $this->emailsReception = $emailsReception;
+
+        return $this;
+    }
+
+
+
+    /**
+     * Allow to update user emails reception data and preferences
+     * List of properties : see emailsReception property
+     */
+
+    public function updateEmailsReception($property, $value)
+    {
+
+        $emailsReception = $this->getEmailsReception();
+
+        $emailsReception['notificationsAcceptation'] = false;
+
+        $this->setEmailsReception($emailsReception);
+
+        return $this;
+
+    }
+
 
 
   
