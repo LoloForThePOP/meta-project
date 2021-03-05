@@ -1001,9 +1001,12 @@ class User implements UserInterface
 
         $emailsReception = $this->getEmailsReception();
 
-        $emailsReception['notificationsAcceptation'] = false;
+        $emailsReception[$property] = $value;
+
+        
 
         $this->setEmailsReception($emailsReception);
+
 
         return $this;
 

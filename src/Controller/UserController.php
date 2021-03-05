@@ -219,27 +219,70 @@ class UserController extends AbstractController
 
     }
 
+    
     /**
-     * Allow user to unsubscribe emails notifications
+     * Allow user to manage emails reception preferences (ex: receive notification emails or not)
      * 
-     * @Route("user/emails/unsubscribe-notifications", name="unsubscribe_emails_notifications")
+     * @Route("user/emails/preferences", name="manage_emails_preferences")
      * 
      * @Security("is_granted('ROLE_USER')")
      * 
      * @return Response
      */
-    public function unsubscribeEmailsNotifications(EntityManagerInterface $manager){
+    public function manageEmailsPreferences(){
+
+        return $this->render('/user/manage_emails_reception_preferences.html.twig');
+            
+    }
+
+
+
+    /**
+     * Set User Emails Reception Data and Preferences and give feedback
+     * 
+     * @Route("user/emails/treat/{property}/{value}", name="treat_emails_reception")
+     * 
+     * @Security("is_granted('ROLE_USER')")
+     * 
+     * @return Response
+     */
+    public function treatEmailsReception($property, $value, EntityManagerInterface $manager){
 
         $user = $this->getUser();
 
-        $user->updateEmailsReception('notificationsAcceptation', false);
+        $user->updateEmailsReception($property, $value);
 
         $manager->persist($user);
         $manager->flush();
 
-        return $this->render('/user/unsubscribe_emails_notifications.html.twig',[
+        $feedback = null;
 
-        ]);
+        if ($property=='notificationsAcceptation') {
+
+            if ($value =='false') {
+
+                $feedback = "unsubscribeNotificationsEmails";
+
+            }
+
+            if ($value =='true') {
+
+                $feedback = "subscribeNotificationsEmails";
+
+            }
+
+            return $this->render(
+                
+                '/user/treat_emails_reception_feedback.html.twig',
+            
+                [
+                    'feedback' => $feedback,
+                ]
+            );
+
+        }
+
+        else return $this->redirectToRoute('homepage');
 
     }
 

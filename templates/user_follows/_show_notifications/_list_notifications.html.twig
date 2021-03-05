@@ -24,93 +24,99 @@
 
             {% for userFollow in userFollows | reverse %}
 
-                {# Followed Project Title #}
+                <div class="notification-toast">
 
-                {# Links to its presentation page if not deleted #}
 
-                {% if displayContext == "website" and userFollow.getPresentation.isDeleted == false %}
+                    {# Followed Project Title #}
 
-                    <a class="text-primary text-decoration-none" href="{{absolute_url('project_show', {'slug': userFollow.getPresentation.getSlug})}}" target="_blank">
-                        
-                {% endif %}
-            
-                <h4 class="notif-project-title mb-4">
+                    {# Links to its presentation page if not deleted #}
 
-                    {# Displaying project title, otherwise we display project goal #}
+                    {% if displayContext == "website" and userFollow.getPresentation.isDeleted == false %}
 
-                    {% if userFollow.getPresentation.getTitle > 0 %}
-
-                        {% set projectTitle = userFollow.getPresentation.getTitle %}
-
-                    {% else %}
-                        
-                        {% set projectTitle = userFollow.getPresentation.getGoal %}                       
-                  
+                        <a class="text-primary text-decoration-none" href="{{absolute_url('project_show', {'slug': userFollow.getPresentation.getSlug})}}" target="_blank">
+                            
                     {% endif %}
+                
+                    <h4 class="notif-project-title mb-4">
 
-                    {{ projectTitle | length > 50 ? projectTitle | slice(0, 50)  | capitalize ~ '...' : projectTitle  | capitalize}}
+                        {# Displaying project title, otherwise we display project goal #}
 
-                </h4>
+                        {% if userFollow.getPresentation.getTitle > 0 %}
 
-                {% if displayContext == "website" %}
-
-                    </a>
-
-                {% endif %}
-
-
-                <!-- Followed Projects, Display Last Major Modifications -->
-
-                <div class="notification-toast-title col-lg-8 ml-md-4 mb-5">
-
-                    {# special behaviour when presentation has been deleted #}
-                    
-                    {# case presentation not deletd #}
-
-                    {% if userFollow.getPresentation.isDeleted == false %}
-
-                        {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
-
-                        {% if projectLogs is not null %}
-                        
-                            {% include '/user_follows/_show_notifications/_partials/_notifications_toasts.html.twig' %} 
+                            {% set projectTitle = userFollow.getPresentation.getTitle %}
 
                         {% else %}
-
-                            <div class="fs-15 font-weight-bold">
-
-                                Pas de modification majeure détectée
-
-                            </div>
                             
-                        
+                            {% set projectTitle = userFollow.getPresentation.getGoal %}                       
+                    
                         {% endif %}
 
-                    {# presentation has been deleted #}
+                        {{ projectTitle | length > 50 ? projectTitle | slice(0, 50)  | capitalize ~ '...' : projectTitle  | capitalize}}
 
-                    {% else %}
+                    </h4>
+
+                    {% if displayContext == "website" %}
+
+                        </a>
+
+                    {% endif %}
+
+
+                    <!-- Followed Projects, Display Last Major Modifications -->
+
+                    <div class="notification-toast-title col-lg-8 ml-md-4 mb-5">
+
+                        {# special behaviour when presentation has been deleted #}
+                        
+                        {# case presentation not deletd #}
+
+                        {% if userFollow.getPresentation.isDeleted == false %}
+
+                            {% set projectLogs = userFollow.getPresentation.getMajorLogs %}
+
+                            {% if projectLogs is not null %}
                             
-                        <div class="alert alert-warning text-body fs-15 font-weight-bold sharp mb-2">
+                                {% include '/user_follows/_show_notifications/_partials/_notifications_toasts.html.twig' %} 
 
-                            Présentation Supprimée
+                            {% else %}
 
-                            {% if displayContext =='website' %}
-                            
-                                <br><br>
-    
-                                <a href="{{path('unfollow_presentation', {'idUserFollow': userFollow.id})}}">
-    
-                                    <button type="button" class="d-md-inline block btn btn-success bg-green font-weight-bold">ne plus afficher</button>
-    
-                                </a>
+                                <div class="fs-15 font-weight-bold">
+
+                                    Pas de modification majeure détectée
+
+                                </div>
+                                
                             
                             {% endif %}
 
-                        </div>
+                        {# presentation has been deleted #}
 
-                    {% endif %}
+                        {% else %}
+                                
+                            <div class="alert alert-warning text-body fs-15 font-weight-bold sharp mb-2">
+
+                                Présentation Supprimée
+
+                                {% if displayContext =='website' %}
+                                
+                                    <br><br>
+        
+                                    <a href="{{path('unfollow_presentation', {'idUserFollow': userFollow.id})}}">
+        
+                                        <button type="button" class="d-md-inline block btn btn-success bg-green font-weight-bold">ne plus afficher</button>
+        
+                                    </a>
+                                
+                                {% endif %}
+
+                            </div>
+
+                        {% endif %}
+
+                    </div>
 
                 </div>
+
 
             {% endfor %}
 

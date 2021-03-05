@@ -276,7 +276,7 @@ class PPBasic implements \Serializable
     private $websites;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ContactMessage", mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity="App\Entity\ContactMessage", mappedBy="presentation", cascade={"persist", "remove"})
      */
     private $contactMessages;
 
@@ -394,7 +394,7 @@ class PPBasic implements \Serializable
     private $owners;
 
     /**
-     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="presentation", cascade={"persist", "remove"})
      */
     private $comments;
 
@@ -414,7 +414,7 @@ class PPBasic implements \Serializable
     private $overallQualityAssessment;
 
     /**
-     * @ORM\OneToMany(targetEntity=News::class, mappedBy="project")
+     * @ORM\OneToMany(targetEntity=News::class, mappedBy="project", cascade={"persist", "remove"})
      * 
      * @ORM\OrderBy({"createdAt" = "DESC"})
      */
@@ -437,7 +437,7 @@ class PPBasic implements \Serializable
     private $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=Right::class, mappedBy="presentation")
+     * @ORM\OneToMany(targetEntity=Right::class, mappedBy="presentation", cascade={"persist", "remove"})
      */
     private $rights;
 

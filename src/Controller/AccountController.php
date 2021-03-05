@@ -173,6 +173,8 @@ class AccountController extends AbstractController
      */
     public function updateEmail(Request $request, EntityManagerInterface $manager){
 
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
         $user = $this->getUser();
 
         $form = $this->createForm(AccountType::class, $user);

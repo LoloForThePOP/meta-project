@@ -1,0 +1,69 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Gérer les emails reçus{% endblock %}
+
+{% block body %}
+
+    <!-- Page Content Container -->
+
+    <div class="container">
+
+        {# ui page title #}
+
+        <div class="row fs-15 mt-5 mb-4">
+
+            <h4 class="font-weight-bold">
+
+                Gérer les emails reçus
+
+            </h4>
+
+        </div>
+
+        <div class="row mb-5">
+
+            {% if app.user %}
+
+                {# accept notifications emails or not#}
+
+                {% if app.user.emailsReception.notificationsAcceptation == "false" %}
+
+                    <a href="{{url('treat_emails_reception', {'property': 'notificationsAcceptation', 'value': 'true'}) }}">
+                        <button type="button" value="" class="btn btn-sm btn-light sharp font-weight-bold">
+                            Activer les emails de notifications tous les 15 jours
+                        </button>
+                    </a>
+
+                {% else %}
+
+                    <a href="{{url('treat_emails_reception', {'property': 'notificationsAcceptation', 'value': 'false'}) }}">
+                        
+                        <button type="button" value="" class="btn btn-sm btn-light sharp font-weight-bold">
+                            Désactiver les emails de notifications tous les 15 jours
+                        </button> 
+
+                    </a>
+                
+                {% endif %}
+            
+            {% endif %}
+
+        </div>
+
+        {# Action Buttons #}
+
+        <div class="row">
+
+            <a href="{{path('account_index')}}">
+                <button type="button" value="" class="btn btn-info sharp font-weight-bold">
+                    Retour mon compte
+                </button>
+            </a>
+
+        </div>
+
+    </div>
+   
+
+{% endblock %}
