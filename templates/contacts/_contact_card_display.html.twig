@@ -1,0 +1,252 @@
+
+{# When in edition mode context, links are removed #}
+
+    {% set editionMode = false %}
+
+    {% if context is defined and context == "editionMode" %}
+
+        {% set editionMode = true %}
+
+    {% endif %}
+
+
+    <!-- Contact Name or Title -->
+
+    {% if contact.title is not empty %}
+        
+        <h5 class="contactCardTitle mb-3">{{contact.title}}</h5>
+    
+    {% endif %}
+    
+    <!-- Contact Email -->
+
+    {% if ( contact.email1 is not null ) or ( contact.email2 is not null ) %}
+    
+        <div class="mb-2">
+
+            <div class="font-weight-bold">
+                Email :
+            </div>
+
+            <div class="pl-4">
+
+                <style>
+                                        
+                    .cryptedmail:after {
+
+                        content: attr(data-name) "@" attr(data-domaintld); 
+                    }
+
+                </style>
+
+
+                {% if contact.email1 is not null %}
+
+                    {% if not editionMode %}
+                    
+                        <a href="#" class="cryptedmail text-decoration-none text-body" 
+                        data-name="{{ contact.email1|split('@')[0] }}"
+                        data-domaintld="{{ contact.email1|split('@')[1] }}"
+                        onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                        </a>
+
+                    {% else %}
+                        
+                        {{contact.email1}}
+
+                    {% endif %}
+
+                {% endif %}
+
+                
+                {% if contact.email2 is not null %}
+
+                    {% if not editionMode %}
+
+                        <a href="#" class="cryptedmail text-decoration-none text-body" 
+                            data-name="{{ contact.email2|split('@')[0] }}"
+                            data-domaintld="{{ contact.email2|split('@')[1] }}"
+                            onclick="window.location.href = 'mailto:' + this.dataset.name + '@' + this.dataset.domaintld; return false;">
+                        </a>
+
+                    {% else %}
+                        
+                        {{contact.email2}}
+
+                    {% endif %}
+
+                {% endif %}
+
+
+            </div>
+
+
+        </div>
+
+
+    {% endif %}
+    
+    <!-- Contact Telephone(s) -->
+
+    {% if ( contact.tel1 is not null ) or ( contact.tel2 is not null ) %}
+
+        <div class="mb-2"> 
+        
+            <div class="font-weight-bold">
+            
+                Téléphone :
+                
+            </div>
+
+            <div class="pl-4">
+
+                {% if contact.tel1 is not null %}
+
+                    {% if not editionMode %}
+                
+                        <a class="text-decoration-none text-body" href="tel:{{contact.tel1}}">
+                            
+                            {{contact.tel1}}
+                        
+                        </a>
+                        
+                    {% else %}
+
+                        {{contact.tel1}}
+                    
+                    {% endif %}
+                    
+                    <br>
+
+                {% endif %}
+                
+                {% if contact.tel2 is not null %}
+
+                    {% if not editionMode %}
+            
+                        <a class="text-decoration-none text-body" href="tel:{{contact.tel2}}">
+                            
+                            {{contact.tel2}}
+
+                        </a>
+
+                    {% else %}
+                        
+                        {{contact.tel2}}
+
+                    {% endif %}
+
+                {% endif %}
+            
+            </div>
+        
+        </div>
+
+    {% endif %}
+    
+    
+    <!-- Contact Websites -->
+
+    {% if contact.website1 is not null %}
+
+        <div class="mb-2"> 
+            
+            <div class="font-weight-bold">
+            
+                Site web :
+                
+            </div>
+
+            <div class="pl-4">
+
+                {# Websites with potential troncature #}
+
+                {% if not editionMode %}
+                
+                    <a class="text-decoration-none text-body"
+                    href="{{contact.website1}}" target="_blank">
+
+                {% endif %}
+                
+                    {{contact.website1 | slice (0,55)}}
+
+                    {% if contact.website1 | length > 55 %}
+                        ...
+                    {% endif %}
+
+                {% if not editionMode %}
+
+                    </a>
+
+                {% endif %}
+
+            </div>
+
+        </div>
+    
+    {% endif %}
+    
+    <!-- Contact Postal Mail -->
+
+    {% if contact.postalMail is not null %}
+    
+        <div class="mb-2">
+        
+            <div class="font-weight-bold">Adresse :</div> 
+        
+            <div class="pl-4">
+            
+                {{ contact.postalMail | nl2br }}
+                
+            </div>
+            
+        </div>
+
+    {% endif %}
+    
+    <!-- More Informations & Remarks -->
+
+    {% if contact.remarks is not null %}
+
+        <div class="mb-2"> 
+                
+            <div class="font-weight-bold mb-2">
+            
+            + Info :
+                
+            </div>
+
+            <div class="pl-4 font-weight-bold">
+
+                {{contact.remarks}}
+
+            </div>
+
+        </div>
+    
+
+    {% endif %}
+
+    
+<style>
+
+    .contactCardTitle {
+
+        font-weight: bold;
+
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .contactCardTitle {
+
+            font-size: 1.30em;
+            font-weight: normal;
+
+        }
+
+    }
+
+</style>
+
+

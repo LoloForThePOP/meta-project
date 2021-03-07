@@ -21,13 +21,24 @@
 
             <!-- Edit Project Title Button -->
     
-            {% if is_granted('edit', presentation) %}
+            {% if userPresenter == true %}
+            
+                {# Add Website Shortcut Button #}
 
-                <a class="pp-edition-mode" href="{{ path('websites_index', {'slug': presentation.slug}) }}">
+                    <button data-toggle="modal" data-target="#newWebsiteFormModal" class="pp-edition-mode btn btn-light sharp font-weight-bold mr-2 d-inline fs-15">Ajouter</button>
 
-                    <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer les sites web</button>
-                    
-                </a>
+                {#  Add a website Form Display (in a Modal Box)  #}
+
+                    {% include '/websites/_new_website_modal_form.html.twig' %}
+
+                
+                {# Manage Websites Shortcut Button #}
+
+                    <a class="pp-edition-mode" href="{{ path('websites_index', {'slug': presentation.slug}) }}">
+
+                        <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer les sites web</button>
+                        
+                    </a>
 
             {% endif %}
 
@@ -89,6 +100,14 @@
 
                             <div class="pp-website-card cursor-pointer col-md-5  pl-md-3 border border-primary p-1 mb-4 mx-0 mr-md-4 " style="overflow-wrap: break-word;">
 
+                                {# website update direct link
+
+                                {% if userPresenter %}
+
+                                    <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="w-100 h-100 text-body text-decoration-none"></a>
+
+                                {% endif %}  #}
+
                                 <a href="{{website.url}}" target="_blank" class="list-group-item border-0 text-decoration-none text-body p-1">
 
                                     <div class="p-1">
@@ -118,9 +137,11 @@
                                         </p>
 
                                     </div>
+                                    
                                 </a>
 
                             </div>
+
                         {% endfor %}
             </div>
 

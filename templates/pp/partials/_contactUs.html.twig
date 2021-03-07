@@ -24,9 +24,17 @@
 
             {% if is_granted('edit', presentation) %}
 
+                {# Add Contact Card Shortcut Button #}
+
+                <a href="{{ path('contact_new', {'slug': presentation.slug}) }}">
+
+					<button class="btn btn-light sharp font-weight-bold mb-2 mr-2 d-inline fs-15">Ajouter</button>
+                
+                </a>
+
                 <a class="pp-edition-mode" href="{{ path('contact_index', {'slug': presentation.slug}) }}" class="">
 
-                    <button class="btn btn-light sharp font-weight-bold fs-15">Éditer</button>
+                    <button class="btn btn-light sharp font-weight-bold mb-2 fs-15">Gérer</button>
                     
                 </a>
 
@@ -55,10 +63,27 @@
 
                 {% for contact in presentation.contacts %}
 
+                    {# disabling contact card reactivity for project presenters (i.e. avoid new email triggering when clicking on it; website opening...), and adding a direct link to contact card edition #}
+
+                    {% if userPresenter %}
                     
-                    <div id="" class="pp-contact-us-card col-md-5 border border-primary border-2 p-4 mb-4 mr-0 mr-md-4" style="word-wrap: break-word;">
+                        <div id="" class="pp-edition-mode pp-contact-us-card col-md-5 border border-primary border-2 p-4 mb-4 mr-0 mr-md-4" style="word-wrap: break-word;">
+                            
+                            <a href="{{  path('contact_edit', {'contact_id': contact.id, 'slug': presentation.slug})  }}" class="w-100 h-100 text-body text-decoration-none">
+                    
+                                {% include 'contacts/_contact_card_display.html.twig' with {'context': 'editionMode'} %}
+                            
+                            </a>
+
+                        </div>     
+                    
+                    {% endif %}
+
+                    {# displaying a reactive contact card in consultation mode #}
+
+                    <div id="" class="pp-consultation-mode pp-contact-us-card col-md-5 border border-primary border-2 p-4 mb-4 mr-0 mr-md-4" style="word-wrap: break-word;">
             
-                        {% include 'contacts/_icons_display.html.twig' %}
+                        {% include 'contacts/_contact_card_display.html.twig' %}
 
                     </div>
                 

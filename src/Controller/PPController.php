@@ -4,8 +4,10 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\PPBasic;
+use App\Entity\Website;
 use App\Form\CommentType;
 use App\Form\PPBasicType;
+use App\Form\WebsiteType;
 use App\Entity\PPMajorLogs;
 use App\Form\ReplyCommentType;
 use App\Form\NewPresentationType;
@@ -115,11 +117,12 @@ class PPController extends AbstractController
 
             $this->addFlash(
                 'success',
-                "Les modifications de la présentation ont été enregistrées."
+                "Les modifications ont été enregistrées ✅"
             );
 
-            return $this->redirectToRoute('edit_presentation_menu', [
-                'slug' => $presentation->getSlug()
+            return $this->redirectToRoute('project_show', [
+                'slug' => $presentation->getSlug(),
+                '_fragment' => 'upperBoxDisplay',
             ]);
         }
 
@@ -243,7 +246,7 @@ class PPController extends AbstractController
 
         }
 
-        // edition possibilities for project presenters
+        /* edition possibilities for project presenters */
 
         $addImageForm = $this->createForm(SlideshowImagesType::class);
 
@@ -283,6 +286,33 @@ class PPController extends AbstractController
 
                 ]);
     
+            }
+
+        }
+
+        if ($this->isGranted('edit', $presentation)) {
+
+            $website = new Website ();
+
+            $addWebsiteForm = $this->createForm(WebsiteType::class, $website);
+        
+            $addWebsiteForm->handleRequest($request);
+
+            if ($addWebsiteForm->isSubmitted() && $addWebsiteForm->isValid()){
+
+                $website->setPresentation($presentation);
+
+                $manager = $this->getDoctrine()->getManager();
+
+                $manager->persist($website);
+
+                $manager->flush();
+
+                return $this->redirectToRoute('project_show', [
+                    'slug' => $presentation->getSlug(),
+                    '_fragment' => 'websitesDisplay',
+                ]);
+
             }
 
         }
@@ -367,7 +397,8 @@ class PPController extends AbstractController
             return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
                 '_fragment' => 'commentsDisplay',
-                ]);
+            ]);
+
         }
 
         return $this->render('/pp/show.html.twig',[
@@ -375,6 +406,7 @@ class PPController extends AbstractController
             'form' => $form->createView(),
             'replyForm' => $replyForm->createView(),
             'addImageForm' => $addImageForm->createView(),
+            'addWebsiteForm' => $addWebsiteForm->createView(),
         ]);
 
     }

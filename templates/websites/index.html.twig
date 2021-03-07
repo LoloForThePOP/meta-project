@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% form_theme form 'bootstrap_4_layout.html.twig' %}
+{% form_theme addWebsiteForm 'bootstrap_4_layout.html.twig' %}
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
@@ -84,51 +84,13 @@
 
         <div class="mb-4">
 
-            <button type="button" data-toggle="modal" data-target="#websiteFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un site web</button> 
+            <button type="button" data-toggle="modal" data-target="#newWebsiteFormModal" class="btn btn-lg btn-success bg-green sharp p-3 font-weight-bold mr-1">+ Ajouter un site web</button> 
 
         </div>
 
         <!-- Form Display (in a Modal Box) -->
 
-        <div class="modal" id="websiteFormModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-
-            <div class="modal-dialog" role="document">
-
-                <div class="modal-content">
-
-                    <div class="modal-header">
-
-                        <h5 class="modal-title" id="exampleModalLabel">Ajouter un site web</h5>
-
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-
-                    </div>
-
-                    <div class="modal-body">
-
-                        {{ form_start(form) }}
-
-                        {{ form_widget(form) }}
-
-                    </div>
-
-                    <div class="modal-footer">
-
-                        <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>         
-
-                        <button class="btn btn-success sharp bg-green font-weight-bold">Valider</button>
-                        
-                    </div>
-
-                    {{ form_end(form) }}
-
-                </div>
-
-            </div>
-
-        </div>
+        {% include 'websites/_new_website_modal_form.html.twig' %}
 
         <!-- Websites List -->
 

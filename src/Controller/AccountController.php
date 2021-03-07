@@ -117,7 +117,7 @@ class AccountController extends AbstractController
             $manager->persist($user);
             $manager->flush();
             
-            $message = (new \Swift_Message('Merci pour votre inscription sur le site'))
+            $message = (new \Swift_Message('Merci pour votre inscription sur le site du Projet des Projets'))
             ->setFrom(['contact@projetdesprojets.com'=>'Projet des Projets'])
             ->setTo($user->getEmail())
             ->setBody(

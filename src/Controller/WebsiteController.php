@@ -30,11 +30,11 @@ class WebsiteController extends AbstractController
 
         $website = new Website ();
 
-        $form = $this->createForm(WebsiteType::class, $website);
+        $addWebsiteForm = $this->createForm(WebsiteType::class, $website);
     
-        $form->handleRequest($request);
+        $addWebsiteForm->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()){
+        if ($addWebsiteForm->isSubmitted() && $addWebsiteForm->isValid()){
 
             $website->setPresentation($presentation);
 
@@ -55,10 +55,11 @@ class WebsiteController extends AbstractController
         }
     
         return $this->render('websites/index.html.twig', [
-            'form' => $form->createView(),
+            'addWebsiteForm' => $addWebsiteForm->createView(),
             'slug' => $presentation->getSlug(),
             'presentation' => $presentation,
         ]);
+
     }
 
     /**
@@ -88,9 +89,9 @@ class WebsiteController extends AbstractController
                 "Les modifications ont bien été effectuées !"
             );
 
-            return $this->redirectToRoute('websites_index', [
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
-                'presentation' => $presentation,
+                '_fragment' => 'websitesDisplay',
             ]);
 
         }

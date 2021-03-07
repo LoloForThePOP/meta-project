@@ -61,15 +61,18 @@
 
             <!-- Contact Card Item -->
 
-            <a href="{{  path('contact_edit', {'contact_id': contact.id, 'slug': slug})  }}" class="text-body text-decoration-none">
+            
 
                 <div id="{{contact.id}}" class="js-sortableGridItem position-relative cursor-pointer col-sm-5 border border-primary border-2 p-4 mb-4 mr-4" style="word-wrap: break-word;">
 
-                    <!-- Contact Card Content -->
+                    <a href="{{  path('contact_edit', {'contact_id': contact.id, 'slug': slug})  }}" class="text-body text-decoration-none">
 
-                    {% include 'contacts/_icons_display.html.twig' %}
+                        <!-- Contact Card Content -->
 
-                    
+                        {% include 'contacts/_contact_card_display.html.twig' with {'context': 'editionMode'} %}
+
+                    </a>
+
                     <!-- Remove a Contact Card (Button with Red Cross) -->
         
                     <div class="d-inline position-absolute p-0" data-id="{{contact.id}}" style="top:0; right:0;">

@@ -58,8 +58,9 @@ class ContactController extends AbstractController
             $entityManager->persist($contact);
             $entityManager->flush();
 
-            return $this->redirectToRoute('contact_index',[
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'contactInfosDisplay',
             ]);
         }
 
@@ -99,8 +100,9 @@ class ContactController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('contact_index',[
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
+                '_fragment' => 'contactInfosDisplay',
             ]);
         }
 

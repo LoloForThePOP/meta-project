@@ -144,9 +144,9 @@ class EventController extends AbstractController
                 "Les modifications ont été effectuées !"
             );
 
-            return $this->redirectToRoute('manage_events', [
+            return $this->redirectToRoute('project_show', [
                 'slug' => $presentation->getSlug(),
-                'presentation' => $presentation,
+                '_fragment' => 'eventsDisplay',
             ]);
 
         }

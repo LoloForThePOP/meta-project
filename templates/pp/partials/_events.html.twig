@@ -248,7 +248,20 @@
 
                   <div class="modal-footer">
 
-                      <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
+                      
+                    {% if userPresenter %}
+
+                      {# Modify this Event #}
+
+                      <a href="{{path('edit_event', {'slug': presentation.slug,'idEvent': event.id })}}" class="">
+
+                          <button type="button" class="btn btn-light sharp font-weight-bold">Modifier</button>
+
+                      </a>
+
+                    {% endif %}
+
+                    <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
 
                   </div>
 
