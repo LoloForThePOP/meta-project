@@ -58,7 +58,7 @@ class SendPeriodicEmailsCommand extends Command
         //last time user accessed notification page
         $lastConnectionDate = $user->getLastNotificationsConnection();
  
-        $message = (
+        /* $message = (
             
             new \Swift_Message('Test emails automatisés'))
 
@@ -82,9 +82,9 @@ class SendPeriodicEmailsCommand extends Command
             );
 
             
-        $this->mailer->send($message);
+        $this->mailer->send($message); */
 
-        /*
+        
         $headers = 'From: contact@projetdesprojets.com' . "\n";
         $headers .= 'Reply-To: contact@projetdesprojets.com' . "\n";
         $headers .= 'Content-Type: text/html; charset="utf-8"' . "\n";
@@ -93,7 +93,7 @@ class SendPeriodicEmailsCommand extends Command
             'lauguy@free.fr',
             'Sujet',
             'Contenu',
-            $headers); */
+            $headers);
 
 
 
