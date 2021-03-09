@@ -291,11 +291,11 @@ class PPController extends AbstractController
 
         }
 
+        $website = new Website ();
+
+        $addWebsiteForm = $this->createForm(WebsiteType::class, $website);
+
         if ($this->isGranted('edit', $presentation)) {
-
-            $website = new Website ();
-
-            $addWebsiteForm = $this->createForm(WebsiteType::class, $website);
         
             $addWebsiteForm->handleRequest($request);
 
