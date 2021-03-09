@@ -11,24 +11,26 @@
     ">
         
         {{ presentation.goal[:1] | upper ~ presentation.goal[1:] }}
-    
+
+        <!-- Edit Project Goal Button -->
+
+        {% if is_granted('edit', presentation) %}
+
+            <a class="pp-edition-mode ml-3 ml-md-0" href="{{ path('project_edit', {'slug': presentation.slug}) }}">
+
+                <button class="btn btn-light btn-sm sharp font-weight-bold fs-15" style="font-size:13px !important;">Éditer</button>
+
+                <!-- <img class="editIcon img-fluid" src="/images/icons/edit_presentation/edit.svg" height="18" width="18" alt="edit icon" > -->
+                
+            </a>
+
+        {% endif %}
+        
     </h4>
 
-   
 
-    <!-- Edit Project Goal Button -->
 
-    {% if is_granted('edit', presentation) %}
 
-        <a class="pp-edition-mode" href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
-
-            <button class="btn btn-light sharp font-weight-bold fs-15">Éditer</button>
-            
-        </a>
-
-    {% endif %}
-
-        
     <!-- Some Styles -->
 
     <style>

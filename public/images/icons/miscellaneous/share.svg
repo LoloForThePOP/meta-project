@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="113mm"
+   height="116mm"
+   version="1.1"
+   viewBox="0 0 113 116"
+   id="svg14"
+   sodipodi:docname="share.svg"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata20">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs18" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1366"
+     inkscape:window-height="705"
+     id="namedview16"
+     showgrid="false"
+     inkscape:zoom="0.53829023"
+     inkscape:cx="-45.61057"
+     inkscape:cy="219.2126"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="g12" />
+  <g
+     transform="translate(-30.9 -149)"
+     id="g12"
+     stroke="#000"
+     style="fill:#008000">
+    <circle
+       cx="50.8"
+       cy="206"
+       r="19.8"
+       id="circle2"
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       stroke-width=".265"
+       fill-rule="evenodd"
+       style="fill:#008000" />
+    <circle
+       transform="rotate(-17.5)"
+       cx="44.4"
+       cy="271"
+       r="19.8"
+       id="circle4"
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       stroke-width=".265"
+       fill-rule="evenodd"
+       style="fill:#008000" />
+    <path
+       d="m125 246-73.6-37.9"
+       id="path6"
+       stroke-width="9.97"
+       style="fill:#800080;stroke-width:9.94357084;stroke-miterlimit:4;stroke-dasharray:none;stroke:#007b00;stroke-opacity:1" />
+    <circle
+       transform="matrix(.954 .3 .3 -.954 0 0)"
+       cx="167"
+       cy="-125"
+       r="19.8"
+       id="circle8"
+       stroke-linejoin="round"
+       stroke-linecap="round"
+       stroke-width=".265"
+       fill-rule="evenodd"
+       style="fill:#008000" />
+    <path
+       d="m123 168-73.6 37.9"
+       id="path10"
+       stroke-width="9.97"
+       style="fill:#800080;stroke-width:9.94357084;stroke-miterlimit:4;stroke-dasharray:none;stroke:#007b00;stroke-opacity:1" />
+  </g>
+</svg>

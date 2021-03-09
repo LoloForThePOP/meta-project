@@ -1,0 +1,194 @@
+
+<div id="sharePresentationModal" class="customModal">
+
+    <span class="closeCustomModal" onclick="closeCustomModal()">&times;</span>
+
+    <div class="pt-4 px-2 p-md-5">
+
+        <p class="">
+            
+            Pour faire connaître ce projet, copiez son adresse et partagez là
+
+            <br><br>
+
+            <span class="mr-2">Voici son adresse :</span>
+
+            <input id="presentationAbsoluteURL" value="{{ url('project_show_by_id', {"id": presentation.id()}) }}" size="50">
+
+            </input>
+
+            <br>
+            <br>
+
+            <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox')" class="btn btn-light font-weight-bold mr-3" style="border:2px solid orange !important">Copier son adresse</button>
+
+            <span id="copyURLFeedbackBox"></span>
+
+            
+   
+        </p>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    function copyToClipboard(elementId, feedbackId) {
+
+        /* Get the text field */
+        var copyText = document.getElementById(elementId);
+    
+        /* Select the text field */
+        copyText.select();
+        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+    
+        /* Copy the text inside the text field */
+        document.execCommand("copy");
+    
+        var feedback = document.getElementById(feedbackId);
+        feedback.innerHTML = "Adresse Copiée !";
+
+    } 
+
+</script>
+
+
+
+<style>
+    
+    .customModal {
+
+        display:none;
+        position: fixed;
+        z-index: 10000;
+        left: 10%;
+        top: 10%;
+        width: 80%;
+        height: 80%;
+        overflow: auto;
+        padding-top: 0px;
+        border: 4px solid black;
+        border-radius: 6px;
+        /* background-color: white;  
+        color: black; */      
+        
+
+    }
+
+    #sharePresentationModal{
+
+        background-color: aliceblue;
+
+    }
+
+    #sharePresentationModal p {
+
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    #sharePresentationModal input {
+
+        border: none;
+        background-color: inherit;
+        font-weight: bold;
+    }
+
+    .closeCustomModal{
+
+        color: black;
+        position: absolute;
+        top: 5%;
+        right: 3%;
+        font-size: 28px;
+        font-weight: bold;
+        z-index: 10;
+        
+    }
+
+        
+    .closeCustomModal:hover,
+    .closeCustomModal:focus {
+        color: #999;
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .customModal {
+
+            left: 0;
+            top: 5%;
+
+            width: 100%;
+            height: 90%;
+
+            border: 1 px solid black;
+            border-radius: 0px;
+
+        }
+
+        .closeCustomModal{
+
+            top:3%;
+            right: 5%;
+            
+        }
+
+        #sharePresentationModal p {
+
+            padding-top : 30px;
+        }
+
+    }
+
+</style>
+
+
+
+
+
+{# 
+<div class="modal" id="modal{{linkButton.name}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+
+                <h5 class="modal-title font-weight-bold" id="modalLabel">Vous pouvez copier ce code et l'intégrer dans votre site web</h5>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div>
+
+            <!-- Modal Body -->
+            <div class="modal-body">
+
+                <textarea id="{{linkButton.name}}" class="w-100" resize="none" rows="7"></textarea>
+
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+
+                <button type="button" class="btn btn-info font-weight-bold" data-dismiss="modal">Retour</button>
+
+                <!-- Copy code button -->
+                <!-- Doesn't work yet -->
+                <!-- Have to handle bootstrap modal box focus behaviour -->
+
+
+                <!-- <button type="button" onclick="" class="js-copy-code btn btn-success bg-green font-weight-bold">Copier</button> -->
+
+            </div>
+
+        </div>
+    </div>
+</div>   
+    #}

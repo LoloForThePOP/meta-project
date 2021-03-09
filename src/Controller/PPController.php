@@ -20,6 +20,7 @@ use Symfony\Component\HttpFoundation\Request;
 use App\Form\ExternalContributorsStructureType;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\ParamConverter;
@@ -407,6 +408,7 @@ class PPController extends AbstractController
             'replyForm' => $replyForm->createView(),
             'addImageForm' => $addImageForm->createView(),
             'addWebsiteForm' => $addWebsiteForm->createView(),
+            'projectPresentationURL' => $projectPresentationURL = $this->generateUrl('project_show_by_id', array('id' => $presentation->getId()), UrlGeneratorInterface::ABSOLUTE_URL),
         ]);
 
     }

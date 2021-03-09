@@ -60,4 +60,70 @@
 
     </style>
 
+{% else %} {# no keywords (+ no categories), we insert a placeholder for project presenters #}
+
+    {% if userPresenter and presentation.categories | length == 0 %}
+            
+        <a class="pp-edition-mode pl-3 pl-md-0 text-body" href="{{path('index_categories', {'slug': presentation.slug})}}">
+
+            <div id="keywordsPlaceholder" class="d-flex align-items-center">
+
+                <img class="keywordsIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/hashtag.svg" height="25" width="25" alt="add keywords icon" >
+
+                <span class="h4 font-weight-bold mt-2">Catégorie & Mots-clés</span>
+
+            </div>
+
+        </a>
+    
+
+    <style>
+
+		#keywordsPlaceholder{
+
+			cursor: pointer;
+
+            padding: 0px 15px;
+
+			border: 5px dashed rgb(180, 204, 236);
+			border-radius: 6px;
+
+		}
+
+        
+        .keywordsIcon {
+
+            margin-right : 15px;
+            
+        }
+
+		#keywordsPlaceholder:hover {
+			
+			background-color: lavender;
+		}
+
+
+		@media screen and (max-width: 580px) {
+
+			#keywordsPlaceholder{
+				
+
+			}
+
+			.keywordsIcon {
+				
+			}
+
+
+		}
+
+    </style>
+
+    
+        
+    
+    {% endif %}
+    
+    
+
 {% endif %}

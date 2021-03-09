@@ -26,122 +26,9 @@
 
 {% block body %}
 
+    {# Global Style Sheet for Project Presentation Page #}
 
-<style>
-
-    /* Whole Presentation Container */
-
-    .pp-whole-container {
-
-        background-color :  #eff4ff;
- 
-     }
-
-     /* Each Structure Container */
-
-    .pp-struct-container {
-
-        background-color : aliceblue;
-
-        padding-left: 20px;
-
-        padding-top: 20px;
-
-        margin-bottom: 35px;
-
-        border-radius: 0px;
-
-        -webkit-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
-        -moz-box-shadow: -4px 4px 9px 0px rgba(0,0,0,0.75) !important;
-        box-shadow: -1px 1px 6px 0px #e6e4ff !important;
-    
-    }
-
-
-    /* Each Structure Title Container (contains title + edit button) */
-  
-    .pp-struct-title-container{
-
-        margin-bottom: 38px;
-
-        display: flex;
-        align-items:center;
-        flex-wrap: wrap !important;
-
-    }
-
-    /* Each Structure Title */
-  
-    .pp-struct-title{
-
-        display:inline;
-        color : navy;
-        font-family : Verdana, Geneva, Tahoma, sans-serif; 
-        font-size: 2rem;
-        margin:0px;
-        margin-right:17px;
-
-    }
-
-    /* Each Structure Icon */
-  
-    .pp-struct-icon{
-
-        position: relative;
-        top: 4px;
-        
-        margin-right : 7px;
-
-        /* filter: invert(73%) sepia(92%) saturate(2564%) hue-rotate(8deg) brightness(112%) contrast(104%); */
-    }
-
-
-    
-    @media screen and (max-width: 580px) {
-
-      
-        .pp-struct-container {
-    
-            padding-left: 10px;
-
-            padding-right: 0px;
-            padding-top: 7px;
-
-            margin-bottom: 15px;
-
-            font-size: 15px !important;
-            font-family: Verdana, Geneva, Tahoma, sans-serif;
-
-        
-        }
-
-        .pp-struct-title-container{
-
-            margin-bottom: 18px;
-    
-        }
-
-        .pp-struct-title{
-
-            color : navy;
-            font-family : Verdana, Geneva, Tahoma, sans-serif;
-
-            font-size: 20px;
-    
-        }
-
-        .pp-struct-icon{
-
-            width:23px;
-            height:23px;
-
-            margin-right:5px;
-
-        }
-
-    }
-
-</style>
+    {% include 'pp/partials/_styles/styles.html.twig' %}
 
 
     {# check if user presents this project #}
@@ -154,7 +41,9 @@
         
     {% endif %}
 
-        
+
+    {# form theme inclusion for project presenters #}
+
     {% if userPresenter %}
 
         {% form_theme addWebsiteForm 'bootstrap_4_layout.html.twig' %}
@@ -162,25 +51,18 @@
     {% endif %}
 
 
-    {# manage placeholders appearance fo new projects #}
+    {# manage placeholders inclusion for newly presented projects #}
 
-	{% set presentationCreatedAtTimestamp = presentation.createdAt | date("U") %}
-
-    {% set currentTimestamp = date().timestamp %}
-
-	{% set placeHolderAppearanceTime = presentationCreatedAtTimestamp + 86400  %}
-
-
+	{% set presentationCreationTimeLapse = presentation.createdAt | date("U") - date().timestamp %} {% set placeHoldersLifeSpan = 172800  %} {# 2 days #} {# note : placeholders appears if placeHoldersLifeSpan > presentationCreationTimeLapse #}
 
 
     <!-- Project Presentation Display Template -->
 
     <div class="pp-whole-container col-md-12 col-xl-10 mt-md-5 mb-md-4 px-md-4 pt-1 pt-md-3
     
-        {# we center the presentation display when we are in consultation mode (in contrast, when in edit mode view, the presentation is not centered) #}
+        {# centering presentation display in consultation mode (in contrast, when in edit mode view, the presentation is not centered due to sidebar) #}
 
-
-        {% if not is_granted('edit', presentation) %}
+        {% if not userPresenter %}
     
             container 
 
@@ -190,19 +72,18 @@
 
         <div class="row pt-2 px-md-2">
 
-
             <div class="col-md-12 mb-3 pb-3" style="border-radius:4px !important;">
 
                 <!-- Upper Box (Contains Project Logo; Title; Goal; Keywords) -->
                 {% include 'pp/partials/_upper_box.html.twig' %}
 
-                {# "Inline" Edit Slideshow #}
+                {# Edit Slideshow PlaceHolder #}
                 {% include 'pp/partials/_edit_slideshow_placeholder.html.twig' %}
 
                 <!-- Display Project Images & Videos (Displayed in a Slideshow) -->
                 {% include 'pp/partials/_slideshow_display.html.twig' %}
 
-                {# Edit Text Description #}
+                {# Edit Text Description Placeholder #}
                 {% include 'pp/partials/_edit_text_description_placeholder.html.twig' %}
                 
                 <!-- Project Text Description -->
@@ -241,7 +122,6 @@
                 <!-- Project Team -->
                 {% include 'pp/partials/_team.html.twig' %}
 
-
                 <!-- Project External Contributors -->
                 {% include 'pp/partials/_externalContributors.html.twig' %}
 
@@ -255,10 +135,56 @@
 
                 <div class="mt-5 mb-3">
 
-                    <!-- Display Some Metadatas -->
+                    <!-- Displaying Some Metadatas -->
+
                     {% include 'pp/partials/_metadataDisplay.html.twig' %}
 
-                    <!-- some buttons (example : report abuse; save as pdf; ...) -->
+                    {# some action buttons (example : report abuse; save as pdf; ...) #}
+
+                    {# Share Presentation Button #}
+
+                    <button 
+
+                        onclick = "openSharePresentationModal()" 
+                        
+                        type="button" 
+                        
+                        class="btn btn-light mr-2 mb-2 d-flex align-items-center"
+                    
+                    >
+
+                        <img class="img-fluid mr-2" src="/images/icons/miscellaneous/share.svg" height="16" width="16" alt="share icon" >
+
+                        <span style="margin-bottom: 2px; font-weight: bold;">Partager cette adresse</span>
+                    
+                    </button>
+
+                    {# Share Presentation Modal #}
+
+                    {% include 'pp/partials/_share_presentation_modal.html.twig' %}
+
+                    {# trigger/Close Share Presentation Modal #}
+
+                    <script>
+
+                        function openSharePresentationModal()
+                        {
+                            document.getElementById("sharePresentationModal").style.display = "block";
+                        }
+  
+                        function closeCustomModal() {
+                            
+                            var customModals = document.getElementsByClassName("customModal");
+
+                            for (i = 0; i < customModals.length; i++) {
+                                customModals[i].style.display = "none";
+                            }
+
+                        }
+                       
+                    </script>
+
+                    {# Report Abuse Button #}
 
                     <a href="{{ path('report_new', {'context': presentation.id ~ ' ' ~  presentation.slug}) }}">
 
@@ -266,14 +192,14 @@
                         
                     </a>
 
+                    {# Join Presentation Button #}
 
                     <a href="{{ path('edit_presentation_request', {'slug': presentation.slug}) }}">
                         <button type="button" class="btn btn-light mr-2 mb-2">Présenter ce projet</button>
 
                     </a>
-                        
 
-                    <!-- Back to top button -->
+                    {# Back To Top Button #}
 
                     <button onclick="topFunction()" id="backTopButton" class="btn btn-light mb-2" title="Retour en Haut">↑ Haut de Page</button> 
 
@@ -301,44 +227,20 @@
 
                 </div>
 
-                {# Switch Between Edition Mode and Consultation Mode #}
+                {# Switch Between Edition Mode and Consultation Mode Button #}
 
-                {% if is_granted('edit', presentation) %}
+                {% if userPresenter %}
 
                     <button id="pp-switch-edit-consult-mode" class="edition-mode" title="Switch between edition and consultation">👁</button>
 
                 {% endif %}
-               
 
-                <!-- Project Provider Caps -->
-                {# {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
-
-
+                {#  Project Presenter General Informations Display
+                {% include 'pp/partials/_projectPresenterArea.html.twig' %} #}
 
             </div>
         
         </div>
-
-
-    <style>
-
-        #pp-switch-edit-consult-mode {
-            position: fixed; /* Fixed/sticky position */
-            top: 470px; /* Place the button at the bottom of the page */
-            right: 30px; /* Place the button 30px from the right */
-            z-index: 99; /* Make sure it does not overlap */
-            border: none; /* Remove borders */
-            outline: none; /* Remove outline */
-            background-color: #d6f0ca; /* Set a background color #b2f295 */
-            color: rgb(0, 0, 0); /* Text color */
-            cursor: pointer; /* Add a mouse pointer on hover */
-            padding: 15px; /* Some padding */
-            border-radius: 50%; /* Rounded corners */
-            font-size: 18px; /* Increase font size */
-          }
-
-        </style>
-
 
     </div>
 
@@ -363,17 +265,17 @@
     
                 //if user edit presentation, we enter in edition mode by default
 
-                //some elements are only displayed in consultation mode (follow button for exemple)
+                //some elements are only displayed in consultation mode (follow button for example)
 
                 $(".pp-consultation-mode").addClass("d-none");
 
-                //switching between edition and consultation mode
+                //manage switch between edition mode and consultation mode
                     
                 $( "#pp-switch-edit-consult-mode" ).click(function() {
                     
                     if($(this).hasClass("edition-mode")){
 
-                        //we enter consultation mode
+                        // entering consultation mode
 
                         // toggling switch button class
 
@@ -381,40 +283,42 @@
                         $(this).addClass("consultation-mode");
                         $(this).html("✎");
 
-                        //hiding pp elements related to edition
+                        //hiding elements related to edition
                         $(".pp-edition-mode").hide();
+
+                        //showing elements related to consultation
 
                         $(".pp-consultation-mode").addClass("d-block");
 
-                        //manage sidebar disappearing
+                        //managing indentation caused by sidebar disappearance
                         $(".pp-whole-container").addClass("container");
 
                     }
 
                     else{
 
-                        //we enter edition mode
-
+                        //entering edition mode
 
                         // toggling switch button class
 
                         $(this).removeClass("consultation-mode");
                         $(this).addClass("edition-mode");
                         $(this).html("👁");
-                        
 
+                        //showing elements related to edition 
                         $(".pp-edition-mode").show();
 
+                        //hiding elements related to consultation
                         $(".pp-consultation-mode").removeClass("d-block");
 
-                        //manage sidebar appearing
+                        //managing indentation caused by sidebar apparition
                         $(".pp-whole-container").removeClass("container");
 
                     }
                 
                 });
 
-                // Manage add an image form errors : we have to trigger modal box display for the user to be aware of thesses form errors.
+                // Managing potential form errors display when user add an image : we have to trigger modal box display for the user to be aware of these errors.
 
                 {% if not addImageForm.vars.valid %}
 
@@ -422,29 +326,20 @@
 
                 {% endif %}
 
-                // Manage add a website form errors : we have to trigger modal box display for the user to be aware of thesses form errors.
+                // Managing potential form errors display when user add a website (same as above)
 
-                {% if not addImageForm.vars.valid %}
+                {% if not addWebsiteForm.vars.valid %}
 
                     $('#newWebsiteFormModal').modal('show');
 
                 {% endif %}
 
-
-
             {% endif %}
 
 
+            /* Reply to a comment management */
 
-            // If reply to a comment form has errors, we display them to user (so we trigger Modal display) 
-
-            {% if not replyForm.vars.valid %}
-        
-                 $('#replyCommentModal').modal('show');
-
-            {% endif %}
-
-            // When user wants to reply to a comment, we catch the parent comment id, and store it in the reply to comment form hidden field
+            // we catch parent comment id, and store it in an hidden form field
 
             $( ".js-reply-comment-button" ).click(function() {
                 
@@ -454,7 +349,7 @@
               
             });
 
-            //when user reply to a comment, we give focus to textarea
+            // we give focus to reply comment textarea
 
             $('#replyCommentModal').on('shown.bs.modal', function () {
                 
@@ -462,11 +357,22 @@
                 
             }) 
             
-            //we hide the form honey pot
+            // Hiding form honey pot
             
             $('.onpt').hide();
 
-            //displaying slideshow image when hovering its thumbnail
+            
+            // Managing potential form errors display when user reply to a comment
+
+            {% if not replyForm.vars.valid %}
+        
+                 $('#replyCommentModal').modal('show');
+
+            {% endif %}
+
+
+
+            // displaying a slideshow image or video when hovering its thumbnail
 
             $( ".thumbnail" ).mouseover(function() {
 
@@ -479,59 +385,12 @@
 
     </script>
 
-    <!-- Project News Section : ajax call when user wants news details -->
+    <!-- Project News Section : ajax call when user request a news details -->
 
     {% if presentation.news %}
 
         {% include 'pp/js_show/_news.html.twig' %}
         
     {% endif %}
-
-
-    <!-- ProjectTeammates & owners Sections : caroussel display -->
-
-    {% if presentation.teammates | length > 0 or presentation.owners | length > 0 %}
-
-        <script type="text/javascript" src="/js/slick.min.js"></script>
-
-        <!--Styles for Slick Slideshow -->
-
-        <link rel="stylesheet" type="text/css" href="/css/slick.css"/>
-
-        <script>
-            
-            $(document).ready(function(){
-
-                // !!! Seems that only one instance is working
-
-                $('.scrolling-wrapper-flexbox .teammatesSlideshow, .ownersSlideshow').slick({
-
-                    slidesToShow: 3,
-                    infinite:false,
-                    variableWidth: true,
-                    
-                });
-
-                jQuery(window).on('resize', function() {
-                    var viewportWidth = jQuery(window).width();
-                
-                    if (viewportWidth < 481) {
-                        $('.test').slick('unslick');
-                    } else {
-                        // Do some thing
-                    }
-                });
-
-
-
-            });
-
-        </script>
-        
-    {% endif %}
-
-
-
-
 
 {% endblock %}

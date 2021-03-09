@@ -66,15 +66,17 @@
         <script src="/js/bootstrap.min.js"></script>
 
 
-        <!-- SideBar Toggle -->
         <script>
+
             $(document).ready(function () {
+
+                // SideBar Toggling
 
                 $('#sidebarCollapse').on('click', function () {
                     $('#sidebar').toggleClass('active');
                 });
 
-                //Popover management
+                // Popover Activation
 
                 $(function () {
                     $('[data-toggle="popover"]').popover()
@@ -85,6 +87,7 @@
                 })
             
             });
+            
         </script>
 
 
