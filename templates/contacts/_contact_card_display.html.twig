@@ -14,7 +14,7 @@
 
     {% if contact.title is not empty %}
         
-        <h5 class="contactCardTitle mb-3">{{contact.title}}</h5>
+        <h5 class="contactCardTitle">{{contact.title}}</h5>
     
     {% endif %}
     
@@ -24,8 +24,15 @@
     
         <div class="mb-2">
 
+            {# Email #}
+
             <div class="font-weight-bold">
-                Email :
+
+
+                <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/email.svg" height="32" width="32" alt="email icon">
+
+                E-mail :
+
             </div>
 
             <div class="pl-4">
@@ -93,6 +100,8 @@
         <div class="mb-2"> 
         
             <div class="font-weight-bold">
+
+                <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/telephone.svg" height="27" width="27" alt="telephone icon">
             
                 Téléphone :
                 
@@ -152,6 +161,8 @@
         <div class="mb-2"> 
             
             <div class="font-weight-bold">
+
+                <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/website.svg" height="27" width="27" alt="website icon">
             
                 Site web :
                 
@@ -192,7 +203,13 @@
     
         <div class="mb-2">
         
-            <div class="font-weight-bold">Adresse :</div> 
+            <div class="font-weight-bold">
+
+                <img class="contact-card-icon" src="/images/icons/consult_presentation/contact_card/address.svg" height="27" width="27" alt="address icon">
+                
+                Adresse :
+            
+            </div> 
         
             <div class="pl-4">
             
@@ -203,6 +220,7 @@
         </div>
 
     {% endif %}
+
     
     <!-- More Informations & Remarks -->
 
@@ -218,12 +236,11 @@
 
             <div class="pl-4 font-weight-bold">
 
-                {{contact.remarks}}
+                {{contact.remarks | nl2br}}
 
             </div>
 
         </div>
-    
 
     {% endif %}
 
@@ -234,6 +251,15 @@
 
         font-weight: bold;
 
+        margin-bottom: 20px;
+
+    }
+
+    .contact-card-icon{
+        width : 16px;
+        height: 16px;
+        margin-bottom : 3px;
+        margin-right : 5px;
     }
 
     @media screen and (max-width: 580px) {

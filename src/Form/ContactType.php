@@ -67,15 +67,19 @@ class ContactType extends ApplicationType
                     "Écrire ici une adresse postale", 
                     ['required' => false]
                 ))
+
             ->add(
                 'remarks',
                 TextareaType::class,
                 $this->getConfiguration(
                     "Ajouter des informations, des remarques ?",
-                    "Exemples : Heures d'ouverture ; Langues parlées",
+                    "Écrire ici",
                       ['required' => false]
                 )
             )
+
+            /*
+
             ->add(
                 'email2',
                 EmailType::class,
@@ -95,6 +99,8 @@ class ContactType extends ApplicationType
                     ['required' => false]
                 )
             )
+
+            */
         ;
     }
 

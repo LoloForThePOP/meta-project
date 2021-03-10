@@ -47,7 +47,7 @@ class SendPeriodicEmailsCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
 
-        $user = $this->entityManager
+        /* $user = $this->entityManager
                      ->getRepository(User::class)
                      ->findOneById(1);
 

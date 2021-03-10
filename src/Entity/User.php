@@ -1003,8 +1003,6 @@ class User implements UserInterface
 
         $emailsReception[$property] = $value;
 
-        
-
         $this->setEmailsReception($emailsReception);
 
 

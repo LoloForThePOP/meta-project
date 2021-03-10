@@ -100,44 +100,22 @@
 
                             <div class="pp-website-card cursor-pointer col-md-5  pl-md-3 border border-primary p-1 mb-4 mx-0 mr-md-4 " style="overflow-wrap: break-word;">
 
-                                {# website update direct link
+                                {# website update direct link  #}
 
                                 {% if userPresenter %}
 
-                                    <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="w-100 h-100 text-body text-decoration-none"></a>
+                                    <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="pp-edition-mode w-100 h-100 text-body text-decoration-none">
 
-                                {% endif %}  #}
+                                        {% include 'pp/partials/_websites/_card.html.twig' %}
 
-                                <a href="{{website.url}}" target="_blank" class="list-group-item border-0 text-decoration-none text-body p-1">
+                                    </a>
 
-                                    <div class="p-1">
+                                {% endif %}
 
-                                        {% if website.description is not null %}
+                                <a href="{{website.url}}" target="_blank" class="pp-consultation-mode list-group-item border-0 text-decoration-none text-body p-1">
 
-                                            <h5 class="websiteDescription mb-1">
-                                                
-                                                {{website.description | first | capitalize ~ website.description | slice(1,50) }}
+                                    {% include 'pp/partials/_websites/_card.html.twig' %}
 
-                                                {% if website.description | length > 50 %}
-                                                ...
-                                                {% endif %}
-
-                                            </h5>
-
-                                        {% endif %}
-
-                                        <p class="websiteUrl mb-1">
-
-                                            {{website.url | slice(0,50)}}
-
-                                            {% if website.url | length > 50 %}
-                                            (...)
-                                            {% endif %}
-                                        
-                                        </p>
-
-                                    </div>
-                                    
                                 </a>
 
                             </div>

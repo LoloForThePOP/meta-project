@@ -18,23 +18,19 @@
 
         {# Page Content Container #}
 
-        <div class="message-container">
+        <div class="message-container" >
 
             <div class="message-header">
 
                 <img src="{{absolute_url("/images/app/logo.svg")}}" width="37px" height="49px">
 
-                <div class="textcontent">
-
                     <h3>Bonjour</h3>
 
-                    <h3>Voici votre bulletin d'informations</h3>
-                    
-                </div>
+                    <h3 style="margin-top:8px;">Voici votre bulletin d'informations</h3>
 
             </div>
 
-            <div class="message-core">
+            <div class="message-core" style="padding-top:20px;">
                 
                 <!-- Notifications List -->
                 
@@ -44,7 +40,10 @@
 
             <div class="message-footer">
 
-                <h3>❤️ Bonne journée et à bientôt sur le Projet des Projets</h3>
+                <h3 style="margin-top : 48px; margin-bottom: 40px;">❤️ Bonne journée et à bientôt sur le Projet des Projets</h3>
+
+
+                <hr style="border:2px solid orange; margin-bottom: 40px;">
 
                 {# unsubscribe emails soon come #}
 
@@ -66,26 +65,27 @@
             }
 
             .message-container{
-                padding: 20px;
-                padding-bottom: 50px;
-            }
+                
+                margin:15px;
+                padding: 28px;
+                padding-bottom: 20px;
 
-            .message-header {
-                width: 450px;
-                display: flex;
-                justify-content:space-around;
-                align-items: center;
-                /* background: #ccc;*/
-                }
+                border: 6px solid green; 
+                
+            }
 
             .message-header img {
 
                 width:37px;
+                float:left;
+                margin-right: 29px;
             }
 
-            .message-header .textcontent {
-                width:377px;;
+            .message-header h3 {
+
+                margin-bottom: 5px;
             }
+
 
             .message-core{
                 margin-bottom: 40px;
@@ -95,6 +95,32 @@
                 
                 font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
             }
+
+        @media screen and (max-width: 580px) {
+
+            .message-container{
+
+                margin: 15px 0;
+                padding: 10px 0;
+            }
+
+            .message-header img {
+
+                width:37px;
+                float:left;
+                margin-right: 10px;
+            }
+
+            .message-header h3 {
+
+                font-size : 17px;
+            }
+
+            .message-footer{
+                padding: 0 15px;
+            }
+
+        }
 
 
         </style>

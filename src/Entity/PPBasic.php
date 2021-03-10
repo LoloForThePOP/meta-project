@@ -461,6 +461,11 @@ class PPBasic implements \Serializable
      */
     private $isDeleted;
 
+    /**
+     * @ORM\Column(type="json", nullable=true)
+     */
+    private $statistics = [];
+
 
  
 
@@ -1546,6 +1551,40 @@ class PPBasic implements \Serializable
 
         return $this;
     }
+
+    public function getStatistics(): ?array
+    {
+        return $this->statistics;
+    }
+
+    public function setStatistics(?array $statistics): self
+    {
+        $this->statistics = $statistics;
+
+        return $this;
+    }
+
+
+    
+    /**
+     * Allow to update user emails reception data and preferences
+     * List of properties : see emailsReception property
+     */
+
+    /* public function updateEmailsReception($property, $value)
+    {
+
+        $emailsReception = $this->getEmailsReception();
+
+        $emailsReception[$property] = $value;
+
+        $this->setEmailsReception($emailsReception);
+
+
+        return $this;
+
+    } */
+
 
 
 
