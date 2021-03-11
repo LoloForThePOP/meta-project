@@ -9,7 +9,92 @@
 
 {% block body %}
 
+
+<div class="container pt-2">
+           
+    <!-- ui Page Title -->	
+    
+    <h5 class="h4 font-weight-bold my-3 mt-4 d-inline-block mr-3">Catégories du Projet</h5>
+    
+    <!-- collapsable advice -->
+    
+      <!-- Trigger Button -->
+      
+      <a class="my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        
+        <span class="btn btn-light fs-15 h5 sharp font-weight-bold p-1 px-2" style="letter-spacing: 2px;">Conseils</span>
+        
+      </a>
+      
+      <!-- Advice -->
+
+      <div class="info-box collapse col-md-6 mt-2" id="collapseExample">
+                  
+          <ul class="h5">
+
+              <li><strong>Choisissez des catégories et des mots-clés</strong> pour que les visiteurs intéressés découvrent votre projet</li>
+
+              <li>On peut <strong>combiner les catégories</strong></li>
+
+              <li>Par exemple : Environnement <strong>ET</strong> Construction</li>
+
+              <li>Maximum recommandé : 6</li>
+
+              <li><strong>Compléter avec des mots-clés est efficace</strong></li>
+
+              <li>Séparez les mots-clés <span>avec des virgules</span></li>
+
+          </ul>
+
+      </div>
+
+
+    <!-- Categories Grid -->
+
+    <div id="catGrid" class="clearfix pl-3">
+
+        {% for category in categories %}
+
+        <div id="{{category.id}}" class="{% if category in presentation.categories %}selectedCategory {% endif %} catButton cursor-pointer float-left border rounded row mt-3 d-table">
+
+            <div class="leftDiv d-table-cell align-middle">
+                <img id="" class="" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="35" height="35">
+            </div>
+        
+            <div class="rightDiv d-table-cell align-middle font-weight-bold">
+                    {{category.descriptionFr}}
+            </div>
+        
+        </div>
+
+        {% endfor %}
+
+        <div class="d-inline-block" style="margin-top:35px;">
+
+            {{form_start(form)}}
+            
+            {{form_errors(form.keywords)}}
+            {{form_widget(form.keywords)}}
+
+
+            <button type="submit" class="btn btn-success mb-1 sharp bg-green"><span class="h5 font-weight-bold">Valider</span></button>
+
+            {{form_end(form)}}
+        </div>
+        
+    </div>
+
+</div>
+
+
+{# Styles for Categories and keywords page #}
+
+
 <style>
+
+    .info-box ul li{
+        margin-bottom: 7px;
+    }
         
     .catButton {
     
@@ -63,80 +148,6 @@
       }
       
 </style>
-
-<div class="container pt-2">
-           
-    <!-- ui Page Title -->	
-    
-    <h5 class="h4 font-weight-bold my-3 mt-4 d-inline-block mr-3">Catégories du Projet</h5>
-    
-    <!-- collapsable advice -->
-    
-      <!-- Trigger Button -->
-      
-      <a class="font-weight-bold my-1" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        
-        <span class="btn btn-light fs-15 h5 sharp p-1" style="letter-spacing: 2px;">Conseils rapides</span>
-        
-      </a>
-      
-      <!-- Advice -->
-
-      <div class="info-box collapse mt-2" id="collapseExample">
-                  
-          <ul class="h5">
-
-              <li>On peut <strong>combiner les catégories</strong></li>
-
-              <li>Exemple: Environnement ET Construction</li>
-
-              <li>Maximum recommandé : 6</li>
-
-              <li><strong>Compléter avec des mots-clés est efficace</strong></li>
-
-              <li>Séparez les mots-clés avec des virgules</li>
-
-          </ul>
-
-      </div>
-
-
-    <!-- Categories Grid -->
-
-    <div id="catGrid" class="clearfix pl-3">
-
-        {% for category in categories %}
-
-        <div id="{{category.id}}" class="{% if category in presentation.categories %}selectedCategory {% endif %} catButton cursor-pointer float-left border rounded row mt-3 d-table">
-
-            <div class="leftDiv d-table-cell align-middle">
-                <img id="" class="" src="/images/icons/categories/{{category.name}}.svg" alt="{{category.name}}" width="35" height="35">
-            </div>
-        
-            <div class="rightDiv d-table-cell align-middle font-weight-bold">
-                    {{category.descriptionFr}}
-            </div>
-        
-        </div>
-
-        {% endfor %}
-
-        <div class="d-inline-block" style="margin-top:35px;">
-
-            {{form_start(form)}}
-            
-            {{form_errors(form.keywords)}}
-            {{form_widget(form.keywords)}}
-
-
-            <button type="submit" class="btn btn-success mb-1 sharp bg-green"><span class="h5 font-weight-bold">Valider</span></button>
-
-            {{form_end(form)}}
-        </div>
-        
-    </div>
-
-</div>
 
 {% endblock %}
 

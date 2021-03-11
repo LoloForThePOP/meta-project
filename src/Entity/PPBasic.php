@@ -1567,23 +1567,21 @@ class PPBasic implements \Serializable
 
     
     /**
-     * Allow to update user emails reception data and preferences
-     * List of properties : see emailsReception property
+     * Allow to update presentation statistics
      */
 
-    /* public function updateEmailsReception($property, $value)
+    public function updateStatistics($property, $value)
     {
 
-        $emailsReception = $this->getEmailsReception();
+        $statistics = $this->getStatistics();
 
-        $emailsReception[$property] = $value;
+        $statistics[$property] = $value;
 
-        $this->setEmailsReception($emailsReception);
-
+        $this->setStatistics($statistics);
 
         return $this;
 
-    } */
+    }
 
 
 
