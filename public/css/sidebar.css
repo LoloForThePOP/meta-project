@@ -16,6 +16,15 @@
     font-size: 1.15em;
 }
 
+#sidebar ul {
+
+    margin-top:31px; 
+
+    background-color:#eff4ff;
+    border:2px solid orange;
+
+}
+
 #sidebar.active {
     min-width: 125px;
     max-width: 125px;

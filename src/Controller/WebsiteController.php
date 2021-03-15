@@ -116,7 +116,7 @@ class WebsiteController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $jsonWebsitesPosition = $request->request->get('jsonWebsitesPosition');
+            $jsonWebsitesPosition = $request->request->get('jsonElementsPosition');
 
             $websitesPosition = json_decode($jsonWebsitesPosition,true);
 
@@ -154,7 +154,7 @@ class WebsiteController extends AbstractController
 
         if ($request->isXmlHttpRequest()) {
 
-            $idWebsite = $request->request->get('idWebsite');
+            $idWebsite = $request->request->get('idElement');
 
             $website = $websiteRepository->findOneById($idWebsite);
 

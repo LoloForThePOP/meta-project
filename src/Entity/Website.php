@@ -29,7 +29,7 @@ class Website
      * @ORM\Column(type="string", length=255, nullable=true)
      * 
      * @Assert\Url(
-     *    message = "Cette adresse '{{ value }}' n'est pas une url valide",
+     *    message = "l'adresse '{{ value }}' n'est pas une url valide",
      * )
      * 
      */
@@ -58,6 +58,24 @@ class Website
      * 
      */
     private $presentation;
+
+    /**
+     * @ORM\Column(type="string", length=15, nullable=true)
+     * 
+     * Type of website
+     * Examples : 'general'; 'poll'.
+     *  
+     */
+    private $type;
+
+
+    
+    public function __construct()
+    {
+        $this->type = 'general';
+    }
+
+
 
 
     public function getId(): ?int
@@ -112,4 +130,17 @@ class Website
 
         return $this;
     }
+
+    public function getType(): ?string
+    {
+        return $this->type;
+    }
+
+    public function setType(?string $type): self
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+    
 }

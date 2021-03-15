@@ -28,7 +28,7 @@
 
     {# Global Style Sheet for Project Presentation Page #}
 
-    {% include 'pp/partials/_styles/styles.html.twig' %}
+    {% include 'pp/partials/_styles/_default.html.twig' %}
 
 
     {# check if user presents this project #}
@@ -149,7 +149,7 @@
                         
                         type="button" 
                         
-                        class="btn btn-light mr-2 mb-2 d-flex align-items-center"
+                        class="btn btn-light mr-2 mb-2"
                     
                     >
 
@@ -198,10 +198,22 @@
                         <button type="button" class="btn btn-light mr-2 mb-2">Présenter ce projet</button>
 
                     </a>
+                    
 
                     {# Back To Top Button #}
 
-                    <button onclick="topFunction()" id="backTopButton" class="btn btn-light mb-2" title="Retour en Haut">↑ Haut de Page</button> 
+                    <button id="back-to-top-button" class="" onclick="topFunction()" class="d-flex align-items-center" title="Back to top button">
+
+                        <svg width="16.4" height="16.4" version="1.1" viewBox="0 0 51.4 30.9" xmlns="http://www.w3.org/2000/svg">
+                            <path d="m46.2 30.1-20.8-22.5-20.6 22.5c-1.21 0.742-2.77 0.578-3.79-0.398-1.03-0.98-1.27-2.53-0.586-3.77l22.9-25c0.602-0.613 1.43-0.961 2.29-0.961 0.863 0 1.69 0.348 2.29 0.961l22.9 25c0.887 1.29 0.688 3.04-0.473 4.09-1.16 1.05-2.91 1.09-4.11 0.0781z"/>
+                        </svg>
+
+                    </button>
+
+                    {# Toggle Dark Theme Normal Theme Buttons
+
+                    {% include 'pp/partials/_dark_theme/_buttons_with_actions.html.twig' %}
+                    {% include 'pp/partials/_dark_theme/_style_dark_theme.html.twig' %}  #}
 
                 </div>
 

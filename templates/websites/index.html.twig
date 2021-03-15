@@ -102,7 +102,7 @@
 
                     {% for website in presentation.websites %}
 
-                        <!-- Thumbnail Container -->
+                        <!-- Thumbnails Container -->
 
                         <div id="{{website.id}}" class="fs-15 col-md-5 mr-md-4 js-sortableGridItem d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
 
@@ -156,7 +156,7 @@
 
 {% block javascripts %}
 
-    <!-- sortable plugin in order to reorder slides -->
+    <!-- sortable plugin in order to reorder websites -->
 
     <script src="/js/sortable/sortable.min.js"></script>
 
@@ -184,7 +184,7 @@
 
                 onEnd: function (evt) {
 
-                    // an array storing slides id position
+                    // an array storing websites id position
 
                     var websitesPosition = [];
 
@@ -202,7 +202,7 @@
                         type:       'POST',   
                         dataType:   'json',
                         data: {
-                            "jsonWebsitesPosition": jsonWebsitesPosition,
+                            "jsonElementsPosition": jsonWebsitesPosition,
                         },
     
                         async: true,  
@@ -238,7 +238,7 @@
                     dataType:   'json',
                     
                     data: {
-                        "idWebsite": idWebsite,
+                        "idElement": idWebsite,
                     },
 
                     async: true,  

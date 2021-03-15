@@ -800,6 +800,29 @@ class PPBasic implements \Serializable
         return $this->websites;
     }
 
+    /**
+     * return websites of a specific type (example : polls websites)
+     */
+    public function getWebsitesByType(string $type)
+    {
+        
+        $websites = $this->getWebsites();
+        $result = [];
+
+        foreach ($websites as $website) {
+            
+            if ($website->getType()==$type) {
+
+                $result[] = $website;
+
+            }
+
+        }
+
+        return $result;
+
+    }
+
     public function addWebsite(Website $website): self
     {
         if (!$this->websites->contains($website)) {
