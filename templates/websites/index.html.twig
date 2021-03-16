@@ -74,7 +74,7 @@
 
             <p class="h5 mb-3 pt-1">
 
-                Pour modifier l'ordre des sites webs, utilisez le Glisser-Déposer (= drag and drop)       
+                Pour modifier l'ordre des sites webs, utilisez le glisser-déposer (= drag and drop)       
 
             </p>
 
@@ -98,34 +98,13 @@
 
             <div id="websitesList" class="row col-md-10 pl-0">
 
-                {% if presentation.websites | length > 0 %}
+                {% if websites | length > 0 %}
 
-                    {% for website in presentation.websites %}
+                    {% for website in websites %}
 
                         <!-- Thumbnails Container -->
 
-                        <div id="{{website.id}}" class="fs-15 col-md-5 mr-md-4 js-sortableGridItem d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
-
-                            <a href="{{path('edit_website', {'slug':slug,'idWebsite' : website.id })}}" class="w-100 h-100 text-body text-decoration-none">
-                                
-
-                                <span class="font-weight-bold">
-
-                                    {{ website.description }}
-
-                                </span>
-
-                                <br>
-
-                                {{ website.url }}
-
-                            </a>
-     
-                            <!-- Remove Website Button (Red Cross) -->
-            
-                            <button type="button" class="js-delete-website d-inline position-absolute btn btn-danger sharp" data-id="{{website.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
-
-                        </div>
+                        {% include 'websites/_website_thumbnail_display.html.twig' %}
 
                     {% endfor %}
 
@@ -222,7 +201,7 @@
             
             // Remove a Website
 
-            $('#websitesList').on('click', '.js-delete-website', function (){
+            $('#websitesList').on('click', '.js-delete-element', function (){
 
                 var idWebsite = $(this).attr("data-id");
 

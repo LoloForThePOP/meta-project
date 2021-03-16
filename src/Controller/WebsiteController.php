@@ -22,7 +22,9 @@ class WebsiteController extends AbstractController
 {
 
     /**
-     * @Route("/", name="websites_index")
+     * Allow user to access project related general websites (by contrast with project related specific websites (ex: project polls urls, managed in manage_polls))
+     * 
+     * @Route("/manage", name="manage_general_websites")
      */
     public function index (PPBasic $presentation, Request $request, EntityManagerInterface $manager)
     {
@@ -47,8 +49,8 @@ class WebsiteController extends AbstractController
                 "Les modifications ont été effectuées !"
             );
 
-            return $this->redirectToRoute('websites_index', [
-                'slug' => $presentation->getSlug(),
+            return $this->redirectToRoute('manage_general_websites', [
+                'websites' => $presentation->getWebsitesByType('general'),
                 'presentation' => $presentation,
             ]);
 
@@ -56,7 +58,7 @@ class WebsiteController extends AbstractController
     
         return $this->render('websites/index.html.twig', [
             'addWebsiteForm' => $addWebsiteForm->createView(),
-            'slug' => $presentation->getSlug(),
+            'websites' => $presentation->getWebsitesByType('general'),
             'presentation' => $presentation,
         ]);
 

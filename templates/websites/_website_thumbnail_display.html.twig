@@ -1,0 +1,23 @@
+
+
+<div id="{{website.id}}" class="js-sortableGridItem fs-15 col-md-5 mr-md-4 d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
+
+    <a href="{{path('edit_website', {'slug':presentation.slug,'idWebsite' : website.id })}}" class="w-100 h-100 text-body text-decoration-none">
+        
+        <span class="font-weight-bold">
+
+            {{ website.description }}
+
+        </span>
+
+        <br>
+
+        {{ website.url }}
+
+    </a>
+
+    <!-- Remove Website Button (Red Cross) -->
+
+    <button type="button" class="js-delete-element d-inline position-absolute btn btn-danger sharp" data-id="{{website.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
+
+</div>

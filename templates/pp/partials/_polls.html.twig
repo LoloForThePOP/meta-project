@@ -1,0 +1,150 @@
+
+<!-- Project Polls Display -->
+
+{# polls are links directed to polls websites (ex: google form; survey monkey; etc) #}
+
+{% set polls = presentation.getWebsitesByType("poll") %}
+
+{% if polls | length > 0 %}
+
+    <!-- Whole Structure Container -->
+
+    <div id="pollsDisplay" class="pp-struct-container">
+
+        <!-- Title Container -->
+
+        <div class="pp-struct-title-container d-flex align-items-center">
+
+            <!-- Structure Icon -->
+
+            <img class="pp-struct-icon" src="/images/icons/consult_presentation/polls.svg" height="26" width="26" alt="polls icon">
+
+            <!-- Structure Title -->
+
+            <h3 class="pp-struct-title">Questionnaires - Sondages</h3>
+
+            <!-- Edit Presentation Buttons -->
+    
+            {% if userPresenter == true %}
+                
+                {# Manage Polls Shortcut Button #}
+
+                    <a class="pp-edition-mode" href="{{ path('manage_polls', {'slug': presentation.slug}) }}">
+
+                        <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer</button>
+                        
+                    </a>
+
+            {% endif %}
+
+        </div>
+
+        <!-- Project Polls Grid Display -->
+
+        <style>
+
+            .pp-website-card, .pp-website-card >* {
+
+                background-color: white;
+            }
+
+            .pp-website-card:hover, .pp-website-card:hover a{
+                background-color:rgb(251, 250, 240) !important;
+            }
+
+            .websiteDescription {
+
+                font-weight: bold;
+
+            }
+
+            .websiteUrl {
+
+                font-size: 1.15em;
+
+            }
+
+            @media screen and (max-width: 580px) {
+
+                .websiteDescription {
+
+                    font-weight: normal;
+                    font-size: 17px;
+    
+                }
+
+                .websiteUrl {
+
+                    font-weight: normal;
+                    font-size: 12px;
+    
+                }
+
+            }
+
+        </style>
+
+        <div class="container pl-md-3">
+
+            <div class="row">
+                
+                    {% for poll in polls %}
+
+                            <div class="pp-website-card cursor-pointer col-md-5  pl-md-3 border border-primary p-1 mb-4 mx-0 mr-md-4 " style="overflow-wrap: break-word;">
+
+                                {# edit poll shortcut  #}
+
+                                {% if userPresenter %}
+
+                                    <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : poll.id })}}" class="pp-edition-mode w-100 h-100 text-body text-decoration-none">
+
+                                        {% include 'pp/partials/_websites/_card.html.twig' with {'website': poll} %}
+
+                                    </a>
+
+                                {% endif %}
+
+                                <a href="{{poll.url}}" target="_blank" class="pp-consultation-mode list-group-item border-0 text-decoration-none text-body p-1">
+
+                                    {% include 'pp/partials/_websites/_card.html.twig' with {'website': poll} %}
+
+                                </a>
+
+                            </div>
+
+                        {% endfor %}
+            </div>
+
+             
+
+        </div>
+
+    </div>
+
+
+    
+<style>
+
+    #pollsDisplay .pp-struct-icon {
+    
+        top: 3px;
+        margin-right: 14px;
+        margin-left: 3px;
+    }
+
+    @media screen and (max-width: 580px) {
+            
+        #pollsDisplay .pp-struct-icon {
+            width: 18px;
+            height: 18px;
+            top: 0px;
+            margin-right: 7px;
+            margin-left: 1px;
+        }
+
+    }
+
+</style>
+
+{% endif %}
+

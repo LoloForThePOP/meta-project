@@ -62,7 +62,7 @@
         {% include 'polls/_new_poll_modal_form.html.twig' %}
 
 
-        <!-- Project Polls List -->
+        <!-- Project Polls List (it is a list of websites links) -->
 
         <div class="container mb-2">
 
@@ -72,31 +72,9 @@
 
                     {% for poll in polls %}
 
-                        <!-- Thumbnails Container -->
+                        <!-- Thumbnails -->
 
-                        <!-- Sortable Items (reordering capability) -->
-
-                        <div id="{{poll.id}}" class="js-sortableGridItem fs-15 col-md-5 mr-md-4  d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
-
-                            <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite': poll.id })}}" class="w-100 h-100 text-body text-decoration-none">
-
-                                <span class="font-weight-bold">
-
-                                    {{ poll.description }}
-
-                                </span>
-
-                                <br>
-
-                                {{ poll.url }}
-
-                            </a>
-     
-                            <!-- Remove Poll Website Button (Red Cross) -->
-            
-                            <button type="button" class="js-delete-element d-inline position-absolute btn btn-danger sharp" data-id="{{poll.id}}" style="top:0; right:0;"><span class="font-weight-bold">X</span></button>
-
-                        </div>
+                        {% include 'websites/_website_thumbnail_display.html.twig' with {'website': poll} %}
 
                     {% endfor %}
 

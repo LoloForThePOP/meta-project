@@ -1,7 +1,9 @@
 
 <!-- Project Websites Display -->
 
-{% if presentation.websites | length > 0 %}
+{% set websites = presentation.getWebsitesByType("general") %}
+
+{% if websites | length > 0 %}
 
     <!-- Whole Structure Container -->
 
@@ -19,7 +21,7 @@
 
             <h3 class="pp-struct-title">Sites web</h3>
 
-            <!-- Edit Project Title Button -->
+            <!-- Edit Presentation Buttons -->
     
             {% if userPresenter == true %}
             
@@ -34,7 +36,7 @@
                 
                 {# Manage Websites Shortcut Button #}
 
-                    <a class="pp-edition-mode" href="{{ path('websites_index', {'slug': presentation.slug}) }}">
+                    <a class="pp-edition-mode" href="{{ path('manage_general_websites', {'slug': presentation.slug}) }}">
 
                         <button class="btn btn-light sharp font-weight-bold d-inline fs-15">Gérer les sites web</button>
                         
@@ -96,7 +98,7 @@
 
             <div class="row">
                 
-                    {% for website in presentation.websites %}
+                    {% for website in websites %}
 
                             <div class="pp-website-card cursor-pointer col-md-5  pl-md-3 border border-primary p-1 mb-4 mx-0 mr-md-4 " style="overflow-wrap: break-word;">
 
@@ -129,29 +131,52 @@
 
     </div>
 
+    <style>
 
-    
-<style>
-
-    #websitesDisplay .pp-struct-icon {
-        margin-right: 16px;
-        margin-left: 2px;
-        top: 0px;
-    }
-
-    @media screen and (max-width: 580px) {
-            
         #websitesDisplay .pp-struct-icon {
-            width: 19px;
-            height: 18px;
-            top: 1px;
-            margin-right: 8px;
-            margin-left: 1px;
+            margin-right: 16px;
+            margin-left: 2px;
+            top: 0px;
         }
 
-    }
+        @media screen and (max-width: 580px) {
+                
+            #websitesDisplay .pp-struct-icon {
+                width: 19px;
+                height: 18px;
+                top: 1px;
+                margin-right: 8px;
+                margin-left: 1px;
+            }
 
-</style>
+        }
+
+    </style>
+
+
+{# placeholder for project websites 
+
+{% elseif userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %} 
+    
+    {% include 
+        
+        'pp/partials/_placeholder_pattern.html.twig' 
+        
+        with {
+            
+            'placeholderTargetRoute': "manage_general_websites",
+
+            'placeholderIconName': "websites2",
+
+            'placeholderIconTitle': "website and social network icon",
+
+            'placeholderIconHeight': 200,
+
+            'placeholderIconWidth': 400,
+        
+        } 
+        
+    %} #}
 
 {% endif %}
 
