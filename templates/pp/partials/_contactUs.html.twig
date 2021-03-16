@@ -1,12 +1,23 @@
 
 
+{# if we display a placeholder in edition mode (i.e. we display an icon surrounded with dashed border), we do not display structure with title and contact card#}
+
+{% set contactUsDisplay = '' %}
+
+{% if presentation.contacts | length == 0 and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %}
+
+    {% set contactUsDisplay = 'pp-consultation-mode' %}
+
+{% endif %}
+
+
 <!-- "Contact Us Cards" & "Send Private Message Button" Display -->
 
-{% if presentation.contacts | length > 0 or  presentation.isActiveContactMessages %}
+{% if presentation.contacts | length > 0 or presentation.isActiveContactMessages %}
 
     <!-- Structure Container -->
 
-    <div id="contactInfosDisplay" class="pp-struct-container pb-3">
+    <div id="contactInfosDisplay" class="{{ contactUsDisplay }} pp-struct-container pb-3">
 
         <!-- Title Container -->
 
@@ -110,7 +121,7 @@
                 
                 {% if presentation.isActiveContactMessages %}
 
-                    <div class="pp-private-message-card cursor-pointer col-md-5 border border-primary border-2 mb-4 mr-0 mr-md-4" style="min-height: 150px;">
+                    <div class="pp-consultation-mode pp-private-message-card cursor-pointer col-md-5 border border-primary border-2 mb-4 mr-0 mr-md-4" style="min-height: 150px;">
                                 
                         <div class="h5 my-auto mx-auto text-center font-weight-bold h-100 w-100 d-flex align-items-center justify-content-center" style="letter-spacing: 1.15px; font-size:1.20em;">
                                         
@@ -126,7 +137,6 @@
         </div>
 
     </div>
-
 
     <style>
 
@@ -151,5 +161,28 @@
 
         }
     </style>
+
+{% endif %}
+
+
+{# placeholder for project contact cards #} 
+
+{% if presentation.contacts | length == 0 and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %} 
+    
+    {% include 
+        
+        'pp/partials/_placeholder_pattern.html.twig' 
+        
+        with {
+            
+            'placeholderTargetRoute': "contact_new",
+
+            'placeholderIconName': "email",
+
+            'placeholderIconTitle': "contact icon",
+        
+        } 
+        
+    %}
 
 {% endif %}

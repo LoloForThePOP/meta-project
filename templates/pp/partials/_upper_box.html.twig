@@ -5,190 +5,210 @@
 
 <!-- (Small Screen Version) -->
 
-    <div class="pp-upper-box-structure container d-md-none" >
+<div id="upperBoxDisplay" class="pp-upper-box-structure container d-md-none" >
 
-        <div class="row mb-2">
+    <div class="row mb-2">
 
-            <!-- Project Title Display -->
+        <!-- Project Title Display -->
 
-            {% include 'pp/partials/_title.html.twig' %}
+        {% include 'pp/partials/_title.html.twig' %}
 
-        </div>
+    </div>
 
-        <div class="row">
+    <div class="row">
 
-            <!-- Project Logo Display -->
+        <!-- Project Logo Display -->
 
-            {% if presentation.logoName %}
+        {# with placeholder management #}
 
-                <div class="col-4 d-flex align-items-center justify-content-center">
+        {% if presentation.logoName or placeHoldersLifeSpan > presentationCreationTimeLapse %}
+
+            <div class="col-4 d-flex align-items-center justify-content-center">
+
+                {% if userPresenter and presentation.logoName is empty %}
+                    
+                    {% include 'pp/partials/_edit_logo_placeholder.html.twig' %}
+
+                {% else %}
 
                     {% include 'pp/partials/_logo.html.twig' %}
 
-                </div>
-
-            {% endif %}
-
-            {# Project Goal Display #}
-
-            <div class="pp-goal-container pl-md-3 pr-0 d-flex align-items-center
-
-                {% if presentation.title is empty %}
-
-                     noTitle-sm
-                     
                 {% endif %}
-
-                {% if presentation.logoName is empty %}
-                
-                    col-auto noLogo-sm 
-                
-                {% else %}
-
-                     col-8  
-
-                {% endif %}
-            
-            ">
-
-                <div class="container">
-                    
-                    <!-- Project Goal Display -->
-
-                    <div class="row">
-
-                        {% include 'pp/partials/_goal.html.twig' %}
-
-                    </div>
-
-                </div>   
 
             </div>
 
-        </div>
-    
-        {# Project Keywords Display #}
+        {% endif %}
 
-        <div class="row">
+        {# Project Goal Display #}
 
-            {% include 'pp/partials/_keywords.html.twig' %}
+        <div class="pp-goal-container pl-md-3 pr-0 d-flex align-items-center
+
+            {% if presentation.title is empty %}
+
+                noTitle-sm
+                 
+            {% endif %}
+
+            {% if presentation.logoName is empty and placeHoldersLifeSpan < presentationCreationTimeLapse %}
+            
+                col-auto noLogo-sm 
+            
+            {% else %}
+
+                 col-8  
+
+            {% endif %}
+        
+        ">
+
+            <div class="container">
+                
+                <!-- Project Goal Display -->
+
+                <div class="row">
+
+                    {% include 'pp/partials/_goal.html.twig' %}
+
+                </div>
+
+            </div>   
 
         </div>
 
     </div>
 
+    {# Project Keywords Display #}
+
+    <div class="row">
+
+        {% include 'pp/partials/_keywords.html.twig' %}
+
+    </div>
+
+</div>
+
 <!-- (Bigger Screen Version) -->
 
-    <!-- One Row Containing Two Columns -->
+<!-- One Row Containing Two Columns -->
 
-    <div class="pp-upper-box-structure d-none d-md-block">
+<div class="pp-upper-box-structure d-none d-md-block">
 
-        <div class="row">
+    <div class="row">
 
-        <!-- Left Column -->
+    <!-- Left Column -->
 
-            {% if presentation.logoName %}
+        {% if presentation.logoName or placeHoldersLifeSpan > presentationCreationTimeLapse %}
 
-                <div class="col-2 pr-md-0 d-flex align-items-center justify-content-center">
+            <div class="col-2 pr-md-0 d-flex align-items-center justify-content-center">
+
+                {% if userPresenter and presentation.logoName is empty %}
+
+                    {# Placeholder Logo Display #}
+                    
+                    {% include 'pp/partials/_edit_logo_placeholder.html.twig' %}
+
+                {% else %}
 
                     <!-- Project Logo Display -->
 
                     {% include 'pp/partials/_logo.html.twig' %}
 
-                </div>
+                {% endif %}
+
+            </div>
+            
+         {% endif %}
+
+        <!-- Right Column -->
+
+        <div class="col-10 mb-0 d-flex align-items-center">
+
+            <div class="container">
+
+                 <!-- Project Title Display -->
+
+                <div class="row">
+                    
+                    {% include 'pp/partials/_title.html.twig' %}
                 
-             {% endif %}
-
-            <!-- Right Column -->
-
-            <div class="col-10 mb-0 d-flex align-items-center">
-
-                <div class="container">
-
-                     <!-- Project Title Display -->
-
-                    <div class="row">
-                        
-                        {% include 'pp/partials/_title.html.twig' %}
-                    
-                    </div>
-
-                    <!-- Project Goal Display -->
-
-                    <div class="row pt-1 mb-2 pr-2">
-
-                        {% include 'pp/partials/_goal.html.twig' %}
-                  
-                    </div>
-
-
-                    <!-- Project Keywords Display -->
-
-                    <div class="row">
-                        
-                        {% include 'pp/partials/_keywords.html.twig' %}
-                    
-                    </div>
-
                 </div>
-        
-        </div>
+
+                <!-- Project Goal Display -->
+
+                <div class="row pt-1 mb-2 pr-2">
+
+                    {% include 'pp/partials/_goal.html.twig' %}
+              
+                </div>
+
+                
+                <!-- Project Keywords Display -->
+
+                <div class="row">
+                    
+                    {% include 'pp/partials/_keywords.html.twig' %}
+                
+                </div>
+
+            </div>
+    
+    </div>
 
     </div>
 
 
-    
+
 <style>
 
+.pp-upper-box-structure{
+    
+    margin-top:8px;
+    margin-bottom:35px;
+
+    padding-left: 17px; 
+    padding-top: 14px;
+    padding-bottom: 16px;
+
+    background-color : aliceblue;
+
+    border-left: 6px solid #ffa500;
+    border-bottom: 6px solid #ffa500;
+
+}
+
+
+.pp-goal-container{
+    padding-left:12px;
+}
+
+@media screen and (max-width: 580px) {
+
     .pp-upper-box-structure{
-        
-        margin-top:8px;
-        margin-bottom:35px;
 
-        padding-left: 17px; 
-        padding-top: 14px;
-        padding-bottom: 16px;
+        margin-top:0;
+        margin-bottom:18px;
 
-        background-color : aliceblue;
+        padding-left:10px;
+        padding-bottom: 6px;
 
-        border-left: 6px solid #ffa500;
-        border-bottom: 6px solid #ffa500;
+        border:none;
 
     }
-
 
     .pp-goal-container{
         padding-left:12px;
     }
 
-    @media screen and (max-width: 580px) {
-
-        .pp-upper-box-structure{
-
-            margin-top:0;
-            margin-bottom:18px;
-
-            padding-left:10px;
-            padding-bottom: 6px;
-
-            border:none;
-    
-        }
-
-        .pp-goal-container{
-            padding-left:12px;
-        }
-
-        .noTitle-sm{
-            padding-top:0px !important;
-        }
-
-        .noLogo-sm{
-            padding-left:0px !important;
-        }
-
+    .noTitle-sm{
+        padding-top:0px !important;
     }
+
+    .noLogo-sm{
+        padding-left:0px !important;
+    }
+
+}
 
 </style>
 
-    </div>
+</div>

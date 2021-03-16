@@ -1,0 +1,33 @@
+
+	<a href="{{ path('project_edit', {'slug': presentation.slug}) }}" class="">
+
+		<div id="logoPlaceholder" class="mb-md-2">
+
+			<img class="noLogoIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/no_logo.svg" height="90" width="90" alt="add a logo icon" >
+
+		</div>
+
+	</a>
+
+	<style>
+
+		#logoPlaceholder{
+
+			border: 5px dashed rgb(180, 204, 236);
+			border-radius: 6px;
+			padding:15px;
+
+		}
+
+		#logoPlaceholder:hover {
+			cursor: pointer;
+			background-color: lavender;
+		}
+
+
+		@media screen and (max-width: 580px) {
+
+
+		}
+
+	</style>

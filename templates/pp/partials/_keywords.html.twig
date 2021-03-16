@@ -64,7 +64,7 @@
 
     {% if userPresenter and presentation.categories | length == 0 %}
             
-        <a class="pp-edition-mode pl-3 pl-md-0 text-body" href="{{path('index_categories', {'slug': presentation.slug})}}">
+        <a class="pp-edition-mode pl-3 w-100 pl-md-0 text-body mt-4" href="{{path('index_categories', {'slug': presentation.slug})}}">
 
             <div id="keywordsPlaceholder" class="d-flex align-items-center">
 
@@ -88,6 +88,8 @@
 			border: 5px dashed rgb(180, 204, 236);
 			border-radius: 6px;
 
+            width:400px;
+
 		}
 
         
@@ -106,14 +108,10 @@
 		@media screen and (max-width: 580px) {
 
 			#keywordsPlaceholder{
-				
+
+                width:100%;
 
 			}
-
-			.keywordsIcon {
-				
-			}
-
 
 		}
 
