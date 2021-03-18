@@ -1,7 +1,15 @@
 
-<!--  Box Containing Project Title + Goal + Logo -->
+<!--  Box Containing Project Title + Goal + Keywords Logo (= Upper-box Container) -->
 
-<!-- Upper-box Container (Contains Project Title; Goal; Keywords; Logo -->
+
+{% set displayLogoPlaceholder = false %}
+
+{% if not presentation.logoName and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %}
+
+    {% set displayLogoPlaceholder = true %}
+
+{% endif %}
+
 
 <!-- (Small Screen Version) -->
 
@@ -21,19 +29,24 @@
 
         {# with placeholder management #}
 
-        {% if presentation.logoName or placeHoldersLifeSpan > presentationCreationTimeLapse %}
+        {% if presentation.logoName or displayLogoPlaceholder %}
 
-            <div class="col-4 d-flex align-items-center justify-content-center">
+            <div 
+            
+                class="
 
-                {% if userPresenter and presentation.logoName is empty %}
+                    {# logo placeholder is only displayed in edition mode #}
+
+                    {% if displayLogoPlaceholder %} pp-edition-mode {% endif %}
+                
+                    upperBoxLeftColumn 
+
+                    col-4
                     
-                    {% include 'pp/partials/_edit_logo_placeholder.html.twig' %}
-
-                {% else %}
+                "
+            >
 
                     {% include 'pp/partials/_logo.html.twig' %}
-
-                {% endif %}
 
             </div>
 
@@ -97,23 +110,25 @@
 
     <!-- Left Column -->
 
-        {% if presentation.logoName or placeHoldersLifeSpan > presentationCreationTimeLapse %}
+        {% if presentation.logoName or displayLogoPlaceholder %}
 
-            <div class="col-2 pr-md-0 d-flex align-items-center justify-content-center">
+            <div 
+            
+                class= "
 
-                {% if userPresenter and presentation.logoName is empty %}
+                        {# logo placeholder is only displayed in edition mode #}
 
-                    {# Placeholder Logo Display #}
-                    
-                    {% include 'pp/partials/_edit_logo_placeholder.html.twig' %}
+                        {% if displayLogoPlaceholder %} pp-edition-mode {% endif %}
 
-                {% else %}
+                        upperBoxLeftColumn col-2 pr-md-0
+                        
+                    "
+                >
 
-                    <!-- Project Logo Display -->
+                <!-- Project Logo Display -->
 
-                    {% include 'pp/partials/_logo.html.twig' %}
+                {% include 'pp/partials/_logo.html.twig' %}
 
-                {% endif %}
 
             </div>
             
@@ -173,6 +188,14 @@
 
     border-left: 6px solid #ffa500;
     border-bottom: 6px solid #ffa500;
+
+}
+
+.upperBoxLeftColumn{
+
+    display:flex;
+    align-items: center;
+    justify-content: center;
 
 }
 

@@ -15,6 +15,51 @@
         font-size:1.15em;
         font-weight:bold;
     }
+
+    .register-login-button{
+
+        background-color: #3498db;
+        color:white;
+        border-radius: 4px;
+        font-weight: bold;
+    }
+
+    @media screen and (max-width: 580px) {
+
+        .nav-link{
+
+            display : inline-block;
+
+            background-color: inherit;
+
+            color :black;
+
+        }
+
+
+        .register-login-button{
+
+            background-color: inherit;
+
+            color :black;
+
+        }
+
+        .register-login-button::before{
+
+            content: "➔";
+
+        }
+
+        .dropdown-menu {
+
+            display: block;
+
+        }
+
+    }
+
+    
     
 </style>
 
@@ -285,7 +330,7 @@
 
                     <!-- Mobile -->
 
-                    <a class="d-md-none nav-link dropdown-toggle font-weight-bold" style="" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                    <a class="d-md-none nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
                         
                        Compte
 
@@ -333,11 +378,11 @@
             {% else %}
                   
                 <li class="nav-item">
-                    <a href="{{ path('account_register') }}" class="nav-link bg-info rounded mr-2 font-weight-bold" style="color:white !important;">Inscription</a>
+                    <a href="{{ path('account_register') }}" class="nav-link register-login-button mr-2">Inscription</a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ path('account_login') }}" class="nav-link bg-info font-weight-bold rounded" style="color:white !important;">Connexion</a>
+                    <a href="{{ path('account_login') }}" class="nav-link register-login-button">Connexion</a>
                 </li>
 
             {% endif %}

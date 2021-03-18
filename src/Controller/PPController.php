@@ -281,9 +281,10 @@ class PPController extends AbstractController
                     "L'image a été ajoutée"
                 );
     
-                return $this->redirectToRoute('slideshow_index', [
+                return $this->redirectToRoute('project_show', [
 
                     'slug' => $presentation->getSlug(),
+                    '_fragment' => 'slideshowDisplay',
 
                 ]);
     

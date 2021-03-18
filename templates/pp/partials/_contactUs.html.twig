@@ -1,19 +1,20 @@
 
 
-{# if we display a placeholder in edition mode (i.e. we display an icon surrounded with dashed border), we do not display structure with title and contact card#}
-
-{% set contactUsDisplay = '' %}
-
-{% if presentation.contacts | length == 0 and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %}
-
-    {% set contactUsDisplay = 'pp-consultation-mode' %}
-
-{% endif %}
-
-
 <!-- "Contact Us Cards" & "Send Private Message Button" Display -->
 
 {% if presentation.contacts | length > 0 or presentation.isActiveContactMessages %}
+
+        
+    {# contact us structure with its icon and title is displayed by default both in edition and consultation mode, but if we display a placeholder in edition mode (i.e. we display an icon surrounded with dashed border), we don't want to display something else, so we do not display contact us structure with its icon and title in edition mode when placeholder is displayed, so here we check if placeholder is displayed #}
+
+    {% set contactUsDisplay = '' %}
+
+    {% if presentation.contacts | length == 0 and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %}
+
+        {% set contactUsDisplay = 'pp-consultation-mode' %}
+
+    {% endif %}
+    
 
     <!-- Structure Container -->
 
