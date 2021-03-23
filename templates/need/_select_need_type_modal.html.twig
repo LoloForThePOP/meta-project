@@ -1,0 +1,152 @@
+
+    <!-- Need Types Possibilitiess -->
+
+    {% set needTypesItems = 
+        
+        [ 
+
+            {
+                'type': 'skill', 
+                'title_fr': 'Une Compétence', 
+                'example_fr': ''
+            },
+
+            {
+                'type': 'task', 
+                'title_fr': 'Un Service Ponctuel', 
+                'example_fr': ''
+            },  
+
+            {
+                'type': 'material', 
+                'title_fr': 'Un Objet, un Outil, du Matériel', 
+                'example_fr': ''
+            },  
+            
+            {
+                'type': 'area', 
+                'title_fr': 'Un Local, un Terrain, une Surface', 
+                'example_fr': ''
+            },  
+
+            {
+                'type': 'advice', 
+                'title_fr': 'Un Conseil', 
+                'example_fr': ''
+            },  
+
+            {
+                'type': 'money', 
+                'title_fr': 'Une Somme d\'Argent', 
+                'example_fr': ''
+            },  
+
+            {
+                'type': 'other', 
+                'title_fr': 'Autres', 
+                'example_fr': ''
+            },  
+
+        ] 
+
+    %}
+    
+    <!-- Modal Box (Select a Need Type) -->
+
+    <!-- Modal Styles -->
+
+        <style>
+
+            .needTypeChoice:hover {
+                background-color: yellow;
+            }
+
+        </style>
+
+    <!-- Modal Structure & Content -->
+
+        <div class="modal" id="needTypeModal" tabindex="-1" role="dialog" aria-labelledby="needTypeModalLabel" aria-hidden="true">
+
+            <div class="modal-dialog" role="document">
+
+                <div class="modal-content">
+
+                    <!-- Modal Title  -->
+
+                    <div class="modal-header">
+
+                        <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Choisir le type de besoin</h5>
+
+                        <!-- Close Modal (Cross Button)  -->
+
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+
+                    </div>
+
+                    <!-- Modal Content  (select a Need Type) -->
+
+                    <div class="modal-body">
+
+                        <div class="container-fluid">
+
+                            {% for item in needTypesItems %}
+
+                                <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': slug, 'needType': item.type })}}">
+
+                                <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer" style="height:55px;">
+
+                                        <!-- Need type Icon  -->
+
+                                        <div class="col-3 d-flex justify-content-center align-items-center">
+
+                                            <img src="/images/icons/needs/types/{{ item.type}}.svg" alt="{{ item.type }}" width="30px" height="30px">
+
+                                        </div>
+
+                                        <!-- Need type title with Example  -->
+
+                                        <div class="col">
+
+                                            <!-- Need type title  -->
+
+                                            <span class="font-weight-bold">
+                                                {{ item.title_fr }} 
+                                            </span>
+
+                                            <br>
+
+                                            <!-- Need type concrete example  -->
+
+                                            <span class="">
+                                                {{ item.example_fr}} 
+                                            </span>
+                                            
+                                        </div>
+                                        
+                                    </div> 
+
+                                </a>
+
+                            {% endfor %}
+
+                        </div>   
+
+                    </div>
+
+                    <!-- Action Buttons  -->
+
+                    <div class="modal-footer">
+
+                        <button type="button" class="btn btn-info font-weight-bold sharp" data-dismiss="modal">Retour</button>
+
+                        <button type="button" class="btn btn-success font-weight-bold  bg-green sharp">Valider</button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>

@@ -62,8 +62,8 @@
 
 						<!-- We show caption container only if there is at least one caption -->				
 						
-						<div class="caption-container d-none 
-
+						<div class="caption-container d-none
+						
 							{% for slide in presentation.slides %}
 
 								{% if slide.caption %}
@@ -98,7 +98,7 @@
 
 								<div class="mySlides">
 
-									<!-- Current Slide Counter Display (only on small screens when more than one slide) -->
+									{# Current Slide Counter Display (only on small screens when more than one slide)
 
 									{% if presentation.slides | length > 1 %}
 										
@@ -108,7 +108,7 @@
 										
 										</div>
 									
-									{% endif %}
+									{% endif %} #}
 
 
 									<!-- Case Slide is an Image -->
@@ -151,7 +151,7 @@
 
 				</div>
 
-				<!--Second Column - Contains Thumbnails - Not displayed on small screens - Not Displayed if there is only one slide -->
+				<!--Second Column - Contains Thumbnails - Not displayed on small screens + Not Displayed if there is only one slide -->
 
 				{% if presentation.slides | length > 1 %}
 

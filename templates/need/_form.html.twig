@@ -3,28 +3,136 @@
 
 {% block stylesheets %}<link rel="stylesheet" href="/css/app_forms.css" />{% endblock %}
 
-<div class="mt-3 mb-3 col-md-9 bg-light p-2 pb-4 p-md-5">
+<div class="needs-form-container my-0 mt-md-3 mb-md-3 col-md-9 p-2 pb-4 p-md-5">
 
-  {{ form_start(form) }}
+{{ form_start(form) }}
 
-      {{ form_widget(form) }}
+    {# need type edition is available here only in need update mode (not in creation mode, because user select it before) #}
 
-      {# Actions Buttons #}
+    {% if form.type is defined %}
 
-        <div class="mt-4">
+        <div class="form-row">
 
-          <!-- Submit Button -->
-            
-          <button class="btn btn-lg btn-success bg-green sharp font-weight-bold mr-2">{{ button_label|default('Enregistrer') }}</button>
-
-          <!-- Cancelation Button -->
-
-          <a class="text-decoration-none text-white" href="{{ path('need_index', {'slug': slug}) }}">
-              <button type="button" class="btn btn-info btn-lg sharp font-weight-bold">Retour</button>
-          </a>
+            {{ form_label(form.type) }}
+            {{ form_widget(form.type) }}
 
         </div>
 
-  {{ form_end(form) }}
+    {% endif %}
+
+<div class="form-row">
+
+    <div class="label-box">
+
+        <img class="needs-icon-title" src="/images/icons/edit_presentation/needs/title.svg" alt="title icon">
+        
+        {{ form_label(form.title) }}
+
+    </div>
+    
+    {{ form_widget(form.title) }}
+
+</div>
+
+<div class="form-row">
+
+    <div class="label-box">
+
+        <img class="needs-icon-money" src="/images/icons/edit_presentation/needs/money.svg" alt="money icon">
+
+        {{ form_label(form.paidService) }}
+
+    </div>
+
+    {{ form_widget(form.paidService) }}
+
+</div>
+
+<div class="form-row">
+
+    <div class="label-box">
+
+        <img class="needs-icon-description" src="/images/icons/edit_presentation/needs/text_description.svg" alt="text description icon">
+
+        {{ form_label(form.description) }}
+
+    </div>
+
+    {{ form_widget(form.description) }}
+
+</div>
+
+
+
+<div class="mt-4 mt-md-5">
+
+
+    <button class="btn btn-success btn-lg sharp bg-green font-weight-bold mr-2 mb-2">{{ button_label | default('Enregistrer') }}</button>
+
+    <a href="{{ path('need_index', {'slug': slug}) }}">
+        <button type="button" class="btn btn-info sharp btn-lg font-weight-bold mb-2">Annuler</button>
+    </a>
+
+</div>
+
+
+{{ form_end(form) }}
+
+
+
+<style>
+
+    #content{
+        background-color: white;
+    }
+
+    .needs-form-container{
+        background-color: #f5f9ff;
+        border: 2px solid orange;
+    }
+
+    .form-row{
+        margin-bottom: 30px;
+    }
+
+    .label-box{
+        margin-bottom: 15px;
+    }
+
+    .needs-icon-title {
+        width: 30px;
+        height: 32px;
+        margin-right: 12px;
+        margin-left: 3px;
+        margin-top: -4px;
+    }
+
+    .needs-icon-money {
+        width: 27px;
+        height: 27px;
+        margin-right: 12px;
+        margin-left: 8px;
+        margin-top: -6px;
+    }
+
+    .needs-icon-description {
+        width: 27px;
+        height: 25px;
+        margin-right: 13px;
+        margin-left: 8px;
+        margin-top: -6px;
+    }
+
+
+    @media screen and (max-width: 580px) {
+
+        .needs-form-container{
+            border: none;
+        }
+
+    }
+
+</style>
+
 
 </div>

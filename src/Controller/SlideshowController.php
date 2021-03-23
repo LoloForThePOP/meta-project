@@ -191,8 +191,11 @@ class SlideshowController extends AbstractController
                 "L'image a été mise à jour"
             );
 
-            return $this->redirectToRoute('slideshow_index', [
+            return $this->redirectToRoute('project_show', [
+
                 'slug' => $pp->getSlug(),
+                '_fragment' => 'slideshowDisplay',
+
             ]);
 
         }
@@ -257,7 +260,7 @@ class SlideshowController extends AbstractController
                 '_fragment' => 'slideshowDisplay',
 
             ]);
-            
+
         }
 
         return $this->render('slideshow/addVideo.html.twig', [
@@ -310,9 +313,13 @@ class SlideshowController extends AbstractController
                 "La vidéo a bien été modifiée"
             );
 
-            return $this->redirectToRoute('slideshow_index', [
+            return $this->redirectToRoute('project_show', [
+
                 'slug' => $pp->getSlug(),
+                '_fragment' => 'slideshowDisplay',
+
             ]);
+
         }
 
         return $this->render('slideshow/editVideo.html.twig', [

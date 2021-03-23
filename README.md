@@ -56,8 +56,6 @@ You can **install "Symfony Local Web Server"** (https://symfony.com/download)
 
 Then, in a terminal, type : symfony server:start
 
-#### I hope it works for you. Let's develop the Project of Projects.
-
 #### Remarks: if you develop with Visual Studio Code, some extensions might help you, in particular:
 
 * PHP Import and expand your class: you can install PHP Namespace Resolver.

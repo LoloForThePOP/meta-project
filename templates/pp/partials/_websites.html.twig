@@ -157,22 +157,30 @@
 {# placeholder for project websites #} 
 
 {% elseif userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %} 
-    
-    {% include 
+
+    {#  Add a website Form (in a Modal Box)  #}
+
+    {% include '/websites/_new_website_modal_form.html.twig' %}
+
+    {# Placeholder with tag to Trigger above Form Display #}
+
+    <a data-toggle="modal" data-target="#newWebsiteFormModal" class="pp-edition-mode">
         
-        'pp/partials/_placeholder_pattern.html.twig' 
-        
-        with {
+        {% include 
             
-            'placeholderTargetRoute': "manage_general_websites",
+            'pp/partials/_placeholder_pattern.html.twig' 
+            
+            with {
 
-            'placeholderIconName': "websites",
+                'placeholderIconName': "websites",
 
-            'placeholderIconTitle': "website and social network icon",
-        
-        } 
-        
-    %}
+                'placeholderIconTitle': "website and social network icon",
+            
+            } 
+            
+        %}
+
+    </a>
 
 {% endif %}
 

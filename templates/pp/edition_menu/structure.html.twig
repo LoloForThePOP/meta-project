@@ -39,17 +39,18 @@
                   
             <!-- Project Text Description -->
             
-            
             {% include "pp/edition_menu/items/_text_description.html.twig" %}
             
             <!-- Project Images & Videos -->
 
             {% include "pp/edition_menu/items/_images_videos.html.twig" %}
 
-            <!-- Project Geodomains -->
+                
+            <!-- Project Needs -->
 
-            {% include "pp/edition_menu/items/_geodomains.html.twig" %}
+            {% include "pp/edition_menu/items/_needs.html.twig" %}
 
+           
 
           </div>
 
@@ -59,6 +60,11 @@
           <!-- Third Column -->
           
           <div class="col-xl-4 col-md-6 mb-4">
+
+             <!-- Project Geodomains -->
+
+             {% include "pp/edition_menu/items/_geodomains.html.twig" %}
+
               
             <!-- Project Websites -->
 
@@ -101,10 +107,12 @@
                 <!-- Project Documents -->
 
                 {% include "pp/edition_menu/items/_documents.html.twig" %}
-                        
-                <!-- Project Needs -->
 
-                {% include "pp/edition_menu/items/_needs.html.twig" %}
+                
+                <!-- Project Q&A -->
+
+                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
+                
 
               </div>
               
@@ -172,10 +180,6 @@
               <!-- First Column -->
               
               <div class="col-xl-4 col-md-6 pl-md-0 mb-4">
-
-                <!-- Project Q&A -->
-
-                {% include "pp/edition_menu/items/_questions_answers.html.twig" %}
 
                 <!-- Project Polls -->
 

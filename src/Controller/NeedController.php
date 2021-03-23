@@ -65,9 +65,11 @@ class NeedController extends AbstractController
 
             PPMajorLogs::updateLogs($presentation, 'need', 'new', $idNeed, $this->getUser()->getId(), $manager);
 
-            return $this->redirectToRoute('need_index', [
-                'slug' => $slug,
-                ]);
+            return $this->redirectToRoute('project_show', [
+                'slug' => $presentation->getSlug(),
+                '_fragment' => 'needsDisplay',
+            ]);
+
         }
 
         return $this->render('need/new.html.twig', [

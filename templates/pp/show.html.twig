@@ -70,6 +70,24 @@
     
     ">
 
+        {# when presenter has just presented a first desired ressource for his project, he might want to share his presentation on social networks too, so we provide him the adress of his presentation with a copy link button #}
+
+        {% if userPresenter and presentation.needs | length == 1 %}
+
+            {% set need = presentation.needs | last %}
+
+            {# we only display message if desired ressource has been created less than 1 minuteago #}
+
+            {% set needAge = date().timestamp - need.createdAt | date("U") %}
+
+            {% if needAge < 60 %}
+
+                {% include 'pp/partials/_feedback_modal.html.twig' %}
+
+            {% endif %}
+
+        {% endif %}
+
         <div class="row pt-2 px-md-2">
 
             <div class="col-md-12 mb-3 pb-3" style="border-radius:4px !important;">
@@ -144,7 +162,7 @@
 
                     {# some action buttons (example : report abuse; save as pdf; ...) #}
 
-                    {# Share Presentation Button #}
+                    {# Share Presentation Button (trigger a modal) #}
 
                     <button 
 
@@ -162,30 +180,11 @@
                     
                     </button>
 
-                    {# Share Presentation Modal #}
+                    {# Share Presentation Modal (html + js + css) #}
 
                     {% include 'pp/partials/_share_presentation_modal.html.twig' %}
 
-                    {# trigger/Close Share Presentation Modal #}
-
-                    <script>
-
-                        function openSharePresentationModal()
-                        {
-                            document.getElementById("sharePresentationModal").style.display = "block";
-                        }
-  
-                        function closeCustomModal() {
-                            
-                            var customModals = document.getElementsByClassName("customModal");
-
-                            for (i = 0; i < customModals.length; i++) {
-                                customModals[i].style.display = "none";
-                            }
-
-                        }
-                       
-                    </script>
+                    
 
                     {# Report Abuse Button #}
 

@@ -168,22 +168,25 @@
 
 {# placeholder for project contact cards #} 
 
-{% if presentation.contacts | length == 0 and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %} 
-    
-    {% include 
-        
-        'pp/partials/_placeholder_pattern.html.twig' 
-        
-        with {
+{% if presentation.contacts | length == 0 and userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %}
+
+    <a href="{{path("contact_new", {'slug':presentation.slug})}}" class="">
+
+                
+        {% include 
             
-            'placeholderTargetRoute': "contact_new",
+            'pp/partials/_placeholder_pattern.html.twig' 
+            
+            with {
 
-            'placeholderIconName': "email",
+                'placeholderIconName': "email",
 
-            'placeholderIconTitle': "contact icon",
-        
-        } 
-        
-    %}
+                'placeholderIconTitle': "contact icon",
+            
+            } 
+            
+        %}
+
+    </a>
 
 {% endif %}

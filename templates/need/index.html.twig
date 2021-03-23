@@ -38,13 +38,13 @@
     
                 <p class="h5">
     
-                    Vous recherchez un local, du matériel, un développeur web, etc ?
+                    Vous recherchez un local, du matériel, une personne pour vous aider ?
     
                 </p>
     
                 <p class="h5">
     
-                    Ici vous pouvez présenter vos besoins. Les visiteurs peuvent ensuite vous contacter.
+                    Vous êtes au bon endroit. Présenter ici vos besoins, les visiteurs pourront ensuite vous contacter.
     
                 </p>
     
@@ -63,172 +63,24 @@
             <button type="button" class="btn btn-success btn-lg sharp font-weight-bold mb-4 bg-green" data-toggle="modal" data-target="#needTypeModal" > <span class="mr-2">+</span> Ajouter un besoin </button>
 
 
-            <!-- Need Types Possibilitiess -->
+            <!-- Select need type modal modal -->
 
-            {% set needTypesItems = 
-                
-                [ 
-
-                    {
-                        'type': 'skill', 
-                        'title_fr': 'Une Compétence', 
-                        'example_fr': ''
-                    },
-
-                    {
-                        'type': 'task', 
-                        'title_fr': 'Un Service Ponctuel', 
-                        'example_fr': ''
-                    },  
-
-                    {
-                        'type': 'material', 
-                        'title_fr': 'Un Objet, un Outil, du Matériel', 
-                        'example_fr': ''
-                    },  
-                    
-                    {
-                        'type': 'area', 
-                        'title_fr': 'Un Local, un Terrain, une Surface', 
-                        'example_fr': ''
-                    },  
-
-                    {
-                        'type': 'advice', 
-                        'title_fr': 'Un Conseil', 
-                        'example_fr': ''
-                    },  
-
-                    {
-                        'type': 'money', 
-                        'title_fr': 'Une Somme d\'Argent', 
-                        'example_fr': ''
-                    },  
-
-                    {
-                        'type': 'other', 
-                        'title_fr': 'Autre', 
-                        'example_fr': ''
-                    },  
-
-                ] 
-
-            %}
-            
-            <!-- Modal Box (Select a Need Type) -->
-
-            <!-- Modal Styles -->
-
-                <style>
-
-                    .needTypeChoice:hover {
-                        background-color: yellow;
-                    }
-
-                </style>
-
-            <!-- Modal Structure & Content -->
-
-                <div class="modal" id="needTypeModal" tabindex="-1" role="dialog" aria-labelledby="needTypeModalLabel" aria-hidden="true">
-
-                    <div class="modal-dialog" role="document">
-
-                        <div class="modal-content">
-
-                            <!-- Modal Title  -->
-
-                            <div class="modal-header">
-
-                                <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Choisir le type de besoin</h5>
-
-                                <!-- Close Modal (Cross Button)  -->
-
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
-
-                            </div>
-
-                            <!-- Modal Content  (select a Need Type) -->
-
-                            <div class="modal-body">
-
-                                <div class="container-fluid">
-
-                                    {% for item in needTypesItems %}
-
-                                        <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': slug, 'needType': item.type })}}">
-
-                                        <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer" style="height:55px;">
-
-                                                <!-- Need type Icon  -->
-
-                                                <div class="col-3 d-flex justify-content-center align-items-center">
-
-                                                    <img src="/images/icons/needs/types/{{ item.type}}.svg" alt="{{ item.type }}" width="30px" height="30px">
-
-                                                </div>
-
-                                                <!-- Need type title with Example  -->
-
-                                                <div class="col">
-
-                                                    <!-- Need type title  -->
-
-                                                    <span class="font-weight-bold">
-                                                        {{ item.title_fr }} 
-                                                    </span>
-
-                                                    <br>
-
-                                                    <!-- Need type concrete example  -->
-
-                                                    <span class="">
-                                                        {{ item.example_fr}} 
-                                                    </span>
-                                                    
-                                                </div>
-                                                
-                                            </div> 
-
-                                        </a>
-
-                                    {% endfor %}
-
-                                </div>   
-
-                            </div>
-
-                            <!-- Action Buttons  -->
-
-                            <div class="modal-footer">
-
-                                <button type="button" class="btn btn-info font-weight-bold sharp" data-dismiss="modal">Retour</button>
-
-                                <button type="button" class="btn btn-success font-weight-bold  bg-green sharp">Valider</button>
-
-                            </div>
-
-                        </div>
-
-                    </div>
-
-                </div>
+            {{ include('need/_select_need_type_modal.html.twig') }}
 
         </div>
             
 
-    <!-- Project Needs Display Listing -->
+    <!-- Project Needs Display Grid -->
 
     {% if presentation.needs | length > 0 %}
 
-        <div id="needsList" class="row col-md-10">
+        <div id="needsList" class="row col-lg-10">
 
                 {% for need in presentation.needs %}
 
                     <!-- Thumbnail Container -->
 
-                    <div id="{{need.id}}" class="js-sortableGridItem fs-15 col-md-5 mr-md-4 d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer" style="border-left : 6px solid rgb(95, 30, 30) !important; border-bottom : 6px solid orange !important;">
+                    <div id="{{need.id}}" class="js-sortableGridItem needCard d-flex align-items-center position-relative fs-15 col-md-5 mr-md-4 mb-3 p-3 overflow-hidden" >
 
                         <a href="{{path('need_edit', {'slug':slug,'need_id' : need.id })}}" class="w-100 h-100 text-body text-decoration-none" >
                             
@@ -275,6 +127,23 @@
             {% endfor %}
             
         </div>
+
+        <style>
+
+            .needCard{
+
+                border: 1px solid black;
+                
+                border-left: 6px solid rgb(153, 72, 72); 
+                border-bottom: 6px solid orange; 
+                border-radius: 4px;
+            }
+
+            .needCard:hover{
+
+                background-color: #d5dffe;
+
+        </style>
         
     {% endif %}
 
