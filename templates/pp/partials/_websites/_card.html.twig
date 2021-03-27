@@ -1,29 +1,49 @@
-
-<div class="p-1">
-
-    {% if website.description is not null %}
-
-        <h5 class="websiteDescription mb-1">
-            
-            {{website.description | first | capitalize ~ website.description | slice(1,50) }}
-
-            {% if website.description | length > 50 %}
-            ...
-            {% endif %}
-
-        </h5>
-
-    {% endif %}
-
-    <p class="websiteUrl mb-1">
-
-        {{website.url | slice(0,50)}}
-
-        {% if website.url | length > 50 %}
-        (...)
-        {% endif %}
+<div class="row h-100 align-items-center">
     
-    </p>
+    {# First Column displayswebsite Logo (exemple : Youtube Logo or a Default Logo (One letter Logo) #}
+        
+    <div class="col-3 d-flex align-items-center justify-content-center">
+
+        <div class="row">
+
+            <img id="js-website_logo_{{website.id}}" src="https://place-hold.it/150" alt="website logo" width:"40" height="40" style="display:flex; align-items:center; justify-content:center;">
+
+            <div id="js-website_default_logo_{{website.id}}" class="" style="display:flex; align-items:center; justify-content:center; background-color:#e1eaff; text-transform: uppercase; width:40px; height:40px; font-size:18px; font-weight:bold;"></div>
+
+        </div>
+
+    </div>
+
+    {# second Column displays website url and website description if it exists #}
+
+    <div class="col-9">
+
+        {% if website.description is not null %}
+
+            <h5 class="websiteDescription mb-1">
+                
+                {{website.description | first | capitalize ~ website.description | slice(1,50) }}
+
+                {% if website.description | length > 50 %}
+                ...
+                {% endif %}
+
+            </h5>
+
+        {% endif %}
+
+        <p class="websiteUrl mb-1">
+
+            {{website.url | slice(0,50)}}
+
+            {% if website.url | length > 50 %}
+            (...)
+            {% endif %}
+        
+        </p>
+
+    </div>
 
 </div>
+
                                     

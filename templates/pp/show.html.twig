@@ -70,23 +70,9 @@
     
     ">
 
-        {# when presenter has just presented a first desired ressource for his project, he might want to share his presentation on social networks too, so we provide him the adress of his presentation with a copy link button #}
+        {# When Some Specific Events Occur, we display feedback in a modal #}
+        {% include '/pp/partials/_feedback_for_user/_manage_events_and_feedback.html.twig' %}
 
-        {% if userPresenter and presentation.needs | length == 1 %}
-
-            {% set need = presentation.needs | last %}
-
-            {# we only display message if desired ressource has been created less than 1 minuteago #}
-
-            {% set needAge = date().timestamp - need.createdAt | date("U") %}
-
-            {% if needAge < 60 %}
-
-                {% include 'pp/partials/_feedback_modal.html.twig' %}
-
-            {% endif %}
-
-        {% endif %}
 
         <div class="row pt-2 px-md-2">
 

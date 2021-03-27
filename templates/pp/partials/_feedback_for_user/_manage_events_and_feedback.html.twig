@@ -1,0 +1,73 @@
+
+    {# when presenter has just presented a first desired ressource for his project, he might want to share his presentation on social networks too, so we provide him the adress of his presentation with a copy link button #}
+
+    {% if userPresenter and presentation.needs | length == 1 %}
+
+        {% set need = presentation.needs | last %}
+
+        {# we only display message if desired ressource has just been created #}
+
+        {% set needAge = date().timestamp - need.createdAt | date("U") %}
+
+        {% if needAge < 60 %}
+
+            {% embed "pp/partials/_feedback_for_user/_feedback_modal.html.twig" %}
+
+
+                {% block content %}
+                                    
+                    <p class="">
+                        
+                        Vous venez d'ajouter un besoin recherché pour ce projet. Pour le faire savoir et partager votre présentation sur des forums ou réseaux sociaux, vous pouvez copier son adresse :
+
+                        <br><br>
+
+                        <span class="mr-2">Voici son adresse :</span>
+
+                        <input id="feedBackPresentationAbsoluteURL" value="{{ url('project_show_by_id', {"id": presentation.id()}) }}" size="50">
+
+                        </input>
+
+                        <br>
+                        <br>
+
+                        <button type="button" onclick="copyToClipboard('feedBackPresentationAbsoluteURL', 'copyURLFeedbackBox')" class="btn btn-light font-weight-bold mr-3" style="border:2px solid orange !important">Copier cette adresse</button>
+
+                        <span id="copyURLFeedbackBox"></span>
+
+                    </p>
+
+
+                    {# JS copy to clipboard #}
+
+                                        
+                    <script>
+
+                        function copyToClipboard(elementId, feedbackId) {
+
+                            /* Get the text field */
+                            var copyText = document.getElementById(elementId);
+                        
+                            /* Select the text field */
+                            copyText.select();
+                            copyText.setSelectionRange(0, 99999); /*For mobile devices*/
+                        
+                            /* Copy the text inside the text field */
+                            document.execCommand("copy");
+
+                            /* Display Feedback that text has been copied */
+                        
+                            var feedback = document.getElementById(feedbackId);
+                            feedback.innerHTML = "Adresse copiée ✅";   
+
+                        } 
+
+                    </script>
+                                    
+                {% endblock %}
+
+            {% endembed %}
+
+        {% endif %}
+
+    {% endif %}

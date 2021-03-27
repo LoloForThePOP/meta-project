@@ -5,51 +5,15 @@
 
     <div class="pt-4 px-2 p-md-5">
 
-        <p class="">
-            
-            Pour faire connaître ce projet, copiez son adresse et partagez-là
+        {% block content %}
+        
+        
+        {% endblock %}
 
-            <br><br>
-
-            <span class="mr-2">Voici son adresse :</span>
-
-            <input id="presentationAbsoluteURL" value="{{ url('project_show_by_id', {"id": presentation.id()}) }}" size="50">
-
-            </input>
-
-            <br>
-            <br>
-
-            <button type="button" onclick="copyToClipboard('presentationAbsoluteURL', 'copyURLFeedbackBox')" class="btn btn-light font-weight-bold mr-3" style="border:2px solid orange !important">Copier cette adresse</button>
-
-            <span id="copyURLFeedbackBox"></span>
-   
-        </p>
 
     </div>
 
 </div>
-
-<script>
-
-    function copyToClipboard(elementId, feedbackId) {
-
-        /* Get the text field */
-        var copyText = document.getElementById(elementId);
-    
-        /* Select the text field */
-        copyText.select();
-        copyText.setSelectionRange(0, 99999); /*For mobile devices*/
-    
-        /* Copy the text inside the text field */
-        document.execCommand("copy");
-    
-        var feedback = document.getElementById(feedbackId);
-        feedback.innerHTML = "Adresse copiée ✅";   
-
-    } 
-
-</script>
 
 <script>
 

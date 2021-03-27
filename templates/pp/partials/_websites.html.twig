@@ -20,6 +20,30 @@
             <!-- Structure Title -->
 
             <h3 class="pp-struct-title">Sites web</h3>
+        
+            {# Styles for Websites Structure Icon + Title #}
+
+            <style>
+
+                #websitesDisplay .pp-struct-icon {
+                    margin-right: 16px;
+                    margin-left: 2px;
+                    top: 0px;
+                }
+
+                @media screen and (max-width: 580px) {
+                        
+                    #websitesDisplay .pp-struct-icon {
+                        width: 19px;
+                        height: 18px;
+                        top: 1px;
+                        margin-right: 8px;
+                        margin-left: 1px;
+                    }
+
+                }
+
+            </style>
 
             <!-- Edit Presentation Buttons -->
     
@@ -27,7 +51,7 @@
             
                 {# Add Website Shortcut Button #}
 
-                    <button data-toggle="modal" data-target="#newWebsiteFormModal" class="pp-edition-mode btn btn-light sharp font-weight-bold mr-2 d-inline fs-15">Ajouter</button>
+                    <button data-toggle="modal" data-target="#newWebsiteFormModal" class="pp-edition-mode btn btn-light sharp font-weight-bold mr-2 fs-15">Ajouter</button>
 
                 {#  Add a website Form Display (in a Modal Box)  #}
 
@@ -46,10 +70,136 @@
 
         </div>
 
+        
+        <script>
+
+            function parseURL(url){
+                parsed_url = {}
+            
+                if ( url == null || url.length == 0 )
+                    return parsed_url;
+            
+                protocol_i = url.indexOf('://');
+                parsed_url.protocol = url.substr(0,protocol_i);
+            
+                remaining_url = url.substr(protocol_i + 3, url.length);
+                domain_i = remaining_url.indexOf('/');
+                domain_i = domain_i == -1 ? remaining_url.length - 1 : domain_i;
+                parsed_url.domain = remaining_url.substr(0, domain_i);
+                parsed_url.path = domain_i == -1 || domain_i + 1 == remaining_url.length ? null : remaining_url.substr(domain_i + 1, remaining_url.length);
+            
+                domain_parts = parsed_url.domain.split('.');
+                switch ( domain_parts.length ){
+                    case 2:
+                      parsed_url.subdomain = null;
+                      parsed_url.host = domain_parts[0];
+                      parsed_url.tld = domain_parts[1];
+                      break;
+                    case 3:
+                      parsed_url.subdomain = domain_parts[0];
+                      parsed_url.host = domain_parts[1];
+                      parsed_url.tld = domain_parts[2];
+                      break;
+                    case 4:
+                      parsed_url.subdomain = domain_parts[0];
+                      parsed_url.host = domain_parts[1];
+                      parsed_url.tld = domain_parts[2] + '.' + domain_parts[3];
+                      break;
+                }
+            
+                parsed_url.parent_domain = parsed_url.host + '.' + parsed_url.tld;
+            
+                return parsed_url;
+            }
+
+        </script>
+
         <!-- Project Websites Grid Display -->
 
+        <div class="container pl-md-3">
+
+            <div class="row">
+                
+                {% for website in websites %}
+
+                    <div class="pp-website-card border border-primary container cursor-pointer col-md-5 pl-md-3 p-1 mb-4 mx-0 mr-md-4 ">
+
+                        {# website update direct link  #}
+
+                        {% if userPresenter %}
+
+                            <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="pp-edition-mode w-100 h-100 text-body text-decoration-none">
+
+                                {% include 'pp/partials/_websites/_card.html.twig' %}
+
+                            </a>
+
+                        {% endif %}
+
+                        <a href="{{website.url}}" target="_blank" class="pp-consultation-mode list-group-item border-0 text-decoration-none text-body p-1">
+
+                            {% include 'pp/partials/_websites/_card.html.twig' %}
+
+                        </a>
+
+                    </div>
+
+                    {#
+
+                    <span id="js-website{{website.id}}" class="d-none">{{website.url}}</span> #}
+
+                    <script>
+
+                        url_host = parseURL("{{website.url}}/").host;
+
+                        availableIcons = "youtube, linkedin, facebook, instagram, twitch, twitter, discord, github, tiktok, ";
+
+                        if(availableIcons.indexOf(url_host) !== -1){
+
+                            //alert("js-website_logo_{{website.id}}");
+
+                            document.getElementById("js-website_logo_{{website.id}}").src="/images/icons/social_logos/"+url_host+".png";
+
+                            document.getElementById("js-website_default_logo_{{website.id}}").style.display= "none";
+
+                        }
+
+                        else{
+
+                            document.getElementById("js-website_logo_{{website.id}}").style.display= "none";
+
+                            
+
+                            document.getElementById("js-website_default_logo_{{website.id}}").innerHTML = url_host.charAt(0); 
+
+                        }
+
+                        
+                        //console.log(availableIcons.indexOf(url_host) !== -1);
+
+                        
+                        //console.log("{{website.url}}");
+                        //console.log(parseURL("{{website.url}}/").tld);
+                    </script>
+
+                {% endfor %}
+
+
+            </div>
+
+        </div>
+
+        {# Styles for Websites Cards #}
 
         <style>
+
+            .pp-website-card {
+
+                border: 1px solid #2c3e50;
+
+                overflow-wrap: break-word;
+
+            }
 
             
             .pp-website-card, .pp-website-card >* {
@@ -69,7 +219,7 @@
 
             .websiteUrl {
 
-                font-size: 1.15em;
+                font-size: 16px;
 
             }
 
@@ -94,64 +244,8 @@
 
         </style>
 
-        <div class="container pl-md-3">
-
-            <div class="row">
-                
-                    {% for website in websites %}
-
-                            <div class="pp-website-card cursor-pointer col-md-5  pl-md-3 border border-primary p-1 mb-4 mx-0 mr-md-4 " style="overflow-wrap: break-word;">
-
-                                {# website update direct link  #}
-
-                                {% if userPresenter %}
-
-                                    <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="pp-edition-mode w-100 h-100 text-body text-decoration-none">
-
-                                        {% include 'pp/partials/_websites/_card.html.twig' %}
-
-                                    </a>
-
-                                {% endif %}
-
-                                <a href="{{website.url}}" target="_blank" class="pp-consultation-mode list-group-item border-0 text-decoration-none text-body p-1">
-
-                                    {% include 'pp/partials/_websites/_card.html.twig' %}
-
-                                </a>
-
-                            </div>
-
-                        {% endfor %}
-            </div>
-
-             
-
-        </div>
-
     </div>
 
-    <style>
-
-        #websitesDisplay .pp-struct-icon {
-            margin-right: 16px;
-            margin-left: 2px;
-            top: 0px;
-        }
-
-        @media screen and (max-width: 580px) {
-                
-            #websitesDisplay .pp-struct-icon {
-                width: 19px;
-                height: 18px;
-                top: 1px;
-                margin-right: 8px;
-                margin-left: 1px;
-            }
-
-        }
-
-    </style>
 
 
 {# placeholder for project websites #} 

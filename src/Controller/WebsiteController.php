@@ -49,9 +49,9 @@ class WebsiteController extends AbstractController
                 "Les modifications ont été effectuées !"
             );
 
-            return $this->redirectToRoute('manage_general_websites', [
-                'websites' => $presentation->getWebsitesByType('general'),
-                'presentation' => $presentation,
+            return $this->redirectToRoute('project_show', [
+                'slug' => $presentation->getSlug(),
+                '_fragment' => 'websitesDisplay',
             ]);
 
         }
