@@ -36,8 +36,8 @@ class Slide implements \Serializable
      * NOTE: This is not a mapped field of entity metadata, just a simple property.
      *@Assert\Image(
      *     maxSize = "7000k",
-     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 7d000 k",
-     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif"},
+     *     maxSizeMessage = "Poids maximal Accepté pour l'image : 7000 k",
+     *     mimeTypes={"image/png", "image/jpeg", "image/jpg", "image/gif","image/apng", "image/gif", "image/webp", "image/x-ms-bmp", "image/bmp"},
      *     mimeTypesMessage = "Le format de fichier ({{ type }}) n'est pas pris en compte. Les formats acceptés sont : {{ types }}"
      * )
      *

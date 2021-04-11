@@ -1,0 +1,129 @@
+
+{# Default One Letter Logo Pattern #}
+
+<div id="js-website-default-logo-pattern" class="" style="display:flex; align-items:center; justify-content:center; background-color:#e1eaff; text-transform: uppercase; width:40px; height:40px; font-size:18px; font-weight:bold;"></div>
+
+{# Image Logo Pattern (ex: facebook logo) #}
+
+<img id="js-website-image-logo-pattern" class="" src="https://place-hold.it/40?text=" alt="website logo" width:"40" height="40" style="display:flex; align-items:center; justify-content:center;">
+
+
+{# Parse an url string and extract its components #}
+
+{# Thanks to DivinesLight at https://stackoverflow.com/questions/8498592/extract-hostname-name-from-string #}
+
+{#
+    Input example : parseURL('https://www.facebook.com/100003379429021_356001651189146');
+
+    Result:
+
+        Object {
+            domain : "www.facebook.com",
+            host : "facebook",
+            path : "100003379429021_356001651189146",
+            protocol : "https",
+            subdomain : "www",
+            tld : "com"
+        }
+    
+#}
+
+<script>
+
+    function parseURL(url){
+        parsed_url = {}
+    
+        if ( url == null || url.length == 0 )
+            return parsed_url;
+    
+        protocol_i = url.indexOf('://');
+        parsed_url.protocol = url.substr(0,protocol_i);
+    
+        remaining_url = url.substr(protocol_i + 3, url.length);
+        domain_i = remaining_url.indexOf('/');
+        domain_i = domain_i == -1 ? remaining_url.length - 1 : domain_i;
+        parsed_url.domain = remaining_url.substr(0, domain_i);
+        parsed_url.path = domain_i == -1 || domain_i + 1 == remaining_url.length ? null : remaining_url.substr(domain_i + 1, remaining_url.length);
+    
+        domain_parts = parsed_url.domain.split('.');
+        switch ( domain_parts.length ){
+            case 2:
+              parsed_url.subdomain = null;
+              parsed_url.host = domain_parts[0];
+              parsed_url.tld = domain_parts[1];
+              break;
+            case 3:
+              parsed_url.subdomain = domain_parts[0];
+              parsed_url.host = domain_parts[1];
+              parsed_url.tld = domain_parts[2];
+              break;
+            case 4:
+              parsed_url.subdomain = domain_parts[0];
+              parsed_url.host = domain_parts[1];
+              parsed_url.tld = domain_parts[2] + '.' + domain_parts[3];
+              break;
+        }
+    
+        parsed_url.parent_domain = parsed_url.host + '.' + parsed_url.tld;
+    
+        return parsed_url;
+    }
+
+</script>
+
+<script>
+
+    $(document).ready(function(){
+
+        availableWebsitesLogos = "youtube.com, linkedin.com, facebook.com, instagram.com, twitch.tv, twitter.com, discord.com, github.com, tiktok.com, ";
+
+        // getting each website logo container
+
+        $('.js-logo-container').each(function(index){
+
+            //getting current website url components
+
+            url_components = parseURL($(this).data('website-url')+'/');
+
+            // checking if we got an image logo for current website
+
+            if(availableWebsitesLogos.indexOf(url_components.host+'.'+url_components.tld) !== -1){
+
+                // we insert website image logo
+
+                $('#js-website-image-logo-pattern').clone().appendTo($(this)).attr('src',"/images/icons/social_logos/"+url_components.host+".png").attr('id',"");
+
+            }
+
+            else{
+
+                // we insert a default logo
+
+                $('#js-website-default-logo-pattern').clone().appendTo($(this)).html(url_components.host.charAt(0)).attr('id',"");
+            }
+       
+        });
+
+    });
+
+
+</script>
+
+
+<script>
+
+    var parser = document.createElement('a');
+    parser.href = "http://www.example.com:3000/pathname/?search=test#hash";
+
+    parser.protocol; // => "http:"
+    parser.hostname; // => "example.com"
+    parser.port;     // => "3000"
+    parser.pathname; // => "/pathname/"
+    parser.search;   // => "?search=test"
+    parser.hash;     // => "#hash"
+    parser.host;     // => "example.com:3000"
+
+    // console.log(parser.hostname);
+
+</script>
+

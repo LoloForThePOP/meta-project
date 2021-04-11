@@ -1,14 +1,12 @@
 <div class="row h-100 align-items-center">
     
-    {# First Column displayswebsite Logo (exemple : Youtube Logo or a Default Logo (One letter Logo) #}
+    {# First Column displays website Logo (exemple : Youtube Logo or a Default Logo (One letter Logo) #}
         
     <div class="col-3 d-flex align-items-center justify-content-center">
 
-        <div class="row">
+        <div data-website-url="{{website.url}}" class="js-logo-container row">
 
-            <img id="js-website_logo_{{website.id}}" src="https://place-hold.it/150" alt="website logo" width:"40" height="40" style="display:flex; align-items:center; justify-content:center;">
-
-            <div id="js-website_default_logo_{{website.id}}" class="" style="display:flex; align-items:center; justify-content:center; background-color:#e1eaff; text-transform: uppercase; width:40px; height:40px; font-size:18px; font-weight:bold;"></div>
+            {# handled by pp/js_show/websites_logo.html.twig #}
 
         </div>
 

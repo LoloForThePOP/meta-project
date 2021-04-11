@@ -393,4 +393,12 @@
         
     {% endif %}
 
+    {# project websites logos management #}
+
+    {% if presentation.websites %}
+
+        {% include 'pp/js_show/_websites_logos.html.twig' %}
+        
+    {% endif %}
+
 {% endblock %}

@@ -14,8 +14,18 @@ class ImageEditService {
 
         if ($imageName==null) {
 
-            return false;
+            
         }
+
+        /* $ext = strtolower(substr($imageName, strrpos($imageName, '.') + 1));
+
+        # tiff images not resize by gumlet plugin, so currently they are not resized :-(
+
+        if ($ext == 'tif' || $ext == 'tiff') {
+
+            return false;
+            
+        } */
 
         switch ($imageCategory) {
 

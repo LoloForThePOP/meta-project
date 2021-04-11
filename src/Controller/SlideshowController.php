@@ -61,7 +61,7 @@ class SlideshowController extends AbstractController
             $manager->persist($presentation);
             $manager->flush();
             
-            $editImageService->edit('presentation_slide',$slide->getSlideName());
+            $editImageService->edit('presentation_slide', $slide->getSlideName());
 
 
             /* $image = new ImageResize('images/projects/slides_images/'.$slide->getSlideName());
