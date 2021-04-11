@@ -16,13 +16,12 @@
 
                 {% block content %}
                                     
-                    <p class="">
+                    <p style="max-width:547px;">
                         
-                        Vous venez d'ajouter un besoin recherché pour ce projet. Pour le faire savoir et partager votre présentation sur des forums ou réseaux sociaux, vous pouvez copier son adresse :
+                        Vous venez d'ajouter un besoin. Pour le faire savoir (forums, réseaux sociaux) voici l'adresse de votre page de projet :
 
-                        <br><br>
-
-                        <span class="mr-2">Voici son adresse :</span>
+                        <br>
+                        <br>
 
                         <input id="feedBackPresentationAbsoluteURL" value="{{ url('project_show_by_id', {"id": presentation.id()}) }}" size="50">
 
