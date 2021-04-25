@@ -95,7 +95,7 @@ class PPController extends AbstractController
     }
 
     /**
-     * Allow to edit project title or goal
+     * Allow to edit project title; goal; logo
      * 
      * @Route("/projects/{slug}/edit/", name="project_edit")
      * 

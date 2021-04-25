@@ -1,4 +1,4 @@
-<div class="row h-100 align-items-center">
+<div class="row h-100">
     
     {# First Column displays website Logo (exemple : Youtube Logo or a Default Logo (One letter Logo) #}
         
@@ -14,31 +14,39 @@
 
     {# second Column displays website url and website description if it exists #}
 
-    <div class="col-9">
+    <div class="col-9 d-flex align-items-center">
 
-        {% if website.description is not null %}
+        <div class="">
+                    
+                {# website title #}
 
-            <h5 class="websiteDescription mb-1">
-                
-                {{website.description | first | capitalize ~ website.description | slice(1,50) }}
+                {% if website.description is not null %}
 
-                {% if website.description | length > 50 %}
-                ...
+                    <h5 class="websiteDescription mb-1">
+                        
+                        {{website.description | first | capitalize ~ website.description | slice(1,50) }}
+
+                        {% if website.description | length > 50 %}
+                        ...
+                        {% endif %}
+
+                    </h5>
+
                 {% endif %}
 
-            </h5>
+                {# website url #}
 
-        {% endif %}
+                <p class="websiteUrl mb-1">
 
-        <p class="websiteUrl mb-1">
+                    {{website.url | slice(0,50)}}
 
-            {{website.url | slice(0,50)}}
+                    {% if website.url | length > 50 %}
+                    (...)
+                    {% endif %}
+                
+                </p>
 
-            {% if website.url | length > 50 %}
-            (...)
-            {% endif %}
-        
-        </p>
+        </div>
 
     </div>
 
