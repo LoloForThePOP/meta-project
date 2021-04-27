@@ -75,7 +75,7 @@
 
                     <div class="modal-header">
 
-                        <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Choisir le type de besoin</h5>
+                        <h5 class="modal-title font-weight-bold" id="needTypeModalLabel">Ajouter un besoin - choisir le type du besoin</h5>
 
                         <!-- Close Modal (Cross Button)  -->
 
@@ -93,7 +93,7 @@
 
                             {% for item in needTypesItems %}
 
-                                <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': slug, 'needType': item.type })}}">
+                                <a class="text-decoration-none text-body" href="{{path('need_new', {'slug': presentation.slug, 'needType': item.type })}}">
 
                                 <div class="needTypeChoice row cursor-pointer border border-light d-flex justify-content-center align-items-center cursor-pointer" style="height:55px;">
 

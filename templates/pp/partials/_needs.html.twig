@@ -32,15 +32,22 @@
             </h3>
 
                     
-            <!-- Manage Project Needs Button -->
 
-            {% if is_granted('edit', presentation) %}
+            {% if userPresenter == true %}
 
-                <a class="pp-edition-mode" href="{{ path('need_index', {'slug': presentation.slug}) }}">
+                {# Add a Need Button #}
 
-                    <button class="btn btn-light sharp font-weight-bold d-inline-block fs-15">Gérer les besoins</button>
-                    
-                </a>
+                    <button data-toggle="modal" data-target="#needTypeModal" class="pp-edition-mode btn btn-light sharp font-weight-bold mr-2 fs-15">Ajouter</button>
+
+                    {{ include('need/_select_need_type_modal.html.twig') }}
+
+                {# Manage Needs Button #}
+
+                    <a class="pp-edition-mode" href="{{ path('need_index', {'slug': presentation.slug}) }}">
+
+                        <button class="btn btn-light sharp font-weight-bold d-inline-block fs-15">Gérer les besoins</button>
+                        
+                    </a>
                 
             {% endif %}
 
@@ -171,9 +178,9 @@
 
                                     <div class="modal-footer">
 
-                                        {% if is_granted('edit', presentation) %}
+                                        {% if userPresenter == true %}
 
-                                            {# Modify this Need #}
+                                            {# Modify Current Need Button #}
 
                                             <a id="modifyNeedButton" href="{{path('need_edit', {'slug':presentation.slug, 'need_id' : need.id })}}">
                                                 <button type="button" class="btn btn-light sharp font-weight-bold">Modifier</button>
@@ -181,14 +188,15 @@
 
                                         {% endif %}
 
-                                        <!-- Send a Private Message Button -->
+                                        {# Send a Private Message Button #}
 
-                                        <a href="{{path('contact_message_new', {'slug':presentation.slug})}}">
+                                        <a class="pp-consultation-mode" href="{{path('contact_message_new', {'slug':presentation.slug})}}">
+
                                             <button type="button" class="btn btn-primary sharp font-weight-bold">Entrer en contact</button>
-                                        </a>
 
+                                        </a>
                                         
-                                        <!-- Back Button -->
+                                        {# Back Button #}
 
                                         <button type="button" class="btn btn-info sharp font-weight-bold" data-dismiss="modal">Retour</button>
 
@@ -213,9 +221,7 @@
 
     </div>
 
-
-
-    <!-- Some Style -->
+    <!-- Some Styles -->
 
     <style>
 
@@ -268,6 +274,33 @@
 
     </style>
 
+{# placeholder for project needs #} 
+
+{% elseif userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %} 
+
+    {#  Add a need, select need type first (in a Modal Box)  #}
+
+        {{ include('need/_select_need_type_modal.html.twig') }}
+
+    {# Placeholder enclosed with link tag to Trigger above Form Display #}
+
+    <a data-toggle="modal" data-target="#needTypeModal" class="pp-edition-mode">
+        
+        {% include 
+            
+            'pp/partials/_placeholder_pattern.html.twig' 
+            
+            with {
+
+                'placeholderIconName': "needs3",
+
+                'placeholderIconTitle': "desired resources icon",
+            
+            } 
+            
+        %}
+
+    </a>
 
 {% endif %}
 

@@ -132,76 +132,75 @@
 
     {% elseif userPresenter and placeHoldersLifeSpan > presentationCreationTimeLapse %} 
 
-    <div class="pp-struct-container pp-edition-mode container pb-3">
+        <div class="pp-struct-container pp-edition-mode container pb-3">
 
-		<div class="row">
+            <div class="row">
 
-			<div class="col-md-9">
-					
-				<div id="geoDomainsPlaceholder">
+                <div class="col-md-9">
+                        
+                    <div id="geoDomainsPlaceholder">
 
-					<div class="row h-100">
+                        <a href="{{path('geodomains_places_manage', {'slug':presentation.slug})}}">
+                            <div class="row h-100">
 
-						<!-- add a geodomain button -->
-						
-						<div class="col-6 pl-md-4 d-flex align-items-center justify-content-center">
-							
-							<a href="{{path('geodomains_places_manage', {'slug':presentation.slug})}}">
+                                <!-- add a geodomain button -->
+                                
+                                <div class="col-6 pl-md-4 d-flex align-items-center justify-content-center">
+                                    
+                                    
 
-								<img class="addGeoDomainIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/location.svg" height="145" width="140" alt="add place icon" >
+                                        <img class="addGeoDomainIcon img-fluid" src="/images/icons/edit_presentation/wysiwyg/location.svg" height="145" width="140" alt="add place icon" >
 
-							</a>
+                                    
 
-						</div>
-
-
-					</div>
-
-				</div>
-
-			</div>
-
-		</div>
-
-	</div>
-
-    <style>
-
-		#geoDomainsPlaceholder{
-
-			height: 200px;
-
-			border: 5px dashed rgb(180, 204, 236);
-			border-radius: 6px;
-
-		}
-
-		#geoDomainsPlaceholder:hover {
-			cursor: pointer;
-			background-color: lavender;
-		}
+                                </div>
 
 
-		@media screen and (max-width: 580px) {
+                            </div>
+                    
+                        </a>
 
-			#geoDomainsPlaceholder{
-				
-				height: 100px;
+                    </div>
 
-			}
+                </div>
 
-			.addGeoDomainIcon {
-				
-				height : 55px;
-			}
+            </div>
+
+        </div>
+
+        <style>
+
+            #geoDomainsPlaceholder{
+
+                height: 200px;
+
+                border: 5px dashed rgb(180, 204, 236);
+                border-radius: 6px;
+
+            }
+
+            #geoDomainsPlaceholder:hover {
+                cursor: pointer;
+                background-color: lavender;
+            }
 
 
-		}
+            @media screen and (max-width: 580px) {
 
-	</style>
+                #geoDomainsPlaceholder{
+                    
+                    height: 100px;
+
+                }
+
+                .addGeoDomainIcon {
+                    
+                    height : 55px;
+                }
 
 
+            }
 
-
+        </style>
 
     {% endif %}
