@@ -53,7 +53,7 @@
 
     {# manage placeholders inclusion for newly presented projects #}
 
-	{% set presentationCreationTimeLapse = presentation.createdAt | date("U") - date().timestamp %} {% set placeHoldersLifeSpan = 172800  %} {# 2 days #} {# note : placeholders appears if placeHoldersLifeSpan > presentationCreationTimeLapse #}
+	{% set presentationCreationTimeLapse = date().timestamp - presentation.createdAt | date("U") %} {% set placeHoldersLifeSpan = 172800  %} {# 2 days #} {# note : placeholders appears if placeHoldersLifeSpan > presentationCreationTimeLapse #}
 
 
     <!-- Project Presentation Display Template -->

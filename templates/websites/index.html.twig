@@ -34,7 +34,7 @@
 
     <!-- Content Container -->
 
-    <div class="container">
+    <div class="container pr-0 pr-md-3">
 
         <!-- Title with Info Button Container -->
 
@@ -94,9 +94,9 @@
 
         <!-- Websites List -->
 
-        <div class="container mb-2">
+        <div class="container mb-2 pr-0">
 
-            <div id="websitesList" class="row col-md-10 pl-0">
+            <div id="websitesList" class="row col-md-10 px-0">
 
                 {% if websites | length > 0 %}
 
@@ -111,6 +111,13 @@
                 {% endif %}
 
             </div>
+
+            <style>
+                .js-sortableGridItem:hover {
+
+                    background-color: rgb(243, 255, 227);
+                }
+            </style>
 
         </div>
 

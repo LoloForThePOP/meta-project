@@ -137,11 +137,11 @@ class PPController extends AbstractController
     
     
      /**
-     * Allow to access project deletion page
+     * Allow to access project suppression page
      * 
-     * @Route("projects/{slug}/delete-page",name="project_delete_page")
+     * @Route("projects/{slug}/delete-page", name="project_delete_page")
      * 
-     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator() ")
+     * @Security("is_granted('ROLE_USER') and user === presentation.getCreator()")
      * 
      */
     public function accessDeletePage(PPBasic $presentation){
@@ -198,11 +198,14 @@ class PPController extends AbstractController
         //linking followers to cloned presentation
 
         foreach ($clonePresentationFollowers as $follower) {
+
             $follower->setPresentation($clonePresentation);
             $clonePresentation->addUsersFollow($follower);
+
         }
         
         //store changes
+
         $manager->flush();
 
         //creating a major log : presentation has been deleted
@@ -214,7 +217,9 @@ class PPController extends AbstractController
             "Le contenu de la présentation du Projet « {$presentation->getGoal()} » a été supprimé"
         );
 
-        return $this->redirectToRoute('projects_index');
+        //redirecting to user profile
+
+        return $this->redirectToRoute('account_index');
 
     }
 

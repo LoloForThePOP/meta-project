@@ -70,29 +70,31 @@
 
         </div>
 
-        <!-- Project Websites Grid Display -->
+        <!-- Project Websites Cards Grid Display -->
 
         <div class="container pl-md-3">
 
             <div class="row">
                 
                 {% for website in websites %}
+                 
+                    {# Website Card #}
 
-                    <div class="pp-website-card container cursor-pointer col-md-5 pl-md-3 p-1 mb-4 mx-0 mr-md-4 ">
+                    <div class="pp-website-card container d-flex align-items-center col-md-5 mb-4 pl-md-3 mx-0 mr-md-4">
 
-                        <a href="{{website.url}}" target="_blank" class="pp-consultation-mode w-100 h-100 text-decoration-none text-body p-1">
+                        <a href="{{website.url}}" target="_blank" class="pp-consultation-mode">
 
-                            {% include 'pp/partials/_websites/_card.html.twig' %}
+                            {% include 'pp/partials/_websites/_card_content.html.twig' %}
 
                         </a>
    
-                        {# website update direct link  #}
+                        {# edition mode : on website card click : update website #}
 
                         {% if userPresenter %}
 
-                            <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="pp-edition-mode w-100 h-100 text-body text-decoration-none">
+                            <a href="{{path('edit_website', {'slug': presentation.slug,'idWebsite' : website.id })}}" class="pp-edition-mode">
 
-                                {% include 'pp/partials/_websites/_card.html.twig' %}
+                                {% include 'pp/partials/_websites/_card_content.html.twig' %}
 
                             </a>
 
@@ -100,12 +102,7 @@
 
                     </div>
 
-                    {#
-
-                    <span id="js-website{{website.id}}" class="d-none">{{website.url}}</span> #}
-
                 {% endfor %}
-
 
             </div>
 
@@ -117,11 +114,22 @@
 
             .pp-website-card {
 
+                margin-bottom: 20px;
+
                 border: 1px solid #2c3e50;
 
                 overflow-wrap: break-word;
 
+                cursor: pointer;
+
+                padding-top: 8px;
+                
+                padding-bottom: 8px;
+
+                border-radius: 3px;
+
             }
+
 
             
             .pp-website-card, .pp-website-card >* {
@@ -131,6 +139,14 @@
 
             .pp-website-card:hover, .pp-website-card:hover a{
                 background-color:rgb(251, 250, 240) !important;
+            }
+
+            .pp-website-card a {
+
+                text-decoration: none;
+                color: black;
+                width: 100%; /* otherwise size of icon column and url column will vary */
+
             }
 
             .websiteDescription {

@@ -1,18 +1,23 @@
 
 
-<div id="{{website.id}}" class="js-sortableGridItem fs-15 col-md-5 mr-md-4 d-flex align-items-center position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
+<div id="{{website.id}}" class="js-sortableGridItem fs-15 col-md-5 mr-md-4 position-relative mb-3 p-3 border border-primary overflow-hidden cursor-pointer">
 
-    <a href="{{path('edit_website', {'slug':presentation.slug,'idWebsite' : website.id })}}" class="w-100 h-100 text-body text-decoration-none">
+    <a href="{{path('edit_website', {'slug':presentation.slug,'idWebsite' : website.id })}}" class="w-100 h-100 d-flex align-items-center text-body text-decoration-none">
+
+        <div class="">
         
-        <span class="font-weight-bold">
+            <span class="font-weight-bold">
 
-            {{ website.description }}
+                {{ website.description }}
 
-        </span>
+            </span>
 
-        <br>
+            <br>
 
-        {{ website.url }}
+            {{ website.url }}  
+
+        </div>
+   
 
     </a>
 
