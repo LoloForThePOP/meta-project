@@ -52,10 +52,12 @@ class TeammatesController extends AbstractController
 
             $manager->flush();
 
-            $idTeammate=$teammate->getId();
-
+           //resize teammate image
             $editImageService->edit('presentation_teammate', $teammate->getPersorg()->getImage());
 
+            //logging new teammate for followers
+
+            $idTeammate=$teammate->getId();
             PPMajorLogs::updateLogs($presentation, 'teammate', 'new', $idTeammate, $this->getUser()->getId(), $manager);
 
             $this->addFlash(

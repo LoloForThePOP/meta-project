@@ -1,6 +1,4 @@
-
-
-
+    {# if persorg profile is fully feeded, we can't display all these informations in a tiny thumbnail. Instead we insert these supplementary info in a modal, and bellow is a flag in order to do it when times come #}
 
     {% set hasMoreToShow = false %}
 
@@ -9,6 +7,9 @@
         {% set hasMoreToShow = true %}
 
     {% endif %}
+
+
+    {# Persorg Card Container #}
         
     <div 
     
@@ -57,14 +58,14 @@
 
         <!-- Persorg Name -->
 
-        <div class="d-flex align-items-center justify-content-center mb-2 font-weight-bold" style="height:45px; overflow-y:hidden;">
+        <div class="d-flex align-items-center justify-content-center mb-2 font-weight-bold" style="height:45px; overflow-y:hidden; line-height:1.1em;">
 
             <div class="px-2 text-center">{{persorg.name | length < 35 ? persorg.name : persorg.name|slice(0, 35)~'...'}}</div>
 
         </div>
 
                     
-        <!-- Persorg Show More Info Button (if we have more info available) -->
+        <!-- Persorg "Show More Info Button" (if we have more info available) -->
 
         {% if hasMoreToShow %}
 

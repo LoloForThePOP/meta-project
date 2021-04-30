@@ -14,7 +14,7 @@ class ImageEditService {
 
         if ($imageName==null) {
 
-            
+            return false;
         }
 
         /* $ext = strtolower(substr($imageName, strrpos($imageName, '.') + 1));
